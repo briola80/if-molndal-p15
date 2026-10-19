@@ -6,6 +6,11 @@
     <title>IF Mölndal P-2015 Träningsapp</title>
     <!-- Inkluderar html2canvas för att kunna ta ögonblicksbilder direkt i webbläsaren -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <!-- Firebase App & Auth SDK (Compat) -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+
     <style>
         :root {
             --primary: #d32f2f;
@@ -26,7 +31,8 @@
         }
         body { padding-bottom: 80px; }
         
-        header { background-color: var(--primary); color: white; padding: 0.75rem 1rem; display: flex; align-items: center; gap: 0.75rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        header { background-color: var(--primary); color: white; padding: 0.75rem 1rem; display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .header-left { display: flex; align-items: center; gap: 0.75rem; }
         .header-badge { width: 42px; height: 42px; background: white; color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.7rem; text-align: center; line-height: 1; box-shadow: 0 2px 4px rgba(0,0,0,0.2); border: 2px solid #fff; flex-shrink: 0; }
         .header-text h1 { font-size: 1.15rem; font-weight: 700; line-height: 1.2; }
         .header-text p { font-size: 0.8rem; opacity: 0.9; }
@@ -53,7 +59,6 @@
         button.btn-success { background-color: #2e7d32; }
         button.btn-success:hover { background-color: #1b5e20; }
 
-        /* Snygga fokusområdes-knappar / chips i rutor */
         .focus-options-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.5rem; margin-bottom: 0.75rem; }
         .focus-chip { display: flex; align-items: center; gap: 0.5rem; background: #f8f9fa; border: 1px solid var(--border); border-radius: 6px; padding: 0.5rem 0.75rem; cursor: pointer; transition: all 0.15s; font-weight: 600; font-size: 0.85rem; color: #495057; }
         .focus-chip input { display: none; }
@@ -154,6 +159,9 @@
         .tactics-player-left { display: flex; align-items: center; gap: 0.4rem; cursor: pointer; flex: 1; }
         .tactics-pos-select { width: 130px; padding: 0.2rem; font-size: 0.75rem; border: 1px solid var(--border); border-radius: 4px; }
 
+        /* Inloggningsruta */
+        #login-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 1rem; }
+
         @media print {
             body * { visibility: hidden; }
             #match-export-container, #match-export-container * { visibility: visible; }
@@ -163,6 +171,18 @@
     </style>
 
     <script>
+        // Initiera Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyAcWrTZ_HIYzYKjJF-kqqbE3mY_H_BFtv4",
+            authDomain: "if-molndal-p2015.firebaseapp.com",
+            projectId: "if-molndal-p2015",
+            storageBucket: "if-molndal-p2015.firebasestorage.app",
+            messagingSenderId: "257468891040",
+            appId: "1:257468891040:web:3e35ebf45230abfd9f2ec5",
+            measurementId: "G-ETW86BHXL0"
+        };
+        firebase.initializeApp(firebaseConfig);
+
         const exercisesData = [
             { 
                 id: "UPP-01", name: "Rondo med ytväxling", category: "Uppvärmning", format: "7v7", focus: "Spelvändningar", time: 15, minP: 8, maxP: 35, 
@@ -258,7 +278,7 @@
                 id: "SOD-04", name: "Spelvändning i zonspel 7v7", category: "Spelövning", format: "7v7", focus: "Spelvändningar", time: 25, minP: 12, maxP: 32, 
                 desc: "Planen uppdelad i tre zoner. Bollen måste vändas över ytorna innan anfall avslutas.",
                 sourceName: "Södermanlands FF", sourceUrl: "https://www.svenskfotboll.se/distrikt/sodermanland/",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="pitch-circle"></div><div class="sketch-element s-cone" style="top:20%; left:50%;"></div><div class="sketch-element s-cone" style="top:80%; left:50%;"></div></div>`
+                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-circle"></div><div class="sketch-element s-cone" style="top:20%; left:50%;"></div><div class="sketch-element s-cone" style="top:80%; left:50%;"></div></div>`
             },
             { 
                 id: "SOD-05", name: "Avslutsserie med inlägg & returer", category: "Avslut", format: "7v7", focus: "Avslut", time: 20, minP: 8, maxP: 30, 
@@ -462,20 +482,42 @@
             ]
         };
 
-        const precisePositionCoords = {
-            "MV": { x: 50, y: 92 },
-            "VB": { x: 20, y: 78 },
-            "CB": { x: 50, y: 80 },
-            "HB": { x: 80, y: 78 },
-            "VM": { x: 20, y: 50 },
-            "MM": { x: 50, y: 50 },
-            "HM": { x: 80, y: 50 },
-            "VY": { x: 20, y: 25 },
-            "HY": { x: 80, y: 25 },
-            "Anfallare": { x: 50, y: 18 }
-        };
+        // Lyssna på inloggningsstatus
+        document.addEventListener("DOMContentLoaded", function() {
+            firebase.auth().onAuthStateChanged(function(user) {
+                const loginOverlay = document.getElementById('login-overlay');
+                if (user) {
+                    loginOverlay.style.display = 'none';
+                    initializeAppUI();
+                } else {
+                    loginOverlay.style.display = 'flex';
+                }
+            });
+        });
 
-        window.onload = function() {
+        function handleLogin() {
+            const email = document.getElementById('login-email').value.trim();
+            const pass = document.getElementById('login-password').value;
+            const errBox = document.getElementById('login-error');
+
+            if (!email || !pass) {
+                errBox.innerText = "Fyll i både e-post och lösenord.";
+                errBox.style.display = 'block';
+                return;
+            }
+
+            firebase.auth().signInWithEmailAndPassword(email, pass)
+                .catch((error) => {
+                    errBox.innerText = "Felaktig e-post eller lösenord.";
+                    errBox.style.display = 'block';
+                });
+        }
+
+        function handleLogout() {
+            firebase.auth().signOut();
+        }
+
+        function initializeAppUI() {
             renderExercises();
             renderPlayerRows();
             renderMatrixTable();
@@ -483,7 +525,7 @@
             renderMatchUI();
             updateSavedTeamsDropdown();
             updateMatchSavedTeamsDropdown();
-        };
+        }
 
         function switchTab(tabId, btn) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
@@ -750,7 +792,6 @@
                 return matchesName && matchesLevel;
             });
 
-            // Hitta vilken slot/roll en spelare är tilldelad i Taktik
             const playerSlotMap = {};
             Object.keys(placedSlots).forEach(sk => {
                 const pid = placedSlots[sk].playerId;
@@ -786,7 +827,6 @@
                 `;
             }).join('');
 
-            // Rendera pluppar på planen
             pitchTokens.innerHTML = Object.keys(placedSlots).map(slotKey => {
                 const slotData = placedSlots[slotKey];
                 const playerId = slotData.playerId;
@@ -851,7 +891,6 @@
         }
 
         function assignPlayerToTacticsRole(id, slotKey) {
-            // Rensa spelaren från andra slots först
             Object.keys(placedSlots).forEach(sk => {
                 if(placedSlots[sk].playerId === id) placedSlots[sk].playerId = null;
             });
@@ -868,7 +907,6 @@
 
             if (selectedPlayerIds.length > 0) {
                 const playerId = selectedPlayerIds[0];
-                // Rensa spelaren från andra slots först
                 Object.keys(placedSlots).forEach(sk => {
                     if(placedSlots[sk].playerId === playerId) placedSlots[sk].playerId = null;
                 });
@@ -915,7 +953,6 @@
                 return matchesName && matchesLevel;
             });
 
-            // Hitta vilken slot eller bänk en spelare är tilldelad i Match
             const playerMatchSlotMap = {};
             Object.keys(matchPlacedSlots).forEach(sk => {
                 const pid = matchPlacedSlots[sk].playerId;
@@ -1051,7 +1088,6 @@
             if (matchSelectedPlayerIds.length > 0) {
                 const playerId = matchSelectedPlayerIds[0];
                 delete matchBenchPlayers[playerId];
-                // Rensa spelaren från andra slots först
                 Object.keys(matchPlacedSlots).forEach(sk => {
                     if(matchPlacedSlots[sk].playerId === playerId) matchPlacedSlots[sk].playerId = null;
                 });
@@ -1175,7 +1211,6 @@
                 }
             });
         }
-        /* --- SLUT MATCH LOGIK --- */
 
         function saveCurrentTeamAsNamed() {
             const teamName = prompt("Ange namn på laguppställningen (t.ex. Matchlag Blå):");
@@ -1368,12 +1403,27 @@
 </head>
 <body>
 
-    <header class="no-print">
-        <div class="header-badge">IFM<br>P15</div>
-        <div class="header-text">
-            <h1>IF Mölndal P-2015</h1>
-            <p>Tränings- & Verksamhetsapp</p>
+    <!-- INLOGGNINGSSLUSK (Låser appen tills inloggning sker) -->
+    <div id="login-overlay">
+        <div class="card" style="width:100%; max-width:400px; text-align:center;">
+            <h2>🔒 IF Mölndal P15 - Inloggning</h2>
+            <p style="font-size:0.85rem; color:#6c757d; margin-bottom:1rem;">Ange din e-post och lösenord för att öppna träningsappen.</p>
+            <input type="email" id="login-email" placeholder="E-postadress">
+            <input type="password" id="login-password" placeholder="Lösenord">
+            <button class="btn" onclick="handleLogin()">Logga in</button>
+            <p id="login-error" style="color:red; font-size:0.8rem; margin-top:0.5rem; display:none;"></p>
         </div>
+    </div>
+
+    <header class="no-print">
+        <div class="header-left">
+            <div class="header-badge">IFM<br>P15</div>
+            <div class="header-text">
+                <h1>IF Mölndal P-2015</h1>
+                <p>Tränings- & Verksamhetsapp</p>
+            </div>
+        </div>
+        <button class="btn btn-secondary" style="width:auto; padding:0.4rem 0.8rem; font-size:0.75rem; margin-top:0;" onclick="handleLogout()">Logga ut</button>
     </header>
 
     <div class="nav-tabs no-print">
