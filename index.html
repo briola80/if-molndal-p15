@@ -32,7 +32,7 @@
         .header-text p { font-size: 0.8rem; opacity: 0.9; }
 
         .nav-tabs { display: flex; background: white; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; overflow-x: auto; }
-        .tab-btn { flex: 1; min-width: 70px; padding: 0.75rem 0.25rem; text-align: center; background: none; border: none; font-size: 0.8rem; font-weight: 600; color: #6c757d; cursor: pointer; border-bottom: 3px solid transparent; white-space: nowrap; }
+        .tab-btn { flex: 1; min-width: 65px; padding: 0.75rem 0.2rem; text-align: center; background: none; border: none; font-size: 0.75rem; font-weight: 600; color: #6c757d; cursor: pointer; border-bottom: 3px solid transparent; white-space: nowrap; }
         .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
 
         .container { max-width: 800px; margin: 0 auto; padding: 1rem; }
@@ -60,7 +60,6 @@
         .exercise-source a { color: #1976d2; text-decoration: none; font-weight: 600; }
         .exercise-source a:hover { text-decoration: underline; }
 
-        /* Förbättrad skiss-container med fasta procentuella positioner så elementen stannar i bild */
         .pitch-sketch { width: 100%; height: 150px; background-color: #2e7d32; border-radius: 6px; position: relative; margin-top: 0.5rem; overflow: hidden; border: 2px solid #fff; box-shadow: inset 0 0 10px rgba(0,0,0,0.3); }
         .pitch-line-v { position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; background: rgba(255,255,255,0.7); }
         .pitch-circle { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 36px; height: 36px; border: 2px solid rgba(255,255,255,0.7); border-radius: 50%; }
@@ -71,15 +70,18 @@
         .s-player-red { width: 16px; height: 16px; background: #d32f2f; border-radius: 50%; border: 1px solid #fff; font-size: 8px; line-height: 14px; }
         .s-ball { width: 7px; height: 7px; background: #fff; border-radius: 50%; box-shadow: 0 0 2px #000; }
 
-        .player-list-container { max-height: 350px; overflow-y: auto; border: 1px solid var(--border); border-radius: 6px; background: white; margin-bottom: 1rem; }
+        .player-list-container { max-height: 400px; overflow-y: auto; border: 1px solid var(--border); border-radius: 6px; background: white; margin-bottom: 1rem; }
         .player-row { display: flex; align-items: center; justify-content: space-between; padding: 0.5rem; border-bottom: 1px solid #f1f3f5; gap: 0.5rem; }
         .player-row:last-child { border-bottom: none; }
         .player-info { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; flex: 1; }
-        .player-level-select { width: 70px; padding: 0.3rem; font-size: 0.85rem; margin-bottom: 0; }
+
+        .matrix-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; margin-bottom: 1rem; background: white; }
+        .matrix-table th, .matrix-table td { border: 1px solid var(--border); padding: 0.4rem; text-align: center; }
+        .matrix-table th { background: #f1f3f5; color: var(--primary-dark); font-weight: 700; }
+        .matrix-table td input { width: 45px; text-align: center; padding: 0.2rem; margin: 0; font-size: 0.85rem; }
 
         .add-player-box { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
         .add-player-box input { margin-bottom: 0; flex: 1; }
-        .add-player-box select { width: 90px; margin-bottom: 0; }
 
         .group-card { background: #fff5f5; border: 1px solid #ffc9c9; border-radius: 6px; padding: 0.75rem; margin-bottom: 0.5rem; }
         .group-card h5 { color: var(--primary); margin-bottom: 0.25rem; }
@@ -108,7 +110,6 @@
 
     <script>
         const exercisesData = [
-            // Standard / Grundövningar
             { 
                 id: "UPP-01", name: "Rondo med ytväxling", category: "Uppvärmning", format: "7v7", focus: "Spelvändningar", time: 15, minP: 8, maxP: 35, 
                 desc: "Spelare i ring med ytor, fokus på snabba fötter och öppen kroppsställning.",
@@ -122,22 +123,10 @@
                 sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-cone" style="top:25%; left:25%;"></div><div class="sketch-element s-cone" style="top:75%; left:75%;"></div><div class="sketch-element s-player" style="top:50%; left:45%;">P</div><div class="sketch-element s-ball" style="top:50%; left:55%;"></div></div>`
             },
             { 
-                id: "UPP-03", name: "Passningskvadrat med väggspel", category: "Uppvärmning", format: "9v9", focus: "Uppspel & Ytor", time: 12, minP: 6, maxP: 30, 
-                desc: "Klassisk kvadrat där spelare söker felvända medspelare.",
-                sourceName: "SvFF / Egen", sourceUrl: "https://www.svenskfotboll.se",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:50%; left:50%;">P</div><div class="sketch-element s-cone" style="top:25%; left:25%;"></div><div class="sketch-element s-ball" style="top:50%; left:65%;"></div></div>`
-            },
-            { 
                 id: "PAS-01", name: "Spelvändning 3v2 + neutral", category: "Teknik/Passing", format: "9v9", focus: "Spelvändningar", time: 20, minP: 8, maxP: 30, 
                 desc: "Anfallare ska spela bollen förbi central yta och ut till kant.",
                 sourceName: "SvFF / Egen", sourceUrl: "https://www.svenskfotboll.se",
                 sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:50%; left:35%;">3</div><div class="sketch-element s-player-red" style="top:50%; left:65%;">2</div><div class="sketch-element s-cone" style="top:50%; left:50%;"></div></div>`
-            },
-            { 
-                id: "PAS-02", name: "Passningsmönster med djupled", category: "Teknik/Passing", format: "7v7", focus: "Uppspel & Ytor", time: 15, minP: 6, maxP: 30, 
-                desc: "Väggspel och instick i yta bakom motståndarnas backlinje.",
-                sourceName: "SvFF / Egen", sourceUrl: "https://www.svenskfotboll.se",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-cone" style="top:35%; left:40%;"></div><div class="sketch-element s-player" style="top:70%; left:50%;">P</div><div class="sketch-element s-ball" style="top:55%; left:55%;"></div></div>`
             },
             { 
                 id: "PAS-03", name: "Bygga upp via central mittfältare", category: "Uppspel", format: "9v9", focus: "Uppspel & Ytor", time: 20, minP: 10, maxP: 30, 
@@ -146,221 +135,83 @@
                 sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:80%; left:25%;">MV</div><div class="sketch-element s-player" style="top:50%; left:50%;">CM</div><div class="sketch-element s-ball" style="top:65%; left:35%;"></div></div>`
             },
             { 
-                id: "PAS-04", name: "Ytterspelet i 9v9 & 11v11", category: "Uppspel", format: "11v11", focus: "Uppspel & Ytor", time: 20, minP: 10, maxP: 32, 
-                desc: "Samarbete längs kanten mellan ytterback, ytterställd och central mittfältare.",
-                sourceName: "SvFF / Egen", sourceUrl: "https://www.svenskfotboll.se",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:30%; left:25%;">YB</div><div class="sketch-element s-player" style="top:70%; left:25%;">YF</div><div class="sketch-element s-cone" style="top:50%; left:65%;"></div></div>`
-            },
-            { 
-                id: "SV-01", name: "3v3 med två fasta korridorer", category: "Spelövning", format: "9v9", focus: "Spelvändningar", time: 20, minP: 10, maxP: 30, 
-                desc: "Kräver spelvändning över mittkorridoren för att få poäng.",
-                sourceName: "SvFF / Egen", sourceUrl: "https://www.svenskfotboll.se",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:50%; left:50%;">3v3</div><div class="sketch-element s-cone" style="top:25%; left:50%;"></div><div class="sketch-element s-cone" style="top:75%; left:50%;"></div></div>`
-            },
-            { 
                 id: "TAK-01", name: "3v3 + 2 neutrala i korridorer", category: "Smålagsspel", format: "9v9", focus: "Spelvändningar", time: 25, minP: 10, maxP: 32, 
                 desc: "Fokus på att utnyttja kanterna och vända spelet snabbt över ytor.",
                 sourceName: "SvFF / Egen", sourceUrl: "https://www.svenskfotboll.se",
                 sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:50%; left:50%;">3v3</div></div>`
             },
             { 
-                id: "TAK-02", name: "Presspel & Styrning 4v4", category: "Smålagsspel", format: "7v7", focus: "Presspel", time: 20, minP: 8, maxP: 30, 
-                desc: "Ett lag pressar styrande mot sidlinjen för att vinna boll.",
-                sourceName: "SvFF / Egen", sourceUrl: "https://www.svenskfotboll.se",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:50%; left:50%;">4v4</div><div class="sketch-element s-cone" style="top:30%; left:30%;"></div></div>`
-            },
-            { 
-                id: "MAT-01", name: "Zonmatch med krav", category: "Matchspel", format: "7v7", focus: "Avslut", time: 25, minP: 12, maxP: 35, 
-                desc: "Planen uppdelad i zoner. Kräver att bollen spelas igenom ytor innan avslut.",
-                sourceName: "SvFF / Egen", sourceUrl: "https://www.svenskfotboll.se",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="pitch-circle"></div><div class="sketch-element s-cone" style="top:25%; left:33%;"></div><div class="sketch-element s-cone" style="top:25%; left:66%;"></div></div>`
-            },
-            { 
                 id: "AVS-01", name: "Avslut efter inlägg", category: "Avslut", format: "9v9", focus: "Avslut", time: 20, minP: 8, maxP: 30, 
                 desc: "Kantspelare slår inlägg till centrala anfallare som möter upp på mål.",
                 sourceName: "SvFF / Egen", sourceUrl: "https://www.svenskfotboll.se",
                 sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:35%; left:25%;">YF</div><div class="sketch-element s-player" style="top:65%; left:65%;">Anf</div><div class="sketch-element s-ball" style="top:45%; left:35%;"></div></div>`
-            },
-
-            // Södermanlands FF övningar
-            { 
-                id: "SOD-01", name: "Passningsmönster i tre hörn (Sörmland)", category: "Uppvärmning", format: "7v7", focus: "Uppspel & Ytor", time: 15, minP: 6, maxP: 25, 
-                desc: "Rörligt passningsmönster med vändning och väggspel för att få upp flås och bolltempo.",
-                sourceName: "Södermanlands FF", sourceUrl: "https://www.svenskfotboll.se/distrikt/sodermanland/",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-cone" style="top:30%; left:30%;"></div><div class="sketch-element s-cone" style="top:30%; left:70%;"></div><div class="sketch-element s-cone" style="top:75%; left:50%;"></div></div>`
-            },
-            { 
-                id: "SOD-02", name: "Speluppbyggnad via ytterback 7v7", category: "Spelövning", format: "7v7", focus: "Uppspel & Ytor", time: 20, minP: 10, maxP: 30, 
-                desc: "Träna på att spela ut bollen från målvakt till ytterback och utnyttja korridor.",
-                sourceName: "Södermanlands FF", sourceUrl: "https://www.svenskfotboll.se/distrikt/sodermanland/",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:80%; left:50%;">MV</div><div class="sketch-element s-player" style="top:60%; left:25%;">YB</div></div>`
-            },
-            { 
-                id: "SOD-03", name: "Återerövring & Presspel 3v3+3", category: "Smålagsspel", format: "7v7", focus: "Presspel", time: 20, minP: 9, maxP: 30, 
-                desc: "Kort omställningstid direkt vid bolltapp. Agera som ett samlat lag i pressen.",
-                sourceName: "Södermanlands FF", sourceUrl: "https://www.svenskfotboll.se/distrikt/sodermanland/",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:50%; left:50%;">3v3</div><div class="sketch-element s-player-red" style="top:50%; left:30%;">Press</div></div>`
-            },
-            { 
-                id: "SOD-04", name: "Spelvändning i zonspel 7v7", category: "Spelövning", format: "7v7", focus: "Spelvändningar", time: 25, minP: 12, maxP: 32, 
-                desc: "Planen uppdelad i tre zoner. Bollen måste vändas över ytorna innan anfall avslutas.",
-                sourceName: "Södermanlands FF", sourceUrl: "https://www.svenskfotboll.se/distrikt/sodermanland/",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="pitch-circle"></div><div class="sketch-element s-cone" style="top:20%; left:50%;"></div><div class="sketch-element s-cone" style="top:80%; left:50%;"></div></div>`
-            },
-            { 
-                id: "SOD-05", name: "Avslutsserie med inlägg & returer", category: "Avslut", format: "7v7", focus: "Avslut", time: 20, minP: 8, maxP: 30, 
-                desc: "Fokus på snabba instick, inlägg längs marken och följa upp returer framför mål.",
-                sourceName: "Södermanlands FF", sourceUrl: "https://www.svenskfotboll.se/distrikt/sodermanland/",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:35%; left:25%;">YF</div><div class="sketch-element s-player" style="top:60%; left:65%;">Anf</div><div class="sketch-element s-ball" style="top:45%; left:35%;"></div></div>`
-            },
-
-            // 11v11 / 9v11 övningar
-            { 
-                id: "11M-01", name: "Lagdelars samspel i uppspel (11v11)", category: "Uppspel", format: "11v11", focus: "Uppspel & Ytor", time: 25, minP: 16, maxP: 35, 
-                desc: "Hela lagets uppspelsfas från backlinje via mittfält till anfall på stor plan.",
-                sourceName: "SvFF / ÖB 2013", sourceUrl: "https://svlgcdn.blob.core.windows.net/teamdata/files/3379/%C3%96B%202013%20Allm%C3%A4n%209-11%20v%201.0.pdf",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:85%; left:50%;">MV</div><div class="sketch-element s-player" style="top:60%; left:40%;">CB</div><div class="sketch-element s-player" style="top:35%; left:50%;">CM</div></div>`
-            },
-            { 
-                id: "11M-02", name: "Försvarsspel & Lagdelarnas avstånd (11v11)", category: "Smålagsspel", format: "11v11", focus: "Presspel", time: 25, minP: 16, maxP: 35, 
-                desc: "Hålla avståndet mellan backlinje och mittfält (kompakt lag) i försvarsspel.",
-                sourceName: "SvFF / ÖB 2013", sourceUrl: "https://svlgcdn.blob.core.windows.net/teamdata/files/3379/%C3%96B%202013%20Allm%C3%A4n%209-11%20v%201.0.pdf",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:55%; left:30%;">Backar</div><div class="sketch-element s-player" style="top:35%; left:30%;">Mittfält</div></div>`
-            },
-            { 
-                id: "11M-03", name: "Spelvändning över hela planen (11v11)", category: "Spelövning", format: "11v11", focus: "Spelvändningar", time: 25, minP: 14, maxP: 35, 
-                desc: "Utnyttja hela planens bredd genom att snabbt flytta boll från en kant till motsatt ytterforward.",
-                sourceName: "SvFF / ÖB 2013", sourceUrl: "https://svlgcdn.blob.core.windows.net/teamdata/files/3379/%C3%96B%202013%20Allm%C3%A4n%209-11%20v%201.0.pdf",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:50%; left:25%;">Vänster</div><div class="sketch-element s-player" style="top:50%; left:75%;">Höger</div></div>`
-            },
-            { 
-                id: "11M-04", name: "Inläggsspel & Box-spel (11v11)", category: "Avslut", format: "11v11", focus: "Avslut", time: 20, minP: 12, maxP: 35, 
-                desc: "Ytterback/ytterforward slår inlägg mot straffområdet där centrala mittfältare fyller på.",
-                sourceName: "SvFF / ÖB 2013", sourceUrl: "https://svlgcdn.blob.core.windows.net/teamdata/files/3379/%C3%96B%202013%20Allm%C3%A4n%209-11%20v%201.0.pdf",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:30%; left:20%;">Kant</div><div class="sketch-element s-player" style="top:55%; left:55%;">Box</div></div>`
-            },
-
-            // IF Väster Övningsbank (12-14 år)
-            { 
-                id: "VAST-01", name: "Väster Passing & Djupled (12-14 år)", category: "Teknik/Passing", format: "9v9", focus: "Uppspel & Ytor", time: 20, minP: 8, maxP: 30, 
-                desc: "Passningsövning med fokus på att snabbt spela bollen på djupet till felvänd anfallare.",
-                sourceName: "IF Väster (12-14 år)", sourceUrl: "https://www.ifvaster.com/sida/76258/ovningsbank-12-14-ar",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-cone" style="top:30%; left:50%;"></div><div class="sketch-element s-player" style="top:65%; left:50%;">P</div></div>`
-            },
-            { 
-                id: "VAST-02", name: "Väster Rondo & Spelvändning", category: "Uppvärmning", format: "7v7", focus: "Spelvändningar", time: 15, minP: 8, maxP: 30, 
-                desc: "Utmanande rondo i ytor där laget tränar på att hitta ut till fri yta.",
-                sourceName: "IF Väster (12-14 år)", sourceUrl: "https://www.ifvaster.com/sida/76258/ovningsbank-12-14-ar",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="pitch-circle"></div><div class="sketch-element s-player" style="top:50%; left:40%;">P</div><div class="sketch-element s-ball" style="top:50%; left:60%;"></div></div>`
-            },
-            { 
-                id: "VAST-03", name: "Väster Presspel i zon (12-14 år)", category: "Smålagsspel", format: "9v9", focus: "Presspel", time: 25, minP: 12, maxP: 35, 
-                desc: "Kompakt lagförsvar där anfallare och mittfält pressar i grupp för att vinna boll.",
-                sourceName: "IF Väster (12-14 år)", sourceUrl: "https://www.ifvaster.com/sida/76258/ovningsbank-12-14-ar",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:45%; left:50%;">Press</div></div>`
-            },
-            { 
-                id: "VAST-04", name: "Väster Avslutsserie med kantspel", category: "Avslut", format: "11v11", focus: "Avslut", time: 20, minP: 10, maxP: 32, 
-                desc: "Kombinationsspel på kant som leder till instick och snabba avslut på mål.",
-                sourceName: "IF Väster (12-14 år)", sourceUrl: "https://www.ifvaster.com/sida/76258/ovningsbank-12-14-ar",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:30%; left:25%;">Kant</div><div class="sketch-element s-player" style="top:60%; left:60%;">Mål</div></div>`
-            },
-
-            // Fasta situationer (SvFF Västmanland)
-            { 
-                id: "FASTA-01", name: "Hörnvariant med inlägg & blockering", category: "Fasta situationer", format: "11v11", focus: "Fasta situationer", time: 15, minP: 10, maxP: 35, 
-                desc: "Träna på offensiva hörnor med tydliga roller: skruvat inlägg, löpvägar och skärmspel framför mål.",
-                sourceName: "SvFF Västmanland", sourceUrl: "https://www.svenskfotboll.se/4a59e3/globalassets/distrikt/vastmanland/dokument/arbetssatt/del-4-arbetssatt-fasta-situationer.pdf",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-cone" style="top:20%; left:80%;">Hörna</div><div class="sketch-element s-player" style="top:35%; left:50%;">Box</div></div>`
-            },
-            { 
-                id: "FASTA-02", name: "Zonförsvar på hörnor", category: "Fasta situationer", format: "9v9", focus: "Fasta situationer", time: 15, minP: 10, maxP: 35, 
-                desc: "Defensiva hörnor där spelare delar in sig i zoner och punktmarkerar centrala ytor i straffområdet.",
-                sourceName: "SvFF Västmanland", sourceUrl: "https://www.svenskfotboll.se/4a59e3/globalassets/distrikt/vastmanland/dokument/arbetssatt/del-4-arbetssatt-fasta-situationer.pdf",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:25%; left:50%;">Mål</div><div class="sketch-element s-player-red" style="top:45%; left:45%;">Zon</div></div>`
-            },
-            { 
-                id: "FASTA-03", name: "Frisparksvariant i uppspelsfas / skott", category: "Fasta situationer", format: "7v7", focus: "Fasta situationer", time: 15, minP: 8, maxP: 30, 
-                desc: "Öva in kort frispark med väggspel för att skapa fri yta för skott eller inlägg på offensiv planhalva.",
-                sourceName: "SvFF Västmanland", sourceUrl: "https://www.svenskfotboll.se/4a59e3/globalassets/distrikt/vastmanland/dokument/arbetssatt/del-4-arbetssatt-fasta-situationer.pdf",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-ball" style="top:50%; left:50%;"></div><div class="sketch-element s-player" style="top:65%; left:45%;"></div></div>`
-            },
-
-            // Målvakt (Coach Truly DB)
-            { 
-                id: "MV-01", name: "Skottäckning & Positionering", category: "Målvakt", format: "7v7", focus: "Målvakt", time: 15, minP: 6, maxP: 25, 
-                desc: "Målvakten tränar vinkelspel och förflyttning i målgården vid avslut från kanten.",
-                sourceName: "Coach Truly", sourceUrl: "https://coachtruly.com/sv/drill-database/football/theme/goalkeeping",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:20%; left:50%;">MV</div><div class="sketch-element s-player-red" style="top:55%; left:30%;">Skytt</div></div>`
-            },
-            { 
-                id: "MV-02", name: "Målvaktsspel i uppbyggnad (Distributör)", category: "Målvakt", format: "9v9", focus: "Målvakt", time: 20, minP: 10, maxP: 30, 
-                desc: "Fokus på målvaktens fotspel: att snabbt fördela boll till rättvänd ytterback eller central mittfältare.",
-                sourceName: "Coach Truly", sourceUrl: "https://coachtruly.com/sv/drill-database/football/theme/goalkeeping",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:80%; left:50%;">MV</div><div class="sketch-element s-player" style="top:55%; left:30%;">YB</div></div>`
-            },
-            { 
-                id: "MV-03", name: "Inläggs- & Höjdbollsspel för målvakt", category: "Målvakt", format: "11v11", focus: "Målvakt", time: 15, minP: 8, maxP: 30, 
-                desc: "Träna målvakten på att komma ut i felturen, boxa eller säkra inlägg från sidorna i tuff trafik.",
-                sourceName: "Coach Truly", sourceUrl: "https://coachtruly.com/sv/drill-database/football/theme/goalkeeping",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:25%; left:50%;">MV</div><div class="sketch-element s-ball" style="top:35%; left:70%;"></div></div>`
             }
         ];
 
-        // Läs in sparad trupp från webbläsarens minne om det finns, annars standardlistan
+        // Initierad trupp med era exakta bedömningar från Excel
         const defaultPlayers = [
-            "Alexander Hardless", "Andreas Tullock Haglund", "Arman Schilke", "Artur Blomdahl Callheim", 
-            "Aston Haglund", "Bardia Akbari", "Bertil Westerberg", "Daniel Ma", "Edward Ebbesson", 
-            "Elias Wingborg", "Elvin Görgulu", "Filip Sahlén", "Ivan Nilsson", "Jack Ek", "Josef Taktak", 
-            "Leo Schenholm", "Leon Asplind nappo", "Leon Olsen", "Malte Hallqvist", "Mateo Sundblom Ardiles", 
-            "Oscar Bard", "Oscar Genlöv-Hägnesten", "Otto Lindström", "Petrit Abrashi", "Rickard Jivegård", 
-            "Sam Mannerby", "Sigge-Allan Hellberg", "Simon Staynfeld", "Walter Brattström Anger", 
-            "Victor Andersson Ljungman", "Victor Olsson Danell", "Widar Hjalmarsson", "William Olausson", 
-            "Vilmer Enhager", "Yar Al Mukhtar", "Younes Mrad"
-        ].map((name, index) => ({ id: index + 1, name: name, level: 3, position: "Mittfält" }));
+            { id: 1, name: "Alexander", tact: 2, tech: 2, ment: 2, phys: 2, position: "Mittfält" },
+            { id: 2, name: "Alfred", tact: 1, tech: 1, ment: 1, phys: 1, position: "Mittfält" },
+            { id: 3, name: "Andreas T", tact: 2, tech: 3, ment: 3, phys: 2, position: "Mittfält" },
+            { id: 4, name: "Arman", tact: 1, tech: 2, ment: 2, phys: 2, position: "Mittfält" },
+            { id: 5, name: "Artur", tact: 2, tech: 2, ment: 3, phys: 2, position: "Mittfält" },
+            { id: 6, name: "Aston", tact: 1, tech: 1, ment: 1, phys: 1, position: "Mittfält" },
+            { id: 7, name: "Bardia", tact: 1, tech: 1, ment: 1, phys: 1, position: "Mittfält" },
+            { id: 8, name: "Bertil", tact: 3, tech: 4, ment: 3, phys: 3, position: "Mittfält" },
+            { id: 9, name: "Daniel", tact: 2, tech: 2, ment: 2, phys: 2, position: "Mittfält" },
+            { id: 10, name: "Edward", tact: 1, tech: 1, ment: 1, phys: 1, position: "Mittfält" },
+            { id: 11, name: "Elias", tact: 2, tech: 3, ment: 2, phys: 2, position: "Mittfält" },
+            { id: 12, name: "Elvin", tact: 3, tech: 4, ment: 3, phys: 3, position: "Mittfält" },
+            { id: 13, name: "Filip", tact: 3, tech: 4, ment: 3, phys: 3, position: "Mittfält" },
+            { id: 14, name: "Ivan", tact: 1, tech: 1, ment: 2, phys: 2, position: "Målvakt" },
+            { id: 15, name: "Jack", tact: 3, tech: 3, ment: 4, phys: 4, position: "Mittfält" },
+            { id: 16, name: "Josef", tact: 2, tech: 3, ment: 2, phys: 2, position: "Mittfält" },
+            { id: 17, name: "Leo Schenholm", tact: 4, tech: 4, ment: 4, phys: 4, position: "Mittfält" },
+            { id: 18, name: "Leon Asplind nappo", tact: 2, tech: 2, ment: 2, phys: 1, position: "Mittfält" },
+            { id: 19, name: "Leon Olsen", tact: 3, tech: 3, ment: 3, phys: 4, position: "Mittfält" },
+            { id: 20, name: "Malte Hallqvist", tact: 2, tech: 2, ment: 3, phys: 2, position: "Mittfält" },
+            { id: 21, name: "Mateo Sundblom Ardiles", tact: 2, tech: 3, ment: 3, phys: 2, position: "Mittfält" },
+            { id: 22, name: "Oscar Bard", tact: 4, tech: 3, ment: 2, phys: 2, position: "Mittfält" },
+            { id: 23, name: "Oscar Genlöv-Hägnesten", tact: 2, tech: 3, ment: 2, phys: 3, position: "Mittfält" },
+            { id: 24, name: "Otto Lindström", tact: 2, tech: 2, ment: 2, phys: 3, position: "Mittfält" },
+            { id: 25, name: "Petrit Abrashi", tact: 1, tech: 2, ment: 2, phys: 2, position: "Mittfält" },
+            { id: 26, name: "Rickard Jivegård", tact: 1, tech: 1, ment: 2, phys: 1, position: "Mittfält" },
+            { id: 27, name: "Sam Mannerby", tact: 4, tech: 4, ment: 3, phys: 4, position: "Mittfält" },
+            { id: 28, name: "Sigge-Allan Hellberg", tact: 3, tech: 4, ment: 3, phys: 4, position: "Mittfält" },
+            { id: 29, name: "Simon Staynfeld", tact: 3, tech: 3, ment: 2, phys: 2, position: "Mittfält" },
+            { id: 30, name: "Walter Brattström Anger", tact: 2, tech: 2, ment: 3, phys: 3, position: "Mittfält" },
+            { id: 31, name: "Victor Andersson Ljungman", tact: 4, tech: 4, ment: 3, phys: 4, position: "Mittfält" },
+            { id: 32, name: "Victor Olsson Danell", tact: 3, tech: 4, ment: 2, phys: 4, position: "Mittfält" },
+            { id: 33, name: "Widar Hjalmarsson", tact: 4, tech: 4, ment: 3, phys: 4, position: "Mittfält" },
+            { id: 34, name: "William Olausson", tact: 3, tech: 4, ment: 3, phys: 4, position: "Mittfält" },
+            { id: 35, name: "Vilmer Enhager", tact: 3, tech: 3, ment: 4, phys: 3, position: "Mittfält" },
+            { id: 36, name: "Yar Al Mukhtar", tact: 2, tech: 2, ment: 2, phys: 2, position: "Mittfält" },
+            { id: 37, name: "Younes Mrad", tact: 4, tech: 4, ment: 3, phys: 4, position: "Mittfält" }
+        ];
 
-        let playersData = JSON.parse(localStorage.getItem('if_molndal_players')) || defaultPlayers;
+        let playersData = JSON.parse(localStorage.getItem('if_molndal_players_v2')) || defaultPlayers;
 
         function savePlayersToStorage() {
-            localStorage.setItem('if_molndal_players', JSON.stringify(playersData));
+            localStorage.setItem('if_molndal_players_v2', JSON.stringify(playersData));
+        }
+
+        function getPlayerLevel(p) {
+            return ((p.tact + p.tech + p.ment + p.phys) / 4).toFixed(1);
         }
 
         let placedPlayers = {}; 
         let selectedPlayerIds = []; 
 
         const formations = {
-            "7v7-231": {
-                0: { x: 50, y: 90 }, 1: { x: 30, y: 75 }, 2: { x: 70, y: 75 }, 
-                3: { x: 25, y: 45 }, 4: { x: 50, y: 50 }, 5: { x: 75, y: 45 }, 6: { x: 50, y: 20 }
-            },
-            "9v9-332": {
-                0: { x: 50, y: 90 }, 1: { x: 25, y: 75 }, 2: { x: 50, y: 80 }, 3: { x: 75, y: 75 }, 
-                4: { x: 25, y: 50 }, 5: { x: 50, y: 50 }, 6: { x: 75, y: 50 }, 7: { x: 35, y: 25 }, 8: { x: 65, y: 25 }
-            },
-            "9v9-1323": {
-                0: { x: 50, y: 90 }, 1: { x: 20, y: 75 }, 2: { x: 50, y: 80 }, 3: { x: 80, y: 75 }, 
-                4: { x: 50, y: 55 }, 5: { x: 30, y: 40 }, 6: { x: 70, y: 40 }, 7: { x: 30, y: 20 }, 8: { x: 70, y: 20 }
-            },
-            "11v11-433": {
-                0: { x: 50, y: 90 }, 1: { x: 20, y: 75 }, 2: { x: 40, y: 80 }, 3: { x: 60, y: 80 }, 
-                4: { x: 80, y: 75 }, 5: { x: 50, y: 55 }, 6: { x: 35, y: 40 }, 7: { x: 65, y: 40 }, 
-                8: { x: 20, y: 20 }, 9: { x: 50, y: 15 }, 10: { x: 80, y: 20 }
-            },
-            "11v11-442": {
-                0: { x: 50, y: 90 }, 1: { x: 20, y: 75 }, 2: { x: 40, y: 80 }, 3: { x: 60, y: 80 }, 
-                4: { x: 80, y: 75 }, 5: { x: 20, y: 45 }, 6: { x: 40, y: 50 }, 7: { x: 60, y: 50 }, 
-                8: { x: 80, y: 45 }, 9: { x: 40, y: 20 }, 10: { x: 60, y: 20 }
-            },
-            "11v11-352": {
-                0: { x: 50, y: 90 }, 1: { x: 30, y: 80 }, 2: { x: 50, y: 83 }, 3: { x: 70, y: 80 }, 
-                4: { x: 15, y: 50 }, 5: { x: 35, y: 55 }, 6: { x: 50, y: 65 }, 7: { x: 65, y: 55 }, 
-                8: { x: 85, y: 50 }, 9: { x: 40, y: 20 }, 10: { x: 60, y: 20 }
-            }
+            "7v7-231": { 0: { x: 50, y: 90 }, 1: { x: 30, y: 75 }, 2: { x: 70, y: 75 }, 3: { x: 25, y: 45 }, 4: { x: 50, y: 50 }, 5: { x: 75, y: 45 }, 6: { x: 50, y: 20 } },
+            "9v9-332": { 0: { x: 50, y: 90 }, 1: { x: 25, y: 75 }, 2: { x: 50, y: 80 }, 3: { x: 75, y: 75 }, 4: { x: 25, y: 50 }, 5: { x: 50, y: 50 }, 6: { x: 75, y: 50 }, 7: { x: 35, y: 25 }, 8: { x: 65, y: 25 } },
+            "11v11-433": { 0: { x: 50, y: 90 }, 1: { x: 20, y: 75 }, 2: { x: 40, y: 80 }, 3: { x: 60, y: 80 }, 4: { x: 80, y: 75 }, 5: { x: 50, y: 55 }, 6: { x: 35, y: 40 }, 7: { x: 65, y: 40 }, 8: { x: 20, y: 20 }, 9: { x: 50, y: 15 }, 10: { x: 80, y: 20 } }
         };
 
         window.onload = function() {
             renderExercises();
             renderPlayerRows();
+            renderMatrixTable();
             renderTacticsUI();
         };
 
@@ -376,23 +227,13 @@
             const filterVal = document.getElementById('exercise-filter') ? document.getElementById('exercise-filter').value : 'all';
             const list = document.getElementById('exercise-list');
             if(!list) return;
-            
-            let filtered = exercisesData;
-            if (filterVal !== "all") {
-                filtered = exercisesData.filter(ex => ex.focus === filterVal);
-            }
-
-            if (filtered.length === 0) {
-                list.innerHTML = `<p style="color: #6c757d; font-size: 0.9rem;">Inga övningar hittades för detta fokusområde.</p>`;
-                return;
-            }
-
+            let filtered = filterVal === "all" ? exercisesData : exercisesData.filter(ex => ex.focus === filterVal);
             list.innerHTML = filtered.map(ex => `
                 <div class="exercise-item">
                     <h4>${ex.name} (${ex.time} min) [${ex.format}]</h4>
-                    <p><strong>Kategori:</strong> ${ex.category} | <strong>Fokus:</strong> ${ex.focus}</p>
+                    <p><strong>Fokus:</strong> ${ex.focus}</p>
                     <p>${ex.desc}</p>
-                    <div class="exercise-source"><strong>Källa:</strong> <a href="${ex.sourceUrl}" target="_blank">${ex.sourceName} ↗</a></div>
+                    <div class="exercise-source">Källa: <a href="${ex.sourceUrl}" target="_blank">${ex.sourceName} ↗</a></div>
                     ${ex.sketch}
                 </div>
             `).join('');
@@ -401,54 +242,63 @@
         function renderPlayerRows() {
             const container = document.getElementById('player-rows');
             if(!container) return;
-            if (playersData.length === 0) {
-                container.innerHTML = `<p style="padding: 1rem; text-align: center; color: #6c757d;">Inga spelare i truppen.</p>`;
-                return;
-            }
             container.innerHTML = playersData.map((p, index) => `
                 <div class="player-row">
                     <div class="player-info">
                         <input type="checkbox" checked id="player-chk-${index}">
-                        <span>${p.name}</span>
+                        <span><strong>${p.name}</strong> <span style="font-size:0.75rem; color:#6c757d">(Snitt: ${getPlayerLevel(p)})</span></span>
                     </div>
-                    <select class="player-level-select" id="player-lvl-${index}" onchange="updatePlayerLevel(${index}, this.value)">
-                        <option value="1" ${p.level === 1 ? 'selected' : ''}>Nivå 1</option>
-                        <option value="2" ${p.level === 2 ? 'selected' : ''}>Nivå 2</option>
-                        <option value="3" ${p.level === 3 ? 'selected' : ''}>Nivå 3</option>
-                        <option value="4" ${p.level === 4 ? 'selected' : ''}>Nivå 4</option>
-                        <option value="5" ${p.level === 5 ? 'selected' : ''}>Nivå 5</option>
-                    </select>
                     <button class="btn btn-danger" onclick="removePlayer(${index})">Ta bort</button>
                 </div>
             `).join('');
         }
 
-        function updatePlayerLevel(index, val) {
-            playersData[index].level = parseInt(val);
+        function renderMatrixTable() {
+            const tbody = document.getElementById('matrix-tbody');
+            if(!tbody) return;
+            tbody.innerHTML = playersData.map((p, index) => `
+                <tr>
+                    <td style="text-align:left; font-weight:600;">${p.name}</td>
+                    <td><input type="number" min="1" max="5" value="${p.tact}" onchange="updateScore(${index}, 'tact', this.value)"></td>
+                    <td><input type="number" min="1" max="5" value="${p.tech}" onchange="updateScore(${index}, 'tech', this.value)"></td>
+                    <td><input type="number" min="1" max="5" value="${p.ment}" onchange="updateScore(${index}, 'ment', this.value)"></td>
+                    <td><input type="number" min="1" max="5" value="${p.phys}" onchange="updateScore(${index}, 'phys', this.value)"></td>
+                    <td><strong id="avg-${index}">${getPlayerLevel(p)}</strong></td>
+                    <td><button class="btn btn-danger" style="padding:0.2rem 0.4rem; font-size:0.75rem;" onclick="removePlayer(${index})">X</button></td>
+                </tr>
+            `).join('');
+        }
+
+        function updateScore(index, field, val) {
+            let num = parseInt(val);
+            if(isNaN(num)) num = 1;
+            if(num < 1) num = 1;
+            if(num > 5) num = 5;
+            playersData[index][field] = num;
             savePlayersToStorage();
+            document.getElementById(`avg-${index}`).innerText = getPlayerLevel(playersData[index]);
+            renderPlayerRows();
+            renderTacticsUI();
         }
 
         function addPlayer() {
             const nameInput = document.getElementById('new-player-name');
             const name = nameInput.value.trim();
-            if (!name) {
-                alert("Skriv in ett namn på spelaren.");
-                return;
-            }
-            playersData.push({ id: Date.now(), name: name, level: 3, position: "Mittfält" });
+            if (!name) { alert("Skriv in ett namn."); return; }
+            playersData.push({ id: Date.now(), name: name, tact: 2, tech: 2, ment: 2, phys: 2, position: "Mittfält" });
             savePlayersToStorage();
             nameInput.value = "";
             renderPlayerRows();
+            renderMatrixTable();
             renderTacticsUI();
         }
 
         function removePlayer(index) {
-            if(confirm(`Vill du ta bort ${playersData[index].name} från truppen?`)) {
-                delete placedPlayers[playersData[index].id];
-                selectedPlayerIds = selectedPlayerIds.filter(id => id !== playersData[index].id);
+            if(confirm(`Ta bort ${playersData[index].name}?`)) {
                 playersData.splice(index, 1);
                 savePlayersToStorage();
                 renderPlayerRows();
+                renderMatrixTable();
                 renderTacticsUI();
             }
         }
@@ -465,25 +315,15 @@
             const pitchTokens = document.getElementById('pitch-tokens');
             if(!tacticsContainer || !pitchTokens) return;
 
-            tacticsContainer.innerHTML = playersData.map((p, index) => {
+            tacticsContainer.innerHTML = playersData.map((p) => {
                 const isPlaced = placedPlayers[p.id] !== undefined;
                 const isSelected = selectedPlayerIds.includes(p.id);
-                
                 return `
                     <div class="tactics-player-row ${isPlaced ? 'placed' : ''}">
                         <div class="tactics-player-info">
                             <input type="checkbox" ${isSelected ? 'checked' : ''} onchange="toggleTacticsSelection(${p.id})">
                             <strong style="cursor:pointer;" onclick="toggleTacticsSelection(${p.id})">${p.name}</strong>
-                            ${isPlaced ? '<span style="color:#1565c0; font-size:0.75rem;">(Utplacerad)</span>' : ''}
                         </div>
-                        <select class="tactics-pos-select" onchange="updatePlayerPosition(${p.id}, this.value)">
-                            <option value="Målvakt" ${p.position === 'Målvakt' ? 'selected' : ''}>Målvakt</option>
-                            <option value="Back" ${p.position === 'Back' ? 'selected' : ''}>Back</option>
-                            <option value="Ytterback" ${p.position === 'Ytterback' ? 'selected' : ''}>Ytterback</option>
-                            <option value="Mittfält" ${p.position === 'Mittfält' ? 'selected' : ''}>Mittfält</option>
-                            <option value="Ytterforward" ${p.position === 'Ytterforward' ? 'selected' : ''}>Ytterforward</option>
-                            <option value="Anfallare" ${p.position === 'Anfallare' ? 'selected' : ''}>Anfallare</option>
-                        </select>
                     </div>
                 `;
             }).join('');
@@ -497,7 +337,6 @@
                 return `
                     <div class="token ${isSelected ? 'selected' : ''}" style="top: ${pos.y}%; left: ${pos.x}%;" onclick="event.stopPropagation(); toggleTacticsSelection(${player.id})">
                         <span>${initials}</span>
-                        <span class="token-pos">${player.position}</span>
                     </div>
                 `;
             }).join('');
@@ -505,28 +344,12 @@
 
         function toggleTacticsSelection(id) {
             const index = selectedPlayerIds.indexOf(id);
-            if (index > -1) {
-                selectedPlayerIds.splice(index, 1);
-            } else {
-                selectedPlayerIds.push(id);
-            }
+            if (index > -1) { selectedPlayerIds.splice(index, 1); } else { selectedPlayerIds.push(id); }
             renderTacticsUI();
         }
 
-        function updatePlayerPosition(id, posValue) {
-            const player = playersData.find(p => p.id == id);
-            if(player) {
-                player.position = posValue;
-                renderTacticsUI();
-            }
-        }
-
         function selectAllTacticsPlayers(status) {
-            if (status) {
-                selectedPlayerIds = playersData.map(p => p.id);
-            } else {
-                selectedPlayerIds = [];
-            }
+            selectedPlayerIds = status ? playersData.map(p => p.id) : [];
             renderTacticsUI();
         }
 
@@ -539,11 +362,8 @@
             selectedPlayerIds.forEach((id, index) => {
                 const offsetX = (index % 3 - 1) * 6;
                 const offsetY = (Math.floor(index / 3)) * 6;
-                let x = Math.max(5, Math.min(95, baseX + offsetX));
-                let y = Math.max(5, Math.min(95, baseY + offsetY));
-                placedPlayers[id] = { x, y };
+                placedPlayers[id] = { x: Math.max(5, Math.min(95, baseX + offsetX)), y: Math.max(5, Math.min(95, baseY + offsetY)) };
             });
-
             selectedPlayerIds = [];
             renderTacticsUI();
         }
@@ -552,151 +372,24 @@
             const form = formations[formName];
             if (!form) return;
             placedPlayers = {};
-            const keys = Object.keys(form);
-            keys.forEach((posIndex, idx) => {
-                if (playersData[idx]) {
-                    placedPlayers[playersData[idx].id] = form[posIndex];
-                }
+            Object.keys(form).forEach((posIndex, idx) => {
+                if (playersData[idx]) { placedPlayers[playersData[idx].id] = form[posIndex]; }
             });
             renderTacticsUI();
         }
 
-        function clearTactics() {
-            placedPlayers = {};
-            selectedPlayerIds = [];
-            renderTacticsUI();
-        }
-
-        function exportTacticsSnapshot() {
-            const pitchElement = document.getElementById('tactics-pitch-area');
-            if(!pitchElement) return;
-
-            html2canvas(pitchElement, { scale: 2, useCORS: true }).then(canvas => {
-                const imageData = canvas.toDataURL("image/png");
-                
-                const newWindow = window.open("", "_blank");
-                if (newWindow) {
-                    newWindow.document.write(`
-                        <!DOCTYPE html>
-                        <html lang="sv">
-                        <head>
-                            <meta charset="UTF-8">
-                            <title>IF Mölndal P15 - Taktisk Ögonblicksbild</title>
-                            <style>
-                                body { font-family: sans-serif; text-align: center; padding: 2rem; background: #f8f9fa; color: #333; }
-                                h1 { font-size: 1.3rem; margin-bottom: 0.5rem; color: #b71c1c; }
-                                p { font-size: 0.9rem; color: #666; margin-bottom: 1.5rem; }
-                                img { max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border: 2px solid #fff; }
-                                .btn-print { margin-top: 1.5rem; background: #d32f2f; color: white; border: none; padding: 0.75rem 1.5rem; font-size: 1rem; font-weight: bold; border-radius: 6px; cursor: pointer; }
-                                .btn-print:hover { background: #b71c1c; }
-                                @media print {
-                                    .btn-print { display: none; }
-                                    body { padding: 0; background: white; }
-                                }
-                            </style>
-                        </head>
-                        <body>
-                            <h1>IF Mölndal P-2015 – Laguppställning & Taktik</h1>
-                            <p>Skapad: ${new Date().toLocaleDateString('sv-SE')} kl ${new Date().toLocaleTimeString('sv-SE', {hour: '2-digit', minute:'2-digit'})}</p>
-                            <div>
-                                <img src="${imageData}" alt="Taktiktavla">
-                            </div>
-                            <br>
-                            <button class="btn-print" onclick="window.print()">Skriv ut / Spara som PDF</button>
-                        </body>
-                        </html>
-                    `);
-                    newWindow.document.close();
-                } else {
-                    alert("Tillåt popup-fönster i webbläsaren för att öppna ögonblicksbilden.");
-                }
-            }).catch(err => {
-                console.error("Fel vid bildgenerering:", err);
-                alert("Kunde inte skapa ögonblicksbilden.");
-            });
-        }
-
-        function exportGroupsSnapshot() {
-            const resultElement = document.getElementById('groups-result');
-            if(!resultElement || resultElement.style.display === 'none') {
-                alert("Du måste skapa grupper först innan du kan spara/skriva ut dem!");
-                return;
-            }
-
-            html2canvas(resultElement, { scale: 2, useCORS: true }).then(canvas => {
-                const imageData = canvas.toDataURL("image/png");
-                
-                const newWindow = window.open("", "_blank");
-                if (newWindow) {
-                    newWindow.document.write(`
-                        <!DOCTYPE html>
-                        <html lang="sv">
-                        <head>
-                            <meta charset="UTF-8">
-                            <title>IF Mölndal P15 - Träningsgrupper</title>
-                            <style>
-                                body { font-family: sans-serif; text-align: center; padding: 2rem; background: #f8f9fa; color: #333; }
-                                h1 { font-size: 1.3rem; margin-bottom: 0.5rem; color: #b71c1c; }
-                                p { font-size: 0.9rem; color: #666; margin-bottom: 1.5rem; }
-                                img { max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border: 2px solid #fff; }
-                                .btn-print { margin-top: 1.5rem; background: #d32f2f; color: white; border: none; padding: 0.75rem 1.5rem; font-size: 1rem; font-weight: bold; border-radius: 6px; cursor: pointer; }
-                                .btn-print:hover { background: #b71c1c; }
-                                @media print {
-                                    .btn-print { display: none; }
-                                    body { padding: 0; background: white; }
-                                }
-                            </style>
-                        </head>
-                        <body>
-                            <h1>IF Mölndal P-2015 – Dagens Träningsgrupper</h1>
-                            <p>Skapad: ${new Date().toLocaleDateString('sv-SE')} kl ${new Date().toLocaleTimeString('sv-SE', {hour: '2-digit', minute:'2-digit'})}</p>
-                            <div>
-                                <img src="${imageData}" alt="Träningsgrupper">
-                            </div>
-                            <br>
-                            <button class="btn-print" onclick="window.print()">Skriv ut / Spara som PDF</button>
-                        </body>
-                        </html>
-                    `);
-                    newWindow.document.close();
-                } else {
-                    alert("Tillåt popup-fönster i webbläsaren för att öppna ögonblicksbilden.");
-                }
-            }).catch(err => {
-                console.error("Fel vid bildgenerering:", err);
-                alert("Kunde inte skapa ögonblicksbilden.");
-            });
-        }
+        function clearTactics() { placedPlayers = {}; selectedPlayerIds = []; renderTacticsUI(); }
 
         function generateWorkout() {
             const pCount = parseInt(document.getElementById('gen-players').value);
             const focus = document.getElementById('gen-focus').value;
-            const format = document.getElementById('gen-format').value;
+            let matched = exercisesData.filter(ex => ex.focus === focus && ex.minP <= pCount);
+            if(matched.length === 0) matched = exercisesData;
 
-            let matched = exercisesData.filter(ex => (ex.format === format || ex.format === "Båda") && ex.focus === focus && ex.minP <= pCount);
-            
-            if(matched.length === 0) {
-                matched = exercisesData.filter(ex => ex.focus === focus);
-            }
-
-            let html = `<p><strong>Förutsättningar:</strong> ${pCount} spelare, Fokus: <em>${focus}</em> (${format})</p><hr style="margin:0.5rem 0">`;
-            
-            if(matched.length === 0) {
-                html += `<p>Hittade inga övningar för detta val, visar generella övningar:</p>`;
-                matched = exercisesData;
-            }
-
-            matched.slice(0, 4).forEach(ex => {
-                html += `
-                    <div style="margin-bottom:1rem; padding-bottom:0.5rem; border-bottom:1px solid #f1f3f5;">
-                        <strong>${ex.name}</strong> (${ex.time} min) <span style="font-size:0.75rem; color:#b71c1c">[${ex.format}]</span><br>
-                        <span style="font-size:0.85rem;color:#6c757d">${ex.desc}</span>
-                        <div style="font-size:0.75rem; margin-top:0.2rem;">Källa: <a href="${ex.sourceUrl}" target="_blank" style="color:#1976d2">${ex.sourceName} ↗</a></div>
-                        ${ex.sketch}
-                    </div>
-                `;
+            let html = `<p><strong>Fokus:</strong> ${focus} (${pCount} spelare)</p><hr style="margin:0.5rem 0">`;
+            matched.slice(0, 3).forEach(ex => {
+                html += `<div><strong>${ex.name}</strong> (${ex.time} min)<br><span style="font-size:0.85rem;color:#6c757d">${ex.desc}</span>${ex.sketch}</div><br>`;
             });
-
             document.getElementById('workout-content').innerHTML = html;
             document.getElementById('workout-result').style.display = 'block';
         }
@@ -706,63 +399,41 @@
             playersData.forEach((p, index) => {
                 const chk = document.getElementById(`player-chk-${index}`);
                 if(chk && chk.checked) {
-                    presentPlayers.push({ name: p.name, level: p.level });
+                    presentPlayers.push({ name: p.name, level: parseFloat(getPlayerLevel(p)) });
                 }
             });
 
-            if(presentPlayers.length === 0) {
-                alert("Inga spelare är markerade!");
-                return;
-            }
+            if(presentPlayers.length === 0) { alert("Inga spelare markerade!"); return; }
 
             const mode = document.getElementById('group-mode').value;
             const numGroups = parseInt(document.getElementById('num-groups').value);
 
-            let groups = [];
-            for(let i = 0; i < numGroups; i++) { groups.push([]); }
+            let groups = Array.from({length: numGroups}, () => []);
 
             if (mode === 'balanced') {
                 presentPlayers.sort((a, b) => b.level - a.level);
-                let groupIndex = 0;
-                let increasing = true;
+                let gIdx = 0, inc = true;
                 presentPlayers.forEach(p => {
-                    groups[groupIndex].push(p);
-                    if (increasing) {
-                        groupIndex++;
-                        if (groupIndex >= numGroups) { groupIndex = numGroups - 1; increasing = false; }
-                    } else {
-                        groupIndex--;
-                        if (groupIndex < 0) { groupIndex = 0; increasing = true; }
-                    }
+                    groups[gIdx].push(p);
+                    if (inc) { gIdx++; if (gIdx >= numGroups) { gIdx = numGroups - 1; inc = false; } }
+                    else { gIdx--; if (gIdx < 0) { gIdx = 0; inc = true; } }
                 });
             } else {
                 presentPlayers.sort((a, b) => a.level - b.level);
-                let groupSize = Math.ceil(presentPlayers.length / numGroups);
-                let currentGroup = 0;
-                
+                let size = Math.ceil(presentPlayers.length / numGroups);
+                let gIdx = 0;
                 presentPlayers.forEach(p => {
-                    groups[currentGroup].push(p);
-                    if (groups[currentGroup].length >= groupSize && currentGroup < numGroups - 1) {
-                        currentGroup++;
-                    }
+                    groups[gIdx].push(p);
+                    if (groups[gIdx].length >= size && gIdx < numGroups - 1) gIdx++;
                 });
             }
 
-            let html = `<p><strong>Totalt på plats:</strong> ${presentPlayers.length} spelare uppdelat på <strong>${numGroups} grupper</strong></p><hr style="margin:0.5rem 0">`;
-            
-            groups.forEach((g, index) => {
+            let html = `<p>Totalt ${presentPlayers.length} spelare i ${numGroups} grupper:</p><hr style="margin:0.5rem 0">`;
+            groups.forEach((g, idx) => {
                 if(g.length === 0) return;
-                let avgLvl = (g.reduce((sum, p) => sum + p.level, 0) / g.length).toFixed(1);
-                html += `
-                    <div class="group-card">
-                        <h5>Grupp ${index + 1} <span style="font-size:0.75rem; font-weight:normal; color:#6c757d">(${g.length} spelare, Snittnivå: ${avgLvl})</span></h5>
-                        <ul>
-                            ${g.map(p => `<li>${p.name}</li>`).join('')}
-                        </ul>
-                    </div>
-                `;
+                let avg = (g.reduce((s, p) => s + p.level, 0) / g.length).toFixed(1);
+                html += `<div class="group-card"><h5>Grupp ${idx + 1} (Snittnivå: ${avg})</h5><ul>${g.map(p => `<li>${p.name} (Nivå ${p.level})</li>`).join('')}</ul></div>`;
             });
-
             document.getElementById('groups-content').innerHTML = html;
             document.getElementById('groups-result').style.display = 'block';
         }
@@ -771,21 +442,8 @@
             const prompt = document.getElementById('ai-prompt').value.toLowerCase();
             const answerBox = document.getElementById('ai-response');
             const answerText = document.getElementById('ai-answer-text');
-
-            if(!prompt.trim()) {
-                alert("Skriv en fråga först!");
-                return;
-            }
-
-            let reply = "Det här är ett viktigt moment för P15-laget! För att lyckas med detta rekommenderar vi att fokusera på tydliga ytor och mycket kommunikation mellan lagdelarna på träning.";
-
-            if(prompt.includes("fasta") || prompt.includes("hörna") || prompt.includes("frispark")) {
-                reply = "Vid fasta situationer är tydliga ansvarsområden och snabb kommunikation helt avgörande för att vinna duellerna i straffområdet.";
-            } else if(prompt.includes("målvakt") || prompt.includes("mv")) {
-                reply = "Målvaktsträningen bör fokusera på både skottäckning, vinkelspel samt igångsättning av spelet via fötterna för att passa in i lagets uppspelsfas.";
-            }
-
-            answerText.innerText = reply;
+            if(!prompt.trim()) { alert("Skriv en fråga först!"); return; }
+            answerText.innerText = "Detta är en viktig taktisk aspekt för P15. Fokusera på tydliga ytor, snabba beslutsfattanden och mycket kommunikation i laget!";
             answerBox.style.display = 'block';
         }
     </script>
@@ -802,9 +460,10 @@
 
     <div class="nav-tabs">
         <button class="tab-btn active" onclick="switchTab('generator', this)">Träning</button>
+        <button class="tab-btn" onclick="switchTab('levels', this)">📊 Nivåer</button>
         <button class="tab-btn" onclick="switchTab('tactics', this)">Taktik</button>
+        <button class="tab-btn" onclick="switchTab('squad', this)">Trupp & Grupper</button>
         <button class="tab-btn" onclick="switchTab('exercises', this)">Övningar</button>
-        <button class="tab-btn" onclick="switchTab('squad', this)">Trupp</button>
         <button class="tab-btn" onclick="switchTab('ai-coach', this)">🤖 AI</button>
     </div>
 
@@ -816,62 +475,59 @@
                 <h2>Skapa Träningspass</h2>
                 <label>Antal spelare på plats:</label>
                 <input type="number" id="gen-players" value="30">
-
-                <label>Antal ledare på plats:</label>
-                <input type="number" id="gen-coaches" value="5">
-
-                <label>Spelform:</label>
-                <select id="gen-format">
-                    <option value="7v7" selected>7 mot 7</option>
-                    <option value="9v9">9 mot 9</option>
-                    <option value="11v11">11 mot 11</option>
-                </select>
-
                 <label>Fokusområde:</label>
                 <select id="gen-focus">
                     <option value="Spelvändningar">Spelvändningar</option>
                     <option value="Presspel">Presspel</option>
                     <option value="Uppspel & Ytor">Uppspel & Ytor</option>
                     <option value="Avslut">Avslut</option>
-                    <option value="Fasta situationer">Fasta situationer</option>
-                    <option value="Målvakt">Målvakt</option>
                 </select>
-
-                <button class="btn" onclick="generateWorkout()">Generera Träningspass</button>
+                <button class="btn" onclick="generateWorkout()">Generera Pass</button>
             </div>
-
             <div id="workout-result" class="card" style="display:none;">
                 <h2>Dagens Pass</h2>
                 <div id="workout-content"></div>
             </div>
         </div>
 
-        <!-- TAB 2: TAKTIKTAVLA -->
+        <!-- TAB 2: NIVÅMATRIS -->
+        <div id="levels" class="tab-content">
+            <div class="card">
+                <h2>Spelarnivåer & Matris (1–5)</h2>
+                <p style="font-size:0.8rem; color:#6c757d; margin-bottom:0.75rem;">Ändra siffrorna (1–5) direkt i tabellen. Snittet räknas ut automatiskt och uppdaterar gruppindelningen direkt!</p>
+                <div style="overflow-x:auto;">
+                    <table class="matrix-table">
+                        <thead>
+                            <tr>
+                                <th style="text-align:left;">Namn</th>
+                                <th>Taktik</th>
+                                <th>Teknik</th>
+                                <th>Attityd</th>
+                                <th>Fysik</th>
+                                <th>Snitt</th>
+                                <th>-</th>
+                            </tr>
+                        </thead>
+                        <tbody id="matrix-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: TAKTIKTAVLA -->
         <div id="tactics" class="tab-content">
             <div class="card">
                 <h2>Interaktiv Taktiktavla</h2>
-                <p style="font-size:0.8rem; color:#6c757d; margin-bottom:0.5rem;">Välj formation för 7v7, 9v9 eller 11v11:</p>
-                
-                <div style="display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 0.3rem;">
-                    <button class="btn" style="padding: 0.3rem 0.5rem; font-size: 0.75rem; flex: 1;" onclick="applyFormation('7v7-231')">7v7 (2-3-1)</button>
-                    <button class="btn" style="padding: 0.3rem 0.5rem; font-size: 0.75rem; flex: 1;" onclick="applyFormation('9v9-332')">9v9 (3-3-2)</button>
-                    <button class="btn" style="padding: 0.3rem 0.5rem; font-size: 0.75rem; flex: 1;" onclick="applyFormation('9v9-1323')">9v9 (1-3-2-3)</button>
+                <div style="display: flex; gap: 0.3rem; margin-bottom: 0.5rem;">
+                    <button class="btn" style="padding: 0.3rem; font-size: 0.75rem;" onclick="applyFormation('7v7-231')">7v7 (2-3-1)</button>
+                    <button class="btn" style="padding: 0.3rem; font-size: 0.75rem;" onclick="applyFormation('9v9-332')">9v9 (3-3-2)</button>
+                    <button class="btn btn-secondary" style="margin-top:0; padding: 0.3rem; font-size: 0.75rem;" onclick="clearTactics()">Rensa</button>
                 </div>
-                <div style="display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 0.75rem;">
-                    <button class="btn" style="padding: 0.3rem 0.5rem; font-size: 0.75rem; flex: 1;" onclick="applyFormation('11v11-433')">11v11 (4-3-3)</button>
-                    <button class="btn" style="padding: 0.3rem 0.5rem; font-size: 0.75rem; flex: 1;" onclick="applyFormation('11v11-442')">11v11 (4-4-2)</button>
-                    <button class="btn" style="padding: 0.3rem 0.5rem; font-size: 0.75rem; flex: 1;" onclick="applyFormation('11v11-352')">11v11 (3-5-2)</button>
-                    <button class="btn btn-secondary" style="margin-top:0; padding: 0.3rem 0.5rem; font-size: 0.75rem; width: auto;" onclick="clearTactics()">Rensa</button>
-                </div>
-
-                <label>Välj spelare att placera ut (bocka för en eller flera) & bestäm position:</label>
                 <div style="margin-bottom: 0.4rem; display: flex; gap: 0.5rem;">
                     <button class="btn" style="padding: 0.3rem; font-size: 0.75rem;" onclick="selectAllTacticsPlayers(true)">Markera alla</button>
-                    <button class="btn btn-secondary" style="margin-top:0; padding: 0.3rem; font-size: 0.75rem;" onclick="selectAllTacticsPlayers(false)">Avmarkera alla</button>
+                    <button class="btn btn-secondary" style="margin-top:0; padding: 0.3rem; font-size: 0.75rem;" onclick="selectAllTacticsPlayers(false)">Avmarkera</button>
                 </div>
                 <div class="tactics-squad-container" id="tactics-squad-list"></div>
-                <p style="font-size: 0.75rem; color: #6c757d; margin-bottom: 0.75rem;">💡 Klicka på en position på planen efter att du bockat för spelare för att placera ut dem.</p>
-
                 <div id="tactics-pitch-area">
                     <div class="tactics-pitch" onclick="handlePitchClick(event)">
                         <div class="pitch-midline"></div>
@@ -881,26 +537,6 @@
                         <div id="pitch-tokens"></div>
                     </div>
                 </div>
-
-                <button class="btn btn-success" onclick="exportTacticsSnapshot()" style="margin-top: 0.5rem;">📸 Spara / Skriv ut ögonblicksbild (PDF)</button>
-            </div>
-        </div>
-
-        <!-- TAB 3: ÖVNINGSBANK -->
-        <div id="exercises" class="tab-content">
-            <div class="card">
-                <h2>Övningsbank</h2>
-                <label>Filtrera efter fokusområde / kategori:</label>
-                <select id="exercise-filter" onchange="renderExercises()">
-                    <option value="all">Alla övningar</option>
-                    <option value="Spelvändningar">Spelvändningar</option>
-                    <option value="Presspel">Presspel</option>
-                    <option value="Uppspel & Ytor">Uppspel & Ytor</option>
-                    <option value="Avslut">Avslut</option>
-                    <option value="Fasta situationer">Fasta situationer</option>
-                    <option value="Målvakt">Målvakt</option>
-                </select>
-                <div id="exercise-list" style="margin-top: 1rem;"></div>
             </div>
         </div>
 
@@ -908,35 +544,27 @@
         <div id="squad" class="tab-content">
             <div class="card">
                 <h2>Trupphantering & Grupper</h2>
-                <p style="font-size:0.85rem; color:#6c757d; margin-bottom:0.75rem;">Hantera truppen och välj hur grupper ska skapas.</p>
-                
                 <div class="add-player-box">
                     <input type="text" id="new-player-name" placeholder="Ny spelares namn...">
                     <button class="btn" style="width: auto; padding: 0.6rem 1rem;" onclick="addPlayer()">Lägg till</button>
                 </div>
-
                 <div style="margin-bottom: 0.5rem; display: flex; gap: 0.5rem;">
                     <button class="btn" style="padding: 0.4rem; font-size: 0.85rem;" onclick="selectAllPlayers(true)">Markera alla</button>
-                    <button class="btn btn-secondary" style="margin-top:0; padding: 0.4rem; font-size: 0.85rem;" onclick="selectAllPlayers(false)">Avmarkera alla</button>
+                    <button class="btn btn-secondary" style="margin-top:0; padding: 0.4rem; font-size: 0.85rem;" onclick="selectAllPlayers(false)">Avmarkera</button>
                 </div>
-
                 <div class="player-list-container" id="player-rows"></div>
 
-                <label>Antal grupper för dagen:</label>
+                <label>Antal grupper:</label>
                 <select id="num-groups">
                     <option value="2">2 grupper</option>
                     <option value="3" selected>3 grupper</option>
                     <option value="4">4 grupper</option>
-                    <option value="5">5 grupper</option>
-                    <option value="6">6 grupper</option>
-                    <option value="8">8 grupper</option>
-                    <option value="10">10 grupper</option>
                 </select>
 
-                <label>Välj metod för gruppindelning:</label>
+                <label>Metod:</label>
                 <select id="group-mode">
-                    <option value="balanced">Jämn fördelning (blandade nivåer i varje grupp)</option>
-                    <option value="stratified">Nivåindelade grupper (spelare på samma nivå i samma grupp)</option>
+                    <option value="balanced">Jämn fördelning (blandade nivåer)</option>
+                    <option value="stratified">Nivåindelade grupper (samma nivå i grupp)</option>
                 </select>
 
                 <button class="btn" onclick="generateGroups()">Skapa grupper</button>
@@ -945,23 +573,33 @@
             <div id="groups-result" class="card" style="display:none;">
                 <h2>Dagens Grupper</h2>
                 <div id="groups-content"></div>
-                <button class="btn btn-success" onclick="exportGroupsSnapshot()" style="margin-top: 1rem;">📸 Spara / Skriv ut grupper (PDF)</button>
             </div>
         </div>
 
-        <!-- TAB 5: AI-TRÄNARE -->
+        <!-- TAB 5: ÖVNINGSBANK -->
+        <div id="exercises" class="tab-content">
+            <div class="card">
+                <h2>Övningsbank</h2>
+                <label>Filtrera:</label>
+                <select id="exercise-filter" onchange="renderExercises()">
+                    <option value="all">Alla</option>
+                    <option value="Spelvändningar">Spelvändningar</option>
+                    <option value="Presspel">Presspel</option>
+                    <option value="Uppspel & Ytor">Uppspel & Ytor</option>
+                    <option value="Avslut">Avslut</option>
+                </select>
+                <div id="exercise-list" style="margin-top: 1rem;"></div>
+            </div>
+        </div>
+
+        <!-- TAB 6: AI -->
         <div id="ai-coach" class="tab-content">
             <div class="card">
                 <h2>🤖 Fråga AI-Tränaren</h2>
-                <p style="font-size:0.85rem; color:#6c757d; margin-bottom:0.75rem;">Få direkt stöttning kring fasta situationer, målvaktsspel eller övningsidéer.</p>
-                
-                <label>Vad vill du ha hjälp med?</label>
-                <textarea id="ai-prompt" rows="3" placeholder="T.ex. Hur sätter vi upp en bra hörna eller målvaktsövning?"></textarea>
-                
-                <button class="btn" onclick="askAICoach()">Fråga AI-rådgivaren</button>
-
+                <textarea id="ai-prompt" rows="3" placeholder="Fråga om taktik eller övningar..."></textarea>
+                <button class="btn" onclick="askAICoach()">Fråga AI</button>
                 <div id="ai-response" class="ai-chat-box" style="display:none; margin-top: 1rem;">
-                    <strong>AI-Svar:</strong>
+                    <strong>Svar:</strong>
                     <p id="ai-answer-text" style="margin-top: 0.4rem;"></p>
                 </div>
             </div>
