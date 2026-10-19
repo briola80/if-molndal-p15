@@ -166,7 +166,8 @@
             }
         ];
 
-        let playersData = [
+        // Läs in sparad trupp från webbläsarens minne om det finns, annars standardlistan
+        const defaultPlayers = [
             "Alexander Hardless", "Andreas Tullock Haglund", "Arman Schilke", "Artur Blomdahl Callheim", 
             "Aston Haglund", "Bardia Akbari", "Bertil Westerberg", "Daniel Ma", "Edward Ebbesson", 
             "Elias Wingborg", "Elvin Görgulu", "Filip Sahlén", "Ivan Nilsson", "Jack Ek", "Josef Taktak", 
@@ -176,6 +177,12 @@
             "Victor Andersson Ljungman", "Victor Olsson Danell", "Widar Hjalmarsson", "William Olausson", 
             "Vilmer Enhager", "Yar Al Mukhtar", "Younes Mrad"
         ].map((name, index) => ({ id: index + 1, name: name, level: 3, position: "Mittfält" }));
+
+        let playersData = JSON.parse(localStorage.getItem('if_molndal_players')) || defaultPlayers;
+
+        function savePlayersToStorage() {
+            localStorage.setItem('if_molndal_players', JSON.stringify(playersData));
+        }
 
         let placedPlayers = {}; 
         let selectedPlayerIds = []; 
@@ -262,7 +269,7 @@
                         <input type="checkbox" checked id="player-chk-${index}">
                         <span>${p.name}</span>
                     </div>
-                    <select class="player-level-select" id="player-lvl-${index}" onchange="playersData[${index}].level = parseInt(this.value)">
+                    <select class="player-level-select" id="player-lvl-${index}" onchange="updatePlayerLevel(${index}, this.value)">
                         <option value="1" ${p.level === 1 ? 'selected' : ''}>Nivå 1</option>
                         <option value="2" ${p.level === 2 ? 'selected' : ''}>Nivå 2</option>
                         <option value="3" ${p.level === 3 ? 'selected' : ''}>Nivå 3</option>
@@ -274,6 +281,11 @@
             `).join('');
         }
 
+        function updatePlayerLevel(index, val) {
+            playersData[index].level = parseInt(val);
+            savePlayersToStorage();
+        }
+
         function addPlayer() {
             const nameInput = document.getElementById('new-player-name');
             const name = nameInput.value.trim();
@@ -282,6 +294,7 @@
                 return;
             }
             playersData.push({ id: Date.now(), name: name, level: 3, position: "Mittfält" });
+            savePlayersToStorage();
             nameInput.value = "";
             renderPlayerRows();
             renderTacticsUI();
@@ -292,6 +305,7 @@
                 delete placedPlayers[playersData[index].id];
                 selectedPlayerIds = selectedPlayerIds.filter(id => id !== playersData[index].id);
                 playersData.splice(index, 1);
+                savePlayersToStorage();
                 renderPlayerRows();
                 renderTacticsUI();
             }
