@@ -73,11 +73,14 @@
         .player-list-container { max-height: 350px; overflow-y: auto; border: 1px solid var(--border); border-radius: 6px; background: white; margin-bottom: 1rem; }
         .player-row { display: flex; align-items: center; justify-content: space-between; padding: 0.5rem; border-bottom: 1px solid #f1f3f5; gap: 0.5rem; }
         .player-row:last-child { border-bottom: none; }
-        .player-info { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; flex: 1; }
+        .player-info { display: flex; align-items: center; justify-content: space-between; font-size: 0.9rem; flex: 1; width: 100%; }
+        .player-left { display: flex; align-items: center; gap: 0.5rem; flex: 1; }
+        .player-right { display: flex; align-items: center; gap: 0.5rem; }
 
         .matrix-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; margin-bottom: 1rem; background: white; }
         .matrix-table th, .matrix-table td { border: 1px solid var(--border); padding: 0.4rem; text-align: center; }
-        .matrix-table th { background: #f1f3f5; color: var(--primary-dark); font-weight: 700; }
+        .matrix-table th { background: #f1f3f5; color: var(--primary-dark); font-weight: 700; cursor: pointer; user-select: none; }
+        .matrix-table th:hover { background: #e2e6ea; }
         .matrix-table td input { width: 45px; text-align: center; padding: 0.2rem; margin: 0; font-size: 0.85rem; }
 
         .add-player-box { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
@@ -96,16 +99,17 @@
         .pitch-goal-top { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 100px; height: 30px; border: 2px solid rgba(255,255,255,0.7); border-top: none; }
         .pitch-goal-bottom { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 100px; height: 30px; border: 2px solid rgba(255,255,255,0.7); border-bottom: none; }
         
-        .token { position: absolute; width: 36px; height: 36px; background: #1976d2; color: white; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: bold; font-size: 9px; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3); transform: translate(-50%, -50%); cursor: pointer; user-select: none; transition: transform 0.1s; }
-        .token:hover { transform: translate(-50%, -50%) scale(1.1); }
+        .token { position: absolute; width: 36px; height: 36px; background: #1976d2; color: white; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: bold; font-size: 9px; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3); transform: translate(-50%, -50%); cursor: pointer; user-select: none; transition: transform 0.1s; z-index: 5; }
+        .token:hover { transform: translate(-50%, -50%) scale(1.1); z-index: 10; }
         .token.selected { background: #ff9800; border-color: #000; z-index: 10; }
-        .token-pos { font-size: 7px; opacity: 0.9; line-height: 1; }
+        .token-pos-tag { font-size: 6px; opacity: 0.9; line-height: 1; margin-top: 1px; }
 
-        .tactics-squad-container { max-height: 180px; overflow-y: auto; border: 1px solid var(--border); border-radius: 6px; background: #f1f3f5; padding: 0.5rem; margin-bottom: 0.75rem; }
+        .tactics-squad-container { max-height: 220px; overflow-y: auto; border: 1px solid var(--border); border-radius: 6px; background: #f1f3f5; padding: 0.5rem; margin-bottom: 0.75rem; }
         .tactics-player-row { display: flex; align-items: center; justify-content: space-between; padding: 0.3rem 0.5rem; background: white; border-radius: 4px; margin-bottom: 0.3rem; gap: 0.5rem; font-size: 0.85rem; }
         .tactics-player-row.placed { background: #e3f2fd; border: 1px solid #90caf9; }
-        .tactics-player-info { display: flex; align-items: center; gap: 0.4rem; flex: 1; }
-        .tactics-pos-select { width: 90px; padding: 0.2rem; font-size: 0.75rem; }
+        .tactics-player-info { display: flex; align-items: center; gap: 0.4rem; flex: 1; justify-content: space-between; width: 100%; }
+        .tactics-player-left { display: flex; align-items: center; gap: 0.4rem; cursor: pointer; flex: 1; }
+        .tactics-pos-select { width: 95px; padding: 0.2rem; font-size: 0.75rem; border: 1px solid var(--border); border-radius: 4px; }
     </style>
 
     <script>
@@ -298,24 +302,23 @@
             }
         ];
 
-        // Alla 37 spelare med exakta nivåer från Excel-arket
         const defaultPlayers = [
-            { id: 1, name: "Alexander", tact: 2, tech: 2, ment: 2, phys: 2, position: "Mittfält" },
+            { id: 1, name: "Alexander Hardless", tact: 2, tech: 2, ment: 2, phys: 2, position: "Mittfält" },
             { id: 2, name: "Alfred", tact: 1, tech: 1, ment: 1, phys: 1, position: "Mittfält" },
-            { id: 3, name: "Andreas T", tact: 2, tech: 3, ment: 3, phys: 2, position: "Mittfält" },
-            { id: 4, name: "Arman", tact: 1, tech: 2, ment: 2, phys: 2, position: "Mittfält" },
-            { id: 5, name: "Artur", tact: 2, tech: 2, ment: 3, phys: 2, position: "Mittfält" },
-            { id: 6, name: "Aston", tact: 1, tech: 1, ment: 1, phys: 1, position: "Mittfält" },
-            { id: 7, name: "Bardia", tact: 1, tech: 1, ment: 1, phys: 1, position: "Mittfält" },
-            { id: 8, name: "Bertil", tact: 3, tech: 4, ment: 3, phys: 3, position: "Mittfält" },
-            { id: 9, name: "Daniel", tact: 2, tech: 2, ment: 2, phys: 2, position: "Mittfält" },
-            { id: 10, name: "Edward", tact: 1, tech: 1, ment: 1, phys: 1, position: "Mittfält" },
-            { id: 11, name: "Elias", tact: 2, tech: 3, ment: 2, phys: 2, position: "Mittfält" },
-            { id: 12, name: "Elvin", tact: 3, tech: 4, ment: 3, phys: 3, position: "Mittfält" },
-            { id: 13, name: "Filip", tact: 3, tech: 4, ment: 3, phys: 3, position: "Mittfält" },
-            { id: 14, name: "Ivan", tact: 1, tech: 1, ment: 2, phys: 2, position: "Målvakt" },
-            { id: 15, name: "Jack", tact: 3, tech: 3, ment: 4, phys: 4, position: "Mittfält" },
-            { id: 16, name: "Josef", tact: 2, tech: 3, ment: 2, phys: 2, position: "Mittfält" },
+            { id: 3, name: "Andreas Tullock Haglund", tact: 2, tech: 3, ment: 3, phys: 2, position: "Mittfält" },
+            { id: 4, name: "Arman Schilke", tact: 1, tech: 2, ment: 2, phys: 2, position: "Mittfält" },
+            { id: 5, name: "Artur Blomdahl Callheim", tact: 2, tech: 2, ment: 3, phys: 2, position: "Mittfält" },
+            { id: 6, name: "Aston Haglund", tact: 1, tech: 1, ment: 1, phys: 1, position: "Mittfält" },
+            { id: 7, name: "Bardia Akbari", tact: 1, tech: 1, ment: 1, phys: 1, position: "Mittfält" },
+            { id: 8, name: "Bertil Westerberg", tact: 3, tech: 4, ment: 3, phys: 3, position: "Mittfält" },
+            { id: 9, name: "Daniel Ma", tact: 2, tech: 2, ment: 2, phys: 2, position: "Mittfält" },
+            { id: 10, name: "Edward Ebbesson", tact: 1, tech: 1, ment: 1, phys: 1, position: "Mittfält" },
+            { id: 11, name: "Elias Wingborg", tact: 2, tech: 3, ment: 2, phys: 2, position: "Mittfält" },
+            { id: 12, name: "Elvin Görgulu", tact: 3, tech: 4, ment: 3, phys: 3, position: "Mittfält" },
+            { id: 13, name: "Filip Sahlén", tact: 3, tech: 4, ment: 3, phys: 3, position: "Mittfält" },
+            { id: 14, name: "Ivan Nilsson", tact: 1, tech: 1, ment: 2, phys: 2, position: "Målvakt" },
+            { id: 15, name: "Jack Ek", tact: 3, tech: 3, ment: 4, phys: 4, position: "Mittfält" },
+            { id: 16, name: "Josef Taktak", tact: 2, tech: 3, ment: 2, phys: 2, position: "Mittfält" },
             { id: 17, name: "Leo Schenholm", tact: 4, tech: 4, ment: 4, phys: 4, position: "Mittfält" },
             { id: 18, name: "Leon Asplind nappo", tact: 2, tech: 2, ment: 2, phys: 1, position: "Mittfält" },
             { id: 19, name: "Leon Olsen", tact: 3, tech: 3, ment: 3, phys: 4, position: "Mittfält" },
@@ -340,17 +343,10 @@
         ];
 
         let playersData = JSON.parse(localStorage.getItem('if_molndal_players_v4')) || defaultPlayers;
-
-        function savePlayersToStorage() {
-            localStorage.setItem('if_molndal_players_v4', JSON.stringify(playersData));
-        }
-
-        function getPlayerLevel(p) {
-            return ((p.tact + p.tech + p.ment + p.phys) / 4).toFixed(1);
-        }
-
-        let placedPlayers = {}; 
+        let placedPlayers = JSON.parse(localStorage.getItem('if_molndal_placed_v4')) || {}; 
         let selectedPlayerIds = []; 
+        let currentSortCol = null;
+        let sortAsc = true;
 
         const formations = {
             "7v7-231": { 0: { x: 50, y: 90 }, 1: { x: 30, y: 75 }, 2: { x: 70, y: 75 }, 3: { x: 25, y: 45 }, 4: { x: 50, y: 50 }, 5: { x: 75, y: 45 }, 6: { x: 50, y: 20 } },
@@ -365,6 +361,7 @@
             renderPlayerRows();
             renderMatrixTable();
             renderTacticsUI();
+            updateSavedTeamsDropdown();
         };
 
         function switchTab(tabId, btn) {
@@ -373,6 +370,18 @@
             document.getElementById(tabId).classList.add('active');
             btn.classList.add('active');
             window.scrollTo(0, 0);
+        }
+
+        function savePlayersToStorage() {
+            localStorage.setItem('if_molndal_players_v4', JSON.stringify(playersData));
+        }
+
+        function savePlacedToStorage() {
+            localStorage.setItem('if_molndal_placed_v4', JSON.stringify(placedPlayers));
+        }
+
+        function getPlayerLevel(p) {
+            return ((p.tact + p.tech + p.ment + p.phys) / 4).toFixed(1);
         }
 
         function renderExercises() {
@@ -397,28 +406,67 @@
             container.innerHTML = playersData.map((p, index) => `
                 <div class="player-row">
                     <div class="player-info">
-                        <input type="checkbox" checked id="player-chk-${index}">
-                        <span><strong>${p.name}</strong> <span style="font-size:0.75rem; color:#6c757d">(Snittnivå: ${getPlayerLevel(p)})</span></span>
+                        <div class="player-left">
+                            <span><strong>${p.name}</strong> <span style="font-size:0.75rem; color:#6c757d">(Snittnivå: ${getPlayerLevel(p)})</span></span>
+                        </div>
+                        <div class="player-right">
+                            <input type="checkbox" checked id="player-chk-${index}">
+                            <button class="btn btn-danger" onclick="removePlayer(${p.id})">Ta bort</button>
+                        </div>
                     </div>
-                    <button class="btn btn-danger" onclick="removePlayer(${index})">Ta bort</button>
                 </div>
             `).join('');
+        }
+
+        function sortMatrix(col) {
+            if (currentSortCol === col) {
+                sortAsc = !sortAsc;
+            } else {
+                currentSortCol = col;
+                sortAsc = true;
+            }
+
+            playersData.sort((a, b) => {
+                let valA, valB;
+                if (col === 'name') {
+                    valA = a.name.toLowerCase();
+                    valB = b.name.toLowerCase();
+                } else if (col === 'avg') {
+                    valA = parseFloat(getPlayerLevel(a));
+                    valB = parseFloat(getPlayerLevel(b));
+                } else {
+                    valA = a[col];
+                    valB = b[col];
+                }
+
+                if (valA < valB) return sortAsc ? -1 : 1;
+                if (valA > valB) return sortAsc ? 1 : -1;
+                return 0;
+            });
+
+            savePlayersToStorage();
+            renderMatrixTable();
+            renderPlayerRows();
+            renderTacticsUI();
         }
 
         function renderMatrixTable() {
             const tbody = document.getElementById('matrix-tbody');
             if(!tbody) return;
-            tbody.innerHTML = playersData.map((p, index) => `
-                <tr>
-                    <td style="text-align:left; font-weight:600;">${p.name}</td>
-                    <td><input type="number" min="1" max="5" value="${p.tact}" onchange="updateScore(${index}, 'tact', this.value)"></td>
-                    <td><input type="number" min="1" max="5" value="${p.tech}" onchange="updateScore(${index}, 'tech', this.value)"></td>
-                    <td><input type="number" min="1" max="5" value="${p.ment}" onchange="updateScore(${index}, 'ment', this.value)"></td>
-                    <td><input type="number" min="1" max="5" value="${p.phys}" onchange="updateScore(${index}, 'phys', this.value)"></td>
-                    <td><strong id="avg-${index}">${getPlayerLevel(p)}</strong></td>
-                    <td><button class="btn btn-danger" style="padding:0.2rem 0.4rem; font-size:0.75rem;" onclick="removePlayer(${index})">X</button></td>
-                </tr>
-            `).join('');
+            tbody.innerHTML = playersData.map((p) => {
+                const realIndex = playersData.findIndex(item => item.id === p.id);
+                return `
+                    <tr>
+                        <td style="text-align:left; font-weight:600;">${p.name}</td>
+                        <td><input type="number" min="1" max="5" value="${p.tact}" onchange="updateScore(${realIndex}, 'tact', this.value)"></td>
+                        <td><input type="number" min="1" max="5" value="${p.tech}" onchange="updateScore(${realIndex}, 'tech', this.value)"></td>
+                        <td><input type="number" min="1" max="5" value="${p.ment}" onchange="updateScore(${realIndex}, 'ment', this.value)"></td>
+                        <td><input type="number" min="1" max="5" value="${p.phys}" onchange="updateScore(${realIndex}, 'phys', this.value)"></td>
+                        <td><strong id="avg-${realIndex}">${getPlayerLevel(p)}</strong></td>
+                        <td><button class="btn btn-danger" style="padding:0.2rem 0.4rem; font-size:0.75rem;" onclick="removePlayer(${p.id})">X</button></td>
+                    </tr>
+                `;
+            }).join('');
         }
 
         function updateScore(index, field, val) {
@@ -445,10 +493,14 @@
             renderTacticsUI();
         }
 
-        function removePlayer(index) {
-            if(confirm(`Ta bort ${playersData[index].name}?`)) {
-                playersData.splice(index, 1);
+        function removePlayer(id) {
+            const pToRemove = playersData.find(p => p.id === id);
+            if(pToRemove && confirm(`Ta bort ${pToRemove.name}?`)) {
+                playersData = playersData.filter(p => p.id !== id);
+                delete placedPlayers[id];
+                selectedPlayerIds = selectedPlayerIds.filter(selectedId => selectedId !== id);
                 savePlayersToStorage();
+                savePlacedToStorage();
                 renderPlayerRows();
                 renderMatrixTable();
                 renderTacticsUI();
@@ -462,6 +514,15 @@
             });
         }
 
+        function updatePlayerPosition(id, posVal) {
+            const player = playersData.find(p => p.id === id);
+            if(player) {
+                player.position = posVal;
+                savePlayersToStorage();
+                renderTacticsUI();
+            }
+        }
+
         function renderTacticsUI() {
             const tacticsContainer = document.getElementById('tactics-squad-list');
             const pitchTokens = document.getElementById('pitch-tokens');
@@ -470,12 +531,25 @@
             tacticsContainer.innerHTML = playersData.map((p) => {
                 const isPlaced = placedPlayers[p.id] !== undefined;
                 const isSelected = selectedPlayerIds.includes(p.id);
+                const currentPos = p.position || 'Mittfält';
                 return `
                     <div class="tactics-player-row ${isPlaced ? 'placed' : ''}">
                         <div class="tactics-player-info">
-                            <input type="checkbox" ${isSelected ? 'checked' : ''} onchange="toggleTacticsSelection(${p.id})">
-                            <strong style="cursor:pointer;" onclick="toggleTacticsSelection(${p.id})">${p.name}</strong>
-                            ${isPlaced ? '<span style="color:#1565c0; font-size:0.75rem;">(Utplacerad)</span>' : ''}
+                            <div class="tactics-player-left" onclick="toggleTacticsSelection(${p.id})">
+                                <strong style="cursor:pointer;">${p.name}</strong>
+                                ${isPlaced ? '<span style="color:#1565c0; font-size:0.75rem;">(Utplacerad)</span>' : ''}
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 0.4rem;">
+                                <select class="tactics-pos-select" onchange="updatePlayerPosition(${p.id}, this.value)" onclick="event.stopPropagation()">
+                                    <option value="MV" ${currentPos === 'MV' ? 'selected' : ''}>MV (Målvakt)</option>
+                                    <option value="YB" ${currentPos === 'YB' ? 'selected' : ''}>YB (Ytterback)</option>
+                                    <option value="CB" ${currentPos === 'CB' ? 'selected' : ''}>CB (Back)</option>
+                                    <option value="CM" ${currentPos === 'CM' ? 'selected' : ''}>CM (Mittfält)</option>
+                                    <option value="YF" ${currentPos === 'YF' ? 'selected' : ''}>YF (Ytterforward)</option>
+                                    <option value="Anfallare" ${currentPos === 'Anfallare' ? 'selected' : ''}>Anfallare</option>
+                                </select>
+                                <input type="checkbox" ${isSelected ? 'checked' : ''} onchange="toggleTacticsSelection(${p.id})">
+                            </div>
                         </div>
                     </div>
                 `;
@@ -487,9 +561,11 @@
                 if (!player) return '';
                 const initials = player.name.split(' ').map(n => n[0]).join('');
                 const isSelected = selectedPlayerIds.includes(Number(id));
+                const shortPos = player.position || 'CM';
                 return `
-                    <div class="token ${isSelected ? 'selected' : ''}" style="top: ${pos.y}%; left: ${pos.x}%;" onclick="event.stopPropagation(); toggleTacticsSelection(${player.id})">
+                    <div class="token ${isSelected ? 'selected' : ''}" style="top: ${pos.y}%; left: ${pos.x}%;" title="${player.name} (${shortPos})" onclick="event.stopPropagation(); toggleTacticsSelection(${player.id})">
                         <span>${initials}</span>
+                        <span class="token-pos-tag">${shortPos}</span>
                     </div>
                 `;
             }).join('');
@@ -518,6 +594,7 @@
                 placedPlayers[id] = { x: Math.max(5, Math.min(95, baseX + offsetX)), y: Math.max(5, Math.min(95, baseY + offsetY)) };
             });
             selectedPlayerIds = [];
+            savePlacedToStorage();
             renderTacticsUI();
         }
 
@@ -528,10 +605,56 @@
             Object.keys(form).forEach((posIndex, idx) => {
                 if (playersData[idx]) { placedPlayers[playersData[idx].id] = form[posIndex]; }
             });
+            savePlacedToStorage();
             renderTacticsUI();
         }
 
-        function clearTactics() { placedPlayers = {}; selectedPlayerIds = []; renderTacticsUI(); }
+        function clearTactics() { placedPlayers = {}; selectedPlayerIds = []; savePlacedToStorage(); renderTacticsUI(); }
+
+        function saveCurrentTeamAsNamed() {
+            const teamName = prompt("Ange namn på laguppställningen (t.ex. Matchlag Blå):");
+            if (!teamName || !teamName.trim()) return;
+            let savedTeams = JSON.parse(localStorage.getItem('if_molndal_saved_teams')) || {};
+            savedTeams[teamName.trim()] = {
+                placed: placedPlayers,
+                players: playersData
+            };
+            localStorage.setItem('if_molndal_saved_teams', JSON.stringify(savedTeams));
+            updateSavedTeamsDropdown();
+            alert(`Laget "${teamName}" har sparats!`);
+        }
+
+        function updateSavedTeamsDropdown() {
+            const selectEl = document.getElementById('saved-teams-select');
+            if(!selectEl) return;
+            let savedTeams = JSON.parse(localStorage.getItem('if_molndal_saved_teams')) || {};
+            const keys = Object.keys(savedTeams);
+            if(keys.length === 0) {
+                selectEl.innerHTML = '<option value="">Inga sparade lag ännu</option>';
+                return;
+            }
+            selectEl.innerHTML = '<option value="">-- Välj sparat lag --</option>' + keys.map(name => `<option value="${name}">${name}</option>`).join('');
+        }
+
+        function loadSelectedTeam() {
+            const selectEl = document.getElementById('saved-teams-select');
+            const teamName = selectEl.value;
+            if(!teamName) return;
+            let savedTeams = JSON.parse(localStorage.getItem('if_molndal_saved_teams')) || {};
+            if(savedTeams[teamName]) {
+                placedInfo = savedTeams[teamName].placed;
+                placedPlayers = placedInfo || {};
+                if(savedTeams[teamName].players) {
+                    playersData = savedTeams[teamName].players;
+                    savePlayersToStorage();
+                }
+                savePlacedToStorage();
+                renderTacticsUI();
+                renderPlayerRows();
+                renderMatrixTable();
+                alert(`Laget "${teamName}" har laddats!`);
+            }
+        }
 
         function exportTacticsSnapshot() {
             const pitchElement = document.getElementById('tactics-pitch-area');
@@ -692,17 +815,17 @@
         <div id="levels" class="tab-content">
             <div class="card">
                 <h2>Spelarnivåer & Matris (1–5)</h2>
-                <p style="font-size:0.8rem; color:#6c757d; margin-bottom:0.75rem;">Ändra siffrorna (1–5) direkt i tabellen. Snittet räknas ut automatiskt och uppdaterar gruppindelningen direkt!</p>
+                <p style="font-size:0.8rem; color:#6c757d; margin-bottom:0.75rem;">Ändra siffrorna (1–5) direkt i tabellen. Klicka på kolumnrubrikerna för att sortera! Snittet räknas ut automatiskt och uppdaterar gruppindelningen direkt.</p>
                 <div style="overflow-x:auto;">
                     <table class="matrix-table">
                         <thead>
                             <tr>
-                                <th style="text-align:left;">Namn</th>
-                                <th>Taktik</th>
-                                <th>Teknik</th>
-                                <th>Attityd</th>
-                                <th>Fysik</th>
-                                <th>Snitt</th>
+                                <th style="text-align:left;" onclick="sortMatrix('name')">Namn ↕</th>
+                                <th onclick="sortMatrix('tact')">Taktik ↕</th>
+                                <th onclick="sortMatrix('tech')">Teknik ↕</th>
+                                <th onclick="sortMatrix('ment')">Attityd ↕</th>
+                                <th onclick="sortMatrix('phys')">Fysik ↕</th>
+                                <th onclick="sortMatrix('avg')">Snitt ↕</th>
                                 <th>-</th>
                             </tr>
                         </thead>
@@ -716,6 +839,17 @@
         <div id="tactics" class="tab-content">
             <div class="card">
                 <h2>Interaktiv Taktiktavla</h2>
+                
+                <!-- Spara / Ladda flera lag -->
+                <div style="background: #f1f3f5; padding: 0.6rem; border-radius: 6px; margin-bottom: 0.75rem; display: flex; flex-direction: column; gap: 0.4rem;">
+                    <label style="margin-bottom:0;">Sparade laguppställningar:</label>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <select id="saved-teams-select" style="margin-bottom:0; flex:1;"></select>
+                        <button class="btn btn-secondary" style="margin-top:0; width:auto; padding:0.4rem 0.8rem; font-size:0.8rem;" onclick="loadSelectedTeam()">Ladda lag</button>
+                    </div>
+                    <button class="btn" style="padding:0.4rem; font-size:0.8rem; background-color: #1976d2;" onclick="saveCurrentTeamAsNamed()">💾 Spara aktuell uppställning som...</button>
+                </div>
+
                 <div style="display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 0.5rem;">
                     <button class="btn" style="padding: 0.3rem; font-size: 0.75rem; flex:1;" onclick="applyFormation('7v7-231')">7v7 (2-3-1)</button>
                     <button class="btn" style="padding: 0.3rem; font-size: 0.75rem; flex:1;" onclick="applyFormation('9v9-332')">9v9 (3-3-2)</button>
