@@ -35,7 +35,7 @@
         .tab-btn { flex: 1; min-width: 65px; padding: 0.75rem 0.2rem; text-align: center; background: none; border: none; font-size: 0.75rem; font-weight: 600; color: #6c757d; cursor: pointer; border-bottom: 3px solid transparent; white-space: nowrap; }
         .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
 
-        .container { max-width: 800px; margin: 0 auto; padding: 1rem; }
+        .container { max-width: 900px; margin: 0 auto; padding: 1rem; }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
 
@@ -77,11 +77,37 @@
         .player-left { display: flex; align-items: center; gap: 0.5rem; flex: 1; }
         .player-right { display: flex; align-items: center; gap: 0.5rem; }
 
-        .matrix-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; margin-bottom: 1rem; background: white; }
+        /* Matris-tabell med sticky header */
+        .matrix-container { max-height: 500px; overflow-y: auto; border: 1px solid var(--border); border-radius: 6px; }
+        .matrix-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; background: white; }
         .matrix-table th, .matrix-table td { border: 1px solid var(--border); padding: 0.4rem; text-align: center; }
-        .matrix-table th { background: #f1f3f5; color: var(--primary-dark); font-weight: 700; cursor: pointer; user-select: none; }
-        .matrix-table th:hover { background: #e2e6ea; }
-        .matrix-table td input { width: 45px; text-align: center; padding: 0.2rem; margin: 0; font-size: 0.85rem; }
+        .matrix-table th { background: #e9ecef; color: var(--primary-dark); font-weight: 700; cursor: pointer; user-select: none; position: sticky; top: 0; z-index: 10; }
+        .matrix-table th:hover { background: #dee2e6; }
+        .matrix-table td input { width: 45px; text-align: center; padding: 0.2rem; margin: 0; font-size: 0.85rem; font-weight: bold; border-radius: 4px; }
+
+        /* Dynamiska fötter/färger för nivåer (1-5) */
+        input.level-1 { background-color: #d4edda !important; color: #155724; border-color: #c3e6cb; }
+        input.level-2 { background-color: #d1ecf1 !important; color: #0c5460; border-color: #bee5eb; }
+        input.level-3 { background-color: #fff3cd !important; color: #856404; border-color: #ffeeba; }
+        input.level-4 { background-color: #ffeeba !important; color: #856404; border-color: #ffdf7e; }
+        input.level-5 { background-color: #f8d7da !important; color: #721c24; border-color: #f5c6cb; }
+
+        /* Färgade badge-klasser för snittkolumnen */
+        .badge-level-1 { background-color: #d4edda; color: #155724; padding: 0.2rem 0.4rem; border-radius: 4px; border: 1px solid #c3e6cb; }
+        .badge-level-2 { background-color: #d1ecf1; color: #0c5460; padding: 0.2rem 0.4rem; border-radius: 4px; border: 1px solid #bee5eb; }
+        .badge-level-3 { background-color: #fff3cd; color: #856404; padding: 0.2rem 0.4rem; border-radius: 4px; border: 1px solid #ffeeba; }
+        .badge-level-4 { background-color: #ffeeba; color: #856404; padding: 0.2rem 0.4rem; border-radius: 4px; border: 1px solid #ffdf7e; }
+        .badge-level-5 { background-color: #f8d7da; color: #721c24; padding: 0.2rem 0.4rem; border-radius: 4px; border: 1px solid #f5c6cb; }
+
+        /* Kriterietabell stil */
+        .criteria-table { width: 100%; border-collapse: collapse; font-size: 0.7rem; margin-bottom: 1rem; background: white; }
+        .criteria-table th, .criteria-table td { border: 1px solid #ccc; padding: 0.35rem; text-align: left; }
+        .criteria-table th { color: white; text-align: center; font-weight: bold; }
+        .crit-l1 { background-color: #4CAF50; }
+        .crit-l2 { background-color: #0288d1; }
+        .crit-l3 { background-color: #fbc02d; color: #000; }
+        .crit-l4 { background-color: #f57c00; }
+        .crit-l5 { background-color: #d32f2f; }
 
         .add-player-box { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
         .add-player-box input { margin-bottom: 0; flex: 1; }
@@ -384,6 +410,10 @@
             return ((p.tact + p.tech + p.ment + p.phys) / 4).toFixed(1);
         }
 
+        function getRoundedLevelInt(val) {
+            return Math.max(1, Math.min(5, Math.round(val)));
+        }
+
         function renderExercises() {
             const filterVal = document.getElementById('exercise-filter') ? document.getElementById('exercise-filter').value : 'all';
             const list = document.getElementById('exercise-list');
@@ -455,14 +485,16 @@
             if(!tbody) return;
             tbody.innerHTML = playersData.map((p) => {
                 const realIndex = playersData.findIndex(item => item.id === p.id);
+                const avgNum = parseFloat(getPlayerLevel(p));
+                const roundedAvg = getRoundedLevelInt(avgNum);
                 return `
                     <tr>
                         <td style="text-align:left; font-weight:600;">${p.name}</td>
-                        <td><input type="number" min="1" max="5" value="${p.tact}" onchange="updateScore(${realIndex}, 'tact', this.value)"></td>
-                        <td><input type="number" min="1" max="5" value="${p.tech}" onchange="updateScore(${realIndex}, 'tech', this.value)"></td>
-                        <td><input type="number" min="1" max="5" value="${p.ment}" onchange="updateScore(${realIndex}, 'ment', this.value)"></td>
-                        <td><input type="number" min="1" max="5" value="${p.phys}" onchange="updateScore(${realIndex}, 'phys', this.value)"></td>
-                        <td><strong id="avg-${realIndex}">${getPlayerLevel(p)}</strong></td>
+                        <td><input type="number" min="1" max="5" value="${p.tact}" class="level-${p.tact}" onchange="updateScore(${realIndex}, 'tact', this.value)"></td>
+                        <td><input type="number" min="1" max="5" value="${p.tech}" class="level-${p.tech}" onchange="updateScore(${realIndex}, 'tech', this.value)"></td>
+                        <td><input type="number" min="1" max="5" value="${p.ment}" class="level-${p.ment}" onchange="updateScore(${realIndex}, 'ment', this.value)"></td>
+                        <td><input type="number" min="1" max="5" value="${p.phys}" class="level-${p.phys}" onchange="updateScore(${realIndex}, 'phys', this.value)"></td>
+                        <td><span id="avg-${realIndex}" class="badge-level-${roundedAvg}"><strong>${avgNum.toFixed(1)}</strong></span></td>
                         <td><button class="btn btn-danger" style="padding:0.2rem 0.4rem; font-size:0.75rem;" onclick="removePlayer(${p.id})">X</button></td>
                     </tr>
                 `;
@@ -476,7 +508,7 @@
             if(num > 5) num = 5;
             playersData[index][field] = num;
             savePlayersToStorage();
-            document.getElementById(`avg-${index}`).innerText = getPlayerLevel(playersData[index]);
+            renderMatrixTable(); // Uppdaterar tabellen så både fält och snittfärg uppdateras direkt
             renderPlayerRows();
             renderTacticsUI();
         }
@@ -815,8 +847,60 @@
         <div id="levels" class="tab-content">
             <div class="card">
                 <h2>Spelarnivåer & Matris (1–5)</h2>
-                <p style="font-size:0.8rem; color:#6c757d; margin-bottom:0.75rem;">Ändra siffrorna (1–5) direkt i tabellen. Klicka på kolumnrubrikerna för att sortera! Snittet räknas ut automatiskt och uppdaterar gruppindelningen direkt.</p>
-                <div style="overflow-x:auto;">
+                <p style="font-size:0.8rem; color:#6c757d; margin-bottom:0.75rem;">Ändra siffrorna (1–5) direkt i tabellen. Kolumnrubrikerna följer med vid skrollning. Både inmatningsrutor och snittkolumnen färgas automatiskt efter nivå. Klicka på kolumnrubrikerna för att sortera!</p>
+                
+                <!-- Kriterietabell (referens) -->
+                <div style="overflow-x:auto; margin-bottom: 1rem;">
+                    <table class="criteria-table">
+                        <thead>
+                            <tr>
+                                <th style="background:#333; width:15%;">Kategori</th>
+                                <th class="crit-l1" style="width:17%;">Nivå 1 (Lätt)</th>
+                                <th class="crit-l2" style="width:17%;">Nivå 2 (Lätt/medel)</th>
+                                <th class="crit-l3" style="width:17%;">Nivå 3 (Medel)</th>
+                                <th class="crit-l4" style="width:17%;">Nivå 4 (Medel/svår)</th>
+                                <th class="crit-l5" style="width:17%;">Nivå 5 (Svår)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="font-weight:bold; background:#f1f3f5;">Taktik</td>
+                                <td>Begränsad förståelse för spelet, reagerar långsamt</td>
+                                <td>Förstår grundläggande spelidéer men har svårt att läsa spelet</td>
+                                <td>Bra speluppfattning, kan anpassa sig taktiskt</td>
+                                <td>Mycket god förståelse, kan styra spelet och anpassa sig snabbt</td>
+                                <td>Exceptionell spelförståelse, leder taktiskt under matcher</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:bold; background:#f1f3f5;">Teknik</td>
+                                <td>Mycket grundläggande bollkontroll, stora svårigheter</td>
+                                <td>Grundläggande bollkontroll, svårigheter med passningar och skott</td>
+                                <td>Stabil bollbehandling, ok passningsspel</td>
+                                <td>Väldigt god teknik, stark bollkontroll, bra passningar och skott</td>
+                                <td>Exceptionell teknik, kan hantera avancerade situationer</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:bold; background:#f1f3f5;">Mentalitet</td>
+                                <td>Väldigt osäker, svårt med motivation eller att ta instruktioner</td>
+                                <td>Osäker, svårt med motivation eller att ta instruktioner</td>
+                                <td>Stabilt självförtroende, kan ta instruktioner och anpassa sig</td>
+                                <td>Starkt självförtroende, tar ansvar och leder laget</td>
+                                <td>Mycket stark mentalitet, tar stort ansvar och inspirerar andra</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:bold; background:#f1f3f5;">Fysik</td>
+                                <td>Behöver utveckla alla fysiska aspekter</td>
+                                <td>Behöver utveckla snabbhet, uthållighet, styrka</td>
+                                <td>Genomsnittlig fysik för sin ålder</td>
+                                <td>Väldigt bra snabbhet, styrka, och uthållighet</td>
+                                <td>Exceptionell fysik, dominerar fysiskt på planen</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Spelarmatris med fasta rubriker vid skroll -->
+                <div class="matrix-container">
                     <table class="matrix-table">
                         <thead>
                             <tr>
