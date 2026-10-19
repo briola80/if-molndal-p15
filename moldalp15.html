@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IF Mölndal P-2015 Träningsapp</title>
+    <!-- Inkluderar html2canvas för att kunna ta ögonblicksbilder direkt i webbläsaren -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --primary: #d32f2f;
+            --primary-dark: #b71c1c;
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --text: #333333;
+            --border: #dee2e6;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+        
+        html, body { 
+            background-color: var(--bg); 
+            color: var(--text); 
+            min-height: 100vh;
+            overflow-y: auto !important;
+            -webkit-overflow-scrolling: touch;
+        }
+        body { padding-bottom: 80px; }
+        
+        header { background-color: var(--primary); color: white; padding: 0.75rem 1rem; display: flex; align-items: center; gap: 0.75rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .header-badge { width: 42px; height: 42px; background: white; color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.7rem; text-align: center; line-height: 1; box-shadow: 0 2px 4px rgba(0,0,0,0.2); border: 2px solid #fff; flex-shrink: 0; }
+        .header-text h1 { font-size: 1.15rem; font-weight: 700; line-height: 1.2; }
+        .header-text p { font-size: 0.8rem; opacity: 0.9; }
+
+        .nav-tabs { display: flex; background: white; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; overflow-x: auto; }
+        .tab-btn { flex: 1; min-width: 70px; padding: 0.75rem 0.25rem; text-align: center; background: none; border: none; font-size: 0.8rem; font-weight: 600; color: #6c757d; cursor: pointer; border-bottom: 3px solid transparent; white-space: nowrap; }
+        .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+        .container { max-width: 800px; margin: 0 auto; padding: 1rem; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        .card { background: var(--card-bg); border-radius: 8px; padding: 1rem; margin-bottom: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border: 1px solid var(--border); }
+        h2 { font-size: 1.1rem; margin-bottom: 0.75rem; color: var(--primary-dark); }
+        
+        label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.25rem; color: #495057; }
+        select, input, textarea { width: 100%; padding: 0.6rem; margin-bottom: 0.75rem; border: 1px solid var(--border); border-radius: 6px; font-size: 1rem; background: white; }
+        
+        button.btn { background-color: var(--primary); color: white; border: none; width: 100%; padding: 0.75rem; border-radius: 6px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: background 0.2s; }
+        button.btn:hover { background-color: var(--primary-dark); }
+        button.btn-secondary { background-color: #6c757d; margin-top: 0.5rem; }
+        button.btn-danger { background-color: #dc3545; padding: 0.3rem 0.5rem; font-size: 0.8rem; width: auto; margin-bottom: 0; }
+        button.btn-danger:hover { background-color: #a71d2a; }
+        button.btn-success { background-color: #2e7d32; }
+        button.btn-success:hover { background-color: #1b5e20; }
+
+        .exercise-item { border-left: 4px solid var(--primary); padding-left: 0.75rem; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid #f1f3f5; }
+        .exercise-item h4 { font-size: 0.95rem; }
+        .exercise-item p { font-size: 0.8rem; color: #6c757d; }
+
+        .pitch-sketch { width: 100%; height: 140px; background-color: #2e7d32; border-radius: 6px; position: relative; margin-top: 0.5rem; overflow: hidden; border: 2px solid #fff; box-shadow: inset 0 0 10px rgba(0,0,0,0.3); }
+        .pitch-line-v { position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; background: rgba(255,255,255,0.7); }
+        .pitch-circle { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 36px; height: 36px; border: 2px solid rgba(255,255,255,0.7); border-radius: 50%; }
+        
+        .sketch-element { position: absolute; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 8px; color: white; text-align: center; transform: translate(-50%, -50%); }
+        .s-cone { width: 8px; height: 8px; background: #ff9800; border-radius: 50%; border: 1px solid #000; }
+        .s-player { width: 16px; height: 16px; background: #1976d2; border-radius: 50%; border: 1px solid #fff; font-size: 8px; line-height: 14px; }
+        .s-player-red { width: 16px; height: 16px; background: #d32f2f; border-radius: 50%; border: 1px solid #fff; font-size: 8px; line-height: 14px; }
+        .s-ball { width: 7px; height: 7px; background: #fff; border-radius: 50%; box-shadow: 0 0 2px #000; }
+
+        .player-list-container { max-height: 350px; overflow-y: auto; border: 1px solid var(--border); border-radius: 6px; background: white; margin-bottom: 1rem; }
+        .player-row { display: flex; align-items: center; justify-content: space-between; padding: 0.5rem; border-bottom: 1px solid #f1f3f5; gap: 0.5rem; }
+        .player-row:last-child { border-bottom: none; }
+        .player-info { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; flex: 1; }
+        .player-level-select { width: 70px; padding: 0.3rem; font-size: 0.85rem; margin-bottom: 0; }
+
+        .add-player-box { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+        .add-player-box input { margin-bottom: 0; flex: 1; }
+        .add-player-box select { width: 90px; margin-bottom: 0; }
+
+        .group-card { background: #fff5f5; border: 1px solid #ffc9c9; border-radius: 6px; padding: 0.75rem; margin-bottom: 0.5rem; }
+        .group-card h5 { color: var(--primary); margin-bottom: 0.25rem; }
+        .group-card ul { padding-left: 1.2rem; font-size: 0.9rem; }
+
+        .ai-chat-box { background: #f1f3f5; border-radius: 6px; padding: 0.75rem; margin-top: 0.5rem; font-size: 0.9rem; }
+
+        /* Taktiktavla stilar */
+        .tactics-pitch { width: 100%; height: 460px; background-color: #2e7d32; border-radius: 8px; position: relative; border: 3px solid #fff; box-shadow: inset 0 0 20px rgba(0,0,0,0.4); cursor: crosshair; margin-bottom: 1rem; overflow: hidden; }
+        .pitch-midline { position: absolute; top: 50%; left: 0; right: 0; height: 2px; background: rgba(255,255,255,0.7); }
+        .pitch-center-circle { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 70px; height: 70px; border: 2px solid rgba(255,255,255,0.7); border-radius: 50%; }
+        .pitch-goal-top { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 100px; height: 30px; border: 2px solid rgba(255,255,255,0.7); border-top: none; }
+        .pitch-goal-bottom { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 100px; height: 30px; border: 2px solid rgba(255,255,255,0.7); border-bottom: none; }
+        
+        .token { position: absolute; width: 36px; height: 36px; background: #1976d2; color: white; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: bold; font-size: 9px; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3); transform: translate(-50%, -50%); cursor: pointer; user-select: none; transition: transform 0.1s; }
+        .token:hover { transform: translate(-50%, -50%) scale(1.1); }
+        .token.selected { background: #ff9800; border-color: #000; z-index: 10; }
+        .token-pos { font-size: 7px; opacity: 0.9; line-height: 1; }
+
+        .tactics-squad-container { max-height: 180px; overflow-y: auto; border: 1px solid var(--border); border-radius: 6px; background: #f1f3f5; padding: 0.5rem; margin-bottom: 0.75rem; }
+        .tactics-player-row { display: flex; align-items: center; justify-content: space-between; padding: 0.3rem 0.5rem; background: white; border-radius: 4px; margin-bottom: 0.3rem; gap: 0.5rem; font-size: 0.85rem; }
+        .tactics-player-row.placed { background: #e3f2fd; border: 1px solid #90caf9; }
+        .tactics-player-info { display: flex; align-items: center; gap: 0.4rem; flex: 1; }
+        .tactics-pos-select { width: 90px; padding: 0.2rem; font-size: 0.75rem; }
+    </style>
+
+    <script>
+        const exercisesData = [
+            { 
+                id: "UPP-01", name: "Rondo med ytväxling", category: "Uppvärmning", format: "Båda", focus: "Spelvändningar", time: 15, minP: 8, maxP: 35, 
+                desc: "Spelare i ring med ytor, fokus på snabba fötter och öppen kroppsställning.",
+                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="pitch-circle"></div><div class="sketch-element s-player" style="top:35%; left:35%;">P</div><div class="sketch-element s-player" style="top:35%; left:65%;">P</div><div class="sketch-element s-player" style="top:65%; left:35%;">P</div><div class="sketch-element s-player" style="top:65%; left:65%;">P</div><div class="sketch-element s-cone" style="top:50%; left:50%;"></div><div class="sketch-element s-ball" style="top:50%; left:42%;"></div></div>`
+            },
+            { 
+                id: "UPP-02", name: "Passningskul / Kojtjuv", category: "Uppvärmning", format: "7v7", focus: "Presspel", time: 10, minP: 6, maxP: 30, 
+                desc: "Rörlig uppvärmning med boll på begränsad yta.",
+                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-cone" style="top:30px; left:30px;"></div><div class="sketch-element s-cone" style="bottom:30px; right:30px;"></div><div class="sketch-element s-player" style="top:50%; left:45%;">P</div><div class="sketch-element s-ball" style="top:50%; left:53%;"></div></div>`
+            },
+            { 
+                id: "UPP-03", name: "Passningskvadrat med väggspel", category: "Uppvärmning", format: "Båda", focus: "Uppspel & Ytor", time: 12, minP: 6, maxP: 30, 
+                desc: "Klassisk kvadrat där spelare söker felvända medspelare.",
+                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:50%; left:50%;">P</div><div class="sketch-element s-cone" style="top:30px; left:30px;"></div><div class="sketch-element s-ball" style="top:50%; left:60%;"></div></div>`
+            },
+            { 
+                id: "PAS-01", name: "Spelvändning 3v2 + neutral", category: "Teknik/Passing", format: "9v9", focus: "Spelvändningar", time: 20, minP: 8, maxP: 30, 
+                desc: "Anfallare ska spela bollen förbi central yta och ut till kant.",
+                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:50%; left:35%;">3</div><div class="sketch-element s-player-red" style="top:50%; left:65%;">2</div><div class="sketch-element s-cone" style="top:50%; left:50%;"></div></div>`
+            },
+            { 
+                id: "PAS-02", name: "Passningsmönster med djupled", category: "Teknik/Passing", format: "Båda", focus: "Uppspel & Ytor", time: 15, minP: 6, maxP: 30, 
+                desc: "Väggspel och instick i yta bakom motståndarnas backlinje.",
+                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-cone" style="top:40px; left:40px;"></div><div class="sketch-element s-player" style="top:70px; left:50%;">P</div><div class="sketch-element s-ball" style="top:60px; left:55%;"></div></div>`
+            },
+            { 
+                id: "PAS-03", name: "Bygga upp via central mittfältare", category: "Uppspel", format: "9v9", focus: "Uppspel & Ytor", time: 20, minP: 10, maxP: 30, 
+                desc: "Träna målvakt/backlinje att spela till felvänd central mittfältsspelare.",
+                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:70px; left:25%;">MV</div><div class="sketch-element s-player" style="top:50%; left:50%;">CM</div><div class="sketch-element s-ball" style="top:60px; left:35%;"></div></div>`
+            },
+            { 
+                id: "PAS-04", name: "Ytterspelet i 9v9 (Ytterback & Ytterforward)", category: "Uppspel", format: "9v9", focus: "Uppspel & Ytor", time: 20, minP: 10, maxP: 32, 
+                desc: "Samarbete längs kanten för att ta sig förbi motståndarens press.",
+                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:35px; left:25px;">YB</div><div class="sketch-element s-player" style="top:65px; left:25px;">YF</div><div class="sketch-element s-cone" style="top:50px; left:60px;"></div></div>`
+            },
+            { 
+                id: "SV-01", name: "3v3 med två fasta korridorer", category: "Spelövning", format: "9v9", focus: "Spelvändningar", time: 20, minP: 10, maxP: 30, 
+                desc: "Kräver spelvändning över mittkorridoren för att få poäng.",
+                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:50%; left:50%;">3v3</div><div class="sketch-element s-cone" style="top:20px; left:50%;"></div><div class="sketch-element s-cone" style="bottom:20px; left:50%;"></div></div>`
+            },
+            { 
+                id: "TAK-01", name: "3v3 + 2 neutrala i korridorer", category: "Smålagsspel", format: "9v9", focus: "Spelvändningar", time: 25, minP: 10, maxP: 32, 
+                desc: "Fokus på att utnyttja kanterna och vända spelet snabbt över ytor.",
+                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:50%; left:50%;">3v3</div></div>`
+            },
+            { 
+                id: "TAK-02", name: "Presspel & Styrning 4v4", category: "Smålagsspel", format: "7v7", focus: "Presspel", time: 20, minP: 8, maxP: 30, 
+                desc: "Ett lag pressar styrande mot sidlinjen för att vinna boll.",
+                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:50%; left:50%;">4v4</div><div class="sketch-element s-cone" style="top:30px; left:30px;"></div></div>`
+            },
+            { 
+                id: "MAT-01", name: "Zonmatch med krav", category: "Matchspel", format: "7v7", focus: "Avslut", time: 25, minP: 12, maxP: 35, 
+                desc: "Planen uppdelad i zoner. Kräver att bollen spelas igenom ytor innan avslut.",
+                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="pitch-circle"></div><div class="sketch-element s-cone" style="top:20px; left:33%;"></div><div class="sketch-element s-cone" style="top:20px; left:66%;"></div></div>`
+            },
+            { 
+                id: "AVS-01", name: "Avslut efter inlägg", category: "Avslut", format: "9v9", focus: "Avslut", time: 20, minP: 8, maxP: 30, 
+                desc: "Kantspelare slår inlägg till centrala anfallare som möter upp på mål.",
+                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:35px; left:25px;">YF</div><div class="sketch-element s-player" style="top:60px; left:65px;">Anf</div><div class="sketch-element s-ball" style="top:42px; left:35px;"></div></div>`
+            }
+        ];
+
+        let playersData = [
+            "Alexander Hardless", "Andreas Tullock Haglund", "Arman Schilke", "Artur Blomdahl Callheim", 
+            "Aston Haglund", "Bardia Akbari", "Bertil Westerberg", "Daniel Ma", "Edward Ebbesson", 
+            "Elias Wingborg", "Elvin Görgulu", "Filip Sahlén", "Ivan Nilsson", "Jack Ek", "Josef Taktak", 
+            "Leo Schenholm", "Leon Asplind nappo", "Leon Olsen", "Malte Hallqvist", "Mateo Sundblom Ardiles", 
+            "Oscar Bard", "Oscar Genlöv-Hägnesten", "Otto Lindström", "Petrit Abrashi", "Rickard Jivegård", 
+            "Sam Mannerby", "Sigge-Allan Hellberg", "Simon Staynfeld", "Walter Brattström Anger", 
+            "Victor Andersson Ljungman", "Victor Olsson Danell", "Widar Hjalmarsson", "William Olausson", 
+            "Vilmer Enhager", "Yar Al Mukhtar", "Younes Mrad"
+        ].map((name, index) => ({ id: index + 1, name: name, level: 3, position: "Mittfält" }));
+
+        let placedPlayers = {}; 
+        let selectedPlayerIds = []; 
+
+        const formations = {
+            "7v7-231": {
+                0: { x: 50, y: 90 }, 1: { x: 30, y: 75 }, 2: { x: 70, y: 75 }, 
+                3: { x: 25, y: 45 }, 4: { x: 50, y: 50 }, 5: { x: 75, y: 45 }, 6: { x: 50, y: 20 }
+            },
+            "9v9-332": {
+                0: { x: 50, y: 90 }, 1: { x: 25, y: 75 }, 2: { x: 50, y: 80 }, 3: { x: 75, y: 75 }, 
+                4: { x: 25, y: 50 }, 5: { x: 50, y: 50 }, 6: { x: 75, y: 50 }, 7: { x: 35, y: 25 }, 8: { x: 65, y: 25 }
+            },
+            "9v9-1323": {
+                0: { x: 50, y: 90 }, 1: { x: 20, y: 75 }, 2: { x: 50, y: 80 }, 3: { x: 80, y: 75 }, 
+                4: { x: 50, y: 55 }, 5: { x: 30, y: 40 }, 6: { x: 70, y: 40 }, 7: { x: 30, y: 20 }, 8: { x: 70, y: 20 }
+            },
+            "11v11-433": {
+                0: { x: 50, y: 90 }, 1: { x: 20, y: 75 }, 2: { x: 40, y: 80 }, 3: { x: 60, y: 80 }, 
+                4: { x: 80, y: 75 }, 5: { x: 50, y: 55 }, 6: { x: 35, y: 40 }, 7: { x: 65, y: 40 }, 
+                8: { x: 20, y: 20 }, 9: { x: 50, y: 15 }, 10: { x: 80, y: 20 }
+            },
+            "11v11-442": {
+                0: { x: 50, y: 90 }, 1: { x: 20, y: 75 }, 2: { x: 40, y: 80 }, 3: { x: 60, y: 80 }, 
+                4: { x: 80, y: 75 }, 5: { x: 20, y: 45 }, 6: { x: 40, y: 50 }, 7: { x: 60, y: 50 }, 
+                8: { x: 80, y: 45 }, 9: { x: 40, y: 20 }, 10: { x: 60, y: 20 }
+            },
+            "11v11-352": {
+                0: { x: 50, y: 90 }, 1: { x: 30, y: 80 }, 2: { x: 50, y: 83 }, 3: { x: 70, y: 80 }, 
+                4: { x: 15, y: 50 }, 5: { x: 35, y: 55 }, 6: { x: 50, y: 65 }, 7: { x: 65, y: 55 }, 
+                8: { x: 85, y: 50 }, 9: { x: 40, y: 20 }, 10: { x: 60, y: 20 }
+            }
+        };
+
+        window.onload = function() {
+            renderExercises();
+            renderPlayerRows();
+            renderTacticsUI();
+        };
+
+        function switchTab(tabId, btn) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            btn.classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function renderExercises() {
+            const filterVal = document.getElementById('exercise-filter') ? document.getElementById('exercise-filter').value : 'all';
+            const list = document.getElementById('exercise-list');
+            if(!list) return;
+            
+            let filtered = exercisesData;
+            if (filterVal !== "all") {
+                filtered = exercisesData.filter(ex => ex.focus === filterVal);
+            }
+
+            if (filtered.length === 0) {
+                list.innerHTML = `<p style="color: #6c757d; font-size: 0.9rem;">Inga övningar hittades för detta fokusområde.</p>`;
+                return;
+            }
+
+            list.innerHTML = filtered.map(ex => `
+                <div class="exercise-item">
+                    <h4>${ex.name} (${ex.time} min)</h4>
+                    <p><strong>Kategori:</strong> ${ex.category} | <strong>Fokus:</strong> ${ex.focus}</p>
+                    <p>${ex.desc}</p>
+                    ${ex.sketch}
+                </div>
+            `).join('');
+        }
+
+        function renderPlayerRows() {
+            const container = document.getElementById('player-rows');
+            if(!container) return;
+            if (playersData.length === 0) {
+                container.innerHTML = `<p style="padding: 1rem; text-align: center; color: #6c757d;">Inga spelare i truppen.</p>`;
+                return;
+            }
+            container.innerHTML = playersData.map((p, index) => `
+                <div class="player-row">
+                    <div class="player-info">
+                        <input type="checkbox" checked id="player-chk-${index}">
+                        <span>${p.name}</span>
+                    </div>
+                    <select class="player-level-select" id="player-lvl-${index}" onchange="playersData[${index}].level = parseInt(this.value)">
+                        <option value="1" ${p.level === 1 ? 'selected' : ''}>Nivå 1</option>
+                        <option value="2" ${p.level === 2 ? 'selected' : ''}>Nivå 2</option>
+                        <option value="3" ${p.level === 3 ? 'selected' : ''}>Nivå 3</option>
+                        <option value="4" ${p.level === 4 ? 'selected' : ''}>Nivå 4</option>
+                        <option value="5" ${p.level === 5 ? 'selected' : ''}>Nivå 5</option>
+                    </select>
+                    <button class="btn btn-danger" onclick="removePlayer(${index})">Ta bort</button>
+                </div>
+            `).join('');
+        }
+
+        function addPlayer() {
+            const nameInput = document.getElementById('new-player-name');
+            const name = nameInput.value.trim();
+            if (!name) {
+                alert("Skriv in ett namn på spelaren.");
+                return;
+            }
+            playersData.push({ id: Date.now(), name: name, level: 3, position: "Mittfält" });
+            nameInput.value = "";
+            renderPlayerRows();
+            renderTacticsUI();
+        }
+
+        function removePlayer(index) {
+            if(confirm(`Vill du ta bort ${playersData[index].name} från truppen?`)) {
+                delete placedPlayers[playersData[index].id];
+                selectedPlayerIds = selectedPlayerIds.filter(id => id !== playersData[index].id);
+                playersData.splice(index, 1);
+                renderPlayerRows();
+                renderTacticsUI();
+            }
+        }
+
+        function selectAllPlayers(status) {
+            playersData.forEach((_, index) => {
+                const chk = document.getElementById(`player-chk-${index}`);
+                if(chk) chk.checked = status;
+            });
+        }
+
+        function renderTacticsUI() {
+            const tacticsContainer = document.getElementById('tactics-squad-list');
+            const pitchTokens = document.getElementById('pitch-tokens');
+            if(!tacticsContainer || !pitchTokens) return;
+
+            tacticsContainer.innerHTML = playersData.map((p, index) => {
+                const isPlaced = placedPlayers[p.id] !== undefined;
+                const isSelected = selectedPlayerIds.includes(p.id);
+                
+                return `
+                    <div class="tactics-player-row ${isPlaced ? 'placed' : ''}">
+                        <div class="tactics-player-info">
+                            <input type="checkbox" ${isSelected ? 'checked' : ''} onchange="toggleTacticsSelection(${p.id})">
+                            <strong style="cursor:pointer;" onclick="toggleTacticsSelection(${p.id})">${p.name}</strong>
+                            ${isPlaced ? '<span style="color:#1565c0; font-size:0.75rem;">(Utplacerad)</span>' : ''}
+                        </div>
+                        <select class="tactics-pos-select" onchange="updatePlayerPosition(${p.id}, this.value)">
+                            <option value="Målvakt" ${p.position === 'Målvakt' ? 'selected' : ''}>Målvakt</option>
+                            <option value="Back" ${p.position === 'Back' ? 'selected' : ''}>Back</option>
+                            <option value="Ytterback" ${p.position === 'Ytterback' ? 'selected' : ''}>Ytterback</option>
+                            <option value="Mittfält" ${p.position === 'Mittfält' ? 'selected' : ''}>Mittfält</option>
+                            <option value="Ytterforward" ${p.position === 'Ytterforward' ? 'selected' : ''}>Ytterforward</option>
+                            <option value="Anfallare" ${p.position === 'Anfallare' ? 'selected' : ''}>Anfallare</option>
+                        </select>
+                    </div>
+                `;
+            }).join('');
+
+            pitchTokens.innerHTML = Object.keys(placedPlayers).map(id => {
+                const pos = placedPlayers[id];
+                const player = playersData.find(p => p.id == id);
+                if (!player) return '';
+                const initials = player.name.split(' ').map(n => n[0]).join('');
+                const isSelected = selectedPlayerIds.includes(Number(id));
+                return `
+                    <div class="token ${isSelected ? 'selected' : ''}" style="top: ${pos.y}%; left: ${pos.x}%;" onclick="event.stopPropagation(); toggleTacticsSelection(${player.id})">
+                        <span>${initials}</span>
+                        <span class="token-pos">${player.position}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function toggleTacticsSelection(id) {
+            const index = selectedPlayerIds.indexOf(id);
+            if (index > -1) {
+                selectedPlayerIds.splice(index, 1);
+            } else {
+                selectedPlayerIds.push(id);
+            }
+            renderTacticsUI();
+        }
+
+        function updatePlayerPosition(id, posValue) {
+            const player = playersData.find(p => p.id == id);
+            if(player) {
+                player.position = posValue;
+                renderTacticsUI();
+            }
+        }
+
+        function selectAllTacticsPlayers(status) {
+            if (status) {
+                selectedPlayerIds = playersData.map(p => p.id);
+            } else {
+                selectedPlayerIds = [];
+            }
+            renderTacticsUI();
+        }
+
+        function handlePitchClick(e) {
+            if (selectedPlayerIds.length === 0) return;
+            const rect = e.currentTarget.getBoundingClientRect();
+            const baseX = ((e.clientX - rect.left) / rect.width) * 100;
+            const baseY = ((e.clientY - rect.top) / rect.height) * 100;
+
+            selectedPlayerIds.forEach((id, index) => {
+                const offsetX = (index % 3 - 1) * 6;
+                const offsetY = (Math.floor(index / 3)) * 6;
+                let x = Math.max(5, Math.min(95, baseX + offsetX));
+                let y = Math.max(5, Math.min(95, baseY + offsetY));
+                placedPlayers[id] = { x, y };
+            });
+
+            selectedPlayerIds = [];
+            renderTacticsUI();
+        }
+
+        function applyFormation(formName) {
+            const form = formations[formName];
+            if (!form) return;
+            placedPlayers = {};
+            const keys = Object.keys(form);
+            keys.forEach((posIndex, idx) => {
+                if (playersData[idx]) {
+                    placedPlayers[playersData[idx].id] = form[posIndex];
+                }
+            });
+            renderTacticsUI();
+        }
+
+        function clearTactics() {
+            placedPlayers = {};
+            selectedPlayerIds = [];
+            renderTacticsUI();
+        }
+
+        function exportTacticsSnapshot() {
+            const pitchElement = document.getElementById('tactics-pitch-area');
+            if(!pitchElement) return;
+
+            html2canvas(pitchElement, { scale: 2, useCORS: true }).then(canvas => {
+                const imageData = canvas.toDataURL("image/png");
+                
+                const newWindow = window.open("", "_blank");
+                if (newWindow) {
+                    newWindow.document.write(`
+                        <!DOCTYPE html>
+                        <html lang="sv">
+                        <head>
+                            <meta charset="UTF-8">
+                            <title>IF Mölndal P15 - Taktisk Ögonblicksbild</title>
+                            <style>
+                                body { font-family: sans-serif; text-align: center; padding: 2rem; background: #f8f9fa; color: #333; }
+                                h1 { font-size: 1.3rem; margin-bottom: 0.5rem; color: #b71c1c; }
+                                p { font-size: 0.9rem; color: #666; margin-bottom: 1.5rem; }
+                                img { max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border: 2px solid #fff; }
+                                .btn-print { margin-top: 1.5rem; background: #d32f2f; color: white; border: none; padding: 0.75rem 1.5rem; font-size: 1rem; font-weight: bold; border-radius: 6px; cursor: pointer; }
+                                .btn-print:hover { background: #b71c1c; }
+                                @media print {
+                                    .btn-print { display: none; }
+                                    body { padding: 0; background: white; }
+                                }
+                            </style>
+                        </head>
+                        <body>
+                            <h1>IF Mölndal P-2015 – Laguppställning & Taktik</h1>
+                            <p>Skapad: ${new Date().toLocaleDateString('sv-SE')} kl ${new Date().toLocaleTimeString('sv-SE', {hour: '2-digit', minute:'2-digit'})}</p>
+                            <div>
+                                <img src="${imageData}" alt="Taktiktavla">
+                            </div>
+                            <br>
+                            <button class="btn-print" onclick="window.print()">Skriv ut / Spara som PDF</button>
+                        </body>
+                        </html>
+                    `);
+                    newWindow.document.close();
+                } else {
+                    alert("Tillåt popup-fönster i webbläsaren för att öppna ögonblicksbilden.");
+                }
+            }).catch(err => {
+                console.error("Fel vid bildgenerering:", err);
+                alert("Kunde inte skapa ögonblicksbilden.");
+            });
+        }
+
+        function exportGroupsSnapshot() {
+            const resultElement = document.getElementById('groups-result');
+            if(!resultElement || resultElement.style.display === 'none') {
+                alert("Du måste skapa grupper först innan du kan spara/skriva ut dem!");
+                return;
+            }
+
+            html2canvas(resultElement, { scale: 2, useCORS: true }).then(canvas => {
+                const imageData = canvas.toDataURL("image/png");
+                
+                const newWindow = window.open("", "_blank");
+                if (newWindow) {
+                    newWindow.document.write(`
+                        <!DOCTYPE html>
+                        <html lang="sv">
+                        <head>
+                            <meta charset="UTF-8">
+                            <title>IF Mölndal P15 - Träningsgrupper</title>
+                            <style>
+                                body { font-family: sans-serif; text-align: center; padding: 2rem; background: #f8f9fa; color: #333; }
+                                h1 { font-size: 1.3rem; margin-bottom: 0.5rem; color: #b71c1c; }
+                                p { font-size: 0.9rem; color: #666; margin-bottom: 1.5rem; }
+                                img { max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border: 2px solid #fff; }
+                                .btn-print { margin-top: 1.5rem; background: #d32f2f; color: white; border: none; padding: 0.75rem 1.5rem; font-size: 1rem; font-weight: bold; border-radius: 6px; cursor: pointer; }
+                                .btn-print:hover { background: #b71c1c; }
+                                @media print {
+                                    .btn-print { display: none; }
+                                    body { padding: 0; background: white; }
+                                }
+                            </style>
+                        </head>
+                        <body>
+                            <h1>IF Mölndal P-2015 – Dagens Träningsgrupper</h1>
+                            <p>Skapad: ${new Date().toLocaleDateString('sv-SE')} kl ${new Date().toLocaleTimeString('sv-SE', {hour: '2-digit', minute:'2-digit'})}</p>
+                            <div>
+                                <img src="${imageData}" alt="Träningsgrupper">
+                            </div>
+                            <br>
+                            <button class="btn-print" onclick="window.print()">Skriv ut / Spara som PDF</button>
+                        </body>
+                        </html>
+                    `);
+                    newWindow.document.close();
+                } else {
+                    alert("Tillåt popup-fönster i webbläsaren för att öppna ögonblicksbilden.");
+                }
+            }).catch(err => {
+                console.error("Fel vid bildgenerering:", err);
+                alert("Kunde inte skapa ögonblicksbilden.");
+            });
+        }
+
+        function generateWorkout() {
+            const pCount = parseInt(document.getElementById('gen-players').value);
+            const focus = document.getElementById('gen-focus').value;
+            const format = document.getElementById('gen-format').value;
+
+            let matched = exercisesData.filter(ex => (ex.format === format || ex.format === "Båda") && ex.minP <= pCount);
+            
+            let html = `<p><strong>Förutsättningar:</strong> ${pCount} spelare, Fokus: <em>${focus}</em> (${format})</p><hr style="margin:0.5rem 0">`;
+            
+            if(matched.length === 0) {
+                html += `<p>Hittade inga exakta matchningar, visar generella övningar:</p>`;
+                matched = exercisesData;
+            }
+
+            matched.slice(0, 4).forEach(ex => {
+                html += `
+                    <div style="margin-bottom:1rem; padding-bottom:0.5rem; border-bottom:1px solid #f1f3f5;">
+                        <strong>${ex.name}</strong> (${ex.time} min)<br>
+                        <span style="font-size:0.85rem;color:#6c757d">${ex.desc}</span>
+                        ${ex.sketch}
+                    </div>
+                `;
+            });
+
+            document.getElementById('workout-content').innerHTML = html;
+            document.getElementById('workout-result').style.display = 'block';
+        }
+
+        function generateGroups() {
+            let presentPlayers = [];
+            playersData.forEach((p, index) => {
+                const chk = document.getElementById(`player-chk-${index}`);
+                if(chk && chk.checked) {
+                    presentPlayers.push({ name: p.name, level: p.level });
+                }
+            });
+
+            if(presentPlayers.length === 0) {
+                alert("Inga spelare är markerade!");
+                return;
+            }
+
+            const mode = document.getElementById('group-mode').value;
+            const numGroups = parseInt(document.getElementById('num-groups').value);
+
+            let groups = [];
+            for(let i = 0; i < numGroups; i++) { groups.push([]); }
+
+            if (mode === 'balanced') {
+                presentPlayers.sort((a, b) => b.level - a.level);
+                let groupIndex = 0;
+                let increasing = true;
+                presentPlayers.forEach(p => {
+                    groups[groupIndex].push(p);
+                    if (increasing) {
+                        groupIndex++;
+                        if (groupIndex >= numGroups) { groupIndex = numGroups - 1; increasing = false; }
+                    } else {
+                        groupIndex--;
+                        if (groupIndex < 0) { groupIndex = 0; increasing = true; }
+                    }
+                });
+            } else {
+                presentPlayers.sort((a, b) => a.level - b.level);
+                let groupSize = Math.ceil(presentPlayers.length / numGroups);
+                let currentGroup = 0;
+                
+                presentPlayers.forEach(p => {
+                    groups[currentGroup].push(p);
+                    if (groups[currentGroup].length >= groupSize && currentGroup < numGroups - 1) {
+                        currentGroup++;
+                    }
+                });
+            }
+
+            let html = `<p><strong>Totalt på plats:</strong> ${presentPlayers.length} spelare uppdelat på <strong>${numGroups} grupper</strong></p><hr style="margin:0.5rem 0">`;
+            
+            groups.forEach((g, index) => {
+                if(g.length === 0) return;
+                let avgLvl = (g.reduce((sum, p) => sum + p.level, 0) / g.length).toFixed(1);
+                html += `
+                    <div class="group-card">
+                        <h5>Grupp ${index + 1} <span style="font-size:0.75rem; font-weight:normal; color:#6c757d">(${g.length} spelare, Snittnivå: ${avgLvl})</span></h5>
+                        <ul>
+                            ${g.map(p => `<li>${p.name}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            });
+
+            document.getElementById('groups-content').innerHTML = html;
+            document.getElementById('groups-result').style.display = 'block';
+        }
+
+        function askAICoach() {
+            const prompt = document.getElementById('ai-prompt').value.toLowerCase();
+            const answerBox = document.getElementById('ai-response');
+            const answerText = document.getElementById('ai-answer-text');
+
+            if(!prompt.trim()) {
+                alert("Skriv en fråga först!");
+                return;
+            }
+
+            let reply = "Det här är ett viktigt moment för P15-laget! För att lyckas med detta rekommenderar vi att fokusera på tydliga ytor och mycket kommunikation mellan lagdelarna på träning.";
+
+            if(prompt.includes("9v9") || prompt.includes("formation") || prompt.includes("uppställning")) {
+                reply = "För 9v9 rekommenderas ofta 3-3-2 eller 1-3-2-3 som grundformation. Det ger en bra balans på mittfältet och hjälper spelarna att förstå rollerna i uppspelsfasen från 7v7.";
+            } else if(prompt.includes("press") || prompt.includes("försvar")) {
+                reply = "Vid presspel i 9v9 är det viktigt att hela laget flyttar upp och krymper ytan. Använd gärna vår övning 'Presspel & Styrning 4v4' för att träna på att styra mot motståndarens svagare sida.";
+            } else if(prompt.includes("avslut") || prompt.includes("mål")) {
+                reply = "Träna på snabba avslut i straffområdesnära ytor. Eftersom steget till 9v9 ger större mål och ytor är instick bakom backlinjen extra effektiva.";
+            }
+
+            answerText.innerText = reply;
+            answerBox.style.display = 'block';
+        }
+    </script>
+</head>
+<body>
+
+    <header>
+        <div class="header-badge">IFM<br>P15</div>
+        <div class="header-text">
+            <h1>IF Mölndal P-2015</h1>
+            <p>Tränings- & Verksamhetsapp</p>
+        </div>
+    </header>
+
+    <div class="nav-tabs">
+        <button class="tab-btn active" onclick="switchTab('generator', this)">Träning</button>
+        <button class="tab-btn" onclick="switchTab('tactics', this)">Taktik</button>
+        <button class="tab-btn" onclick="switchTab('exercises', this)">Övningar</button>
+        <button class="tab-btn" onclick="switchTab('squad', this)">Trupp</button>
+        <button class="tab-btn" onclick="switchTab('ai-coach', this)">🤖 AI</button>
+    </div>
+
+    <div class="container">
+
+        <!-- TAB 1: TRÄNINGSGENERATOR -->
+        <div id="generator" class="tab-content active">
+            <div class="card">
+                <h2>Skapa Träningspass</h2>
+                <label>Antal spelare på plats:</label>
+                <input type="number" id="gen-players" value="30">
+
+                <label>Antal ledare på plats:</label>
+                <input type="number" id="gen-coaches" value="5">
+
+                <label>Spelform:</label>
+                <select id="gen-format">
+                    <option value="7v7" selected>7 mot 7</option>
+                    <option value="9v9">9 mot 9 (Förberedelse)</option>
+                </select>
+
+                <label>Fokusområde:</label>
+                <select id="gen-focus">
+                    <option value="Spelvändningar">Spelvändningar</option>
+                    <option value="Presspel">Presspel</option>
+                    <option value="Uppspel & Ytor">Uppspel & Ytor</option>
+                    <option value="Avslut">Avslut</option>
+                </select>
+
+                <button class="btn" onclick="generateWorkout()">Generera Träningspass</button>
+            </div>
+
+            <div id="workout-result" class="card" style="display:none;">
+                <h2>Dagens Pass</h2>
+                <div id="workout-content"></div>
+            </div>
+        </div>
+
+        <!-- TAB 2: TAKTIKTAVLA -->
+        <div id="tactics" class="tab-content">
+            <div class="card">
+                <h2>Interaktiv Taktiktavla</h2>
+                <p style="font-size:0.8rem; color:#6c757d; margin-bottom:0.5rem;">Välj formation för 7v7, 9v9 eller 11v11:</p>
+                
+                <div style="display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 0.3rem;">
+                    <button class="btn" style="padding: 0.3rem 0.5rem; font-size: 0.75rem; flex: 1;" onclick="applyFormation('7v7-231')">7v7 (2-3-1)</button>
+                    <button class="btn" style="padding: 0.3rem 0.5rem; font-size: 0.75rem; flex: 1;" onclick="applyFormation('9v9-332')">9v9 (3-3-2)</button>
+                    <button class="btn" style="padding: 0.3rem 0.5rem; font-size: 0.75rem; flex: 1;" onclick="applyFormation('9v9-1323')">9v9 (1-3-2-3)</button>
+                </div>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 0.75rem;">
+                    <button class="btn" style="padding: 0.3rem 0.5rem; font-size: 0.75rem; flex: 1;" onclick="applyFormation('11v11-433')">11v11 (4-3-3)</button>
+                    <button class="btn" style="padding: 0.3rem 0.5rem; font-size: 0.75rem; flex: 1;" onclick="applyFormation('11v11-442')">11v11 (4-4-2)</button>
+                    <button class="btn" style="padding: 0.3rem 0.5rem; font-size: 0.75rem; flex: 1;" onclick="applyFormation('11v11-352')">11v11 (3-5-2)</button>
+                    <button class="btn btn-secondary" style="margin-top:0; padding: 0.3rem 0.5rem; font-size: 0.75rem; width: auto;" onclick="clearTactics()">Rensa</button>
+                </div>
+
+                <label>Välj spelare att placera ut (bocka för en eller flera) & bestäm position:</label>
+                <div style="margin-bottom: 0.4rem; display: flex; gap: 0.5rem;">
+                    <button class="btn" style="padding: 0.3rem; font-size: 0.75rem;" onclick="selectAllTacticsPlayers(true)">Markera alla</button>
+                    <button class="btn btn-secondary" style="margin-top:0; padding: 0.3rem; font-size: 0.75rem;" onclick="selectAllTacticsPlayers(false)">Avmarkera alla</button>
+                </div>
+                <div class="tactics-squad-container" id="tactics-squad-list"></div>
+                <p style="font-size: 0.75rem; color: #6c757d; margin-bottom: 0.75rem;">💡 Klicka på en position på planen efter att du bockat för spelare för att placera ut dem.</p>
+
+                <div id="tactics-pitch-area">
+                    <div class="tactics-pitch" onclick="handlePitchClick(event)">
+                        <div class="pitch-midline"></div>
+                        <div class="pitch-center-circle"></div>
+                        <div class="pitch-goal-top"></div>
+                        <div class="pitch-goal-bottom"></div>
+                        <div id="pitch-tokens"></div>
+                    </div>
+                </div>
+
+                <button class="btn btn-success" onclick="exportTacticsSnapshot()" style="margin-top: 0.5rem;">📸 Spara / Skriv ut ögonblicksbild (PDF)</button>
+            </div>
+        </div>
+
+        <!-- TAB 3: ÖVNINGSBANK -->
+        <div id="exercises" class="tab-content">
+            <div class="card">
+                <h2>Övningsbank</h2>
+                <label>Filtrera efter fokusområde / kategori:</label>
+                <select id="exercise-filter" onchange="renderExercises()">
+                    <option value="all">Alla övningar</option>
+                    <option value="Spelvändningar">Spelvändningar</option>
+                    <option value="Presspel">Presspel</option>
+                    <option value="Uppspel & Ytor">Uppspel & Ytor</option>
+                    <option value="Avslut">Avslut</option>
+                </select>
+                <div id="exercise-list" style="margin-top: 1rem;"></div>
+            </div>
+        </div>
+
+        <!-- TAB 4: TRUPP & GRUPPER -->
+        <div id="squad" class="tab-content">
+            <div class="card">
+                <h2>Trupphantering & Grupper</h2>
+                <p style="font-size:0.85rem; color:#6c757d; margin-bottom:0.75rem;">Hantera truppen och välj hur grupper ska skapas.</p>
+                
+                <div class="add-player-box">
+                    <input type="text" id="new-player-name" placeholder="Ny spelares namn...">
+                    <button class="btn" style="width: auto; padding: 0.6rem 1rem;" onclick="addPlayer()">Lägg till</button>
+                </div>
+
+                <div style="margin-bottom: 0.5rem; display: flex; gap: 0.5rem;">
+                    <button class="btn" style="padding: 0.4rem; font-size: 0.85rem;" onclick="selectAllPlayers(true)">Markera alla</button>
+                    <button class="btn btn-secondary" style="margin-top:0; padding: 0.4rem; font-size: 0.85rem;" onclick="selectAllPlayers(false)">Avmarkera alla</button>
+                </div>
+
+                <div class="player-list-container" id="player-rows"></div>
+
+                <label>Antal grupper för dagen:</label>
+                <select id="num-groups">
+                    <option value="2">2 grupper</option>
+                    <option value="3" selected>3 grupper</option>
+                    <option value="4">4 grupper</option>
+                    <option value="5">5 grupper</option>
+                    <option value="6">6 grupper</option>
+                    <option value="8">8 grupper</option>
+                    <option value="10">10 grupper</option>
+                </select>
+
+                <label>Välj metod för gruppindelning:</label>
+                <select id="group-mode">
+                    <option value="balanced">Jämn fördelning (blandade nivåer i varje grupp)</option>
+                    <option value="stratified">Nivåindelade grupper (spelare på samma nivå i samma grupp)</option>
+                </select>
+
+                <button class="btn" onclick="generateGroups()">Skapa grupper</button>
+            </div>
+
+            <div id="groups-result" class="card" style="display:none;">
+                <h2>Dagens Grupper</h2>
+                <div id="groups-content"></div>
+                <button class="btn btn-success" onclick="exportGroupsSnapshot()" style="margin-top: 1rem;">📸 Spara / Skriv ut grupper (PDF)</button>
+            </div>
+        </div>
+
+        <!-- TAB 5: AI-TRÄNARE -->
+        <div id="ai-coach" class="tab-content">
+            <div class="card">
+                <h2>🤖 Fråga AI-Tränaren</h2>
+                <p style="font-size:0.85rem; color:#6c757d; margin-bottom:0.75rem;">Få direkt stöttning kring övergången från 7v7 till 9v9, taktiktips eller övningsidéer.</p>
+                
+                <label>Vad vill du ha hjälp med?</label>
+                <textarea id="ai-prompt" rows="3" placeholder="T.ex. Hur sätter vi upp en bra 9v9-formation för P15?"></textarea>
+                
+                <button class="btn" onclick="askAICoach()">Fråga AI-rådgivaren</button>
+
+                <div id="ai-response" class="ai-chat-box" style="display:none; margin-top: 1rem;">
+                    <strong>AI-Svar:</strong>
+                    <p id="ai-answer-text" style="margin-top: 0.4rem;"></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
