@@ -126,8 +126,9 @@
         .add-player-box input { margin-bottom: 0; flex: 1; }
 
         .group-card { background: #fff5f5; border: 1px solid #ffc9c9; border-radius: 6px; padding: 0.75rem; margin-bottom: 0.5rem; }
-        .group-card h5 { color: var(--primary); margin-bottom: 0.25rem; }
+        .group-card h5 { color: var(--primary); margin-bottom: 0.25rem; display: flex; justify-content: space-between; align-items: center; }
         .group-card ul { padding-left: 1.2rem; font-size: 0.9rem; }
+        .group-card li { margin-bottom: 0.2rem; }
 
         .ai-chat-box { background: #f1f3f5; border-radius: 6px; padding: 0.75rem; margin-top: 0.5rem; font-size: 0.9rem; }
 
@@ -278,7 +279,7 @@
                 id: "SOD-04", name: "Spelvändning i zonspel 7v7", category: "Spelövning", format: "7v7", focus: "Spelvändningar", time: 25, minP: 12, maxP: 32, 
                 desc: "Planen uppdelad i tre zoner. Bollen måste vändas över ytorna innan anfall avslutas.",
                 sourceName: "Södermanlands FF", sourceUrl: "https://www.svenskfotboll.se/distrikt/sodermanland/",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-circle"></div><div class="sketch-element s-cone" style="top:20%; left:50%;"></div><div class="sketch-element s-cone" style="top:80%; left:50%;"></div></div>`
+                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="pitch-circle"></div><div class="sketch-element s-cone" style="top:20%; left:50%;"></div><div class="sketch-element s-cone" style="top:80%; left:50%;"></div></div>`
             },
             { 
                 id: "SOD-05", name: "Avslutsserie med inlägg & returer", category: "Avslut", format: "7v7", focus: "Avslut", time: 20, minP: 8, maxP: 30, 
@@ -320,7 +321,7 @@
                 id: "VAST-02", name: "Väster Rondo & Spelvändning", category: "Uppvärmning", format: "7v7", focus: "Spelvändningar", time: 15, minP: 8, maxP: 30, 
                 desc: "Utmanande rondo i ytor där laget tränar på att hitta ut till fri yta.",
                 sourceName: "IF Väster (12-14 år)", sourceUrl: "https://www.ifvaster.com/sida/76258/ovningsbank-12-14-ar",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="pitch-circle"></div><div class="sketch-element s-player" style="top:50%; left:40%;">P</div><div class="sketch-element s-ball" style="top:50%; left:60%;"></div></div>`
+                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-circle"></div><div class="sketch-element s-player" style="top:50%; left:40%;">P</div><div class="sketch-element s-ball" style="top:50%; left:60%;"></div></div>`
             },
             { 
                 id: "VAST-03", name: "Väster Presspel i zon (12-14 år)", category: "Smålagsspel", format: "9v9", focus: "Presspel", time: 25, minP: 12, maxP: 35, 
@@ -482,7 +483,6 @@
             ]
         };
 
-        // Lyssna på inloggningsstatus
         document.addEventListener("DOMContentLoaded", function() {
             firebase.auth().onAuthStateChanged(function(user) {
                 const loginOverlay = document.getElementById('login-overlay');
@@ -769,7 +769,7 @@
             }
         }
 
-        /* --- TAKTIK TAVLA LOGIK MED PLATSER --- */
+        /* --- TAKTIKTAVLA LOGIK --- */
         function renderTacticsUI() {
             const tacticsContainer = document.getElementById('tactics-squad-list');
             const pitchTokens = document.getElementById('pitch-tokens');
@@ -928,7 +928,7 @@
         function clearTactics() { placedSlots = {}; selectedPlayerIds = []; savePlacedSlotsToStorage(); renderTacticsUI(); }
 
 
-        /* --- MATCH LOGIK MED PLATSER --- */
+        /* --- MATCH LOGIK --- */
         function renderMatchUI() {
             const squadContainer = document.getElementById('match-squad-list');
             const pitchTokens = document.getElementById('match-pitch-tokens');
@@ -1336,12 +1336,20 @@
             document.getElementById('workout-result').style.display = 'block';
         }
 
+        // Sparade grupper globalt för att kunna skicka till matchfliken
+        let currentGeneratedGroups = [];
+
         function generateGroups(shuffle = false) {
             let presentPlayers = [];
             playersData.forEach((p, index) => {
                 const chk = document.getElementById(`player-chk-${index}`);
                 if(chk && chk.checked) {
-                    presentPlayers.push({ name: p.name, level: parseFloat(getPlayerLevel(p)) });
+                    presentPlayers.push({ 
+                        id: p.id,
+                        name: p.name, 
+                        level: parseFloat(getPlayerLevel(p)),
+                        preferredPositions: p.preferredPositions || [p.position || "MM"]
+                    });
                 }
             });
 
@@ -1378,17 +1386,73 @@
                 });
             }
 
+            currentGeneratedGroups = groups;
+
             let html = `<p>Totalt ${presentPlayers.length} spelare i ${numGroups} grupper:</p><hr style="margin:0.5rem 0">`;
             groups.forEach((g, idx) => {
                 if(g.length === 0) return;
                 let avg = (g.reduce((s, p) => s + p.level, 0) / g.length).toFixed(1);
-                html += `<div class="group-card"><h5>Grupp ${idx + 1} (Snittnivå: ${avg})</h5><ul>${g.map(p => `<li>${p.name}</li>`).join('')}</ul></div>`;
+                html += `
+                    <div class="group-card">
+                        <h5>
+                            <span>Grupp ${idx + 1} (Snittnivå: ${avg})</span>
+                            <button class="btn btn-secondary" style="margin-top:0; width:auto; padding:0.2rem 0.5rem; font-size:0.75rem;" onclick="sendGroupToMatch(${idx})">Skicka till Lag/Match ➔</button>
+                        </h5>
+                        <ul>
+                            ${g.map(p => `<li>${p.name} <span style="font-size:0.75rem; color:#6c757d;">(Pos: ${p.preferredPositions.join(', ')})</span></li>`).join('')}
+                        </ul>
+                    </div>`;
             });
             
             html += `<button class="btn btn-secondary" onclick="generateGroups(true)" style="margin-top:0.5rem;">🔀 Mixa om / Slumpa om grupper</button>`;
 
             document.getElementById('groups-content').innerHTML = html;
             document.getElementById('groups-result').style.display = 'block';
+        }
+
+        function sendGroupToMatch(groupIndex) {
+            const group = currentGeneratedGroups[groupIndex];
+            if (!group || group.length === 0) return;
+
+            // Rensa tidigare matchplaceringar och ersättare
+            matchPlacedSlots = {};
+            matchBenchPlayers = {};
+
+            // Försök placera spelarna i tillgängliga matchslots baserat på deras föredragna positioner
+            let unplaced = [];
+            group.forEach(p => {
+                let placed = false;
+                for (let sk of Object.keys(matchPlacedSlots)) {
+                    if (!matchPlacedSlots[sk].playerId && p.preferredPositions.includes(matchPlacedSlots[sk].role)) {
+                        matchPlacedSlots[sk].playerId = p.id;
+                        placed = true;
+                        break;
+                    }
+                }
+                if (!placed) unplaced.push(p.id);
+            });
+
+            // Om det finns lediga platser kvar i startelvan, placera in resten
+            unplaced.forEach(pid => {
+                for (let sk of Object.keys(matchPlacedSlots)) {
+                    if (!matchPlacedSlots[sk].playerId) {
+                        matchPlacedSlots[sk].playerId = pid;
+                        return;
+                    }
+                }
+                // Om startelvan är full, lägg som ersättare (max 5)
+                if (Object.keys(matchBenchPlayers).length < 5) {
+                    matchBenchPlayers[pid] = true;
+                }
+            });
+
+            saveMatchPlacedSlotsToStorage();
+            renderMatchUI();
+
+            // Byt flik till Lag/Match
+            const matchBtn = document.querySelector('button[onclick*="match"]');
+            if (matchBtn) switchTab('match', matchBtn);
+            alert(`Grupp ${groupIndex + 1} har skickats till Lag/Match-fliken!`);
         }
 
         function askAICoach() {
@@ -1403,7 +1467,7 @@
 </head>
 <body>
 
-    <!-- INLOGGNINGSSLUSK (Låser appen tills inloggning sker) -->
+    <!-- INLOGGNINGSSLUSK -->
     <div id="login-overlay">
         <div class="card" style="width:100%; max-width:400px; text-align:center;">
             <h2>🔒 IF Mölndal P15 - Inloggning</h2>
