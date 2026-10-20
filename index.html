@@ -327,7 +327,7 @@
                 id: "VAST-02", name: "Väster Rondo & Spelvändning", category: "Uppvärmning", format: "7v7", focus: "Spelvändningar", time: 15, minP: 8, maxP: 30, 
                 desc: "Utmanande rondo i ytor där laget tränar på att hitta ut till fri yta.",
                 sourceName: "IF Väster (12-14 år)", sourceUrl: "https://www.ifvaster.com/sida/76258/ovningsbank-12-14-ar",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="pitch-circle"></div><div class="sketch-element s-player" style="top:50%; left:40%;">P</div><div class="sketch-element s-ball" style="top:50%; left:60%;"></div></div>`
+                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-circle"></div><div class="sketch-element s-player" style="top:50%; left:40%;">P</div><div class="sketch-element s-ball" style="top:50%; left:60%;"></div></div>`
             },
             { 
                 id: "VAST-03", name: "Väster Presspel i zon (12-14 år)", category: "Smålagsspel", format: "9v9", focus: "Presspel", time: 25, minP: 12, maxP: 35, 
@@ -531,6 +531,7 @@
             renderMatchUI();
             updateSavedTeamsDropdown();
             updateMatchSavedTeamsDropdown();
+            toggleGroupSettings();
         }
 
         function switchTab(tabId, btn) {
@@ -1339,6 +1340,27 @@
 
         let currentGeneratedGroups = [];
 
+        function toggleGroupSettings() {
+            const mode = document.getElementById('group-mode').value;
+            const numGroupsContainer = document.getElementById('num-groups-container');
+            const levelMethodContainer = document.getElementById('level-method-container');
+            const numGroupsLabel = document.getElementById('num-groups-label');
+            const specificGroupContainer = document.getElementById('specific-group-container');
+
+            if (mode === 'single') {
+                numGroupsContainer.style.display = 'none';
+                specificGroupContainer.style.display = 'block';
+            } else {
+                specificGroupContainer.style.display = 'none';
+                numGroupsContainer.style.display = 'block';
+                if (mode === 'size') {
+                    numGroupsLabel.innerText = "Antal spelare per grupp:";
+                } else {
+                    numGroupsLabel.innerText = "Antal grupper:";
+                }
+            }
+        }
+
         function generateGroups(shuffle = false) {
             let presentPlayers = [];
             playersData.forEach((p, index) => {
@@ -1355,40 +1377,61 @@
 
             if(presentPlayers.length === 0) { alert("Inga spelare markerade!"); return; }
 
-            if (shuffle) {
-                presentPlayers.sort(() => Math.random() - 0.5);
-            }
-
             const mode = document.getElementById('group-mode').value;
-            const numGroups = parseInt(document.getElementById('num-groups').value);
+            let groups = [];
 
-            let groups = Array.from({length: numGroups}, () => []);
-
-            if (mode === 'balanced' && !shuffle) {
-                presentPlayers.sort((a, b) => b.level - a.level);
-                let gIdx = 0, inc = true;
-                presentPlayers.forEach(p => {
-                    groups[gIdx].push(p);
-                    if (inc) { gIdx++; if (gIdx >= numGroups) { gIdx = numGroups - 1; inc = false; } }
-                    else { gIdx--; if (gIdx < 0) { gIdx = 0; inc = true; } }
-                });
-            } else if (mode === 'stratified' && !shuffle) {
-                presentPlayers.sort((a, b) => a.level - b.level);
-                let size = Math.ceil(presentPlayers.length / numGroups);
-                let gIdx = 0;
-                presentPlayers.forEach(p => {
-                    groups[gIdx].push(p);
-                    if (groups[gIdx].length >= size && gIdx < numGroups - 1) gIdx++;
-                });
+            if (mode === 'single') {
+                const groupSize = parseInt(document.getElementById('single-group-size').value) || 5;
+                // Skapa en enda grupp med X spelare (eller dela upp i flera exakt lika stora om man vill, men användaren vill kunna välja en specifik grupp/storlek)
+                // Låt oss slumpa eller ta de första X spelarna beroende på önskemål, eller skapa grupper om X spelare tills alla är klara, och visa en specifik eller alla. 
+                // Om användaren menar "välja en specifik grupp" (t.ex. plocka ut en viss grupp på X spelare):
+                presentPlayers.sort(() => Math.random() - 0.5);
+                let subGroup = presentPlayers.slice(0, groupSize);
+                groups = [subGroup];
             } else {
-                presentPlayers.forEach((p, idx) => {
-                    groups[idx % numGroups].push(p);
-                });
+                if (shuffle || mode === 'random') {
+                    presentPlayers.sort(() => Math.random() - 0.5);
+                }
+
+                const paramVal = parseInt(document.getElementById('num-groups').value) || 3;
+
+                if (mode === 'size') {
+                    let numG = Math.ceil(presentPlayers.length / paramVal);
+                    groups = Array.from({length: numG}, () => []);
+                    presentPlayers.forEach((p, idx) => {
+                        let gIdx = Math.floor(idx / paramVal);
+                        if(gIdx >= numG) gIdx = numG - 1;
+                        groups[gIdx].push(p);
+                    });
+                } else {
+                    groups = Array.from({length: paramVal}, () => []);
+                    if (mode === 'balanced' && !shuffle) {
+                        presentPlayers.sort((a, b) => b.level - a.level);
+                        let gIdx = 0, inc = true;
+                        presentPlayers.forEach(p => {
+                            groups[gIdx].push(p);
+                            if (inc) { gIdx++; if (gIdx >= paramVal) { gIdx = paramVal - 1; inc = false; } }
+                            else { gIdx--; if (gIdx < 0) { gIdx = 0; inc = true; } }
+                        });
+                    } else if (mode === 'stratified' && !shuffle) {
+                        presentPlayers.sort((a, b) => a.level - b.level);
+                        let size = Math.ceil(presentPlayers.length / paramVal);
+                        let gIdx = 0;
+                        presentPlayers.forEach(p => {
+                            groups[gIdx].push(p);
+                            if (groups[gIdx].length >= size && gIdx < paramVal - 1) gIdx++;
+                        });
+                    } else {
+                        presentPlayers.forEach((p, idx) => {
+                            groups[idx % paramVal].push(p);
+                        });
+                    }
+                }
             }
 
             currentGeneratedGroups = groups;
 
-            let html = `<p>Totalt ${presentPlayers.length} spelare i ${numGroups} grupper:</p><hr style="margin:0.5rem 0">`;
+            let html = `<p>Totalt ${presentPlayers.length} spelare i ${groups.length} grupp(er):</p><hr style="margin:0.5rem 0">`;
             groups.forEach((g, idx) => {
                 if(g.length === 0) return;
                 let avg = (g.reduce((s, p) => s + p.level, 0) / g.length).toFixed(1);
@@ -1414,7 +1457,6 @@
             const group = currentGeneratedGroups[groupIndex];
             if (!group || group.length === 0) return;
 
-            // Rensa tidigare placeringar och bänk inför överflyttning
             matchPlacedSlots = {};
             matchBenchPlayers = {};
 
@@ -1794,20 +1836,30 @@
                 </div>
                 <div class="player-list-container" id="player-rows"></div>
 
-                <label>Antal grupper:</label>
-                <select id="num-groups">
-                    <option value="2">2 grupper</option>
-                    <option value="3" selected>3 grupper</option>
-                    <option value="4">4 grupper</option>
-                    <option value="5">5 grupper</option>
-                    <option value="6">6 grupper</option>
-                </select>
-
-                <label>Metod:</label>
-                <select id="group-mode">
+                <label>Välj metod för gruppindelning:</label>
+                <select id="group-mode" onchange="toggleGroupSettings()">
+                    <option value="random">Slumpmässiga grupper (utan nivåhänsyn)</option>
+                    <option value="size">Bestäm antal spelare per grupp</option>
+                    <option value="single">Välj ut en specifik grupp (storlek)</option>
                     <option value="balanced">Jämn fördelning (blandade nivåer)</option>
                     <option value="stratified">Nivåindelade grupper (samma nivå i grupp)</option>
                 </select>
+
+                <div id="num-groups-container">
+                    <label id="num-groups-label">Antal grupper:</label>
+                    <select id="num-groups">
+                        <option value="2">2 grupper</option>
+                        <option value="3" selected>3 grupper</option>
+                        <option value="4">4 grupper</option>
+                        <option value="5">5 grupper</option>
+                        <option value="6">6 grupper</option>
+                    </select>
+                </div>
+
+                <div id="specific-group-container" style="display:none;">
+                    <label>Antal spelare i gruppen:</label>
+                    <input type="number" id="single-group-size" value="7" min="1" max="50">
+                </div>
 
                 <button class="btn" onclick="generateGroups(false)">Skapa grupper</button>
             </div>
