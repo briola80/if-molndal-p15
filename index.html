@@ -186,6 +186,12 @@
 
         const exercisesData = [
             { 
+                id: "INSTA-01", name: "Inspo-övning (Kombinationsspel & Avslut)", category: "Teknik/Passing", format: "7v7", focus: "Uppspel & Ytor", time: 15, minP: 6, maxP: 30, 
+                desc: "Dynamiskt kombinationsspel med passning, väggspel och snabbt avslut inspirerat via inspirationsflöde.",
+                sourceName: "Reel / Inspo", sourceUrl: "https://www.instagram.com/reel/DepEEokhK-Z/?cplk=bzlqaDFwMDI3cHBu",
+                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:40%; left:30%;">P1</div><div class="sketch-element s-player" style="top:60%; left:50%;">P2</div><div class="sketch-element s-ball" style="top:50%; left:40%;"></div></div>`
+            },
+            { 
                 id: "UPP-01", name: "Rondo med ytväxling", category: "Uppvärmning", format: "7v7", focus: "Spelvändningar", time: 15, minP: 8, maxP: 35, 
                 desc: "Spelare i ring med ytor, fokus på snabba fötter och öppen kroppsställning.",
                 sourceName: "SvFF / Egen", sourceUrl: "https://www.svenskfotboll.se",
@@ -279,7 +285,7 @@
                 id: "SOD-04", name: "Spelvändning i zonspel 7v7", category: "Spelövning", format: "7v7", focus: "Spelvändningar", time: 25, minP: 12, maxP: 32, 
                 desc: "Planen uppdelad i tre zoner. Bollen måste vändas över ytorna innan anfall avslutas.",
                 sourceName: "Södermanlands FF", sourceUrl: "https://www.svenskfotboll.se/distrikt/sodermanland/",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="pitch-circle"></div><div class="sketch-element s-cone" style="top:20%; left:50%;"></div><div class="sketch-element s-cone" style="top:80%; left:50%;"></div></div>`
+                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-circle"></div><div class="sketch-element s-cone" style="top:20%; left:50%;"></div><div class="sketch-element s-cone" style="top:80%; left:50%;"></div></div>`
             },
             { 
                 id: "SOD-05", name: "Avslutsserie med inlägg & returer", category: "Avslut", format: "7v7", focus: "Avslut", time: 20, minP: 8, maxP: 30, 
@@ -321,7 +327,7 @@
                 id: "VAST-02", name: "Väster Rondo & Spelvändning", category: "Uppvärmning", format: "7v7", focus: "Spelvändningar", time: 15, minP: 8, maxP: 30, 
                 desc: "Utmanande rondo i ytor där laget tränar på att hitta ut till fri yta.",
                 sourceName: "IF Väster (12-14 år)", sourceUrl: "https://www.ifvaster.com/sida/76258/ovningsbank-12-14-ar",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-circle"></div><div class="sketch-element s-player" style="top:50%; left:40%;">P</div><div class="sketch-element s-ball" style="top:50%; left:60%;"></div></div>`
+                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="pitch-circle"></div><div class="sketch-element s-player" style="top:50%; left:40%;">P</div><div class="sketch-element s-ball" style="top:50%; left:60%;"></div></div>`
             },
             { 
                 id: "VAST-03", name: "Väster Presspel i zon (12-14 år)", category: "Smålagsspel", format: "9v9", focus: "Presspel", time: 25, minP: 12, maxP: 35, 
@@ -1106,11 +1112,6 @@
 
         function assignPlayerToMatchRole(id, val) {
             if (val === 'ERSATTARE') {
-                if(Object.keys(matchBenchPlayers).length >= 5 && matchBenchPlayers[id] === undefined) {
-                    alert("Max 5 ersättare tillåtna!");
-                    renderMatchUI();
-                    return;
-                }
                 matchBenchPlayers[id] = true;
                 Object.keys(matchPlacedSlots).forEach(sk => {
                     if(matchPlacedSlots[sk].playerId === id) matchPlacedSlots[sk].playerId = null;
@@ -1336,7 +1337,6 @@
             document.getElementById('workout-result').style.display = 'block';
         }
 
-        // Sparade grupper globalt för att kunna skicka till matchfliken
         let currentGeneratedGroups = [];
 
         function generateGroups(shuffle = false) {
@@ -1395,7 +1395,7 @@
                 html += `
                     <div class="group-card">
                         <h5>
-                            <span>Grupp ${idx + 1} (Snittnivå: ${avg})</span>
+                            <span>Grupp ${idx + 1} (${g.length} spelare, Snittnivå: ${avg})</span>
                             <button class="btn btn-secondary" style="margin-top:0; width:auto; padding:0.2rem 0.5rem; font-size:0.75rem;" onclick="sendGroupToMatch(${idx})">Skicka till Lag/Match ➔</button>
                         </h5>
                         <ul>
@@ -1414,45 +1414,65 @@
             const group = currentGeneratedGroups[groupIndex];
             if (!group || group.length === 0) return;
 
-            // Rensa tidigare matchplaceringar och ersättare
+            // Rensa tidigare placeringar och bänk inför överflyttning
             matchPlacedSlots = {};
             matchBenchPlayers = {};
 
-            // Försök placera spelarna i tillgängliga matchslots baserat på deras föredragna positioner
+            if (Object.keys(matchPlacedSlots).length === 0) {
+                const defaultSlots = formationSlots["7v7-231"];
+                defaultSlots.forEach((s, idx) => {
+                    const slotKey = `match_slot_${idx}`;
+                    matchPlacedSlots[slotKey] = {
+                        posName: s.posName,
+                        role: s.role,
+                        coord: s.coord,
+                        playerId: null
+                    };
+                });
+            }
+
             let unplaced = [];
+
             group.forEach(p => {
                 let placed = false;
-                for (let sk of Object.keys(matchPlacedSlots)) {
-                    if (!matchPlacedSlots[sk].playerId && p.preferredPositions.includes(matchPlacedSlots[sk].role)) {
-                        matchPlacedSlots[sk].playerId = p.id;
-                        placed = true;
-                        break;
+                const prefs = p.preferredPositions || ["MM"];
+                
+                for (let pref of prefs) {
+                    for (let sk of Object.keys(matchPlacedSlots)) {
+                        if (!matchPlacedSlots[sk].playerId && matchPlacedSlots[sk].role.toLowerCase() === pref.toLowerCase()) {
+                            matchPlacedSlots[sk].playerId = p.id;
+                            placed = true;
+                            break;
+                        }
+                    }
+                    if (placed) break;
+                }
+
+                if (!placed) {
+                    for (let sk of Object.keys(matchPlacedSlots)) {
+                        if (!matchPlacedSlots[sk].playerId) {
+                            matchPlacedSlots[sk].playerId = p.id;
+                            placed = true;
+                            break;
+                        }
                     }
                 }
-                if (!placed) unplaced.push(p.id);
+
+                if (!placed) {
+                    unplaced.push(p.id);
+                }
             });
 
-            // Om det finns lediga platser kvar i startelvan, placera in resten
             unplaced.forEach(pid => {
-                for (let sk of Object.keys(matchPlacedSlots)) {
-                    if (!matchPlacedSlots[sk].playerId) {
-                        matchPlacedSlots[sk].playerId = pid;
-                        return;
-                    }
-                }
-                // Om startelvan är full, lägg som ersättare (max 5)
-                if (Object.keys(matchBenchPlayers).length < 5) {
-                    matchBenchPlayers[pid] = true;
-                }
+                matchBenchPlayers[pid] = true;
             });
 
             saveMatchPlacedSlotsToStorage();
             renderMatchUI();
 
-            // Byt flik till Lag/Match
             const matchBtn = document.querySelector('button[onclick*="match"]');
             if (matchBtn) switchTab('match', matchBtn);
-            alert(`Grupp ${groupIndex + 1} har skickats till Lag/Match-fliken!`);
+            alert(`Grupp ${groupIndex + 1} har skickats till Lag/Match-fliken (${group.length} spelare utplacerade efter profil/position)!`);
         }
 
         function askAICoach() {
@@ -1700,7 +1720,7 @@
         <!-- TAB 4: LAG / MATCH -->
         <div id="match" class="tab-content">
             <div class="card" id="match-export-container">
-                <h2 class="no-print">⚽ Matchlag & Ersättare (Max 5 st)</h2>
+                <h2 class="no-print">⚽ Matchlag & Ersättare</h2>
                 
                 <div class="no-print" style="background: #f1f3f5; padding: 0.6rem; border-radius: 6px; margin-bottom: 0.75rem; display: flex; flex-direction: column; gap: 0.4rem;">
                     <label style="margin-bottom:0;">Sparade matchtrupper:</label>
@@ -1752,7 +1772,7 @@
                     </div>
                     
                     <div class="pitch-sideline-bench">
-                        <h4>💺 Ersättare</h4>
+                        <h4>💺 Ersättare / Avbytare</h4>
                         <div id="match-sideline-bench-content"></div>
                     </div>
                 </div>
