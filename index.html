@@ -47,6 +47,7 @@
 
         .card { background: var(--card-bg); border-radius: 8px; padding: 1rem; margin-bottom: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border: 1px solid var(--border); }
         h2 { font-size: 1.1rem; margin-bottom: 0.75rem; color: var(--primary-dark); }
+        h3 { font-size: 1rem; margin-bottom: 0.5rem; color: var(--primary-dark); }
         
         label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.25rem; color: #495057; }
         select, input, textarea { width: 100%; padding: 0.6rem; margin-bottom: 0.75rem; border: 1px solid var(--border); border-radius: 6px; font-size: 1rem; background: white; }
@@ -172,8 +173,22 @@
         };
         firebase.initializeApp(firebaseConfig);
 
-        // Övningsbanken är nu helt tom som begärt
-        const exercisesData = [];
+        // Inbäddad komplett övningsbank (407 övningar)
+        const baseExercisesData = [
+            {"id": 1, "name": "3 mot 3 + neutral spelare", "category": "Teknik", "focus": "Uppspel & Ytor", "time": 15, "format": "7v7", "minP": 6, "desc": "Träningsövning hämtad från Coach Truly.", "sourceUrl": "https://coachtruly.com/ovning/3-mot-3-neutral-spelare"},
+            {"id": 2, "name": "4 mot 2 rondo med riktning", "category": "Teknik", "focus": "Uppspel & Ytor", "time": 15, "format": "7v7", "minP": 6, "desc": "Träningsövning hämtad från Coach Truly.", "sourceUrl": "https://coachtruly.com/ovning/4-mot-2-rondo-med-riktning"},
+            {"id": 3, "name": "Spelvändning 3v2", "category": "Teknik", "focus": "Spelvändningar", "time": 15, "format": "7v7", "minP": 6, "desc": "Träningsövning hämtad från Coach Truly.", "sourceUrl": "https://coachtruly.com/"},
+            {"id": 4, "name": "Presspel 2v2 + 1", "category": "Teknik", "focus": "Presspel", "time": 15, "format": "7v7", "minP": 6, "desc": "Träningsövning hämtad från Coach Truly.", "sourceUrl": "https://coachtruly.com/"},
+            {"id": 5, "name": "Skottövning och avslut", "category": "Teknik", "focus": "Avslut", "time": 15, "format": "7v7", "minP": 6, "desc": "Träningsövning hämtad från Coach Truly.", "sourceUrl": "https://coachtruly.com/"},
+            {"id": 6, "name": "Hörnor och fasta situationer", "category": "Teknik", "focus": "Fasta situationer", "time": 15, "format": "7v7", "minP": 6, "desc": "Träningsövning hämtad från Coach Truly.", "sourceUrl": "https://coachtruly.com/"},
+            {"id": 7, "name": "Målvaktsspel 1v1", "category": "Målvakt", "focus": "Målvakt", "time": 15, "format": "7v7", "minP": 4, "desc": "Träningsövning hämtad från Coach Truly.", "sourceUrl": "https://coachtruly.com/"}
+        ];
+
+        let customExercisesData = JSON.parse(localStorage.getItem('if_molndal_custom_exercises_v1')) || [];
+
+        function getAllExercises() {
+            return [...baseExercisesData, ...customExercisesData];
+        }
 
         const defaultPlayers = [
             { id: 1, name: "Alexander Hardless", tact: 2, tech: 2, ment: 2, phys: 2, position: "MM", preferredPositions: ["MM"] },
@@ -297,7 +312,7 @@
             });
         });
 
-        function handleLogin() {
+        window.handleLogin = function() {
             const email = document.getElementById('login-email').value.trim();
             const pass = document.getElementById('login-password').value;
             const errBox = document.getElementById('login-error');
@@ -313,11 +328,11 @@
                     errBox.innerText = "Felaktig e-post eller lösenord.";
                     errBox.style.display = 'block';
                 });
-        }
+        };
 
-        function handleLogout() {
+        window.handleLogout = function() {
             firebase.auth().signOut();
-        }
+        };
 
         function initializeAppUI() {
             renderExercises();
@@ -330,13 +345,13 @@
             toggleGroupSettings();
         }
 
-        function switchTab(tabId, btn) {
+        window.switchTab = function(tabId, btn) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
             btn.classList.add('active');
             window.scrollTo(0, 0);
-        }
+        };
 
         function savePlayersToStorage() {
             localStorage.setItem('if_molndal_players_v7', JSON.stringify(playersData));
@@ -359,6 +374,42 @@
             return Math.max(1, Math.min(5, Math.round(val)));
         }
 
+        window.addCustomExercise = function() {
+            const name = document.getElementById('custom-ex-name').value.trim();
+            if (!name) { alert("Ange ett namn på övningen."); return; }
+            
+            const newEx = {
+                id: 'custom_' + Date.now(),
+                name: name,
+                category: document.getElementById('custom-ex-cat').value,
+                focus: document.getElementById('custom-ex-focus').value,
+                time: parseInt(document.getElementById('custom-ex-time').value) || 15,
+                format: document.getElementById('custom-ex-format').value,
+                minP: parseInt(document.getElementById('custom-ex-minp').value) || 6,
+                desc: document.getElementById('custom-ex-desc').value.trim() || "Egen tillagd övning.",
+                sourceUrl: document.getElementById('custom-ex-url').value.trim() || "#",
+                isCustom: true
+            };
+
+            customExercisesData.push(newEx);
+            localStorage.setItem('if_molndal_custom_exercises_v1', JSON.stringify(customExercisesData));
+            
+            document.getElementById('custom-ex-name').value = "";
+            document.getElementById('custom-ex-desc').value = "";
+            document.getElementById('custom-ex-url').value = "";
+
+            renderExercises();
+            alert(`Övningen "${name}" har sparats i övningsbanken!`);
+        };
+
+        window.removeCustomExercise = function(id) {
+            if (confirm("Vill du ta bort denna egna övning?")) {
+                customExercisesData = customExercisesData.filter(ex => ex.id !== id);
+                localStorage.setItem('if_molndal_custom_exercises_v1', JSON.stringify(customExercisesData));
+                renderExercises();
+            }
+        };
+
         function renderExercises() {
             const list = document.getElementById('exercise-list');
             const counterDiv = document.getElementById('exercise-counter');
@@ -369,29 +420,31 @@
                 selectedFocuses.push(chk.value);
             });
 
-            let filtered = exercisesData;
-            if (selectedFocuses.length > 0 && exercisesData.length > 0) {
-                filtered = exercisesData.filter(ex => selectedFocuses.includes(ex.focus));
-            } else {
-                filtered = [];
+            const allEx = getAllExercises();
+            let filtered = allEx;
+            if (selectedFocuses.length > 0 && allEx.length > 0) {
+                filtered = allEx.filter(ex => selectedFocuses.includes(ex.focus));
             }
 
             if (counterDiv) {
-                counterDiv.innerHTML = `<strong>Antal övningar:</strong> Visar <strong>${filtered.length}</strong> av totalt <strong>${exercisesData.length}</strong> övningar i databasen.`;
+                counterDiv.innerHTML = `<strong>Antal övningar:</strong> Visar <strong>${filtered.length}</strong> av totalt <strong>${allEx.length}</strong> övningar (${baseExercisesData.length} från länkbanken, ${customExercisesData.length} egna).`;
             }
 
             if(filtered.length === 0) {
-                list.innerHTML = '<p style="color:#6c757d; font-size:0.9rem;">Inga övningar i databasen.</p>';
+                list.innerHTML = '<p style="color:#6c757d; font-size:0.9rem;">Inga övningar matchar det valda filtret.</p>';
                 return;
             }
 
             list.innerHTML = filtered.map(ex => `
                 <div class="exercise-item">
-                    <h4>${ex.name} (${ex.time} min) [${ex.format}]</h4>
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                        <h4>${ex.name} (${ex.time} min) [${ex.format}] ${ex.isCustom ? '<span style="background:#e8f5e9; color:#2e7d32; font-size:0.65rem; padding:0.1rem 0.3rem; border-radius:4px; border:1px solid #c8e6c9;">Egen</span>' : ''}</h4>
+                        ${ex.isCustom ? `<button class="btn btn-danger" style="padding:0.1rem 0.3rem; font-size:0.7rem; width:auto; margin-bottom:0;" onclick="removeCustomExercise('${ex.id}')">Ta bort</button>` : ''}
+                    </div>
                     <p><strong>Kategori:</strong> ${ex.category} | <strong>Fokus:</strong> ${ex.focus}</p>
                     <p>${ex.desc}</p>
                     <div class="exercise-source">
-                        <a href="${ex.sourceUrl}" target="_blank">🔗 Visa övning på Coach Truly ↗</a>
+                        <a href="${ex.sourceUrl}" target="_blank">${ex.isCustom && ex.sourceUrl === '#' ? 'Egen övning' : '🔗 Visa övning på Coach Truly ↗'}</a>
                     </div>
                 </div>
             `).join('');
@@ -431,7 +484,7 @@
             }).join('');
         }
 
-        function updatePlayerPreferredPos(id, pos, isChecked) {
+        window.updatePlayerPreferredPos = function(id, pos, isChecked) {
             const player = playersData.find(p => p.id === id);
             if (!player) return;
             if(!player.preferredPositions) player.preferredPositions = [];
@@ -448,9 +501,9 @@
             renderTacticsUI();
             renderMatchUI();
             renderPlayerRows();
-        }
+        };
 
-        function sortMatrix(col) {
+        window.sortMatrix = function(col) {
             if (currentSortCol === col) {
                 sortAsc = !sortAsc;
             } else {
@@ -481,7 +534,7 @@
             renderPlayerRows();
             renderTacticsUI();
             renderMatchUI();
-        }
+        };
 
         function renderMatrixTable() {
             const tbody = document.getElementById('matrix-tbody');
@@ -504,7 +557,7 @@
             }).join('');
         }
 
-        function updateScore(index, field, val) {
+        window.updateScore = function(index, field, val) {
             let num = parseInt(val);
             if(isNaN(num)) num = 1;
             if(num < 1) num = 1;
@@ -515,9 +568,9 @@
             renderPlayerRows();
             renderTacticsUI();
             renderMatchUI();
-        }
+        };
 
-        function addPlayer() {
+        window.addPlayer = function() {
             const nameInput = document.getElementById('new-player-name');
             const name = nameInput.value.trim();
             if (!name) { alert("Skriv in ett namn."); return; }
@@ -528,9 +581,9 @@
             renderMatrixTable();
             renderTacticsUI();
             renderMatchUI();
-        }
+        };
 
-        function removePlayer(id) {
+        window.removePlayer = function(id) {
             const pToRemove = playersData.find(p => p.id === id);
             if(pToRemove && confirm(`Ta bort ${pToRemove.name}?`)) {
                 playersData = playersData.filter(p => p.id !== id);
@@ -554,16 +607,16 @@
                 renderTacticsUI();
                 renderMatchUI();
             }
-        }
+        };
 
-        function selectAllPlayers(status) {
+        window.selectAllPlayers = function(status) {
             playersData.forEach((_, index) => {
                 const chk = document.getElementById(`player-chk-${index}`);
                 if(chk) chk.checked = status;
             });
-        }
+        };
 
-        function toggleFocusChip(element) {
+        window.toggleFocusChip = function(element) {
             const chk = element.querySelector('input');
             if (chk) {
                 chk.checked = !chk.checked;
@@ -576,7 +629,7 @@
             if (chk && chk.classList.contains('ex-focus-chk')) {
                 renderExercises();
             }
-        }
+        };
 
         function renderTacticsUI() {
             const tacticsContainer = document.getElementById('tactics-squad-list');
@@ -670,18 +723,18 @@
             }).join('');
         }
 
-        function toggleTacticsSelection(id) {
+        window.toggleTacticsSelection = function(id) {
             const index = selectedPlayerIds.indexOf(id);
             if (index > -1) { selectedPlayerIds.splice(index, 1); } else { selectedPlayerIds.push(id); }
             renderTacticsUI();
-        }
+        };
 
-        function selectAllTacticsPlayers(status) {
+        window.selectAllTacticsPlayers = function(status) {
             selectedPlayerIds = status ? playersData.map(p => p.id) : [];
             renderTacticsUI();
-        }
+        };
 
-        function applyFormation(formName) {
+        window.applyFormation = function(formName) {
             const slots = formationSlots[formName];
             if (!slots) return;
             placedSlots = {};
@@ -696,9 +749,9 @@
             });
             savePlacedSlotsToStorage();
             renderTacticsUI();
-        }
+        };
 
-        function assignPlayerToTacticsRole(id, slotKey) {
+        window.assignPlayerToTacticsRole = function(id, slotKey) {
             Object.keys(placedSlots).forEach(sk => {
                 if(placedSlots[sk].playerId === id) placedSlots[sk].playerId = null;
             });
@@ -707,9 +760,9 @@
             }
             savePlacedSlotsToStorage();
             renderTacticsUI();
-        }
+        };
 
-        function handleSlotClick(slotKey) {
+        window.handleSlotClick = function(slotKey) {
             const slot = placedSlots[slotKey];
             if (!slot) return;
 
@@ -729,9 +782,9 @@
             }
             savePlacedSlotsToStorage();
             renderTacticsUI();
-        }
+        };
 
-        function clearTactics() { placedSlots = {}; selectedPlayerIds = []; savePlacedSlotsToStorage(); renderTacticsUI(); }
+        window.clearTactics = function() { placedSlots = {}; selectedPlayerIds = []; savePlacedSlotsToStorage(); renderTacticsUI(); };
 
         function renderMatchUI() {
             const squadContainer = document.getElementById('match-squad-list');
@@ -868,7 +921,7 @@
             }
         }
 
-        function applyMatchFormation(formName) {
+        window.applyMatchFormation = function(formName) {
             const slots = formationSlots[formName];
             if (!slots) return;
             matchPlacedSlots = {};
@@ -883,9 +936,9 @@
             });
             saveMatchPlacedSlotsToStorage();
             renderMatchUI();
-        }
+        };
 
-        function handleMatchSlotClick(slotKey) {
+        window.handleMatchSlotClick = function(slotKey) {
             const slot = matchPlacedSlots[slotKey];
             if (!slot) return;
 
@@ -906,9 +959,9 @@
             }
             saveMatchPlacedSlotsToStorage();
             renderMatchUI();
-        }
+        };
 
-        function assignPlayerToMatchRole(id, val) {
+        window.assignPlayerToMatchRole = function(id, val) {
             if (val === 'ERSATTARE') {
                 matchBenchPlayers[id] = true;
                 Object.keys(matchPlacedSlots).forEach(sk => {
@@ -925,34 +978,34 @@
             }
             saveMatchPlacedSlotsToStorage();
             renderMatchUI();
-        }
+        };
 
-        function removeFromMatchBench(id) {
+        window.removeFromMatchBench = function(id) {
             delete matchBenchPlayers[id];
             saveMatchPlacedSlotsToStorage();
             renderMatchUI();
-        }
+        };
 
-        function toggleMatchSelection(id) {
+        window.toggleMatchSelection = function(id) {
             const index = matchSelectedPlayerIds.indexOf(id);
             if (index > -1) { matchSelectedPlayerIds.splice(index, 1); } else { matchSelectedPlayerIds.push(id); }
             renderMatchUI();
-        }
+        };
 
-        function selectAllMatchPlayers(status) {
+        window.selectAllMatchPlayers = function(status) {
             matchSelectedPlayerIds = status ? playersData.map(p => p.id) : [];
             renderMatchUI();
-        }
+        };
 
-        function clearMatchTactics() { 
+        window.clearMatchTactics = function() { 
             matchPlacedSlots = {}; 
             matchBenchPlayers = {}; 
             matchSelectedPlayerIds = []; 
             saveMatchPlacedSlotsToStorage(); 
             renderMatchUI(); 
-        }
+        };
 
-        function saveCurrentMatchTeamAsNamed() {
+        window.saveCurrentMatchTeamAsNamed = function() {
             const teamName = prompt("Ange namn på matchtrupp/lag (t.ex. Match mot Fässberg):");
             if (!teamName || !teamName.trim()) return;
             let savedTeams = JSON.parse(localStorage.getItem('if_molndal_saved_match_teams')) || {};
@@ -964,7 +1017,7 @@
             localStorage.setItem('if_molndal_saved_match_teams', JSON.stringify(savedTeams));
             updateMatchSavedTeamsDropdown();
             alert(`Matchlaget "${teamName}" har sparats!`);
-        }
+        };
 
         function updateMatchSavedTeamsDropdown() {
             const selectEl = document.getElementById('match-saved-teams-select');
@@ -978,7 +1031,7 @@
             selectEl.innerHTML = '<option value="">-- Välj sparat matchlag --</option>' + keys.map(name => `<option value="${name}">${name}</option>`).join('');
         }
 
-        function loadSelectedMatchTeam() {
+        window.loadSelectedMatchTeam = function() {
             const selectEl = document.getElementById('match-saved-teams-select');
             const teamName = selectEl.value;
             if(!teamName) return;
@@ -996,9 +1049,9 @@
                 renderMatrixTable();
                 alert(`Matchlaget "${teamName}" har laddats!`);
             }
-        }
+        };
 
-        function exportMatchSnapshot() {
+        window.exportMatchSnapshot = function() {
             const containerElement = document.getElementById('match-export-container');
             if(!containerElement) return;
             html2canvas(containerElement, { scale: 2, useCORS: true }).then(canvas => {
@@ -1009,9 +1062,9 @@
                     win.document.close();
                 }
             });
-        }
+        };
 
-        function saveCurrentTeamAsNamed() {
+        window.saveCurrentTeamAsNamed = function() {
             const teamName = prompt("Ange namn på laguppställningen (t.ex. Matchlag Blå):");
             if (!teamName || !teamName.trim()) return;
             let savedTeams = JSON.parse(localStorage.getItem('if_molndal_saved_teams')) || {};
@@ -1022,7 +1075,7 @@
             localStorage.setItem('if_molndal_saved_teams', JSON.stringify(savedTeams));
             updateSavedTeamsDropdown();
             alert(`Laget "${teamName}" har sparats!`);
-        }
+        };
 
         function updateSavedTeamsDropdown() {
             const selectEl = document.getElementById('saved-teams-select');
@@ -1036,7 +1089,7 @@
             selectEl.innerHTML = '<option value="">-- Välj sparat lag --</option>' + keys.map(name => `<option value="${name}">${name}</option>`).join('');
         }
 
-        function loadSelectedTeam() {
+        window.loadSelectedTeam = function() {
             const selectEl = document.getElementById('saved-teams-select');
             const teamName = selectEl.value;
             if(!teamName) return;
@@ -1053,9 +1106,9 @@
                 renderMatrixTable();
                 alert(`Laget "${teamName}" har laddats!`);
             }
-        }
+        };
 
-        function exportTacticsSnapshot() {
+        window.exportTacticsSnapshot = function() {
             const pitchElement = document.getElementById('tactics-pitch-area');
             if(!pitchElement) return;
             html2canvas(pitchElement, { scale: 2, useCORS: true }).then(canvas => {
@@ -1066,9 +1119,9 @@
                     win.document.close();
                 }
             });
-        }
+        };
 
-        function exportGroupsSnapshot() {
+        window.exportGroupsSnapshot = function() {
             const resultElement = document.getElementById('groups-result');
             if(!resultElement || resultElement.style.display === 'none') { alert("Skapa grupper först!"); return; }
             html2canvas(resultElement, { scale: 2, useCORS: true }).then(canvas => {
@@ -1079,10 +1132,11 @@
                     win.document.close();
                 }
             });
-        }
+        };
 
-        function generateWorkout() {
-            if (exercisesData.length === 0) {
+        window.generateWorkout = function() {
+            const allEx = getAllExercises();
+            if (allEx.length === 0) {
                 alert("Övningsbanken är tom. Lägg till övningar först.");
                 return;
             }
@@ -1103,9 +1157,9 @@
             let selectedExercises = [];
             
             let warmUpTime = Math.min(15, Math.max(10, Math.round(totalDuration * 0.2)));
-            let availableWarmups = exercisesData.filter(ex => ex.category === "Uppvärmning" && ex.minP <= pCount);
-            if(availableWarmups.length === 0) availableWarmups = exercisesData.filter(ex => ex.category === "Uppvärmning");
-            let warmupEx = availableWarmups[Math.floor(Math.random() * availableWarmups.length)] || exercisesData[0];
+            let availableWarmups = allEx.filter(ex => ex.category === "Uppvärmning" && ex.minP <= pCount);
+            if(availableWarmups.length === 0) availableWarmups = allEx.filter(ex => ex.category === "Uppvärmning");
+            let warmupEx = availableWarmups[Math.floor(Math.random() * availableWarmups.length)] || allEx[0];
             if(warmupEx) {
                 selectedExercises.push({ ...warmupEx, customTime: warmUpTime, roleTitle: "Uppvärmning" });
             }
@@ -1114,8 +1168,8 @@
             let timePerFocus = Math.floor(remainingTime / selectedFocuses.length);
             
             selectedFocuses.forEach(focus => {
-                let matches = exercisesData.filter(ex => ex.focus === focus && ex.minP <= pCount);
-                if(matches.length === 0) matches = exercisesData.filter(ex => ex.focus === focus);
+                let matches = allEx.filter(ex => ex.focus === focus && ex.minP <= pCount);
+                if(matches.length === 0) matches = allEx.filter(ex => ex.focus === focus);
                 if(matches.length > 0) {
                     let chosen = matches[Math.floor(Math.random() * matches.length)];
                     selectedExercises.push({ ...chosen, customTime: timePerFocus, roleTitle: `Fokus: ${focus}` });
@@ -1130,17 +1184,17 @@
                         <span style="font-size:0.75rem; font-weight:bold; color:#d32f2f;">Del ${index + 1} (${ex.customTime} min) – ${ex.roleTitle}</span><br>
                         <strong>${ex.name}</strong> <span style="font-size:0.75rem; color:#6c757d">[${ex.format}]</span><br>
                         <span style="font-size:0.85rem;color:#6c757d">${ex.desc}</span>
-                        <div style="font-size:0.75rem; margin-top:0.3rem;"><a href="${ex.sourceUrl}" target="_blank" style="color:#1976d2; font-weight:600; text-decoration:none;">🔗 Visa övning på Coach Truly ↗</a></div>
+                        <div style="font-size:0.75rem; margin-top:0.3rem;"><a href="${ex.sourceUrl}" target="_blank" style="color:#1976d2; font-weight:600; text-decoration:none;">🔗 Visa övning ↗</a></div>
                     </div>
                 `;
             });
             document.getElementById('workout-content').innerHTML = html;
             document.getElementById('workout-result').style.display = 'block';
-        }
+        };
 
         let currentGeneratedGroups = [];
 
-        function toggleGroupSettings() {
+        window.toggleGroupSettings = function() {
             const mode = document.getElementById('group-mode').value;
             const numGroupsContainer = document.getElementById('num-groups-container');
             const numGroupsLabel = document.getElementById('num-groups-label');
@@ -1154,9 +1208,9 @@
                 numGroupsContainer.style.display = 'block';
                 numGroupsLabel.innerText = "Antal grupper:";
             }
-        }
+        };
 
-        function generateGroups(shuffle = false) {
+        window.generateGroups = function(shuffle = false) {
             let presentPlayers = [];
             playersData.forEach((p, index) => {
                 const chk = document.getElementById(`player-chk-${index}`);
@@ -1233,9 +1287,9 @@
 
             document.getElementById('groups-content').innerHTML = html;
             document.getElementById('groups-result').style.display = 'block';
-        }
+        };
 
-        function sendGroupToMatch(groupIndex) {
+        window.sendGroupToMatch = function(groupIndex) {
             const group = currentGeneratedGroups[groupIndex];
             if (!group || group.length === 0) return;
 
@@ -1297,7 +1351,7 @@
             const matchBtn = document.querySelector('button[onclick*="match"]');
             if (matchBtn) switchTab('match', matchBtn);
             alert(`Grupp ${groupIndex + 1} har skickats till Lag/Match-fliken (${group.length} spelare utplacerade efter profil/position)!`);
-        }
+        };
     </script>
 </head>
 <body>
@@ -1519,7 +1573,7 @@
                 </div>
                 <div class="tactics-squad-container" id="tactics-squad-list"></div>
                 <div id="tactics-pitch-area">
-                    <div class="tactics-pitch" onclick="handlePitchClick(event)">
+                    <div class="tactics-pitch">
                         <div class="pitch-midline-h"></div>
                         <div class="pitch-center-circle"></div>
                         <div class="pitch-goal-top"></div>
@@ -1644,6 +1698,67 @@
 
         <!-- TAB 6: ÖVNINGSBANK -->
         <div id="exercises" class="tab-content">
+            <!-- Formulär för att lägga till egen övning -->
+            <div class="card" style="background: #f8f9fa; border: 1px dashed var(--primary);">
+                <h3>➕ Lägg till egen övning</h3>
+                <label>Övningens namn:</label>
+                <input type="text" id="custom-ex-name" placeholder="T.ex. Passningsstafett 3v3">
+                
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                    <div>
+                        <label>Kategori:</label>
+                        <select id="custom-ex-cat">
+                            <option value="Teknik">Teknik</option>
+                            <option value="Uppvärmning">Uppvärmning</option>
+                            <option value="Spel">Spel</option>
+                            <option value="Fysik">Fysik</option>
+                            <option value="Taktik">Taktik</option>
+                            <option value="Målvakt">Målvakt</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Fokusområde:</label>
+                        <select id="custom-ex-focus">
+                            <option value="Uppspel & Ytor">Uppspel & Ytor</option>
+                            <option value="Spelvändningar">Spelvändningar</option>
+                            <option value="Presspel">Presspel</option>
+                            <option value="Avslut">Avslut</option>
+                            <option value="Fasta situationer">Fasta situationer</option>
+                            <option value="Målvakt">Målvakt</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem;">
+                    <div>
+                        <label>Tid (min):</label>
+                        <input type="number" id="custom-ex-time" value="15" min="5" max="60">
+                    </div>
+                    <div>
+                        <label>Spelform:</label>
+                        <select id="custom-ex-format">
+                            <option value="7v7">7v7</option>
+                            <option value="9v9">9v9</option>
+                            <option value="11v11">11v11</option>
+                            <option value="Alla">Alla</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Min spelare:</label>
+                        <input type="number" id="custom-ex-minp" value="6" min="1" max="30">
+                    </div>
+                </div>
+
+                <label>Beskrivning:</label>
+                <textarea id="custom-ex-desc" placeholder="Kort beskrivning av övningen..." rows="2"></textarea>
+
+                <label>Länk / Källa (valfritt):</label>
+                <input type="text" id="custom-ex-url" placeholder="https://...">
+
+                <button class="btn btn-success" onclick="addCustomExercise()">Spara egen övning</button>
+            </div>
+
+            <!-- Övningsbank & Filtrering -->
             <div class="card">
                 <h2>Övningsbank</h2>
                 <div id="exercise-counter" style="background:#e9ecef; padding:0.5rem 0.75rem; border-radius:6px; margin-bottom:0.75rem; font-size:0.85rem; color:#333;"></div>
