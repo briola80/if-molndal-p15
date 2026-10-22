@@ -184,196 +184,46 @@
 
         const exercisesData = [
             { 
-                id: "INSTA-01", name: "Inspo-övning (Kombinationsspel & Avslut)", category: "Teknik/Passing", format: "7v7", focus: "Uppspel & Ytor", time: 15, minP: 6, maxP: 30, 
-                desc: "Dynamiskt kombinationsspel med passning, väggspel och snabbt avslut inspirerat via inspirationsflöde.",
-                sourceName: "Reel / Inspo", sourceUrl: "https://www.instagram.com/reel/DepEEokhK-Z/?cplk=bzlqaDFwMDI3cHBu",
+                id: "CT-001", name: "Passning till tredjeman och avslut från inlägg", category: "Teknik/Passing", format: "7v7", focus: "Uppspel & Ytor", time: 15, minP: 6, maxP: 30, 
+                desc: "Kombinationsspel där bollen spelas via en felvänd tredjeman ut till kant och följs av ett precist inlägg mot boxen.",
+                sourceName: "Coach Truly", sourceUrl: "https://coachtruly.com/sv/drill-database/football/passning-till-tredjeman-och-avslut-fran-inlagg",
                 sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:40%; left:30%;">P1</div><div class="sketch-element s-player" style="top:60%; left:50%;">P2</div><div class="sketch-element s-ball" style="top:50%; left:40%;"></div></div>`
             },
             { 
-                id: "UPP-01", name: "Rondo med ytväxling", category: "Uppvärmning", format: "7v7", focus: "Spelvändningar", time: 15, minP: 8, maxP: 35, 
-                desc: "Spelare i ring med ytor, fokus på snabba fötter och öppen kroppsställning.",
-                sourceName: "SvFF / Egen", sourceUrl: "https://www.svenskfotboll.se",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="pitch-circle"></div><div class="sketch-element s-player" style="top:35%; left:35%;">P</div><div class="sketch-element s-player" style="top:35%; left:65%;">P</div><div class="sketch-element s-player" style="top:65%; left:35%;">P</div><div class="sketch-element s-player" style="top:65%; left:65%;">P</div><div class="sketch-element s-cone" style="top:50%; left:50%;"></div><div class="sketch-element s-ball" style="top:50%; left:42%;"></div></div>`
+                id: "CT-002", name: "Driva och utmana 1v1 på kant", category: "Teknik/Passing", format: "7v7", focus: "Uppspel & Ytor", time: 15, minP: 6, maxP: 30, 
+                desc: "Ytterspelare tränar på fartförändring, kroppsfinter och att ta sig förbi motståndare i en mot en-situationer.",
+                sourceName: "Coach Truly", sourceUrl: "https://coachtruly.com/sv/drill-database/football/driva-och-utmana-1v1-pa-kant",
+                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:35%; left:35%;">P</div><div class="sketch-element s-player-red" style="top:35%; left:65%;">M</div><div class="sketch-element s-ball" style="top:50%; left:40%;"></div></div>`
             },
             { 
-                id: "UPP-02", name: "Passningskul / Kojtjuv", category: "Uppvärmning", format: "7v7", focus: "Presspel", time: 10, minP: 6, maxP: 30, 
-                desc: "Rörlig uppvärmning med boll på begränsad yta.",
-                sourceName: "SvFF / Egen", sourceUrl: "https://www.svenskfotboll.se",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-cone" style="top:25%; left:25%;"></div><div class="sketch-element s-cone" style="top:75%; left:75%;"></div><div class="sketch-element s-player" style="top:50%; left:45%;">P</div><div class="sketch-element s-ball" style="top:50%; left:55%;"></div></div>`
-            },
-            { 
-                id: "UPP-03", name: "Passningskvadrat med väggspel", category: "Uppvärmning", format: "9v9", focus: "Uppspel & Ytor", time: 12, minP: 6, maxP: 30, 
-                desc: "Klassisk kvadrat där spelare söker felvända medspelare.",
-                sourceName: "SvFF / Egen", sourceUrl: "https://www.svenskfotboll.se",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:50%; left:50%;">P</div><div class="sketch-element s-cone" style="top:25%; left:25%;"></div><div class="sketch-element s-ball" style="top:50%; left:65%;"></div></div>`
-            },
-            { 
-                id: "PAS-01", name: "Spelvändning 3v2 + neutral", category: "Teknik/Passing", format: "9v9", focus: "Spelvändningar", time: 20, minP: 8, maxP: 30, 
-                desc: "Anfallare ska spela bollen förbi central yta och ut till kant.",
-                sourceName: "SvFF / Egen", sourceUrl: "https://www.svenskfotboll.se",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:50%; left:35%;">3</div><div class="sketch-element s-player-red" style="top:50%; left:65%;">2</div><div class="sketch-element s-cone" style="top:50%; left:50%;"></div></div>`
-            },
-            { 
-                id: "PAS-02", name: "Passningsmönster med djupled", category: "Teknik/Passing", format: "7v7", focus: "Uppspel & Ytor", time: 15, minP: 6, maxP: 30, 
-                desc: "Väggspel och instick i yta bakom motståndarnas backlinje.",
-                sourceName: "SvFF / Egen", sourceUrl: "https://www.svenskfotboll.se",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-cone" style="top:35%; left:40%;"></div><div class="sketch-element s-player" style="top:70%; left:50%;">P</div><div class="sketch-element s-ball" style="top:55%; left:55%;"></div></div>`
-            },
-            { 
-                id: "PAS-03", name: "Bygga upp via central mittfältare", category: "Uppspel", format: "9v9", focus: "Uppspel & Ytor", time: 20, minP: 10, maxP: 30, 
-                desc: "Träna målvakt/backlinje att spela till felvänd central mittfältsspelare.",
-                sourceName: "SvFF / Egen", sourceUrl: "https://www.svenskfotboll.se",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:80%; left:25%;">MV</div><div class="sketch-element s-player" style="top:50%; left:50%;">CM</div><div class="sketch-element s-ball" style="top:65%; left:35%;"></div></div>`
-            },
-            { 
-                id: "PAS-04", name: "Ytterspelet i 9v9 & 11v11", category: "Uppspel", format: "11v11", focus: "Uppspel & Ytor", time: 20, minP: 10, maxP: 32, 
-                desc: "Samarbete längs kanten mellan ytterback, ytterställd och central mittfältare.",
-                sourceName: "SvFF / Egen", sourceUrl: "https://www.svenskfotboll.se",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:30%; left:25%;">YB</div><div class="sketch-element s-player" style="top:70%; left:25%;">YF</div><div class="sketch-element s-cone" style="top:50%; left:65%;"></div></div>`
-            },
-            { 
-                id: "SV-01", name: "3v3 med två fasta korridorer", category: "Spelövning", format: "9v9", focus: "Spelvändningar", time: 20, minP: 10, maxP: 30, 
-                desc: "Kräver spelvändning över mittkorridoren för att få poäng.",
-                sourceName: "SvFF / Egen", sourceUrl: "https://www.svenskfotboll.se",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:50%; left:50%;">3v3</div><div class="sketch-element s-cone" style="top:25%; left:50%;"></div><div class="sketch-element s-cone" style="top:75%; left:50%;"></div></div>`
-            },
-            { 
-                id: "TAK-01", name: "3v3 + 2 neutrala i korridorer", category: "Smålagsspel", format: "9v9", focus: "Spelvändningar", time: 25, minP: 10, maxP: 32, 
-                desc: "Fokus på att utnyttja kanterna och vända spelet snabbt över ytor.",
-                sourceName: "SvFF / Egen", sourceUrl: "https://www.svenskfotboll.se",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:50%; left:50%;">3v3</div></div>`
-            },
-            { 
-                id: "TAK-02", name: "Presspel & Styrning 4v4", category: "Smålagsspel", format: "7v7", focus: "Presspel", time: 20, minP: 8, maxP: 30, 
-                desc: "Ett lag pressar styrande mot sidlinjen för att vinna boll.",
-                sourceName: "SvFF / Egen", sourceUrl: "https://www.svenskfotboll.se",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:50%; left:50%;">4v4</div><div class="sketch-element s-cone" style="top:30%; left:30%;"></div></div>`
-            },
-            { 
-                id: "MAT-01", name: "Zonmatch med krav", category: "Matchspel", format: "7v7", focus: "Avslut", time: 25, minP: 12, maxP: 35, 
-                desc: "Planen uppdelad i zoner. Kräver att bollen spelas igenom ytor innan avslut.",
-                sourceName: "SvFF / Egen", sourceUrl: "https://www.svenskfotboll.se",
+                id: "CT-003", name: "Spelvändning i zonspel och presspel", category: "Smålagsspel", format: "9v9", focus: "Spelvändningar", time: 20, minP: 8, maxP: 35, 
+                desc: "Zonindelning som tvingar det anfallande laget att flytta boll snabbt mellan ytor för att hitta fria spelare.",
+                sourceName: "Coach Truly", sourceUrl: "https://coachtruly.com/sv/drill-database/football/spelvandning-i-zonspel-och-presspel",
                 sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="pitch-circle"></div><div class="sketch-element s-cone" style="top:25%; left:33%;"></div><div class="sketch-element s-cone" style="top:25%; left:66%;"></div></div>`
             },
             { 
-                id: "AVS-01", name: "Avslut efter inlägg", category: "Avslut", format: "9v9", focus: "Avslut", time: 20, minP: 8, maxP: 30, 
-                desc: "Kantspelare slår inlägg till centrala anfallare som möter upp på mål.",
-                sourceName: "SvFF / Egen", sourceUrl: "https://www.svenskfotboll.se",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:35%; left:25%;">YF</div><div class="sketch-element s-player" style="top:65%; left:65%;">Anf</div><div class="sketch-element s-ball" style="top:45%; left:35%;"></div></div>`
+                id: "CT-004", name: "Kompakt försvarsspel och presspel 4v4", category: "Smålagsspel", format: "7v7", focus: "Presspel", time: 20, minP: 8, maxP: 30, 
+                desc: "Träna lagdelarnas avstånd, att sätta press på bollhållare och stänga ytor i centralt försvar.",
+                sourceName: "Coach Truly", sourceUrl: "https://coachtruly.com/sv/drill-database/football/kompakt-forsvarsspel-och-presspel-4v4",
+                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:50%; left:50%;">4v4</div><div class="sketch-element s-cone" style="top:30%; left:30%;"></div></div>`
             },
             { 
-                id: "SOD-01", name: "Passningsmönster i tre hörn (Sörmland)", category: "Uppvärmning", format: "7v7", focus: "Uppspel & Ytor", time: 15, minP: 6, maxP: 25, 
-                desc: "Rörligt passningsmönster med vändning och väggspel för att få upp flås och bolltempo.",
-                sourceName: "Södermanlands FF", sourceUrl: "https://www.svenskfotboll.se/distrikt/sodermanland/",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-cone" style="top:30%; left:30%;"></div><div class="sketch-element s-cone" style="top:30%; left:70%;"></div><div class="sketch-element s-cone" style="top:75%; left:50%;"></div></div>`
+                id: "CT-005", name: "Avslutsserie med returer och boxspel", category: "Avslut", format: "7v7", focus: "Avslut", time: 15, minP: 6, maxP: 25, 
+                desc: "Skott utifrån följt av snabb löpning för att hugga på returer och instick framför mål.",
+                sourceName: "Coach Truly", sourceUrl: "https://coachtruly.com/sv/drill-database/football/avslutsserie-med-returer-och-boxspel",
+                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:35%; left:25%;">YF</div><div class="sketch-element s-player" style="top:60%; left:65%;">Anf</div></div>`
             },
             { 
-                id: "SOD-02", name: "Speluppbyggnad via ytterback 7v7", category: "Spelövning", format: "7v7", focus: "Uppspel & Ytor", time: 20, minP: 10, maxP: 30, 
-                desc: "Träna på att spela ut bollen från målvakt till ytterback och utnyttja korridor.",
-                sourceName: "Södermanlands FF", sourceUrl: "https://www.svenskfotboll.se/distrikt/sodermanland/",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:80%; left:50%;">MV</div><div class="sketch-element s-player" style="top:60%; left:25%;">YB</div></div>`
-            },
-            { 
-                id: "SOD-03", name: "Återerövring & Presspel 3v3+3", category: "Smålagsspel", format: "7v7", focus: "Presspel", time: 20, minP: 9, maxP: 30, 
-                desc: "Kort omställningstid direkt vid bolltapp. Agera som ett samlat lag i pressen.",
-                sourceName: "Södermanlands FF", sourceUrl: "https://www.svenskfotboll.se/distrikt/sodermanland/",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:50%; left:50%;">3v3</div><div class="sketch-element s-player-red" style="top:50%; left:30%;">Press</div></div>`
-            },
-            { 
-                id: "SOD-04", name: "Spelvändning i zonspel 7v7", category: "Spelövning", format: "7v7", focus: "Spelvändningar", time: 25, minP: 12, maxP: 32, 
-                desc: "Planen uppdelad i tre zoner. Bollen måste vändas över ytorna innan anfall avslutas.",
-                sourceName: "Södermanlands FF", sourceUrl: "https://www.svenskfotboll.se/distrikt/sodermanland/",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-circle"></div><div class="sketch-element s-cone" style="top:20%; left:50%;"></div><div class="sketch-element s-cone" style="top:80%; left:50%;"></div></div>`
-            },
-            { 
-                id: "SOD-05", name: "Avslutsserie med inlägg & returer", category: "Avslut", format: "7v7", focus: "Avslut", time: 20, minP: 8, maxP: 30, 
-                desc: "Fokus på snabba instick, inlägg längs marken och följa upp returer framför mål.",
-                sourceName: "Södermanlands FF", sourceUrl: "https://www.svenskfotboll.se/distrikt/sodermanland/",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:35%; left:25%;">YF</div><div class="sketch-element s-player" style="top:60%; left:65%;">Anf</div><div class="sketch-element s-ball" style="top:45%; left:35%;"></div></div>`
-            },
-            { 
-                id: "11M-01", name: "Lagdelars samspel i uppspel (11v11)", category: "Uppspel", format: "11v11", focus: "Uppspel & Ytor", time: 25, minP: 16, maxP: 35, 
-                desc: "Hela lagets uppspelsfas från backlinje via mittfält till anfall på stor plan.",
-                sourceName: "SvFF / ÖB 2013", sourceUrl: "https://svlgcdn.blob.core.windows.net/teamdata/files/3379/%C3%96B%202013%20Allm%C3%A4n%209-11%20v%201.0.pdf",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:85%; left:50%;">MV</div><div class="sketch-element s-player" style="top:60%; left:40%;">CB</div><div class="sketch-element s-player" style="top:35%; left:50%;">CM</div></div>`
-            },
-            { 
-                id: "11M-02", name: "Försvarsspel & Lagdelarnas avstånd (11v11)", category: "Smålagsspel", format: "11v11", focus: "Presspel", time: 25, minP: 16, maxP: 35, 
-                desc: "Hålla avståndet mellan backlinje och mittfält (kompakt lag) i försvarsspel.",
-                sourceName: "SvFF / ÖB 2013", sourceUrl: "https://svlgcdn.blob.core.windows.net/teamdata/files/3379/%C3%96B%202013%20Allm%C3%A4n%209-11%20v%201.0.pdf",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:55%; left:30%;">Backar</div><div class="sketch-element s-player" style="top:35%; left:30%;">Mittfält</div></div>`
-            },
-            { 
-                id: "11M-03", name: "Spelvändning över hela planen (11v11)", category: "Spelövning", format: "11v11", focus: "Spelvändningar", time: 25, minP: 14, maxP: 35, 
-                desc: "Utnyttja hela planens bredd genom att snabbt flytta boll från en kant till motsatt ytterforward.",
-                sourceName: "SvFF / ÖB 2013", sourceUrl: "https://svlgcdn.blob.core.windows.net/teamdata/files/3379/%C3%96B%202013%20Allm%C3%A4n%209-11%20v%201.0.pdf",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:50%; left:25%;">Vänster</div><div class="sketch-element s-player" style="top:50%; left:75%;">Höger</div></div>`
-            },
-            { 
-                id: "11M-04", name: "Inläggsspel & Box-spel (11v11)", category: "Avslut", format: "11v11", focus: "Avslut", time: 20, minP: 12, maxP: 35, 
-                desc: "Ytterback/ytterforward slår inlägg mot straffområdet där centrala mittfältare fyller på.",
-                sourceName: "SvFF / ÖB 2013", sourceUrl: "https://svlgcdn.blob.core.windows.net/teamdata/files/3379/%C3%96B%202013%20Allm%C3%A4n%209-11%20v%201.0.pdf",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:30%; left:20%;">Kant</div><div class="sketch-element s-player" style="top:55%; left:55%;">Box</div></div>`
-            },
-            { 
-                id: "VAST-01", name: "Väster Passing & Djupled (12-14 år)", category: "Teknik/Passing", format: "9v9", focus: "Uppspel & Ytor", time: 20, minP: 8, maxP: 30, 
-                desc: "Passningsövning med fokus på att snabbt spela bollen på djupet till felvänd anfallare.",
-                sourceName: "IF Väster (12-14 år)", sourceUrl: "https://www.ifvaster.com/sida/76258/ovningsbank-12-14-ar",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-cone" style="top:30%; left:50%;"></div><div class="sketch-element s-player" style="top:65%; left:50%;">P</div></div>`
-            },
-            { 
-                id: "VAST-02", name: "Väster Rondo & Spelvändning", category: "Uppvärmning", format: "7v7", focus: "Spelvändningar", time: 15, minP: 8, maxP: 30, 
-                desc: "Utmanande rondo i ytor där laget tränar på att hitta ut till fri yta.",
-                sourceName: "IF Väster (12-14 år)", sourceUrl: "https://www.ifvaster.com/sida/76258/ovningsbank-12-14-ar",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="pitch-circle"></div><div class="sketch-element s-player" style="top:50%; left:40%;">P</div><div class="sketch-element s-ball" style="top:50%; left:60%;"></div></div>`
-            },
-            { 
-                id: "VAST-03", name: "Väster Presspel i zon (12-14 år)", category: "Smålagsspel", format: "9v9", focus: "Presspel", time: 25, minP: 12, maxP: 35, 
-                desc: "Kompakt lagförsvar där anfallare och mittfält pressar i grupp för att vinna boll.",
-                sourceName: "IF Väster (12-14 år)", sourceUrl: "https://www.ifvaster.com/sida/76258/ovningsbank-12-14-ar",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:45%; left:50%;">Press</div></div>`
-            },
-            { 
-                id: "VAST-04", name: "Väster Avslutsserie med kantspel", category: "Avslut", format: "11v11", focus: "Avslut", time: 20, minP: 10, maxP: 32, 
-                desc: "Kombinationsspel på kant som leder till instick och snabba avslut på mål.",
-                sourceName: "IF Väster (12-14 år)", sourceUrl: "https://www.ifvaster.com/sida/76258/ovningsbank-12-14-ar",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:30%; left:25%;">Kant</div><div class="sketch-element s-player" style="top:60%; left:60%;">Mål</div></div>`
-            },
-            { 
-                id: "FASTA-01", name: "Hörnvariant med inlägg & blockering", category: "Fasta situationer", format: "11v11", focus: "Fasta situationer", time: 15, minP: 10, maxP: 35, 
-                desc: "Träna på offensiva hörnor med tydliga roller: skruvat inlägg, löpvägar och skärmspel framför mål.",
-                sourceName: "SvFF Västmanland", sourceUrl: "https://www.svenskfotboll.se/4a59e3/globalassets/distrikt/vastmanland/dokument/arbetssatt/del-4-arbetssatt-fasta-situationer.pdf",
+                id: "CT-006", name: "Fasta situationer och offensiva hörnor", category: "Fasta situationer", format: "9v9", focus: "Fasta situationer", time: 15, minP: 10, maxP: 35, 
+                desc: "Inövade löpvägar, blockeringar och skruvade inlägg mot ytan framför bortre stolpen.",
+                sourceName: "Coach Truly", sourceUrl: "https://coachtruly.com/sv/drill-database/football/fasta-situationer-och-offensiva-hornor",
                 sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-cone" style="top:20%; left:80%;">Hörna</div><div class="sketch-element s-player" style="top:35%; left:50%;">Box</div></div>`
             },
             { 
-                id: "FASTA-02", name: "Zonförsvar på hörnor", category: "Fasta situationer", format: "9v9", focus: "Fasta situationer", time: 15, minP: 10, maxP: 35, 
-                desc: "Defensiva hörnor där spelare delar in sig i zoner och punktmarkerar centrala ytor i straffområdet.",
-                sourceName: "SvFF Västmanland", sourceUrl: "https://www.svenskfotboll.se/4a59e3/globalassets/distrikt/vastmanland/dokument/arbetssatt/del-4-arbetssatt-fasta-situationer.pdf",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:25%; left:50%;">Mål</div><div class="sketch-element s-player-red" style="top:45%; left:45%;">Zon</div></div>`
-            },
-            { 
-                id: "FASTA-03", name: "Frisparksvariant i uppspelsfas / skott", category: "Fasta situationer", format: "7v7", focus: "Fasta situationer", time: 15, minP: 8, maxP: 30, 
-                desc: "Öva in kort frispark med väggspel för att skapa fri yta för skott eller inlägg på offensiv planhalva.",
-                sourceName: "SvFF Västmanland", sourceUrl: "https://www.svenskfotboll.se/4a59e3/globalassets/distrikt/vastmanland/dokument/arbetssatt/del-4-arbetssatt-fasta-situationer.pdf",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-ball" style="top:50%; left:50%;"></div><div class="sketch-element s-player" style="top:65%; left:45%;"></div></div>`
-            },
-            { 
-                id: "MV-01", name: "Skottäckning & Positionering", category: "Målvakt", format: "7v7", focus: "Målvakt", time: 15, minP: 6, maxP: 25, 
-                desc: "Målvakten tränar vinkelspel och förflyttning i målgården vid avslut från kanten.",
-                sourceName: "Coach Truly", sourceUrl: "https://coachtruly.com/sv/drill-database/football/theme/goalkeeping",
+                id: "CT-007", name: "Malvaktstraning vinkelspel och parader", category: "Målvakt", format: "7v7", focus: "Målvakt", time: 15, minP: 6, maxP: 25, 
+                desc: "Målvaktsträning med fokus på att snabbt täcka vinklar vid avslut samt säkra låga skott.",
+                sourceName: "Coach Truly", sourceUrl: "https://coachtruly.com/sv/drill-database/football/malvaktstraning-vinkelspel-och-parader",
                 sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:20%; left:50%;">MV</div><div class="sketch-element s-player-red" style="top:55%; left:30%;">Skytt</div></div>`
-            },
-            { 
-                id: "MV-02", name: "Målvaktsspel i uppbyggnad (Distributör)", category: "Målvakt", format: "9v9", focus: "Målvakt", time: 20, minP: 10, maxP: 30, 
-                desc: "Fokus på målvaktens fotspel: att snabbt fördela boll till rättvänd ytterback eller central mittfältare.",
-                sourceName: "Coach Truly", sourceUrl: "https://coachtruly.com/sv/drill-database/football/theme/goalkeeping",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:80%; left:50%;">MV</div><div class="sketch-element s-player" style="top:55%; left:30%;">YB</div></div>`
-            },
-            { 
-                id: "MV-03", name: "Inläggs- & Höjdbollsspel för målvakt", category: "Målvakt", format: "11v11", focus: "Målvakt", time: 15, minP: 8, maxP: 30, 
-                desc: "Träna målvakten på att komma ut i felturen, boxa eller säkra inlägg från sidorna i tuff trafik.",
-                sourceName: "Coach Truly", sourceUrl: "https://coachtruly.com/sv/drill-database/football/theme/goalkeeping",
-                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:25%; left:50%;">MV</div><div class="sketch-element s-ball" style="top:35%; left:70%;"></div></div>`
             }
         ];
 
@@ -774,7 +624,6 @@
             }
         }
 
-        /* --- TAKTIKTAVLA LOGIK --- */
         function renderTacticsUI() {
             const tacticsContainer = document.getElementById('tactics-squad-list');
             const pitchTokens = document.getElementById('pitch-tokens');
@@ -928,12 +777,8 @@
             renderTacticsUI();
         }
 
-        function handlePitchClick(e) {}
-
         function clearTactics() { placedSlots = {}; selectedPlayerIds = []; savePlacedSlotsToStorage(); renderTacticsUI(); }
 
-
-        /* --- MATCH LOGIK --- */
         function renderMatchUI() {
             const squadContainer = document.getElementById('match-squad-list');
             const pitchTokens = document.getElementById('match-pitch-tokens');
@@ -1302,7 +1147,7 @@
             let warmUpTime = Math.min(15, Math.max(10, Math.round(totalDuration * 0.2)));
             let availableWarmups = exercisesData.filter(ex => ex.category === "Uppvärmning" && ex.minP <= pCount);
             if(availableWarmups.length === 0) availableWarmups = exercisesData.filter(ex => ex.category === "Uppvärmning");
-            let warmupEx = availableWarmups[Math.floor(Math.random() * availableWarmups.length)];
+            let warmupEx = availableWarmups[Math.floor(Math.random() * availableWarmups.length)] || exercisesData[0];
             if(warmupEx) {
                 selectedExercises.push({ ...warmupEx, customTime: warmUpTime, roleTitle: "Uppvärmning" });
             }
@@ -1311,7 +1156,7 @@
             let timePerFocus = Math.floor(remainingTime / selectedFocuses.length);
             
             selectedFocuses.forEach(focus => {
-                let matches = exercisesData.filter(ex => ex.focus === focus && ex.category !== "Uppvärmning" && ex.minP <= pCount);
+                let matches = exercisesData.filter(ex => ex.focus === focus && ex.minP <= pCount);
                 if(matches.length === 0) matches = exercisesData.filter(ex => ex.focus === focus);
                 if(matches.length > 0) {
                     let chosen = matches[Math.floor(Math.random() * matches.length)];
@@ -1500,7 +1345,7 @@
 </head>
 <body>
 
-    <!-- INLOGGNINGSSLUSK -->
+    <!-- INLOGGNINGSSLUSS -->
     <div id="login-overlay">
         <div class="card" style="width:100%; max-width:400px; text-align:center;">
             <h2>🔒 IF Mölndal P15 - Inloggning</h2>
@@ -1725,7 +1570,7 @@
                         <div id="pitch-tokens"></div>
                     </div>
                 </div>
-                <button class="btn btn-success" onclick="exportTacticsSnapshot()">📸 Spara / Skriv ut taktik (PDF)</button>
+                <button class="btn btn-success" onclick="exportTacticsSnapshot()" style="margin-top:0.5rem;">📸 Spara / Skriv ut taktik (PDF)</button>
             </div>
         </div>
 
