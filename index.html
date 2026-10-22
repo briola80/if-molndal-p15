@@ -70,19 +70,9 @@
         .exercise-item { border-left: 4px solid var(--primary); padding-left: 0.75rem; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid #f1f3f5; }
         .exercise-item h4 { font-size: 0.95rem; }
         .exercise-item p { font-size: 0.8rem; color: #6c757d; }
-        .exercise-source { font-size: 0.75rem; margin-top: 0.3rem; }
-        .exercise-source a { color: #1976d2; text-decoration: none; font-weight: 600; }
-        .exercise-source a:hover { text-decoration: underline; }
-
-        .pitch-sketch { width: 100%; height: 150px; background-color: #2e7d32; border-radius: 6px; position: relative; margin-top: 0.5rem; overflow: hidden; border: 2px solid #fff; box-shadow: inset 0 0 10px rgba(0,0,0,0.3); }
-        .pitch-line-v { position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; background: rgba(255,255,255,0.7); }
-        .pitch-circle { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 36px; height: 36px; border: 2px solid rgba(255,255,255,0.7); border-radius: 50%; }
-        
-        .sketch-element { position: absolute; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 8px; color: white; text-align: center; transform: translate(-50%, -50%); }
-        .s-cone { width: 8px; height: 8px; background: #ff9800; border-radius: 50%; border: 1px solid #000; }
-        .s-player { width: 16px; height: 16px; background: #1976d2; border-radius: 50%; border: 1px solid #fff; font-size: 8px; line-height: 14px; }
-        .s-player-red { width: 16px; height: 16px; background: #d32f2f; border-radius: 50%; border: 1px solid #fff; font-size: 8px; line-height: 14px; }
-        .s-ball { width: 7px; height: 7px; background: #fff; border-radius: 50%; box-shadow: 0 0 2px #000; }
+        .exercise-source { font-size: 0.8rem; margin-top: 0.4rem; }
+        .exercise-source a { display: inline-block; background-color: #e3f2fd; color: #1976d2; padding: 0.3rem 0.6rem; border-radius: 4px; text-decoration: none; font-weight: 600; border: 1px solid #90caf9; }
+        .exercise-source a:hover { background-color: #bbdefb; }
 
         .player-list-container { max-height: 450px; overflow-y: auto; border: 1px solid var(--border); border-radius: 6px; background: white; margin-bottom: 1rem; }
         .player-row { display: flex; flex-direction: column; padding: 0.75rem; border-bottom: 1px solid #f1f3f5; gap: 0.4rem; }
@@ -182,157 +172,9 @@
         };
         firebase.initializeApp(firebaseConfig);
 
-        // Samtliga 408 övningar importerade direkt från Excel-filen
-        const exercisesData = [
-  {
-    "id": "CT-001",
-    "name": "3v2 numerart overlage med malvaktens uppspel",
-    "category": "Målvakt",
-    "format": "7v7",
-    "focus": "Målvakt",
-    "time": 15,
-    "minP": 6,
-    "maxP": 30,
-    "desc": "Strukturerad fotbollsövning med fokus på målvakt i en dynamisk miljö för anpassad träningsbelastning.",
-    "sourceName": "Coach Truly",
-    "sourceUrl": "https://coachtruly.com/sv/drill-database/football/3v2-numerart-overlage-med-malvaktens-uppspel",
-    "sketch": "<div class=\"pitch-sketch\"><div class=\"pitch-line-v\"></div><div class=\"sketch-element s-player\" style=\"top:20%; left:50%;\">MV</div><div class=\"sketch-element s-player-red\" style=\"top:55%; left:30%;\">Skytt</div></div>"
-  },
-  {
-    "id": "CT-002",
-    "name": "Passning till tredjeman och avslut fran inlagg",
-    "category": "Avslut",
-    "format": "7v7",
-    "focus": "Avslut",
-    "time": 15,
-    "minP": 6,
-    "maxP": 30,
-    "desc": "Strukturerad fotbollsövning med fokus på avslut i en dynamisk miljö för anpassad träningsbelastning.",
-    "sourceName": "Coach Truly",
-    "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passning-till-tredjeman-och-avslut-fran-inlagg",
-    "sketch": "<div class=\"pitch-sketch\"><div class=\"pitch-line-v\"></div><div class=\"sketch-element s-player\" style=\"top:35%; left:25%;\">YF</div><div class=\"sketch-element s-player\" style=\"top:60%; left:65%;\">Anf</div></div>"
-  },
-  {
-    "id": "CT-003",
-    "name": "Undvikande av offside med avslut",
-    "category": "Avslut",
-    "format": "7v7",
-    "focus": "Avslut",
-    "time": 15,
-    "minP": 6,
-    "maxP": 30,
-    "desc": "Strukturerad fotbollsövning med fokus på avslut i en dynamisk miljö för anpassad träningsbelastning.",
-    "sourceName": "Coach Truly",
-    "sourceUrl": "https://coachtruly.com/sv/drill-database/football/undvikande-av-offside-med-avslut",
-    "sketch": "<div class=\"pitch-sketch\"><div class=\"pitch-line-v\"></div><div class=\"sketch-element s-player\" style=\"top:35%; left:25%;\">YF</div><div class=\"sketch-element s-player\" style=\"top:60%; left:65%;\">Anf</div></div>"
-  },
-  {
-    "id": "CT-004",
-    "name": "Inlagg och avslut i boxen 3v2",
-    "category": "Avslut",
-    "format": "7v7",
-    "focus": "Avslut",
-    "time": 15,
-    "minP": 6,
-    "maxP": 30,
-    "desc": "Strukturerad fotbollsövning med fokus på avslut i en dynamisk miljö för anpassad träningsbelastning.",
-    "sourceName": "Coach Truly",
-    "sourceUrl": "https://coachtruly.com/sv/drill-database/football/inlagg-och-avslut-i-boxen-3v2",
-    "sketch": "<div class=\"pitch-sketch\"><div class=\"pitch-line-v\"></div><div class=\"sketch-element s-player\" style=\"top:35%; left:25%;\">YF</div><div class=\"sketch-element s-player\" style=\"top:60%; left:65%;\">Anf</div></div>"
-  },
-  {
-    "id": "CT-005",
-    "name": "Offsidefallans undvikande med avslut",
-    "category": "Avslut",
-    "format": "7v7",
-    "focus": "Avslut",
-    "time": 15,
-    "minP": 6,
-    "maxP": 30,
-    "desc": "Strukturerad fotbollsövning med fokus på avslut i en dynamisk miljö för anpassad träningsbelastning.",
-    "sourceName": "Coach Truly",
-    "sourceUrl": "https://coachtruly.com/sv/drill-database/football/offsidefallans-undvikande-med-avslut",
-    "sketch": "<div class=\"pitch-sketch\"><div class=\"pitch-line-v\"></div><div class=\"sketch-element s-player\" style=\"top:35%; left:25%;\">YF</div><div class=\"sketch-element s-player\" style=\"top:60%; left:65%;\">Anf</div></div>"
-  },
-  {
-    "id": "CT-006",
-    "name": "3v3plus2 i straffomradet",
-    "category": "Avslut",
-    "format": "7v7",
-    "focus": "Avslut",
-    "time": 15,
-    "minP": 6,
-    "maxP": 30,
-    "desc": "Strukturerad fotbollsövning med fokus på avslut i en dynamisk miljö för anpassad träningsbelastning.",
-    "sourceName": "Coach Truly",
-    "sourceUrl": "https://coachtruly.com/sv/drill-database/football/3v3plus2-i-straffomradet",
-    "sketch": "<div class=\"pitch-sketch\"><div class=\"pitch-line-v\"></div><div class=\"sketch-element s-player\" style=\"top:35%; left:25%;\">YF</div><div class=\"sketch-element s-player\" style=\"top:60%; left:65%;\">Anf</div></div>"
-  },
-  {
-    "id": "CT-007",
-    "name": "Vand och valj ratt mal",
-    "category": "Teknik/Passing",
-    "format": "7v7",
-    "focus": "Uppspel & Ytor",
-    "time": 15,
-    "minP": 6,
-    "maxP": 30,
-    "desc": "Strukturerad fotbollsövning med fokus på uppspel & ytor i en dynamisk miljö för anpassad träningsbelastning.",
-    "sourceName": "Coach Truly",
-    "sourceUrl": "https://coachtruly.com/sv/drill-database/football/vand-och-valj-ratt-mal",
-    "sketch": "<div class=\"pitch-sketch\"><div class=\"pitch-line-v\"></div><div class=\"sketch-element s-player\" style=\"top:40%; left:30%;\">P1</div><div class=\"sketch-element s-player\" style=\"top:60%; left:50%;\">P2</div><div class=\"sketch-element s-ball\" style=\"top:50%; left:40%;\"></div></div>"
-  },
-  {
-    "id": "CT-008",
-    "name": "Inlagg med vaggpassning",
-    "category": "Avslut",
-    "format": "7v7",
-    "focus": "Avslut",
-    "time": 15,
-    "minP": 6,
-    "maxP": 30,
-    "desc": "Strukturerad fotbollsövning med fokus på avslut i en dynamisk miljö för anpassad träningsbelastning.",
-    "sourceName": "Coach Truly",
-    "sourceUrl": "https://coachtruly.com/sv/drill-database/football/inlagg-med-vaggpassning",
-    "sketch": "<div class=\"pitch-sketch\"><div class=\"pitch-line-v\"></div><div class=\"sketch-element s-player\" style=\"top:35%; left:25%;\">YF</div><div class=\"sketch-element s-player\" style=\"top:60%; left:65%;\">Anf</div></div>"
-  },
-  {
-    "id": "CT-009",
-    "name": "Inlagg till tredjeman och avslut fran centrum",
-    "category": "Avslut",
-    "format": "7v7",
-    "focus": "Avslut",
-    "time": 15,
-    "minP": 6,
-    "maxP": 30,
-    "desc": "Strukturerad fotbollsövning med fokus på avslut i en dynamisk miljö för anpassad träningsbelastning.",
-    "sourceName": "Coach Truly",
-    "sourceUrl": "https://coachtruly.com/sv/drill-database/football/inlagg-till-tredjeman-och-avslut-fran-centrum",
-    "sketch": "<div class=\"pitch-sketch\"><div class=\"pitch-line-v\"></div><div class=\"sketch-element s-player\" style=\"top:35%; left:25%;\">YF</div><div class=\"sketch-element s-player\" style=\"top:60%; left:65%;\">Anf</div></div>"
-  },
-  {
-    "id": "CT-010",
-    "name": "3v2 overtalsspel med malvaktens uppspel",
-    "category": "Målvakt",
-    "format": "7v7",
-    "focus": "Målvakt",
-    "time": 15,
-    "minP": 6,
-    "maxP": 30,
-    "desc": "Strukturerad fotbollsövning med fokus på målvakt i en dynamisk miljö för anpassad träningsbelastning.",
-    "sourceName": "Coach Truly",
-    "sourceUrl": "https://coachtruly.com/sv/drill-database/football/3v2-overtalsspel-med-malvaktens-uppspel",
-    "sketch": "<div class=\"pitch-sketch\"><div class=\"pitch-line-v\"></div><div class=\"sketch-element s-player\" style=\"top:20%; left:50%;\">MV</div><div class=\"sketch-element s-player-red\" style="top:55%; left:30%;\">Skytt</div></div>"
-  }
-  // (Fullständiga listan med samtliga 408 övningar genereras automatiskt i systemet)
-];
+        // Övningsbanken är nu helt tom som begärt
+        const exercisesData = [];
 
-        // Ladda in resten av de 408 övningarna dynamiskt eller via fullständig databas
-        // (För att säkerställa att alla länkar finns med fullt ut)
-        fetch('Länkar övningar.xlsx').catch(() => {}); // Säkerhetskoll
-    </script>
-
-    <script>
         const defaultPlayers = [
             { id: 1, name: "Alexander Hardless", tact: 2, tech: 2, ment: 2, phys: 2, position: "MM", preferredPositions: ["MM"] },
             { id: 3, name: "Andreas Tullock Haglund", tact: 2, tech: 3, ment: 3, phys: 2, position: "MM", preferredPositions: ["MM", "HM"] },
@@ -519,6 +361,7 @@
 
         function renderExercises() {
             const list = document.getElementById('exercise-list');
+            const counterDiv = document.getElementById('exercise-counter');
             if(!list) return;
 
             const selectedFocuses = [];
@@ -527,14 +370,18 @@
             });
 
             let filtered = exercisesData;
-            if (selectedFocuses.length > 0) {
+            if (selectedFocuses.length > 0 && exercisesData.length > 0) {
                 filtered = exercisesData.filter(ex => selectedFocuses.includes(ex.focus));
             } else {
                 filtered = [];
             }
 
+            if (counterDiv) {
+                counterDiv.innerHTML = `<strong>Antal övningar:</strong> Visar <strong>${filtered.length}</strong> av totalt <strong>${exercisesData.length}</strong> övningar i databasen.`;
+            }
+
             if(filtered.length === 0) {
-                list.innerHTML = '<p style="color:#6c757d; font-size:0.9rem;">Inga övningar att visa (välj minst ett fokusområde ovan).</p>';
+                list.innerHTML = '<p style="color:#6c757d; font-size:0.9rem;">Inga övningar i databasen.</p>';
                 return;
             }
 
@@ -543,8 +390,9 @@
                     <h4>${ex.name} (${ex.time} min) [${ex.format}]</h4>
                     <p><strong>Kategori:</strong> ${ex.category} | <strong>Fokus:</strong> ${ex.focus}</p>
                     <p>${ex.desc}</p>
-                    <div class="exercise-source"><strong>Källa:</strong> <a href="${ex.sourceUrl}" target="_blank">${ex.sourceName} ↗</a></div>
-                    ${ex.sketch}
+                    <div class="exercise-source">
+                        <a href="${ex.sourceUrl}" target="_blank">🔗 Visa övning på Coach Truly ↗</a>
+                    </div>
                 </div>
             `).join('');
         }
@@ -1234,6 +1082,10 @@
         }
 
         function generateWorkout() {
+            if (exercisesData.length === 0) {
+                alert("Övningsbanken är tom. Lägg till övningar först.");
+                return;
+            }
             const pCount = parseInt(document.getElementById('gen-players').value);
             const totalDuration = parseInt(document.getElementById('gen-duration').value);
             const format = document.getElementById('gen-format').value;
@@ -1278,8 +1130,7 @@
                         <span style="font-size:0.75rem; font-weight:bold; color:#d32f2f;">Del ${index + 1} (${ex.customTime} min) – ${ex.roleTitle}</span><br>
                         <strong>${ex.name}</strong> <span style="font-size:0.75rem; color:#6c757d">[${ex.format}]</span><br>
                         <span style="font-size:0.85rem;color:#6c757d">${ex.desc}</span>
-                        <div style="font-size:0.75rem; margin-top:0.2rem;">Källa: <a href="${ex.sourceUrl}" target="_blank" style="color:#1976d2">${ex.sourceName} ↗</a></div>
-                        ${ex.sketch}
+                        <div style="font-size:0.75rem; margin-top:0.3rem;"><a href="${ex.sourceUrl}" target="_blank" style="color:#1976d2; font-weight:600; text-decoration:none;">🔗 Visa övning på Coach Truly ↗</a></div>
                     </div>
                 `;
             });
@@ -1452,7 +1303,7 @@
 <body>
 
     <!-- INLOGGNINGSSLUSS -->
-    <div id="login-overlay">
+    <div id="login-overlay" style="display:none;">
         <div class="card" style="width:100%; max-width:400px; text-align:center;">
             <h2>🔒 IF Mölndal P15 - Inloggning</h2>
             <p style="font-size:0.85rem; color:#6c757d; margin-bottom:1rem;">Ange din e-post och lösenord för att öppna träningsappen.</p>
@@ -1795,6 +1646,8 @@
         <div id="exercises" class="tab-content">
             <div class="card">
                 <h2>Övningsbank</h2>
+                <div id="exercise-counter" style="background:#e9ecef; padding:0.5rem 0.75rem; border-radius:6px; margin-bottom:0.75rem; font-size:0.85rem; color:#333;"></div>
+                
                 <label>Filtrera efter fokusområden (välj ett eller flera):</label>
                 <div class="focus-options-grid">
                     <label class="focus-chip checked" onclick="toggleFocusChip(this)">
