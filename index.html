@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IF Mölndal P-2015 Träningsapp</title>
-    <!-- Inkluderar html2canvas för att kunna ta ögonblicksbilder direkt i webbläsaren -->
+    <!-- Inkluderar html2canvas för ögonblicksbilder och PDF-export -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     
     <!-- Firebase App & Auth SDK (Compat) -->
@@ -220,10 +220,28 @@
                 sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-cone" style="top:20%; left:80%;">Hörna</div><div class="sketch-element s-player" style="top:35%; left:50%;">Box</div></div>`
             },
             { 
-                id: "CT-007", name: "Malvaktstraning vinkelspel och parader", category: "Målvakt", format: "7v7", focus: "Målvakt", time: 15, minP: 6, maxP: 25, 
+                id: "CT-007", name: "Målvaktsträning vinkelspel och parader", category: "Målvakt", format: "7v7", focus: "Målvakt", time: 15, minP: 6, maxP: 25, 
                 desc: "Målvaktsträning med fokus på att snabbt täcka vinklar vid avslut samt säkra låga skott.",
                 sourceName: "Coach Truly", sourceUrl: "https://coachtruly.com/sv/drill-database/football/malvaktstraning-vinkelspel-och-parader",
                 sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:20%; left:50%;">MV</div><div class="sketch-element s-player-red" style="top:55%; left:30%;">Skytt</div></div>`
+            },
+            { 
+                id: "CT-008", name: "Dynamisk uppvärmning med boll", category: "Uppvärmning", format: "7v7", focus: "Uppspel & Ytor", time: 15, minP: 8, maxP: 40, 
+                desc: "Rörlighet, skadeförebyggande övningar och passningskombinationer i par.",
+                sourceName: "Coach Truly", sourceUrl: "https://coachtruly.com/sv/drill-database/football/dynamisk-uppvarmning-med-boll",
+                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:50%; left:40%;">P1</div><div class="sketch-element s-player" style="top:50%; left:60%;">P2</div></div>`
+            },
+            { 
+                id: "CT-009", name: "Snabba uppspel via central mittfältare", category: "Teknik/Passing", format: "7v7", focus: "Spelvändningar", time: 20, minP: 8, maxP: 30, 
+                desc: "Träna på att vända spel från ena kanten till den andra snabbt genom centrala mittfältet.",
+                sourceName: "Coach Truly", sourceUrl: "https://coachtruly.com/sv/drill-database/football/snabba-uppspel-via-central-mittfaltare",
+                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-circle"></div><div class="sketch-element s-player" style="top:50%; left:50%;">MM</div></div>`
+            },
+            { 
+                id: "CT-010", name: "Hög press och återerövring 3v3+3", category: "Smålagsspel", format: "7v7", focus: "Presspel", time: 20, minP: 9, maxP: 30, 
+                desc: "Intensivt smålagsspel där det förlorande laget omedelbart sätter press för att vinna tillbaka bollen.",
+                sourceName: "Coach Truly", sourceUrl: "https://coachtruly.com/sv/drill-database/football/hog-press-och-atererovring-3v3-3",
+                sketch: `<div class="pitch-sketch"><div class="pitch-line-v"></div><div class="sketch-element s-player" style="top:40%; left:40%;">3v3</div></div>`
             }
         ];
 
