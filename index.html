@@ -187,7 +187,8 @@
         let customExercisesData = JSON.parse(localStorage.getItem('if_molndal_custom_exercises_v1')) || [];
 
         function getAllExercises() {
-            return [...baseExercisesData, ...customExercisesData];
+            const mainExercises = (typeof exercises !== 'undefined') ? exercises : baseExercisesData;
+            return [...mainExercises, ...customExercisesData];
         }
 
         const defaultPlayers = [
