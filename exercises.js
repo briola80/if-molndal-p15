@@ -125,9 +125,9 @@ const exercises = [
         ageGroup: "P10-P14",
         link: "",
         description: "Genomgång av höftöppnare, utfallsteg och lätta sidledsförflyttningar inför träningspasset."
-    }
-];
-// --- NÄSTA BATCH: PASSNINGSSPEL & TEKNIK ---
+    },
+
+    // --- NÄSTA BATCH: PASSNINGSSPEL & TEKNIK ---
     {
         id: 16,
         title: "Triangelspel med väggpassning",
@@ -375,8 +375,9 @@ const exercises = [
         ageGroup: "P11-P14",
         link: "",
         description: "Anfall mot försvar med tidtagning där laget måste skapa ett avslut på under 15 sekunder."
-    }
-// --- NÄSTA BATCH: ID 46–75 ---
+    },
+
+    // --- NÄSTA BATCH: ID 46–75 ---
     {
         id: 46,
         title: "Passningstävling med mottagning i kvadrat",
@@ -616,8 +617,9 @@ const exercises = [
         ageGroup: "P11-P14",
         link: "",
         description: "Pressa bollhållare i en vinkel som tvingar ut spelet mot kanten."
-    }
-// --- NÄSTA BATCH: ID 76–105 (Inkl. Målvakt & Fasta situationer) ---
+    },
+
+    // --- NÄSTA BATCH: ID 76–105 (Inkl. Målvakt & Fasta situationer) ---
     {
         id: 76,
         title: "Målvakt: Skottäckning och vinkelspel",
@@ -672,7 +674,7 @@ const exercises = [
         category: "Anfallsspel",
         ageGroup: "P12-P14",
         link: "",
-        description: "Anfallande lag utnyttjar sitt numerära överläge för att hitta luckan i försvaret."
+        description: "Anfallande lag utnyttjar sitt numerära överläge för att hitta luckan i forsvaret."
     },
     {
         id: 83,
@@ -857,8 +859,9 @@ const exercises = [
         ageGroup: "P10-P14",
         link: "",
         description: "Straffläggning där övriga spelare är beredda på att hugga på eventuella returer."
-    }
-// --- NÄSTA BATCH: ID 106–135 ---
+    },
+
+    // --- NÄSTA BATCH: ID 106–135 ---
     {
         id: 106,
         title: "Anfallsspel: Djupledslöpning med tidig boll",
@@ -1098,9 +1101,9 @@ const exercises = [
         ageGroup: "P13-P14",
         link: "",
         description: "Matchspel där spelarna maximalt får ha två tillslag för att hålla uppe tempot."
-    }
-]
-// --- NÄSTA BATCH: ID 136–165 ---
+    },
+
+    // --- NÄSTA BATCH: ID 136–165 ---
     {
         id: 136,
         title: "Passningsspel: Yttersidespassningar i kvadrat",
@@ -1307,7 +1310,7 @@ const exercises = [
         category: "Kontring",
         ageGroup: "P11-P14",
         link: "",
-        description: "Snabb omställning där två anfallare driver mot en ensam försvarare."
+        description: "Snabb omställning från försvar till anfall där två anfallare driver mot en ensam försvarare."
     },
     {
         id: 162,
@@ -1340,8 +1343,9 @@ const exercises = [
         ageGroup: "P12-P14",
         link: "",
         description: "Spel på ytor där de neutrala jokrarna hjälper det bollhållande laget att hålla bollen."
-    }
-// --- NÄSTA BATCH: ID 166–195 ---
+    },
+
+    // --- NÄSTA BATCH: ID 166–195 ---
     {
         id: 166,
         title: "Passningsspel: Väggspel med skott på ett tillslag",
@@ -1581,8 +1585,9 @@ const exercises = [
         ageGroup: "P13-P14",
         link: "",
         description: "Matchspel där spelarna max får vidröra bollen två gånger för att höja tempot."
-    }
-// --- NÄSTA BATCH: ID 196–225 ---
+    },
+
+    // --- NÄSTA BATCH: ID 196–225 ---
     {
         id: 196,
         title: "Passningsspel: Direktpassningar i trång rondo",
@@ -1789,7 +1794,7 @@ const exercises = [
         category: "Kontring",
         ageGroup: "P11-P14",
         link: "",
-        description: "Snabb omställning från försvar till anfall med numerärt överläge."
+        description: "Snabb omställning från försvar till anfall där två anfallare driver mot en ensam försvarare."
     },
     {
         id: 222,
@@ -1822,8 +1827,9 @@ const exercises = [
         ageGroup: "P13-P14",
         link: "",
         description: "Matchspel där spelarna max får vidröra bollen två gånger för att höja tempot."
-    }
-// --- NÄSTA BATCH: ID 226–255 ---
+    },
+
+    // --- NÄSTA BATCH: ID 226–255 ---
     {
         id: 226,
         title: "Passningsspel: Väggspel och djupledslöpning i par",
@@ -2030,7 +2036,7 @@ const exercises = [
         category: "Kontring",
         ageGroup: "P11-P14",
         link: "",
-        description: "Snabb omställning där två anfallare driver mot en ensam försvarare."
+        description: "Snabb omställning från försvar till anfall där två anfallare driver mot en ensam försvarare."
     },
     {
         id: 252,
@@ -2063,8 +2069,9 @@ const exercises = [
         ageGroup: "P11-P14",
         link: "",
         description: "Samlad övning där hörnor och frisparkar slås in i straffområdet för direkt avslut."
-    }
-// --- NÄSTA BATCH: ID 256–285 ---
+    },
+
+    // --- NÄSTA BATCH: ID 256–285 ---
     {
         id: 256,
         title: "Passningsspel: Direktpassningar och skott i par",
@@ -2304,8 +2311,9 @@ const exercises = [
         ageGroup: "P12-P14",
         link: "",
         description: "Spel på ytor där de neutrala jokrarna hjälper det bollhållande laget att hålla bollen."
-    }
-// --- NÄSTA BATCH: ID 286–315 ---
+    },
+
+    // --- NÄSTA BATCH: ID 286–315 ---
     {
         id: 286,
         title: "Passningsspel: Väggspel och mottagning i rörelse",
@@ -2545,8 +2553,9 @@ const exercises = [
         ageGroup: "P13-P14",
         link: "",
         description: "Matchspel där spelarna max får vidröra bollen två gånger."
-    }
-// --- NÄSTA BATCH: ID 316–345 ---
+    },
+
+    // --- NÄSTA BATCH: ID 316–345 ---
     {
         id: 316,
         title: "Passningsspel: Väggspel och djupledslöpning på kant",
@@ -2786,8 +2795,9 @@ const exercises = [
         ageGroup: "P11-P14",
         link: "",
         description: "Samlad övning där hörnor och frisparkar slås in i straffområdet."
-    }
-// --- NÄSTA BATCH: ID 346–375 ---
+    },
+
+    // --- NÄSTA BATCH: ID 346–375 ---
     {
         id: 346,
         title: "Passningsspel: Kortpassningar i triangel med rörelse",
@@ -2866,7 +2876,7 @@ const exercises = [
         category: "Anfallsspel",
         ageGroup: "P12-P14",
         link: "",
-        description: "Anfallande lag utnyttjar numerärt överläge för att hitta luckan i försvaret."
+        description: "Anfallande lag utnyttjar numerärt överläge för att hitta luckan i forsvaret."
     },
     {
         id: 356,
@@ -3027,8 +3037,9 @@ const exercises = [
         ageGroup: "P13-P14",
         link: "",
         description: "Matchspel där spelarna maximalt får vidröra bollen två gånger."
-    }
-// --- SISTA BATCH: ID 376–405 (Mål uppnått!) ---
+    },
+
+    // --- SISTA BATCH: ID 376–405 (Mål uppnått!) ---
     {
         id: 376,
         title: "Passningsspel: Väggspel och djupledslöpning i korridor",
