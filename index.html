@@ -175,14 +175,104 @@
 
         // Inbäddad komplett övningsbank (407 övningar)
         const baseExercisesData = [
-            {"id": 1, "name": "3 mot 3 + neutral spelare", "category": "Teknik", "focus": "Uppspel & Ytor", "time": 15, "format": "7v7", "minP": 6, "desc": "Träningsövning hämtad från Coach Truly.", "sourceUrl": "https://coachtruly.com/ovning/3-mot-3-neutral-spelare"},
-            {"id": 2, "name": "4 mot 2 rondo med riktning", "category": "Teknik", "focus": "Uppspel & Ytor", "time": 15, "format": "7v7", "minP": 6, "desc": "Träningsövning hämtad från Coach Truly.", "sourceUrl": "https://coachtruly.com/ovning/4-mot-2-rondo-med-riktning"},
-            {"id": 3, "name": "Spelvändning 3v2", "category": "Teknik", "focus": "Spelvändningar", "time": 15, "format": "7v7", "minP": 6, "desc": "Träningsövning hämtad från Coach Truly.", "sourceUrl": "https://coachtruly.com/"},
-            {"id": 4, "name": "Presspel 2v2 + 1", "category": "Teknik", "focus": "Presspel", "time": 15, "format": "7v7", "minP": 6, "desc": "Träningsövning hämtad från Coach Truly.", "sourceUrl": "https://coachtruly.com/"},
-            {"id": 5, "name": "Skottövning och avslut", "category": "Teknik", "focus": "Avslut", "time": 15, "format": "7v7", "minP": 6, "desc": "Träningsövning hämtad från Coach Truly.", "sourceUrl": "https://coachtruly.com/"},
-            {"id": 6, "name": "Hörnor och fasta situationer", "category": "Teknik", "focus": "Fasta situationer", "time": 15, "format": "7v7", "minP": 6, "desc": "Träningsövning hämtad från Coach Truly.", "sourceUrl": "https://coachtruly.com/"},
-            {"id": 7, "name": "Målvaktsspel 1v1", "category": "Målvakt", "focus": "Målvakt", "time": 15, "format": "7v7", "minP": 4, "desc": "Träningsövning hämtad från Coach Truly.", "sourceUrl": "https://coachtruly.com/"}
-        ];
+    {
+        "id": 1,
+        "name": "Passningsstafett med mottagning",
+        "category": "Spelvändningar",
+        "ageGroup": "P10-P14",
+        "link": "",
+        "description": "Spelarna står i led mitt emot varandra. Passning längs marken, mottagning med ytan/insidan och snabb överlämning till nästa."
+    },
+    {
+        "id": 2,
+        "name": "Rondellen 4 mot 1",
+        "category": "Presspel",
+        "ageGroup": "P10-P14",
+        "link": "",
+        "description": "Fyra spelare håller bollen inom laget i en ruta (t.ex. 10x10m) medan en försvarare försöker bryta. Max två tillslag."
+    },
+    {
+        "id": 3,
+        "name": "Väggspel i par",
+        "category": "Uppspel & Ytor",
+        "ageGroup": "P12-P14",
+        "link": "",
+        "description": "Spelare A driver bollen mot spelare B, spelar ett väggspel (ett-två) och tar emot på bortre sidan."
+    },
+    {
+        "id": 4,
+        "name": "Yttersidespassningar i rörelse",
+        "category": "Avslut",
+        "ageGroup": "P13-P14",
+        "link": "",
+        "description": "Två och två i rörelse framåt längs långsidan, fokus på snabba passningar med yttersidan utan att tappa fart."
+    },
+    {
+        "id": 5,
+        "name": "Driva och vända (Cruyff-fint)",
+        "category": "Fasta situationer",
+        "ageGroup": "P10-P12",
+        "link": "",
+        "description": "Spelare driver mot kon, gör en Cruyff-fint och driver tillbaka. Fokus på kroppsfint."
+    },
+    {
+        "id": 6,
+        "name": "Avslutsserie efter instick",
+        "category": "Målvakt",
+        "ageGroup": "P11-P14",
+        "link": "",
+        "description": "Yttermittfält spelar in till central anfallare som tar emot och avslutar direkt på mål inom straffområdet."
+    },
+    {
+        "id": 7,
+        "name": "Spel 2 mot 1 till avslut",
+        "category": "Spelvändningar",
+        "ageGroup": "P10-P14",
+        "link": "",
+        "description": "Anfallande par driver mot en back. Målet är att spela bort backen genom ett snabbt instick eller överlapp."
+    },
+    {
+        "id": 8,
+        "name": "Inlägg och avslut på bortre",
+        "category": "Presspel",
+        "ageGroup": "P12-P14",
+        "link": "",
+        "description": "Ytter spelar in boll i straffområdet mot två anfallare som löper mot första respektive bortre stolpen."
+    },
+    {
+        "id": 9,
+        "name": "3 mot 2 på yta med snabbt anfall",
+        "category": "Uppspel & Ytor",
+        "ageGroup": "P13-P14",
+        "link": "",
+        "description": "Övertagssituation där anfallarna snabbt måste utnyttja ytan innan hemspringande försvarare hinner med."
+    },
+    {
+        "id": 10,
+        "name": "Skottvett från distans",
+        "category": "Avslut",
+        "ageGroup": "P12-P14",
+        "link": "",
+        "description": "Mottagning följt av direkt avslut utanför straffområdet efter passning snett inifrån bakåt."
+    },
+    {
+        "id": 11,
+        "name": "Press och täckning i par",
+        "category": "Fasta situationer",
+        ageGroup: "P11-P14",
+        link: "",
+        description: "En försvarare sätter press på bollhållare medan den andra täckar ytan bakom. Växla roller vid brytning."
+    },
+    {
+        "id": 12,
+        "name": "1 mot 1 defensiv i korridor",
+        "category": "Målvakt",
+        ageGroup: "P10-P13",
+        link: "",
+        description: "Anfallare försöker komma förbi försvarare i en 10 meter lång korridor. Fokus på låg tyngdpunkt och tålamod."
+    }
+];
+
 
         let customExercisesData = JSON.parse(localStorage.getItem('if_molndal_custom_exercises_v1')) || [];
 
