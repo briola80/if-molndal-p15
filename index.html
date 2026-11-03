@@ -295,7 +295,7 @@
             const counter = document.getElementById('exercise-counter');
             if (!list) return;
 
-            const selected = [...document.querySelectorAll('.ex-focus-chk:checked')]
+            const selected = [...document.querySelectorAll('#exercises .ex-focus-chk:checked')]
                 .map(el => el.value);
 
             const all = getAllExercises();
@@ -315,7 +315,7 @@
             `).join('');
 
             if (counter) {
-                counter.textContent = `Visar ${visible.length} övningar`;
+                counter.textContent = `Visar ${visible.length} av ${all.length} övningar`;
             }
         }
 
@@ -330,7 +330,7 @@
 
             containers.forEach(container => {
                 container.innerHTML = categories.map(category => `
-                    <label class="focus-chip checked">
+                    <label class="focus-chip checked" onclick="toggleFocusChip(this)">
                         <input type="checkbox" class="ex-focus-chk" value="${category}" checked>
                         <div class="focus-chip-box"></div>
                         <span>${category}</span>
@@ -338,19 +338,7 @@
                 `).join('');
             });
 
-            document.querySelectorAll('.ex-focus-chk').forEach(chk => {
-                const label = chk.closest('.focus-chip');
-                const syncState = () => {
-                    if (label) label.classList.toggle('checked', chk.checked);
-                };
-
-                chk.addEventListener('change', () => {
-                    syncState();
-                    renderExercises();
-                });
-
-                syncState();
-            });
+            renderExercises();
         }
 
         const defaultPlayers = [
@@ -499,7 +487,6 @@
 
         function initializeAppUI() {
             renderExerciseFilters();
-            renderExercises();
             renderPlayerRows();
             renderMatrixTable();
             renderTacticsUI();
@@ -564,7 +551,6 @@
             document.getElementById('custom-ex-url').value = "";
 
             renderExerciseFilters(); 
-            renderExercises();
             alert(`Övningen "${name}" har sparats i övningsbanken!`);
         };
 
@@ -573,7 +559,6 @@
                 customExercisesData = customExercisesData.filter(ex => ex.id !== id);
                 localStorage.setItem('if_molndal_custom_exercises_v1', JSON.stringify(customExercisesData));
                 renderExerciseFilters(); 
-                renderExercises();
             }
         };
 
@@ -766,9 +751,7 @@
             } else {
                 element.classList.remove('checked');
             }
-            if (chk && chk.classList.contains('ex-focus-chk')) {
-                renderExercises();
-            }
+            renderExercises();
         };
 
         function renderTacticsUI() {
@@ -1285,7 +1268,7 @@
             const format = document.getElementById('gen-format').value;
 
             const selectedFocuses = [];
-            document.querySelectorAll('.gen-focus-chk:checked').forEach(chk => {
+            document.querySelectorAll('#generator .ex-focus-chk:checked').forEach(chk => {
                 selectedFocuses.push(chk.value);
             });
 
