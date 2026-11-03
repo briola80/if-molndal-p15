@@ -275,13 +275,19 @@
         description: "Anfallare försöker komma förbi försvarare i en 10 meter lång korridor. Fokus på låg tyngdpunkt och tålamod."
     }
 ];
-
-
         let customExercisesData = JSON.parse(localStorage.getItem('if_molndal_custom_exercises_v1')) || [];
-
+        
         function getAllExercises() {
             const mainExercises = (typeof exercises !== 'undefined') ? exercises : baseExercisesData;
-            return [...mainExercises, ...customExercisesData];
+            return [...mainExercises, ...customExercisesData].map(ex => ({
+                ...ex,
+                name: ex.name || ex.title || "Övning utan namn",
+                desc: ex.desc || ex.description || "",
+                sourceUrl: ex.sourceUrl || ex.link || "#",
+                focus: ex.focus || ex.category || "",
+                time: ex.time || 15,
+                format: ex.format || ""
+            }));
         }
 
         const defaultPlayers = [
@@ -516,12 +522,16 @@
 
             const allEx = getAllExercises();
             let filtered = allEx;
+            
             if (selectedFocuses.length > 0 && allEx.length > 0) {
-                filtered = allEx.filter(ex => selectedFocuses.includes(ex.focus));
+                filtered = allEx.filter(ex => {
+                    const focusValue = ex.focus || ex.category;
+                    return selectedFocuses.includes(focusValue);
+                });
             }
 
             if (counterDiv) {
-                counterDiv.innerHTML = `<strong>Antal övningar:</strong> Visar <strong>${filtered.length}</strong> av totalt <strong>${allEx.length}</strong> övningar (${baseExercisesData.length} från länkbanken, ${customExercisesData.length} egna).`;
+                counterDiv.innerHTML = `<strong>Antal övningar:</strong> Visar <strong>${filtered.length}</strong> av totalt <strong>${allEx.length}</strong> övningar (${baseExercisesData.length} inbäddade, ${customExercisesData.length} egna).`;
             }
 
             if(filtered.length === 0) {
@@ -535,10 +545,10 @@
                         <h4>${ex.name} (${ex.time} min) [${ex.format}] ${ex.isCustom ? '<span style="background:#e8f5e9; color:#2e7d32; font-size:0.65rem; padding:0.1rem 0.3rem; border-radius:4px; border:1px solid #c8e6c9;">Egen</span>' : ''}</h4>
                         ${ex.isCustom ? `<button class="btn btn-danger" style="padding:0.1rem 0.3rem; font-size:0.7rem; width:auto; margin-bottom:0;" onclick="removeCustomExercise('${ex.id}')">Ta bort</button>` : ''}
                     </div>
-                    <p><strong>Kategori:</strong> ${ex.category} | <strong>Fokus:</strong> ${ex.focus}</p>
+                    <p><strong>Kategori:</strong> ${ex.category || 'Övrigt'} | <strong>Fokus:</strong> ${ex.focus || ex.category}</p>
                     <p>${ex.desc}</p>
                     <div class="exercise-source">
-                        <a href="${ex.sourceUrl}" target="_blank">${ex.isCustom && ex.sourceUrl === '#' ? 'Egen övning' : '🔗 Visa övning på Coach Truly ↗'}</a>
+                        <a href="${ex.sourceUrl}" target="_blank">${ex.isCustom && ex.sourceUrl === '#' ? 'Egen övning' : '🔗 Visa övning ↗'}</a>
                     </div>
                 </div>
             `).join('');
