@@ -1,4 +1,4 @@
-const exercises = [
+export const exercises = [
     // --- PASSNINGSSPEL & TEKNIK ---
     {
         id: 1,
