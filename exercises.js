@@ -1,4 +1,4 @@
-export const exercises = [
+window.exercises = [
     // --- PASSNINGSSPEL & TEKNIK ---
     {
         id: 1,
