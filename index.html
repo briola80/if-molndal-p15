@@ -630,24 +630,6 @@
     }).join('');
 }
 
-                return `
-                    <div class="player-row">
-                        <div class="player-top-line">
-                            <span><strong>${p.name}</strong> <span style="font-size:0.75rem; color:#6c757d">(Snittnivå: ${getPlayerLevel(p)})</span></span>
-                            <div style="display:flex; align-items:center; gap:0.5rem;">
-                                <input type="checkbox" checked id="player-chk-${index}">
-                                <button class="btn btn-danger" style="padding:0.2rem 0.4rem; font-size:0.75rem;" onclick="removePlayer(${p.id})">Ta bort</button>
-                            </div>
-                        </div>
-                        <div style="font-weight:600; font-size:0.75rem; color:#495057;">Föredragna positioner:</div>
-                        <div class="player-pos-checkboxes">
-                            ${chipsHtml}
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
         window.updatePlayerPreferredPos = function(id, pos, isChecked) {
             const player = playersData.find(p => p.id === id);
             if (!player) return;
