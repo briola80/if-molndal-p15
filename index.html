@@ -317,7 +317,12 @@
 
         chk.addEventListener('change', () => {
             syncState();
-            renderExercises();
+            renderExerciseFilters(); renderExercises();
+            if (document.querySelectorAll('.ex-focus-chk').length > 0) {
+    filtered = allEx.filter(ex =>
+        selectedFocuses.includes(String(ex.focus || ex.category || '').trim())
+    );
+}
         });
 
         syncState();
@@ -468,17 +473,17 @@
             firebase.auth().signOut();
         };
 
-        function initializeAppUI() {
-            renderExercises();
-            renderPlayerRows();
-            renderMatrixTable();
-            renderTacticsUI();
-            renderMatchUI();
-            updateSavedTeamsDropdown();
-            updateMatchSavedTeamsDropdown();
-            toggleGroupSettings();
-        }
-
+       function initializeAppUI() {
+    renderExerciseFilters();
+    renderExerciseFilters(); renderExercises();
+    renderPlayerRows();
+    renderMatrixTable();
+    renderTacticsUI();
+    renderMatchUI();
+    updateSavedTeamsDropdown();
+    updateMatchSavedTeamsDropdown();
+    toggleGroupSettings();
+}
         window.switchTab = function(tabId, btn) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
@@ -532,7 +537,7 @@
             document.getElementById('custom-ex-desc').value = "";
             document.getElementById('custom-ex-url').value = "";
 
-            renderExercises();
+            renderExerciseFilters(); renderExercises();
             alert(`Övningen "${name}" har sparats i övningsbanken!`);
         };
 
@@ -540,7 +545,7 @@
             if (confirm("Vill du ta bort denna egna övning?")) {
                 customExercisesData = customExercisesData.filter(ex => ex.id !== id);
                 localStorage.setItem('if_molndal_custom_exercises_v1', JSON.stringify(customExercisesData));
-                renderExercises();
+                renderExerciseFilters(); renderExercises();
             }
         };
 
@@ -549,19 +554,22 @@
             const counterDiv = document.getElementById('exercise-counter');
             if(!list) return;
 
-            const selectedFocuses = [];
-            document.querySelectorAll('.ex-focus-chk:checked').forEach(chk => {
-                selectedFocuses.push(chk.value);
-            });
+            const filterInputs = document.querySelectorAll(
+    '#exercise-focus-filters .ex-focus-chk'
+);
+const selectedFocuses = [...filterInputs]
+    .filter(chk => chk.checked)
+    .map(chk => String(chk.value).trim());
 
-            const allEx = getAllExercises();
-            let filtered = allEx;
-            
-            if (selectedFocuses.length > 0 && allEx.length > 0) {
-                filtered = allEx.filter(ex => {
-                    const focusValue = ex.focus || ex.category;
-                    return selectedFocuses.includes(focusValue);
-                });
+const allEx = getAllExercises();
+
+const filtered = filterInputs.length === 0
+    ? allEx
+    : allEx.filter(ex =>
+        selectedFocuses.includes(
+            String(ex.focus || ex.category || '').trim()
+        )
+    );
             }
 
             if (counterDiv) {
@@ -765,7 +773,7 @@
                 element.classList.remove('checked');
             }
             if (chk && chk.classList.contains('ex-focus-chk')) {
-                renderExercises();
+                renderExerciseFilters(); renderExercises();
             }
         };
 
@@ -1554,7 +1562,7 @@
                 </select>
 
                 <label>Filtrera efter fokusområden (välj ett eller flera):</label>
-<div class="focus-options-grid" id="exercise-focus-filters"></div>
+<div id="exercise-focus-filters" class="focus-options-grid"></div>
                     <label class="focus-chip checked" onclick="toggleFocusChip(this)">
                         <input type="checkbox" class="gen-focus-chk" value="Spelvändningar" checked>
                         <div class="focus-chip-box"></div>
@@ -1902,7 +1910,7 @@
                 <div id="exercise-counter" style="background:#e9ecef; padding:0.5rem 0.75rem; border-radius:6px; margin-bottom:0.75rem; font-size:0.85rem; color:#333;"></div>
                 
                 <label>Filtrera efter fokusområden (välj ett eller flera):</label>
-                <div class="focus-options-grid">
+                <div id="exercise-focus-filters" class="focus-options-grid"></div>
                     <label class="focus-chip checked" onclick="toggleFocusChip(this)">
                         <input type="checkbox" class="ex-focus-chk" value="Spelvändningar" checked>
                         <div class="focus-chip-box"></div>
