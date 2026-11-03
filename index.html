@@ -549,68 +549,81 @@
             }
         };
 
-        function renderExercises() {
-            const list = document.getElementById('exercise-list');
-            const counterDiv = document.getElementById('exercise-counter');
-            if(!list) return;
+        function renderExerciseFilters() {
+    const containers = document.querySelectorAll('.exercise-focus-filter-container');
 
-            const filterInputs = document.querySelectorAll(
-    '#exercise-focus-filters .ex-focus-chk'
-);
-const selectedFocuses = [...filterInputs]
-    .filter(chk => chk.checked)
-    .map(chk => String(chk.value).trim());
+    const categories = [...new Set(
+        getAllExercises()
+            .map(ex => String(ex.focus || ex.category || '').trim())
+            .filter(Boolean)
+    )].sort((a, b) => a.localeCompare(b, 'sv'));
 
-const allEx = getAllExercises();
+    containers.forEach(container => {
+        container.innerHTML = categories.map(category => `
+            <label class="focus-chip checked">
+                <input type="checkbox" class="ex-focus-chk" value="${category}" checked>
+                <div class="focus-chip-box"></div>
+                <span>${category}</span>
+            </label>
+        `).join('');
+    });
 
-const filtered = filterInputs.length === 0
-    ? allEx
-    : allEx.filter(ex =>
-        selectedFocuses.includes(
-            String(ex.focus || ex.category || '').trim()
-        )
-    );
-            }
+    document.querySelectorAll('.ex-focus-chk').forEach(chk => {
+        const label = chk.closest('.focus-chip');
+        const syncState = () => {
+            if (label) label.classList.toggle('checked', chk.checked);
+        };
 
-            if (counterDiv) {
-                counterDiv.innerHTML = `<strong>Antal övningar:</strong> Visar <strong>${filtered.length}</strong> av totalt <strong>${allEx.length}</strong> övningar (${baseExercisesData.length} inbäddade, ${customExercisesData.length} egna).`;
-            }
+        chk.addEventListener('change', () => {
+            syncState();
+            renderExercises();
+        });
 
-            if(filtered.length === 0) {
-                list.innerHTML = '<p style="color:#6c757d; font-size:0.9rem;">Inga övningar matchar det valda filtret.</p>';
-                return;
-            }
+        syncState();
+    });
+}
 
-            list.innerHTML = filtered.map(ex => `
-                <div class="exercise-item">
-                    <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-                        <h4>${ex.name} (${ex.time} min) [${ex.format}] ${ex.isCustom ? '<span style="background:#e8f5e9; color:#2e7d32; font-size:0.65rem; padding:0.1rem 0.3rem; border-radius:4px; border:1px solid #c8e6c9;">Egen</span>' : ''}</h4>
-                        ${ex.isCustom ? `<button class="btn btn-danger" style="padding:0.1rem 0.3rem; font-size:0.7rem; width:auto; margin-bottom:0;" onclick="removeCustomExercise('${ex.id}')">Ta bort</button>` : ''}
-                    </div>
-                    <p><strong>Kategori:</strong> ${ex.category || 'Övrigt'} | <strong>Fokus:</strong> ${ex.focus || ex.category}</p>
-                    <p>${ex.desc}</p>
-                    <div class="exercise-source">
-                        <a href="${ex.sourceUrl}" target="_blank">${ex.isCustom && ex.sourceUrl === '#' ? 'Egen övning' : '🔗 Visa övning ↗'}</a>
-                    </div>
-                </div>
-            `).join('');
-        }
+function renderExercises() {
+    const list = document.getElementById('exercise-list');
+    const counterDiv = document.getElementById('exercise-counter');
+    if (!list) return;
 
-        function renderPlayerRows() {
-            const container = document.getElementById('player-rows');
-            if(!container) return;
-            container.innerHTML = playersData.map((p, index) => {
-                if(!p.preferredPositions) p.preferredPositions = [p.position || "MM"];
-                const chipsHtml = allAvailablePositions.map(pos => {
-                    const isChecked = p.preferredPositions.includes(pos);
-                    return `
-                        <label class="pos-chip ${isChecked ? 'checked' : ''}">
-                            <input type="checkbox" ${isChecked ? 'checked' : ''} onchange="updatePlayerPreferredPos(${p.id}, '${pos}', this.checked)">
-                            <span>✓</span>
-                            <span>${pos}</span>
-                        </label>
-                    `;
-                }).join('');
+    const filterInputs = document.querySelectorAll('.ex-focus-chk');
+    const selectedFocuses = [...filterInputs]
+        .filter(chk => chk.checked)
+        .map(chk => String(chk.value).trim());
+
+    const allEx = getAllExercises();
+    const filtered = filterInputs.length === 0
+        ? allEx
+        : allEx.filter(ex =>
+            selectedFocuses.includes(String(ex.focus || ex.category || '').trim())
+        );
+
+    if (counterDiv) {
+        counterDiv.innerHTML =
+            `<strong>Antal övningar:</strong> Visar <strong>${filtered.length}</strong> av totalt <strong>${allEx.length}</strong> övningar (${baseExercisesData.length} inbäddade, ${customExercisesData.length} egna).`;
+    }
+
+    if (filtered.length === 0) {
+        list.innerHTML = '<p style="color:#6c757d; font-size:0.9rem;">Inga övningar matchar det valda filtret.</p>';
+        return;
+    }
+
+    list.innerHTML = filtered.map(ex => `
+        <div class="exercise-item">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                <h4>${ex.name} (${ex.time} min) [${ex.format}] ${ex.isCustom ? '<span style="background:#e8f5e9; color:#2e7d32; font-size:0.65rem; padding:0.1rem 0.3rem; border-radius:4px; border:1px solid #c8e6c9;">Egen</span>' : ''}</h4>
+                ${ex.isCustom ? `<button class="btn btn-danger" style="padding:0.1rem 0.3rem; font-size:0.7rem; width:auto; margin-bottom:0;" onclick="removeCustomExercise('${ex.id}')">Ta bort</button>` : ''}
+            </div>
+            <p><strong>Kategori:</strong> ${ex.category || 'Övrigt'} | <strong>Fokus:</strong> ${ex.focus || ex.category}</p>
+            <p>${ex.desc}</p>
+            <div class="exercise-source">
+                <a href="${ex.sourceUrl}" target="_blank">${ex.isCustom && ex.sourceUrl === '#' ? 'Egen övning' : '🔗 Visa övning ↗'}</a>
+            </div>
+        </div>
+    `).join('');
+}
 
                 return `
                     <div class="player-row">
@@ -1562,7 +1575,7 @@ const filtered = filterInputs.length === 0
                 </select>
 
                 <label>Filtrera efter fokusområden (välj ett eller flera):</label>
-<div id="exercise-focus-filters" class="focus-options-grid"></div>
+<div class="exercise-focus-filter-container"></div> class="focus-options-grid"></div>
                     <label class="focus-chip checked" onclick="toggleFocusChip(this)">
                         <input type="checkbox" class="gen-focus-chk" value="Spelvändningar" checked>
                         <div class="focus-chip-box"></div>
@@ -1910,7 +1923,7 @@ const filtered = filterInputs.length === 0
                 <div id="exercise-counter" style="background:#e9ecef; padding:0.5rem 0.75rem; border-radius:6px; margin-bottom:0.75rem; font-size:0.85rem; color:#333;"></div>
                 
                 <label>Filtrera efter fokusområden (välj ett eller flera):</label>
-                <div id="exercise-focus-filters" class="focus-options-grid"></div>
+                <div class="exercise-focus-filter-container"></div> class="focus-options-grid"></div>
                     <label class="focus-chip checked" onclick="toggleFocusChip(this)">
                         <input type="checkbox" class="ex-focus-chk" value="Spelvändningar" checked>
                         <div class="focus-chip-box"></div>
