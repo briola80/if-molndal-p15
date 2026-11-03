@@ -289,6 +289,40 @@
                 format: ex.format || ""
             }));
         }
+        function renderExerciseFilters() {
+    const container = document.getElementById('exercise-focus-filters');
+    if (!container) return;
+
+    const categories = [...new Set(
+        getAllExercises()
+            .map(ex => String(ex.focus || ex.category || '').trim())
+            .filter(Boolean)
+    )].sort((a, b) => a.localeCompare(b, 'sv'));
+
+    container.innerHTML = categories.map(category => `
+        <label class="focus-chip checked">
+            <input type="checkbox" class="ex-focus-chk" value="${category}" checked>
+            <div class="focus-chip-box"></div>
+            <span>${category}</span>
+        </label>
+    `).join('');
+
+    container.querySelectorAll('.ex-focus-chk').forEach(chk => {
+        const label = chk.closest('.focus-chip');
+        const syncState = () => {
+            if (label) {
+                label.classList.toggle('checked', chk.checked);
+            }
+        };
+
+        chk.addEventListener('change', () => {
+            syncState();
+            renderExercises();
+        });
+
+        syncState();
+    });
+}
 
         const defaultPlayers = [
             { id: 1, name: "Alexander Hardless", tact: 2, tech: 2, ment: 2, phys: 2, position: "MM", preferredPositions: ["MM"] },
