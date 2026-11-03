@@ -291,40 +291,48 @@
         }
 
         function renderExercises() {
-            const list = document.getElementById('exercise-list');
-            const counter = document.getElementById('exercise-counter');
-            if (!list) return;
+    const list = document.getElementById('exercise-list');
+    const counter = document.getElementById('exercise-counter');
+    if (!list) return;
 
-            const selected = [...document.querySelectorAll('#exercises .ex-focus-chk:checked')]
-                .map(el => el.value);
+    const selected = [...document.querySelectorAll('#exercises .ex-focus-chk:checked')]
+        .map(el => el.value);
 
-            const all = getAllExercises();
-            const visible = all.filter(ex => {
-                const focus = String(ex.focus || ex.category || '').trim();
-                return selected.includes(focus);
-            });
+    const all = getAllExercises();
+    const visible = all.filter(ex => {
+        const focus = String(ex.focus || ex.category || '').trim();
+        return selected.includes(focus);
+    });
 
-            list.innerHTML = visible.map(ex => {
-                const hasValidUrl = ex.sourceUrl && ex.sourceUrl !== '#' && ex.sourceUrl.trim() !== '';
-                const linkHtml = hasValidUrl 
-                    ? `<a href="${ex.sourceUrl}" target="_blank" rel="noopener noreferrer">Visa övning ↗</a>` 
-                    : `<a href="https://www.google.com/search?q=${encodeURIComponent(ex.name + ' fotbollsövning')}" target="_blank" rel="noopener noreferrer" style="background-color:#f1f3f5; color:#333; border:1px solid #ccc;">Sök övning på webben ↗</a>`;
+    list.innerHTML = visible.map(ex => {
+        // Hämta länk från antingen sourceUrl eller link
+        let rawUrl = ex.sourceUrl || ex.link || '';
+        const hasValidUrl = rawUrl && rawUrl !== '#' && rawUrl.trim() !== '';
 
-                return `
-                    <div class="exercise-item">
-                        <h4>${ex.name}</h4>
-                        <p>${ex.desc || ex.description || ''}</p>
-                        <div class="exercise-source">
-                            ${linkHtml}
-                        </div>
-                    </div>
-                `;
-            }).join('');
-
-            if (counter) {
-                counter.textContent = `Visar ${visible.length} av ${all.length} övningar`;
-            }
+        let linkHtml = '';
+        if (hasValidUrl) {
+            linkHtml = `<a href="${rawUrl}" target="_blank" rel="noopener noreferrer">🔗 Visa övning ↗</a>`;
+        } else {
+            // Om länken saknas helt, skapa en sök-länk baserat på övningens namn
+            const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(ex.name + ' fotbollsövning')}`;
+            linkHtml = `<a href="${searchUrl}" target="_blank" rel="noopener noreferrer" style="background-color:#e9ecef; color:#495057; border:1px solid #ced4da;">🔍 Sök övning på webben ↗</a>`;
         }
+
+        return `
+            <div class="exercise-item">
+                <h4>${ex.name}</h4>
+                <p>${ex.desc || ex.description || ''}</p>
+                <div class="exercise-source">
+                    ${linkHtml}
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    if (counter) {
+        counter.textContent = `Visar ${visible.length} av ${all.length} övningar`;
+    }
+}
 
         function renderExerciseFilters() {
             const containers = document.querySelectorAll('.exercise-focus-filter-container');
