@@ -289,11 +289,10 @@
                 format: ex.format || ""
             }));
         }
-
-  function renderExercises() {
-    const list = document.getElementById('exercise-list');
-    const counter = document.getElementById('exercise-counter');
-    if (!list) return;
+        function renderExercises() {
+            const list = document.getElementById('exercise-list');
+            const counter = document.getElementById('exercise-counter');
+            if (!list) return;
 
     const selected = [...document.querySelectorAll('#exercises .ex-focus-chk:checked')]
         .map(el => el.value);
