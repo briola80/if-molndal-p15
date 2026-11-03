@@ -290,34 +290,42 @@
             }));
         }
 
-        function renderExercises() {
-            const list = document.getElementById('exercise-list');
-            const counter = document.getElementById('exercise-counter');
-            if (!list) return;
+  function renderExercises() {
+    const list = document.getElementById('exercise-list');
+    const counter = document.getElementById('exercise-counter');
+    if (!list) return;
 
-            const selected = [...document.querySelectorAll('#exercises .ex-focus-chk:checked')]
-                .map(el => el.value);
+    const selected = [...document.querySelectorAll('#exercises .ex-focus-chk:checked')]
+        .map(el => el.value);
 
-            const all = getAllExercises();
-            const visible = all.filter(ex => {
-                const focus = String(ex.focus || ex.category || '').trim();
-                return selected.includes(focus);
-            });
+    const all = getAllExercises();
+    const visible = all.filter(ex => {
+        const focus = String(ex.focus || ex.category || '').trim();
+        return selected.includes(focus);
+    });
 
-            list.innerHTML = visible.map(ex => `
-                <div class="exercise-item">
-                    <h4>${ex.name}</h4>
-                    <p>${ex.desc || ex.description || ''}</p>
-                    <div class="exercise-source">
-                        <a href="${ex.sourceUrl || '#'}" target="_blank">Visa övning</a>
-                    </div>
+    list.innerHTML = visible.map(ex => {
+        // Kontrollera att länken är giltig och inte bara '#' eller tom
+        const hasValidUrl = ex.sourceUrl && ex.sourceUrl !== '#' && ex.sourceUrl.trim() !== '';
+        const linkHtml = hasValidUrl 
+            ? `<a href="${ex.sourceUrl}" target="_blank" rel="noopener noreferrer">Visa övning ↗</a>` 
+            : `<span style="color:#6c757d; font-style:italic;">Ingen extern länk tillgänglig</span>`;
+
+        return `
+            <div class="exercise-item">
+                <h4>${ex.name}</h4>
+                <p>${ex.desc || ex.description || ''}</p>
+                <div class="exercise-source">
+                    ${linkHtml}
                 </div>
-            `).join('');
+            </div>
+        `;
+    }).join('');
 
-            if (counter) {
-                counter.textContent = `Visar ${visible.length} av ${all.length} övningar`;
-            }
-        }
+    if (counter) {
+        counter.textContent = `Visar ${visible.length} av ${all.length} övningar`;
+    }
+}
 
         function renderExerciseFilters() {
             const containers = document.querySelectorAll('.exercise-focus-filter-container');
