@@ -238,27 +238,27 @@
     }
 }
 
-        function renderExerciseFilters() {
-            const containers = document.querySelectorAll('.exercise-focus-filter-container');
+    function renderExerciseFilters() {
+    const containers = document.querySelectorAll('.exercise-focus-filter-container');
 
-            const categories = [...new Set(
-                getAllExercises()
-                    .map(ex => String(ex.focus || ex.category || '').trim())
-                    .filter(Boolean)
-            )].sort((a, b) => a.localeCompare(b, 'sv'));
+    const categories = [...new Set(
+        getAllExercises()
+            .map(ex => String(ex.focus || ex.category || '').trim())
+            .filter(Boolean)
+    )].sort((a, b) => a.localeCompare(b, 'sv'));
 
-            containers.forEach(container => {
-                container.innerHTML = categories.map(category => `
-                    <label class="focus-chip checked" onclick="toggleFocusChip(this)">
-                        <input type="checkbox" class="ex-focus-chk" value="${category}" checked>
-                        <div class="focus-chip-box"></div>
-                        <span>${category}</span>
-                    </label>
-                `).join('');
-            });
+    containers.forEach(container => {
+        container.innerHTML = categories.map(category => `
+            <label class="focus-chip checked" onclick="toggleFocusChip(this)">
+                <input type="checkbox" class="ex-focus-chk" value="${category}" checked onchange="renderExercises()">
+                <div class="focus-chip-box"></div>
+                <span>${category}</span>
+            </label>
+        `).join('');
+    });
 
-            renderExercises();
-        }
+    renderExercises();
+}
 
         const defaultPlayers = [
             { id: 1, name: "Alexander Hardless", tact: 2, tech: 2, ment: 2, phys: 2, position: "MM", preferredPositions: ["MM"] },
@@ -661,17 +661,17 @@
         };
 
         window.toggleFocusChip = function(element) {
-            const chk = element.querySelector('input');
-            if (chk) {
-                chk.checked = !chk.checked;
-            }
-            if (chk && chk.checked) {
-                element.classList.add('checked');
-            } else {
-                element.classList.remove('checked');
-            }
-            renderExercises();
-        };
+    const chk = element.querySelector('input');
+    if (chk) {
+        chk.checked = !chk.checked;
+    }
+    if (chk && chk.checked) {
+        element.classList.add('checked');
+    } else {
+        element.classList.remove('checked');
+    }
+    renderExercises();
+};
 
         function renderTacticsUI() {
             const tacticsContainer = document.getElementById('tactics-squad-list');
