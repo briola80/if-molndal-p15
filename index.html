@@ -180,58 +180,63 @@
         const baseExercisesData = [];
         let customExercisesData = JSON.parse(localStorage.getItem('if_molndal_custom_exercises_v1')) || [];
         
-        function getAllExercises() {
-            const mainExercises = (typeof exercises !== 'undefined') ? exercises : baseExercisesData;
-            return [...mainExercises, ...customExercisesData].map(ex => {
-                // Plocka upp länken oavsett om egenskapen heter sourceUrl, link eller url
-                const resolvedUrl = ex.sourceUrl || ex.link || ex.url || '';
-                return {
-                    ...ex,
-                    name: ex.name || ex.title || "Övning utan namn",
-                    desc: ex.desc || ex.description || "",
-                    sourceUrl: resolvedUrl,
-                    focus: ex.focus || ex.category || "",
-                    time: ex.time || 15,
-                    format: ex.format || ""
-                };
-            });
-        }
+       function getAllExercises() {
+    // Hämtar från exercises.js eller fallback
+    const mainExercises = (typeof exercises !== 'undefined') ? exercises : baseExercisesData;
+    
+    return [...mainExercises, ...customExercisesData].map(ex => {
+        // Letar efter länken i samtliga vanliga fältnamn som kan finnas i din exercises.js
+        const resolvedUrl = ex.sourceUrl || ex.link || ex.url || ex.source || '';
+        
+        return {
+            ...ex,
+            name: ex.name || ex.title || "Övning utan namn",
+            desc: ex.desc || ex.description || "",
+            sourceUrl: resolvedUrl,
+            focus: ex.focus || ex.category || "",
+            time: ex.time || 15,
+            format: ex.format || ""
+        };
+    });
+}
 
-        function renderExercises() {
-            const list = document.getElementById('exercise-list');
-            const counter = document.getElementById('exercise-counter');
-            if (!list) return;
+       function renderExercises() {
+    const list = document.getElementById('exercise-list');
+    const counter = document.getElementById('exercise-counter');
+    if (!list) return;
 
-            const selected = [...document.querySelectorAll('#exercises .ex-focus-chk:checked')]
-                .map(el => el.value);
+    const selected = [...document.querySelectorAll('#exercises .ex-focus-chk:checked')]
+        .map(el => el.value);
 
-            const all = getAllExercises();
-            const visible = all.filter(ex => {
-                const focus = String(ex.focus || ex.category || '').trim();
-                return selected.includes(focus);
-            });
+    const all = getAllExercises();
+    const visible = all.filter(ex => {
+        const focus = String(ex.focus || ex.category || '').trim();
+        return selected.includes(focus);
+    });
 
-            list.innerHTML = visible.map(ex => {
-                const hasValidUrl = ex.sourceUrl && ex.sourceUrl !== '#' && ex.sourceUrl.trim() !== '';
-                const linkHtml = hasValidUrl 
-                    ? `<a href="${ex.sourceUrl}" target="_blank" rel="noopener noreferrer">🔗 Visa övning ↗</a>` 
-                    : `<span style="color:#6c757d; font-style:italic;">Ingen extern länk tillgänglig</span>`;
+    list.innerHTML = visible.map(ex => {
+        const hasValidUrl = ex.sourceUrl && ex.sourceUrl !== '#' && ex.sourceUrl.trim() !== '';
+        
+        // Om länken finns i exercises.js visas den direkt härifrån
+        const linkHtml = hasValidUrl 
+            ? `<a href="${ex.sourceUrl}" target="_blank" rel="noopener noreferrer">🔗 Visa övning ↗</a>` 
+            : `<span style="color:#6c757d; font-style:italic;">Ingen länk angiven</span>`;
 
-                return `
-                    <div class="exercise-item">
-                        <h4>${ex.name}</h4>
-                        <p>${ex.desc || ex.description || ''}</p>
-                        <div class="exercise-source">
-                            ${linkHtml}
-                        </div>
-                    </div>
-                `;
-            }).join('');
+        return `
+            <div class="exercise-item">
+                <h4>${ex.name}</h4>
+                <p>${ex.desc || ex.description || ''}</p>
+                <div class="exercise-source">
+                    ${linkHtml}
+                </div>
+            </div>
+        `;
+    }).join('');
 
-            if (counter) {
-                counter.textContent = `Visar ${visible.length} av ${all.length} övningar`;
-            }
-        }
+    if (counter) {
+        counter.textContent = `Visar ${visible.length} av ${all.length} övningar`;
+    }
+}
 
         function renderExerciseFilters() {
             const containers = document.querySelectorAll('.exercise-focus-filter-container');
