@@ -162,6 +162,36 @@
             .no-print { display: none !important; }
         }
     </style>
+     <script>
+         function renderExercises() {
+    const list = document.getElementById('exercise-list');
+    const counter = document.getElementById('exercise-counter');
+    if (!list) return;
+
+    const selected = [...document.querySelectorAll('.ex-focus-chk:checked')]
+        .map(el => el.value);
+
+    const all = getAllExercises();
+    const visible = all.filter(ex => {
+        const focus = String(ex.focus || ex.category || '').trim();
+        return selected.includes(focus);
+    });
+
+    list.innerHTML = visible.map(ex => `
+        <div class="exercise-item">
+            <h4>${ex.name}</h4>
+            <p>${ex.desc || ex.description || ''}</p>
+            <div class="exercise-source">
+                <a href="${ex.sourceUrl || '#'}" target="_blank">Visa övning</a>
+            </div>
+        </div>
+    `).join('');
+
+    if (counter) {
+        counter.textContent = `Visar ${visible.length} övningar`;
+    }
+}
+         
 
     <script>
         // Initiera Firebase
