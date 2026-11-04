@@ -14,54 +14,6 @@
     <!-- 1. Ladda externa övningar först -->
     <script src="exercises.js"></script>
     
-/* Generella grundinställningar för responsivitet */
-h1 {
-    font-size: 1.5rem; /* Mindre storlek på mobil som standard */
-    line-height: 1.2;
-}
-
-h2 {
-    font-size: 1.25rem;
-    line-height: 1.3;
-}
-
-/* Anpassningar för skärmar mindre än 768px (mobiler) */
-@media (max-width: 768px) {
-    .container {
-        padding: 0.5rem; /* Sparar utrymme på sidorna */
-    }
-
-    header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-    }
-
-    /* Se till att filter- och grid-element staplas snyggt på höjden i mobilen */
-    .focus-options-grid {
-        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-        gap: 0.4rem;
-    }
-
-    /* Justera rubrikstorlekar i mobilen så de inte klumpar ihop sig */
-    h1 {
-        font-size: 1.25rem !important;
-    }
-    
-    h2 {
-        font-size: 1.05rem !important;
-    }
-
-    h3, h4 {
-        font-size: 0.95rem !important;
-    }
-
-    /* Förhindra att tabeller eller kort flyter ut */
-    .exercise-card, .card {
-        padding: 0.75rem;
-        margin-bottom: 0.75rem;
-    }
-}
     <style>
         :root {
             --primary: #d32f2f;
@@ -209,6 +161,54 @@ h2 {
             #match-export-container { position: absolute; left: 0; top: 0; width: 100%; box-shadow: none; border: none; padding: 0; }
             .no-print { display: none !important; }
         }
+        /* Generella grundinställningar för responsivitet */
+h1 {
+    font-size: 1.5rem; /* Mindre storlek på mobil som standard */
+    line-height: 1.2;
+}
+
+h2 {
+    font-size: 1.25rem;
+    line-height: 1.3;
+}
+
+/* Anpassningar för skärmar mindre än 768px (mobiler) */
+@media (max-width: 768px) {
+    .container {
+        padding: 0.5rem; /* Sparar utrymme på sidorna */
+    }
+
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    /* Se till att filter- och grid-element staplas snyggt på höjden i mobilen */
+    .focus-options-grid {
+        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+        gap: 0.4rem;
+    }
+
+    /* Justera rubrikstorlekar i mobilen så de inte klumpar ihop sig */
+    h1 {
+        font-size: 1.25rem !important;
+    }
+    
+    h2 {
+        font-size: 1.05rem !important;
+    }
+
+    h3, h4 {
+        font-size: 0.95rem !important;
+    }
+
+    /* Förhindra att tabeller eller kort flyter ut */
+    .exercise-card, .card {
+        padding: 0.75rem;
+        margin-bottom: 0.75rem;
+    }
+}
     </style>
 
     <script>
