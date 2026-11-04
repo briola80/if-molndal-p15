@@ -14,15 +14,15 @@
    <!-- Firebase App & Auth SDK (Compat) -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-    <script // Lista med e-postadresser som har behörighet att låsa upp fliken
-const adminEmails = [
-    "briola1980@gmail.com",
-];
+    
+   <script const adminEmails = [
+        "briola1980@gmail.com"
+    ];
 
-function checkIfAdmin(user) {
-    if (!user || !user.email) return false;
-    return adminEmails.includes(user.email.toLowerCase().trim());
-}
+    function checkIfAdmin(user) {
+        if (!user || !user.email) return false;
+        return adminEmails.includes(user.email.toLowerCase().trim());
+    }
 </script>
 
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
