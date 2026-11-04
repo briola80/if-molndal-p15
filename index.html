@@ -25,14 +25,6 @@
     }
 </script>
 
-    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-    const target = document.getElementById(tabId);
-    if (target) target.classList.add('active');
-    if (btn) btn.classList.add('active');
-    window.scrollTo(0, 0);
-};
-
    <!-- Öppnar formulär ny övning (toggle) -->
     <script>
         function toggleAddExerciseForm() {
