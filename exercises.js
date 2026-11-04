@@ -1,3283 +1,4479 @@
-window.exercises = [
-    // --- PASSNINGSSPEL & TEKNIK ---
-    {
-        id: 1,
-        title: "Passningsstafett med mottagning",
-        category: "Passningsspel",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Spelarna står i led mitt emot varandra. Passning längs marken, mottagning med ytan/insidan och snabb överlämning till nästa."
-    },
-    {
-        id: 2,
-        title: "Rondellen 4 mot 1",
-        category: "Passningsspel",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Fyra spelare håller bollen inom laget i en ruta (t.ex. 10x10m) medan en försvarare försöker bryta. Max två tillslag."
-    },
-    {
-        id: 3,
-        title: "Väggspel i par",
-        category: "Passningsspel",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Spelare A driver bollen mot spelare B, spelar ett väggspel (ett-två) och tar emot på bortre sidan."
-    },
-    {
-        id: 4,
-        title: "Yttersidespassningar i rörelse",
-        category: "Teknik",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Två och två i rörelse framåt längs långsidan, fokus på snabba passningar med yttersidan utan att tappa fart."
-    },
-    {
-        id: 5,
-        title: "Driva och vända (Cruyff-fint)",
-        category: "Teknik",
-        ageGroup: "P10-P12",
-        link: "",
-        description: "Spelare driver mot kon, gör en Cruyff-fint och driver tillbaka. Fokus på kroppsfint."
-    },
-
-    // --- ANFALSSPEL & AVSLUT ---
-    {
-        id: 6,
-        title: "Avslutsserie efter instick",
-        category: "Avslut",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Yttermittfält spelar in till central anfallare som tar emot och avslutar direkt på mål inom straffområdet."
-    },
-    {
-        id: 7,
-        title: "Spel 2 mot 1 till avslut",
-        category: "Anfallsspel",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Anfallande par driver mot en back. Målet är att spela bort backen genom ett snabbt instick eller överlapp."
-    },
-    {
-        id: 8,
-        title: "Inlägg och avslut på bortre",
-        category: "Avslut",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Ytter spelar in boll i straffområdet mot två anfallare som löper mot första respektive bortre stolpen."
-    },
-    {
-        id: 9,
-        title: "3 mot 2 på yta med snabbt anfall",
-        category: "Anfallsspel",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Övertagssituation där anfallarna snabbt måste utnyttja ytan innan hemspringande försvarare hinner med."
-    },
-    {
-        id: 10,
-        title: "Skottvett från distans",
-        category: "Avslut",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Mottagning följt av direkt avslut utanför straffområdet efter passning snett inifrån bakåt."
-    },
-
-    // --- FÖRSVARSSPEL ---
-    {
-        id: 11,
-        title: "Press och täckning i par",
-        category: "Försvar",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "En försvarare sätter press på bollhållare medan den andra täckar ytan bakom. Växla roller vid brytning."
-    },
-    {
-        id: 12,
-        title: "1 mot 1 defensivt i korridor",
-        category: "Försvar",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Anfallare försöker komma förbi försvarare i en 10 meter lång korridor. Fokus på låg tyngdpunkt och tålamod."
-    },
-    {
-        id: 13,
-        title: "Brytpunkt och säkra ytor",
-        category: "Försvar",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Fyra backar mot tre anfallare. Träna på att hålla linjen och kommunicera när bollen flyttas i sidled."
-    },
-
-    // --- FYSIK & RÖRELSE ---
-    {
-        id: 14,
-        title: "Koordinationsstege och snabba fötter",
-        category: "Fysik",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Olika fotisättningar i stege följt av 10 meters maximal acceleration."
-    },
-    {
-        id: 15,
-        title: "Rörlighet och dynamisk uppvärmning",
-        category: "Fysik",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Genomgång av höftöppnare, utfallsteg och lätta sidledsförflyttningar inför träningspasset."
-    },
-
-    // --- NÄSTA BATCH: PASSNINGSSPEL & TEKNIK ---
-    {
-        id: 16,
-        title: "Triangelspel med väggpassning",
-        category: "Passningsspel",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Tre spelare i en triangel där bollen spelas på utsidan med max två tillslag för att träna uppspelsfasen."
-    },
-    {
-        id: 17,
-        title: "Kvadraten 5 mot 2",
-        category: "Passningsspel",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Fem spelare rullar bollen inom laget i en 12x12-metersruta mot två jagande försvarare."
-    },
-    {
-        id: 18,
-        title: "Driva och vända med yttersida",
-        category: "Teknik",
-        ageGroup: "P10-P12",
-        link: "",
-        description: "Spelare driver bollen framåt, stannar upp och vänder runt med yttersidan av foten för att snabbt byta riktning."
-    },
-    {
-        id: 19,
-        title: "Direktpassningsstafett",
-        category: "Passningsspel",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Spelare i led slår tillbakapassningar på ett tillslag till nästa spelare som direkt sätter fart framåt."
-    },
-    {
-        id: 20,
-        title: "Vända bort motståndare i trång yta",
-        category: "Teknik",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Träna på att skärma av bollen med kroppen (täckning) och vända bort en passiv försvarare."
-    },
-
-    // --- ANFALSSPEL & AVSLUT ---
-    {
-        id: 21,
-        title: "Omställning 2 mot 1 med avslut",
-        category: "Anfallsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Snabb kontring där två anfallare driver mot en ensam back och ska avsluta inom 10 sekunder."
-    },
-    {
-        id: 22,
-        title: "Inläggsspel med tre löpare",
-        category: "Avslut",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Yttermittfältare slår inlägg mot första stolpen, straffpunkten och bortre ytan där tre anfallare fyller på."
-    },
-    {
-        id: 23,
-        title: "Skott efter mottagning i djupled",
-        category: "Avslut",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Lång boll i djupet, mottagning i fart följt av snabbt avslut mot mål innan målvakten hunnit ut."
-    },
-    {
-        id: 24,
-        title: "Spel 3 mot 3 plus väggspelare",
-        category: "Anfallsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Smålagsspel där anfallande lag får använda två neutrala väggspelare på långsidorna för att skapa övertag."
-    },
-    {
-        id: 25,
-        title: "Distansskott efter retur",
-        category: "Avslut",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Skott utifrån följt av snabb måljakt på eventuell retur eller hovring från målvakt."
-    },
-
-    // --- FÖRSVARSSPEL ---
-    {
-        id: 26,
-        title: "1 mot 1 defensiv i sidled",
-        category: "Försvar",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Försvarare möter anfallare som kommer i sidled. Fokus på att styra utåt mot sidlinjen."
-    },
-    {
-        id: 27,
-        title: "Presspel och zonförsvar 4 mot 4",
-        category: "Försvar",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Träna försvarslinjens samspel och kommunikation i att flytta i sidled och höjdled som ett lag."
-    },
-    {
-        id: 28,
-        title: "Återerövring direkt efter bolltapp",
-        category: "Försvar",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Direkt press på bollhållaren och närmaste ytor inom 5 sekunder efter förlorad boll i spel 3 mot 3."
-    },
-    {
-        id: 29,
-        title: "Brytpunkt i centrala ytor",
-        category: "Försvar",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Försvarare tränar på att bryta instick centralt mellan backlinje och mittfält."
-    },
-    {
-        id: 30,
-        title: "Markering vid fasta situationer",
-        category: "Försvar",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Övning på man-mot-man-markering i eget straffområde vid hörnor och frisparkar."
-    },
-
-    // --- FYSIK & RÖRELSE ---
-    {
-        id: 31,
-        title: "Intervalllöpning med riktningsförändring",
-        category: "Fysik",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Korta maximala löpningar mellan koner med 180-graders vändningar för att simulera matchtempo."
-    },
-    {
-        id: 32,
-        title: "Bål- och styrkestationer för fotboll",
-        category: "Fysik",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Cirkelträning med plankan, upphopp, utfallsteg och sidoplanka för att stärka fotbollsmuskulaturen."
-    },
-    {
-        id: 33,
-        title: "Snabba fötter i konbana",
-        category: "Fysik",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Intensiv fotarbetsövning genom tätt placerade koner följd av 15 meters rusning."
-    },
-    {
-        id: 34,
-        title: "Koordination med balansplatta/fotboll",
-        category: "Fysik",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Balansövningar på ett ben med lätt passning eller mottagning av boll för att förebygga fotledsskador."
-    },
-    {
-        id: 35,
-        title: "Agilitybana med bollkontroll",
-        category: "Fysik",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Slalomlöpning runt häckar och koner med bollen klistrad vid fötterna på tid."
-    },
-
-    // --- SPELÖVNINGAR & SMÅLAGSPSPEL ---
-    {
-        id: 36,
-        title: "Smålagsspel 3 mot 3 med fyra små mål",
-        category: "Spelövningar",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Inget lag har en fast målvakt. Mål kan göras i två riktningar för att tvinga fram snabba omställningar."
-    },
-    {
-        id: 37,
-        title: "Avslutningsspel 4 mot 4 på stor yta",
-        category: "Spelövningar",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Spel med riktiga mål och målvakter. Fokus på snabba avslut och högt bolltempo."
-    },
-    {
-        id: 38,
-        title: "Zonspel 3 mot 3 + 3",
-        category: "Spelövningar",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Planen uppdelad i tre zoner där ett lag har numerärt överläge i bollhållande zon."
-    },
-    {
-        id: 39,
-        title: "Joker-spel 4 mot 4 med en neutral spelare",
-        category: "Spelövningar",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Den neutrala spelaren spelar alltid med det lag som har bollen för att underlätta bollinnehav."
-    },
-    {
-        id: 40,
-        title: "Matchspel med touch-begränsning",
-        category: "Spelövningar",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Vanligt matchspel 5 mot 5 där spelarna max får ha två tillslag per bollkontakt för att öka tempot."
-    },
-    {
-        id: 41,
-        title: "Passningskombination i åtta-form",
-        category: "Passningsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Spelarna rör sig i en åtta-form över planen och byter bollar genom korta väggspel."
-    },
-    {
-        id: 42,
-        title: "Presspel i numerärt underläge",
-        category: "Försvar",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Två försvarare pressar fyra anfallare. Träna på att täcka ytor smart och styra spelet."
-    },
-    {
-        id: 43,
-        title: "Dribblingsduell 1 mot 1 med avslut",
-        category: "Teknik",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Start vid mittlinjen, 1 mot 1 i fart och direkt avslut inom 10 sekunder."
-    },
-    {
-        id: 44,
-        title: "Långa bollar och mottagning på bröst/lår",
-        category: "Teknik",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Träna på att ta emot höga, långa bollar med bröst eller lår i en kontrollerad yta."
-    },
-    {
-        id: 45,
-        title: "Sista minuten-anfall (stressat avslut)",
-        category: "Anfallsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Anfall mot försvar med tidtagning där laget måste skapa ett avslut på under 15 sekunder."
-    },
-
-    // --- NÄSTA BATCH: ID 46–75 ---
-    {
-        id: 46,
-        title: "Passningstävling med mottagning i kvadrat",
-        category: "Passningsspel",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Fyrkant där spelare passar diagonalt och följer efter bollen till nästa position."
-    },
-    {
-        id: 47,
-        title: "Diagonalpassningar och djupledslöpning",
-        category: "Passningsspel",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Långa bollar diagonalt över planen till yttermittfältare som löper i djupled."
-    },
-    {
-        id: 48,
-        title: "Spel 3 mot 2 på reducerad yta",
-        category: "Anfallsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Anfallande lag har numerärt överläge och ska snabbt utnyttja ytan för att komma till avslut."
-    },
-    {
-        id: 49,
-        title: "Väggspel och skott från straffområdeslinjen",
-        category: "Anfallsspel",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Kombinationsspel utanför straffområdet följt av direktskott."
-    },
-    {
-        id: 50,
-        title: "1 mot 1 med felvänd anfallare",
-        category: "Försvar",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Försvarare sätter press i ryggen på anfallare som tar emot bollen felvänd."
-    },
-    {
-        id: 51,
-        title: "Presspel i grupp (2 mot 3)",
-        category: "Försvar",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Träna på att pressa bollhållare i underläge genom att täcka ytor smart."
-    },
-    {
-        id: 52,
-        title: "Snabblöpningar med riktningsförändring",
-        category: "Fysik",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Korta intervaller mellan koner med fokus på snabba stopp och acceleration."
-    },
-    {
-        id: 53,
-        title: "Explosiva start- och stoppövningar",
-        category: "Fysik",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Reaktionsbaserade löpningar där spelarna startar på signal och stannar direkt."
-    },
-    {
-        id: 54,
-        title: "Dribblingsbana med avslut",
-        category: "Teknik",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Slalom genom koner, fint förbi sista hinder och skott i mål."
-    },
-    {
-        id: 55,
-        title: "Skottfint och kroppsfint i fart",
-        category: "Teknik",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Driva mot försvarare, göra en skottfint och accelerera förbi."
-    },
-    {
-        id: 56,
-        title: "Smålagsspel 4 mot 4 med neutrala kanter",
-        category: "Spelövningar",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Neutrala spelare på långsidorna stöttar det bollhållande laget."
-    },
-    {
-        id: 57,
-        title: "Matchspel med trepassningskrav",
-        category: "Spelövningar",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Laget måste göra minst tre passningar inom laget innan avslut får ske."
-    },
-    {
-        id: 58,
-        title: "Kortpassningsspel i triangel (max två tillslag)",
-        category: "Passningsspel",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Håll bollen inom laget i en triangelformad yta med högt tempo."
-    },
-    {
-        id: 59,
-        title: "Uppspelsövning från backlinje till mittfält",
-        category: "Passningsspel",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Simulera speluppbyggnad bakifrån genom backlinje och defensiv mittfältare."
-    },
-    {
-        id: 60,
-        title: "Inläggsspel med pressande försvarare",
-        category: "Anfallsspel",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Inlägg från kant där anfallare möter upp i straffområdet mot aktiv back."
-    },
-    {
-        id: 61,
-        title: "Kontringsövning 3 mot 2 med snabbt avslut",
-        category: "Anfallsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Snabb omställning från försvar till anfall med numerärt överläge."
-    },
-    {
-        id: 62,
-        title: "Försvarsblock 4 mot 4 i låg zon",
-        category: "Försvar",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Hålla ihop lagdelen i djupled och sidled nära eget straffområde."
-    },
-    {
-        id: 63,
-        title: "Återerövring direkt vid bollförlust",
-        category: "Försvar",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Omställning i försvar inom 5 sekunder efter tappad boll."
-    },
-    {
-        id: 64,
-        title: "Explosiv styrka med kroppsvikt",
-        category: "Fysik",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Cirkelträning med upphopp, armhävningar och utfall."
-    },
-    {
-        id: 65,
-        title: "Koordination med fotsteg och snabba fötter",
-        category: "Fysik",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Fötterna i snabbt tempo genom koordinationsstege följt av sprint."
-    },
-    {
-        id: 66,
-        title: "Nick och mottagning med bröst",
-        category: "Teknik",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Kasta boll till medspelare som tar emot med bröstet eller nickar vidare."
-    },
-    {
-        id: 67,
-        title: "Skott med vrist och yttersida",
-        category: "Teknik",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Träna avslutsteknik med ren vristträff och pressad boll."
-    },
-    {
-        id: 68,
-        title: "Matchspel 5 mot 5 i zoner",
-        category: "Spelövningar",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Spelarna är låsta till sina zoner för att lära sig positionsspel."
-    },
-    {
-        id: 69,
-        title: "Smålagsspel 3 mot 3 på små mål",
-        category: "Spelövningar",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Intensivt spel utan målvikter med fokus på passningsskicklighet."
-    },
-    {
-        id: 70,
-        title: "Genombrottspassning genom trång yta",
-        category: "Passningsspel",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Slå hård passning mellan koner som simulerar motståndarnas lagdelar."
-    },
-    {
-        id: 71,
-        title: "Mottagning av långa bollar på lår",
-        category: "Teknik",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Kontrollera höga bollar med låret och lägg ner till marken."
-    },
-    {
-        id: 72,
-        title: "Överlappning på kant och inlägg",
-        category: "Anfallsspel",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Ytterback löper runt yttermittfältare för att slå inlägg."
-    },
-    {
-        id: 73,
-        title: "Instick i ytan mellan ytterback och mittback",
-        category: "Anfallsspel",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Utnyttja ytan bakom motståndarens backlinje med djupledspassning."
-    },
-    {
-        id: 74,
-        title: "Säkra andraytan utanför straffområdet",
-        category: "Försvar",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Defensiva mittfältare refsar upp lösa bollar utanför eget straffområde."
-    },
-    {
-        id: 75,
-        title: "Styrning av motståndare mot sidlinjen",
-        category: "Försvar",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Pressa bollhållare i en vinkel som tvingar ut spelet mot kanten."
-    },
-
-    // --- NÄSTA BATCH: ID 76–105 (Inkl. Målvakt & Fasta situationer) ---
-    {
-        id: 76,
-        title: "Målvakt: Skottäckning och vinkelspel",
-        category: "Målvaktsspel",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Målvakten tränar på att snabbt täcka vinklar vid avslut nära straffområdeslinjen."
-    },
-    {
-        id: 77,
-        title: "Målvakt: Greppsträning vid inlägg",
-        category: "Målvaktsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Målvakten flyttar ut i felt och plockar höga bollar i konkurrens med spelare."
-    },
-    {
-        id: 78,
-        title: "Fasta situationer: Hörna med variant vid första stolpen",
-        category: "Fasta situationer",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Låg eller hård hörna mot första stolpen där en spelare skarvar vidare i mål."
-    },
-    {
-        id: 79,
-        title: "Fasta situationer: Frisparksvariant med skott bakåt",
-        category: "Fasta situationer",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Varianter vid frispark strax utanför straffområdet där bollen passas snett inåt bakåt."
-    },
-    {
-        id: 80,
-        title: "Kortpassningsspel i trång yta (Rondell)",
-        category: "Passningsspel",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Spela bollen inom laget i en 8x8-metersruta med maximalt ett tillslag."
-    },
-    {
-        id: 81,
-        title: "Speluppbyggnad via central mittfältare",
-        category: "Passningsspel",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Träna på att spela bollen genom lagdelarna till central spelfördelare."
-    },
-    {
-        id: 82,
-        title: "Anfallsspel 4 mot 3 med snabbt instick",
-        category: "Anfallsspel",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Anfallande lag utnyttjar sitt numerära överläge för att hitta luckan i forsvaret."
-    },
-    {
-        id: 83,
-        title: "Genombrott på kant och cut-back",
-        category: "Anfallsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Driva bollen till kortlinjen och spela snett inåt bakåt till påfyllande mittfältare."
-    },
-    {
-        id: 84,
-        title: "Försvar: Presspel i grupp (3 mot 3)",
-        category: "Försvar",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Kollektiv press där laget flyttar fram tillsammans för att stressa fram felpass."
-    },
-    {
-        id: 85,
-        title: "Försvar: Avvärja inlägg från kant",
-        category: "Försvar",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Backlinjen positionerar sig rätt och rensar bort inlägg från motståndarnas yttrar."
-    },
-    {
-        id: 86,
-        title: "Fysik: Uthållighetsintervaller 30/30",
-        category: "Fysik",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "30 sekunders hård löpning följt av 30 sekunders vila, upprepat i 5 minuter."
-    },
-    {
-        id: 87,
-        title: "Fysik: Fotstyrka och balans",
-        category: "Fysik",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Stabilitetsövningar på ett ben med dynamiska armrörelser."
-    },
-    {
-        id: 88,
-        title: "Teknik: Nedtagning av höjdboll på bröst",
-        category: "Teknik",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Mottagning av långboll med bröstet följt av direkt passning."
-    },
-    {
-        id: 89,
-        title: "Teknik: Dribbling och skott i trångt utrymme",
-        category: "Teknik",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Träna på att bli kvitt en försvarare på liten yta och få iväg ett avslut."
-    },
-    {
-        id: 90,
-        title: "Spelövning: Match 4 mot 4 med neutrala spelare",
-        category: "Spelövningar",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Intensivt smålagsspel där båda lagen får använda sidlinjens spelare."
-    },
-    {
-        id: 91,
-        title: "Spelövning: 5 mot 5 med målvakter och fria zoner",
-        category: "Spelövningar",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Fullständigt matchspel med fokus på snabba omställningar och bredd."
-    },
-    {
-        id: 92,
-        title: "Passning: Väggspel på tre spelare",
-        category: "Passningsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Kombinationsspel i hög fart mellan tre spelare i en triangelkedja."
-    },
-    {
-        id: 93,
-        title: "Passning: Långa bollar i djupled med mottagning",
-        category: "Passningsspel",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Träna på precision i långa uppspelsbollar längs marken eller i luften."
-    },
-    {
-        id: 94,
-        title: "Anfallsspel: Skott efter snabb spelvändning",
-        category: "Anfallsspel",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Flytta bollen snabbt från ena kanten till den andra för att överlista försvaret."
-    },
-    {
-        id: 95,
-        title: "Anfallsspel: Drivande mittfältare i avslutsläge",
-        category: "Anfallsspel",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Central mittfältare driver bollen framåt i fri yta och skjuter utifrån."
-    },
-    {
-        id: 96,
-        title: "Försvar: Säkra ytan framför egen backlinje",
-        category: "Försvar",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Defensiv mittfältare refsar upp andrabollar framför backlinjen."
-    },
-    {
-        id: 97,
-        title: "Försvar: 1 mot 1 defensiv i straffområdet",
-        category: "Försvar",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Träna på att inte chansa i eget straffområde utan styra ut anfallaren."
-    },
-    {
-        id: 98,
-        title: "Fysik: Explosiva upphopp och nickdueller",
-        category: "Fysik",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Styrkehopp från stående för att nå högst i luftrummet."
-    },
-    {
-        id: 99,
-        title: "Fysik: Agilitybana med vändningar",
-        category: "Fysik",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Snabbhetsbana med koner placerade i sicksack-mönster."
-    },
-    {
-        id: 100,
-        title: "Teknik: Skottfint följt av ryck",
-        category: "Teknik",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Finta skott för att få motståndaren att satsa, dra därefter förbi."
-    },
-    {
-        id: 101,
-        title: "Teknik: Insidesfint och snabb acceleration",
-        category: "Teknik",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Använd insidan av foten för att lura motståndaren i sidled."
-    },
-    {
-        id: 102,
-        title: "Spelövning: 3 mot 3 med avslut på två små mål",
-        category: "Spelövningar",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Spel utan målvakter där precision och snabba avslut tränas."
-    },
-    {
-        id: 103,
-        title: "Spelövning: Match med begränsat antal tillslag",
-        category: "Spelövningar",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Max två tillslag per spelare för att tvinga fram snabba tankar och passningar."
-    },
-    {
-        id: 104,
-        title: "Målvakt: Utsparkar och igångsättning",
-        category: "Målvaktsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Målvakten tränar på träffsäkra utsparkar och snabba igångsättningar med handen."
-    },
-    {
-        id: 105,
-        title: "Fasta situationer: Straffar och returer",
-        category: "Fasta situationer",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Straffläggning där övriga spelare är beredda på att hugga på eventuella returer."
-    },
-
-    // --- NÄSTA BATCH: ID 106–135 ---
-    {
-        id: 106,
-        title: "Anfallsspel: Djupledslöpning med tidig boll",
-        category: "Anfallsspel",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Spela bollen i djupet direkt när anfallaren sätter fart för att överlista backlinjen."
-    },
-    {
-        id: 107,
-        title: "Passning: Väggspel och direktavslut",
-        category: "Passningsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Kombinationsspel utanför straffområdet följt av skott på ett tillslag."
-    },
-    {
-        id: 108,
-        title: "Försvar: Sidorörelser och press i backlinje",
-        category: "Försvar",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Träna backlinjens samspel i att hålla ihop linjen och flytta i sidled."
-    },
-    {
-        id: 109,
-        title: "Teknik: Dribbling förbi kon med yttersida",
-        category: "Teknik",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Använd yttersidan av foten för att snabbt passera ett hinder i fart."
-    },
-    {
-        id: 110,
-        title: "Fysik: Snabbhet med fallande start",
-        category: "Fysik",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Starta från en framåtlutad position för att maximera den initiala accelerationen."
-    },
-    {
-        id: 111,
-        title: "Spelövning: Match 3 mot 3 med fyra mål",
-        category: "Spelövningar",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Snabba omställningar och anfall åt flera håll utan fasta målvakter."
-    },
-    {
-        id: 112,
-        title: "Målvakt: Reflexräddningar på nära håll",
-        category: "Målvaktsspel",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Träna snabba reaktioner på hårda avslut från korta avstånd."
-    },
-    {
-        id: 113,
-        title: "Fasta situationer: Frispark direkt mot mål",
-        category: "Fasta situationer",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Skottträning på frisparkar strax utanför straffområdet med mur."
-    },
-    {
-        id: 114,
-        title: "Passningsspel: Diagonal passningsstafett",
-        category: "Passningsspel",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Passa bollen diagonalt mellan led och följ efter till nästa position."
-    },
-    {
-        id: 115,
-        title: "Anfallsspel: 2 mot 2 med väggspelare",
-        category: "Anfallsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Använd neutrala väggspelare på kanterna för att skapa numerärt överläge."
-    },
-    {
-        id: 116,
-        title: "Försvar: Brytpunkt i uppspelsfas",
-        category: "Försvar",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Stör motståndarens uppspel tidigt för att vinna bollen högt upp i banan."
-    },
-    {
-        id: 117,
-        title: "Teknik: Nedtagning av höjdboll med fot",
-        category: "Teknik",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Dämpa ner höga bollar kontrollerat med sulan eller insidan av foten."
-    },
-    {
-        id: 118,
-        title: "Fysik: Explosiva sidledsförflyttningar",
-        category: "Fysik",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Snabba sidledssteg mellan koner för att förbättra rörlighet i försvarsspelet."
-    },
-    {
-        id: 119,
-        title: "Spelövning: Smålagsspel med jokrar",
-        category: "Spelövningar",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Spel 4 mot 4 där två neutrala jokrar alltid spelar med det lag som har bollen."
-    },
-    {
-        id: 120,
-        title: "Målvakt: Utkast och igångsättning av kontring",
-        category: "Målvaktsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Snabb utkaststeknik för att sätta igång en snabb omställning."
-    },
-    {
-        id: 121,
-        title: "Fasta situationer: Markering vid inkast",
-        category: "Fasta situationer",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Träna på att ligga nära motståndaren vid inkast för att förhindra felvänd mottagning."
-    },
-    {
-        id: 122,
-        title: "Passningsspel: Kort och lång passningskombination",
-        category: "Passningsspel",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Växla mellan korta väggspel och längre uppspelsbollar i samma övning."
-    },
-    {
-        id: 123,
-        title: "Anfallsspel: Ytterspring och inlägg mot första stolpen",
-        category: "Anfallsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Driva längs kanten och slå snabba inlägg framför mål."
-    },
-    {
-        id: 124,
-        title: "Försvar: Presspel i högt tempo (3 mot 2)",
-        category: "Försvar",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Försvarare i underläge tränar på att täcka ytor och fördröja motståndarens anfall."
-    },
-    {
-        id: 125,
-        title: "Teknik: Skott med vrist efter mottagning",
-        category: "Teknik",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Tasa emot en passning och avfyra ett hårt vristskott direkt."
-    },
-    {
-        id: 126,
-        title: "Fysik: Intervaller med bollföring",
-        category: "Fysik",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Kombinera konditionsintervaller med att driva bollen i hög fart."
-    },
-    {
-        id: 127,
-        title: "Spelövning: Zonspel med numerärt överläge",
-        category: "Spelövningar",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Planen är indelad i zoner där det anfallande laget har extra spelare."
-    },
-    {
-        id: 128,
-        title: "Målvakt: Greppträning under press",
-        category: "Målvaktsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Fånga in bollar i luften när motståndarspelare stör i närkampen."
-    },
-    {
-        id: 129,
-        title: "Fasta situationer: Hörnvariant med bakre stolpen",
-        category: "Fasta situationer",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Slå hörnan högt mot bortre ytan där en spelare möter upp."
-    },
-    {
-        id: 130,
-        title: "Passningsspel: Bollinnehav i kvadrat med två tillslag",
-        category: "Passningsspel",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Klassisk rondo där fokus ligger på snabba beslut och få tillslag."
-    },
-    {
-        id: 131,
-        title: "Anfallsspel: Snabba instick i straffområdet",
-        category: "Anfallsspel",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Träna på att slå sista passningen genom en kompakt försvarslinje."
-    },
-    {
-        id: 132,
-        title: "Försvar: Kollektiv förflyttning i sidled",
-        category: "Försvar",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Hela laget flyttar sig kompakt efter bollen för att stänga ytor."
-    },
-    {
-        id: 133,
-        title: "Teknik: Cruyff-fint och snabb riktningsförändring",
-        category: "Teknik",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Genomför en effektiv skottfint/vända-bort-rörelse i trångt utrymme."
-    },
-    {
-        id: 134,
-        title: "Fysik: Cirkelträning för fotbollsstyrka",
-        category: "Fysik",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Styrkeövningar för ben, bål och balans anpassade för unga spelare."
-    },
-    {
-        id: 135,
-        title: "Spelövning: Avslutningsspel med två touch",
-        category: "Spelövningar",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Matchspel där spelarna maximalt får ha två tillslag för att hålla uppe tempot."
-    },
-
-    // --- NÄSTA BATCH: ID 136–165 ---
-    {
-        id: 136,
-        title: "Passningsspel: Yttersidespassningar i kvadrat",
-        category: "Passningsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Träna på att slå snabba och precisa passningar med yttersidan av foten i en mindre runda."
-    },
-    {
-        id: 137,
-        title: "Anfallsspel: 3 mot 2 med djupledslöpning på kant",
-        category: "Anfallsspel",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Utnyttja numerärt överläge på kanten för att spela bollen i djupled bakom backlinjen."
-    },
-    {
-        id: 138,
-        title: "Försvar: Presspel och täckning i centrala ytor",
-        category: "Försvar",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Kollektivt försvarsspel där en spelare sätter press och en annan täckar ytan bakom."
-    },
-    {
-        id: 139,
-        title: "Teknik: Dribbling med skottfint och avslut",
-        category: "Teknik",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Driva mot kon, utföra en skottfint för att skaka av sig försvararen och avsluta."
-    },
-    {
-        id: 140,
-        title: "Fysik: Snabba fötter i stege och maximal sprint",
-        category: "Fysik",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Intensivt fotarbete genom koordinationsstege följt av 10 meters maximal acceleration."
-    },
-    {
-        id: 141,
-        title: "Spelövning: Match 3 mot 3 med små mål",
-        category: "Spelövningar",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Snabba omställningar och intensivt spel utan målvakter för att träna precision."
-    },
-    {
-        id: 142,
-        title: "Målvaktsspel: Höga bollar under press",
-        category: "Målvaktsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Målvakten flyttar ut och griper inkommande inlägg i konkurrens med utespelare."
-    },
-    {
-        id: 143,
-        title: "Fasta situationer: Frisparksvariant med skott på andra ytan",
-        category: "Fasta situationer",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Kombination vid frispark där bollen spelas vidare till en fri spelare på bortre ytan."
-    },
-    {
-        id: 144,
-        title: "Passningsspel: Direktpassningar i triangel",
-        category: "Passningsspel",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Spela bollen på ett tillslag i en triangelformad övning för att hålla uppe tempot."
-    },
-    {
-        id: 145,
-        title: "Anfallsspel: Inlägg och avslut i trångt straffområde",
-        category: "Anfallsspel",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Träna på att möta upp snabba inlägg och få iväg ett avslut under tidspress."
-    },
-    {
-        id: 146,
-        title: "Försvar: 1 mot 1 defensiv mot felvänd anfallare",
-        category: "Försvar",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Stör anfallaren direkt i mottagningen när denne tar emot bollen med ryggen mot mål."
-    },
-    {
-        id: 147,
-        title: "Teknik: Nedtagning av höjdboll och snabb vändning",
-        category: "Teknik",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Kontrollera en lång, hög boll och vänd omedelbart upp i spelriktningen."
-    },
-    {
-        id: 148,
-        title: "Fysik: Intervaller med riktningsförändring (shuttles)",
-        category: "Fysik",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Korta ruscher mellan koner med 180-graders vändningar för att simulera matchmoment."
-    },
-    {
-        id: 149,
-        title: "Spelövning: 4 mot 4 med neutrala väggspelare",
-        category: "Spelövningar",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Smålagsspel där det bollhållande laget får stöd av spelare längs sidlinjerna."
-    },
-    {
-        id: 150,
-        title: "Målvaktsspel: Utkast och igångsättning av anfall",
-        category: "Målvaktsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Träna snabba och träffsäkra utkast med handen för att starta en snabb kontring."
-    },
-    {
-        id: 151,
-        title: "Fasta situationer: Hörna mot första stolpen med skarv",
-        category: "Fasta situationer",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Hård hörna mot första stolpen där en spelare skarvar bollen vidare mot mål."
-    },
-    {
-        id: 152,
-        title: "Passningsspel: Diagonalpassning med efterföljande löpning",
-        category: "Passningsspel",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Slå en lång diagonal passning och spring efter bollen till nästa position i ledet."
-    },
-    {
-        id: 153,
-        title: "Anfallsspel: Kombinationsspel utanför straffområdet",
-        category: "Anfallsspel",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Väggspel och snabba instick i ytan strax utanför straffområdets linje."
-    },
-    {
-        id: 154,
-        title: "Försvar: Kollektiv press i högt tempo",
-        category: "Försvar",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Hela laget kliver fram tillsammans för att stressa motståndarnas uppspelsfas."
-    },
-    {
-        id: 155,
-        title: "Teknik: Vända bort motståndare med sulan (Drag-back)",
-        category: "Teknik",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Dra bollen bakåt med sulan för att snabbt lura bort en efterträdande motståndare."
-    },
-    {
-        id: 156,
-        title: "Fysik: Styrkeövningar med kroppsvikt för ben",
-        category: "Fysik",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Cirkelträning med upphopp, utfallsteg och sidoutfall för starkare fotbollsben."
-    },
-    {
-        id: 157,
-        title: "Spelövning: Match med max två tillslag",
-        category: "Spelövningar",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Vanligt matchspel där varje spelare maximalt får vidröra bollen två gånger."
-    },
-    {
-        id: 158,
-        title: "Målvaktsspel: Reflexräddningar på närskott",
-        category: "Målvaktsspel",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Träna målvantens snabbhet och reaktionsförmåga på plötsliga avslut nära mål."
-    },
-    {
-        id: 159,
-        title: "Fasta situationer: Straffar med returspel",
-        category: "Fasta situationer",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Straffläggning där övriga spelare är på tårna för att hugga på eventuella returer."
-    },
-    {
-        id: 160,
-        title: "Passningsspel: Kvadraten 4 mot 1 med tempoväxling",
-        category: "Passningsspel",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Rondo där tempot höjs och spelarna måste fatta snabbare beslut under press."
-    },
-    {
-        id: 161,
-        title: "Anfallsspel: Kontring 2 mot 1 i hög fart",
-        category: "Kontring",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Snabb omställning från försvar till anfall där två anfallare driver mot en ensam försvarare."
-    },
-    {
-        id: 162,
-        title: "Försvar: Säkra andraytor utanför straffområdet",
-        category: "Försvar",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Defensiva mittfältare städar upp och fångar upp lösa bollar utanför eget straffområde."
-    },
-    {
-        id: 163,
-        title: "Teknik: Drivande boll i konbana med fotens utsida",
-        category: "Teknik",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Få god kontroll på bollen genom att föra den med yttersidan genom en snäv konbana."
-    },
-    {
-        id: 164,
-        title: "Fysik: Explosiva upphopp för nickdueller",
-        category: "Fysik",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Träna spänst och tajming för att nå högst i luftrummet vid fasta situationer."
-    },
-    {
-        id: 165,
-        title: "Spelövning: Zonspel 4 mot 4 + 2 jokrar",
-        category: "Spelövningar",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Spel på ytor där de neutrala jokrarna hjälper det bollhållande laget att hålla bollen."
-    },
-
-    // --- NÄSTA BATCH: ID 166–195 ---
-    {
-        id: 166,
-        title: "Passningsspel: Väggspel med skott på ett tillslag",
-        category: "Passningsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Kombinationsspel strax utanför straffområdet följt av direktavslut."
-    },
-    {
-        id: 167,
-        title: "Anfallsspel: 3 mot 2 i djupled med avslut",
-        category: "Anfallsspel",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Utnyttja numerärt överläge för att snabbt spela bollen bakom motståndarens backlinje."
-    },
-    {
-        id: 168,
-        title: "Försvar: Presstpel i grupp på liten yta",
-        category: "Försvar",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Kollektiv press för att stressa bollhållare och stänga ytor i trångt utrymme."
-    },
-    {
-        id: 169,
-        title: "Teknik: Skottfint och snabb acceleration i konbana",
-        category: "Teknik",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Driva bollen genom koner, utföra en skottfint och accelerera förbi."
-    },
-    {
-        id: 170,
-        title: "Fysik: Snabba fötter i stege och sprint",
-        category: "Fysik",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Intensivt fotarbete i koordinationsstege följt av 10 meters maximal löpning."
-    },
-    {
-        id: 171,
-        title: "Spelövning: Match 4 mot 4 med fyra små mål",
-        category: "Spelövningar",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Snabba omställningar och anfall åt flera håll utan fasta målvakter."
-    },
-    {
-        id: 172,
-        title: "Målvaktsspel: Utkast och igångsättning under press",
-        category: "Målvaktsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Träna på snabba utkast med handen för att starta omställningar när motståndaren stör."
-    },
-    {
-        id: 173,
-        title: "Fasta situationer: Hörna med inlägg mot bortre ytan",
-        category: "Fasta situationer",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Slå hörnan högt mot bortre stolpen där en spelare möter upp med huvudet eller foten."
-    },
-    {
-        id: 174,
-        title: "Passningsspel: Kvadraten 5 mot 2 med max två tillslag",
-        category: "Passningsspel",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Håll bollen inom laget i en runda mot två jagande försvarare."
-    },
-    {
-        id: 175,
-        title: "Anfallsspel: Överlappning och inlägg från kant",
-        category: "Anfallsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Ytterback löper runt yttermittfältare för att slå inlägg i straffområdet."
-    },
-    {
-        id: 176,
-        title: "Försvar: 1 mot 1 i sidled med styrning mot sidlinje",
-        category: "Försvar",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Styr anfallaren i en vinkel som tvingar ut spelet mot kanten."
-    },
-    {
-        id: 177,
-        title: "Teknik: Nedtagning av höjdboll med bröst och pass",
-        category: "Teknik",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Kontrollera en lång, hög boll med bröstet och lägg direkt till en medspelare."
-    },
-    {
-        id: 178,
-        title: "Fysik: Explosiva intervaller med riktningsförändring",
-        category: "Fysik",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Korta ruscher med 180-graders vändningar för att efterlikna matchintensitet."
-    },
-    {
-        id: 179,
-        title: "Spelövning: Smålagsspel med neutrala väggspelare",
-        category: "Spelövningar",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Använd spelare längs sidlinjerna för att ge det bollhållande laget numerärt överläge."
-    },
-    {
-        id: 180,
-        title: "Målvaktsspel: Skottäckning och vinkelspel i straffområde",
-        category: "Målvaktsspel",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Målvakten tränar på att snabbt täcka ytor vid avslut nära mål."
-    },
-    {
-        id: 181,
-        title: "Fasta situationer: Frisparksvariant med skott snett inåt bakåt",
-        category: "Fasta situationer",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Kombination vid frispark strax utanför straffområdet med avslut på ett tillslag."
-    },
-    {
-        id: 182,
-        title: "Passningsspel: Diagonal passningskombination med djupledslöpning",
-        category: "Passningsspel",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Slå långa bollar diagonalt över planen till spelare i rörelse."
-    },
-    {
-        id: 183,
-        title: "Anfallsspel: Instick i ytan mellan ytterback och mittback",
-        category: "Anfallsspel",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Utnyttja ytor i motståndarens backlinje med snabba djupledspassningar."
-    },
-    {
-        id: 184,
-        title: "Försvar: Brytpunkt och säkra centrala ytor",
-        category: "Försvar",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Stäng igen centrala ytor framför egen backlinje och bryt uppspel."
-    },
-    {
-        id: 185,
-        title: "Teknik: Vända bort motståndare med sulan (drag-back)",
-        category: "Teknik",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Dra bollen bakåt med sulan för att snabbt lura efterträdande försvarare."
-    },
-    {
-        id: 186,
-        title: "Fysik: Styrkeövningar för fotboll med kroppsvikt",
-        category: "Fysik",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Cirkelträning med upphopp, armhävningar och utfall för fotbollsmuskulaturen."
-    },
-    {
-        id: 187,
-        title: "Spelövning: Zonspel 3 mot 3 + 3",
-        category: "Spelövningar",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Spel på uppdelade ytor där ett lag har extra spelare i bollhållande zon."
-    },
-    {
-        id: 188,
-        title: "Målvaktsspel: Greppträning vid höga inlägg",
-        category: "Målvaktsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Målvakten flyttar ut i feltet och plockar ner bollar i luften under press."
-    },
-    {
-        id: 189,
-        title: "Fasta situationer: Straffar med fokus på returer",
-        category: "Fasta situationer",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Straffträning där övriga spelare är redo att hugga direkt på målvaktens retur."
-    },
-    {
-        id: 190,
-        title: "Passningsspel: Yttersidespassningar i rörelse",
-        category: "Passningsspel",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Spela bollen snabbt med yttersidan medan spelarna rör sig framåt längs planen."
-    },
-    {
-        id: 191,
-        title: "Anfallsspel: Snabb omställning 2 mot 1 till avslut",
-        category: "Kontring",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Omställning från försvar till anfall där två spelare driver mot en ensam back."
-    },
-    {
-        id: 192,
-        title: "Försvar: Kollektiv förflyttning i sidled och höjdled",
-        category: "Försvar",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Hela laget rör sig kompakt efter bollen för att stänga alla passningsvägar."
-    },
-    {
-        id: 193,
-        title: "Teknik: Drivande boll med fotens insida och utsida",
-        category: "Teknik",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Få fullständig kontroll på bollen genom att växla mellan insida och utsida i fart."
-    },
-    {
-        id: 194,
-        title: "Fysik: Agilitybana med bollkontroll på tid",
-        category: "Fysik",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Slalom och hinderbana med bollen klistrad vid fötterna på tid."
-    },
-    {
-        id: 195,
-        title: "Spelövning: Match med touch-begränsning (max två tillslag)",
-        category: "Spelövningar",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Matchspel där spelarna max får vidröra bollen två gånger för att höja tempot."
-    },
-
-    // --- NÄSTA BATCH: ID 196–225 ---
-    {
-        id: 196,
-        title: "Passningsspel: Direktpassningar i trång rondo",
-        category: "Passningsspel",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Håll bollen inom laget i en liten runda med krav på ett tillslag för att höja tempot."
-    },
-    {
-        id: 197,
-        title: "Anfallsspel: Djupledslöpning och instick i korridor",
-        category: "Anfallsspel",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Spela bollen i korridor bakom motståndarens backlinje till snabb ytter."
-    },
-    {
-        id: 198,
-        title: "Försvar: Presspel i numerärt underläge (2 mot 3)",
-        category: "Försvar",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Försvararna tränar på att täcka ytor smart och fördröja anfallet i underläge."
-    },
-    {
-        id: 199,
-        title: "Teknik: Skottfint och genombrott i fart",
-        category: "Teknik",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Driva mot kon, finta skott och accelerera förbi med full kontroll."
-    },
-    {
-        id: 200,
-        title: "Fysik: Intervallträning med vertikala upphopp",
-        category: "Fysik",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Kombinera korta ruscher med upphopp för att träna spänst och uthållighet."
-    },
-    {
-        id: 201,
-        title: "Spelövning: Match 3 mot 3 på fyra mål",
-        category: "Spelövningar",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Snabba omställningar och anfall åt flera håll utan fasta målvakter."
-    },
-    {
-        id: 202,
-        title: "Målvaktsspel: Reflexer och räddningar på låga skott",
-        category: "Målvaktsspel",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Målvakten tränar på att snabbt komma ner och blockera skott längs marken."
-    },
-    {
-        id: 203,
-        title: "Fasta situationer: Frisparksvariant med direktavslut",
-        category: "Fasta situationer",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Skottträning på frisparkar strax utanför straffområdet med uppställd mur."
-    },
-    {
-        id: 204,
-        title: "Passningsspel: Väggspel i högt tempo mellan tre spelare",
-        category: "Passningsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Triangelkedja där bollen spelas fram och tillbaka med korta, snabba tillslag."
-    },
-    {
-        id: 205,
-        title: "Anfallsspel: Inlägg och avslut på första stolpen",
-        category: "Anfallsspel",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Yttermittfältare slår hårt inlägg längs marken eller i luften mot första ytan."
-    },
-    {
-        id: 206,
-        title: "Försvar: Brytpunkt i motståndarens uppspel",
-        category: "Försvar",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Stör motståndaren tidigt i uppspelsfasen för att vinna bollen högt."
-    },
-    {
-        id: 207,
-        title: "Teknik: Nedtagning av höjdboll med sulan",
-        category: "Teknik",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Dämpa ner långa bollar direkt till marken med sulan på foten."
-    },
-    {
-        id: 208,
-        title: "Fysik: Agilitybana med sicksack-löpning",
-        category: "Fysik",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Snabba sidledsförflyttningar och tempoväxlingar genom tätt placerade koner."
-    },
-    {
-        id: 209,
-        title: "Spelövning: Match 5 mot 5 i fasta zoner",
-        category: "Spelövningar",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Spelarna är låsta till sina zoner för att lära sig kollektivt positionsspel."
-    },
-    {
-        id: 210,
-        title: "Målvaktsspel: Utkast och igångsättning av kontring",
-        category: "Målvaktsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Träna på att snabbt kasta ut bollen till fri lagkamrat för att starta omställning."
-    },
-    {
-        id: 211,
-        title: "Fasta situationer: Markering vid hörnor",
-        category: "Fasta situationer",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Träna man-mot-man-markering i eget straffområde vid fasta situationer."
-    },
-    {
-        id: 212,
-        title: "Passningsspel: Långa bollar och mottagning i rörelse",
-        category: "Passningsspel",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Slå precisa långbollar till medspelare som sätter fart framåt."
-    },
-    {
-        id: 213,
-        title: "Anfallsspel: Överlapp och instick i straffområde",
-        category: "Anfallsspel",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Kombinera överlapp på kant med snabbt instick centralt."
-    },
-    {
-        id: 214,
-        title: "Försvar: Presspel och täckning i backlinje",
-        category: "Försvar",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Håll ihop försvarslinjen och säkra upp bakom pressande spelare."
-    },
-    {
-        id: 215,
-        title: "Teknik: Cruyff-fint i trång yta",
-        category: "Teknik",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Träna på att snabbt vända bort försvarare med en kropps- och bollfint."
-    },
-    {
-        id: 216,
-        title: "Fysik: Explosiv start med fallande teknik",
-        category: "Fysik",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Maximera första steget i accelerationen från stillastående."
-    },
-    {
-        id: 217,
-        title: "Spelövning: Smålagsspel med neutrala jokrar",
-        category: "Spelövningar",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Spel 4 mot 4 där två jokrar stöttar det bollhållande laget."
-    },
-    {
-        id: 218,
-        title: "Målvaktsspel: Greppträning vid höga inlägg",
-        category: "Målvaktsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Målvakten flyttar ut i straffområdet och plockar bollar i luften under press."
-    },
-    {
-        id: 219,
-        title: "Fasta situationer: Straffar med returspel",
-        category: "Fasta situationer",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Straffläggning där övriga spelare är beredda på att hugga direkt på returen."
-    },
-    {
-        id: 220,
-        title: "Passningsspel: Yttersidespassningar i kvadrat",
-        category: "Passningsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Träna på att slå snabba och precisa passningar med yttersidan av foten."
-    },
-    {
-        id: 221,
-        title: "Anfallsspel: Kontring 2 mot 1 i hög fart",
-        category: "Kontring",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Snabb omställning från försvar till anfall där två anfallare driver mot en ensam försvarare."
-    },
-    {
-        id: 222,
-        title: "Försvar: Säkra andraytor utanför straffområdet",
-        category: "Försvar",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Defensiva mittfältare städar upp och refsar upp lösa bollar."
-    },
-    {
-        id: 223,
-        title: "Teknik: Drivande boll i konbana med utsida",
-        category: "Teknik",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Få god kontroll på bollen genom att föra den med yttersidan genom hinder."
-    },
-    {
-        id: 224,
-        title: "Fysik: Spänst och upphopp för nickdueller",
-        category: "Fysik",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Träna styrka och tajming för att nå högst i luftrummet vid fasta situationer."
-    },
-    {
-        id: 225,
-        title: "Spelövning: Match med max två tillslag",
-        category: "Spelövningar",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Matchspel där spelarna max får vidröra bollen två gånger för att höja tempot."
-    },
-
-    // --- NÄSTA BATCH: ID 226–255 ---
-    {
-        id: 226,
-        title: "Passningsspel: Väggspel och djupledslöpning i par",
-        category: "Passningsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Spelare A slår passning till spelare B, tar emot väggspel tillbaka och sätter fart i djupled."
-    },
-    {
-        id: 227,
-        title: "Anfallsspel: 3 mot 2 på reducerad yta med snabbt avslut",
-        category: "Anfallsspel",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Anfallande lag utnyttjar numerärt överläge på liten yta för att snabbt komma till skott."
-    },
-    {
-        id: 228,
-        title: "Försvar: 1 mot 1 i centrala korridorer",
-        category: "Försvar",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Träna på att stänga igen centrala ytor och hålla låg tyngdpunkt i defensiva dueller."
-    },
-    {
-        id: 229,
-        title: "Teknik: Dribbling och skottfint vid koner",
-        category: "Teknik",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Driva bollen genom konbanor, göra en skottfint och accelerera förbi det sista hindret."
-    },
-    {
-        id: 230,
-        title: "Fysik: Snabba fötter och riktningsförändring med stege",
-        category: "Fysik",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Koordinationsstege med fokus på snabba fötter följt av en kort och explosiv rusning."
-    },
-    {
-        id: 231,
-        title: "Spelövning: Match 4 mot 4 med fyra små mål",
-        category: "Spelövningar",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Snabba omställningar och anfall åt flera håll utan fasta målvakter."
-    },
-    {
-        id: 232,
-        title: "Målvaktsspel: Reflexer och grepp vid närskott",
-        category: "Målvaktsspel",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Målvakten tränar på snabba reaktioner och att blockera hårda skott från nära håll."
-    },
-    {
-        id: 233,
-        title: "Fasta situationer: Hörna med kort variant och inlägg",
-        category: "Fasta situationer",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Spela hörnan kort för att skapa en bättre vinkel för inlägg mot straffområdet."
-    },
-    {
-        id: 234,
-        title: "Passningsspel: Kvadraten 4 mot 2 med tempoväxling",
-        category: "Passningsspel",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Rondo där bollen ska flyttas snabbt och tempot höjs efter fem lyckade passningar."
-    },
-    {
-        id: 235,
-        title: "Anfallsspel: Ytteranfall med inlägg mot bortre stolpen",
-        category: "Anfallsspel",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Yttermittfältare slår högt inlägg mot bortre ytan där anfallare fyller på."
-    },
-    {
-        id: 236,
-        title: "Försvar: Presspel i grupp på egen planhalva",
-        category: "Försvar",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Kollektivt försvarsspel där laget flyttar ihop för att stänga ytor och vinna boll."
-    },
-    {
-        id: 237,
-        title: "Teknik: Nedtagning av höjdboll och snabb vändning",
-        category: "Teknik",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Kontrollera en lång, hög boll med bröst eller fot och vänd omedelbart uppåt i banan."
-    },
-    {
-        id: 238,
-        title: "Fysik: Explosiva intervaller med sidledsförflyttning",
-        category: "Fysik",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Kombinera raka löpningar med sidledssteg mellan koner för rörlighet och styrka."
-    },
-    {
-        id: 239,
-        title: "Spelövning: Smålagsspel 3 mot 3 med neutrala jokrar",
-        category: "Spelövningar",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Intensivt spel där neutrala spelare alltid stöttar det bollhållande laget."
-    },
-    {
-        id: 240,
-        title: "Målvaktsspel: Utkast och igångsättning av kontring",
-        category: "Målvaktsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Träna på snabba utkast med handen för att sätta igång en blixtsnabb omställning."
-    },
-    {
-        id: 241,
-        title: "Fasta situationer: Frisparksvariant med skott snett inåt bakåt",
-        category: "Fasta situationer",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Kombination vid frispark strax utanför straffområdet med avslut på ett tillslag."
-    },
-    {
-        id: 242,
-        title: "Passningsspel: Triangelpassningar med efterföljande löpning",
-        category: "Passningsspel",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Spela bollen i en triangelform och följ efter din passning till nästa position."
-    },
-    {
-        id: 243,
-        title: "Anfallsspel: Instick i djupled mellan backar",
-        category: "Anfallsspel",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Slå precisa markpassningar genom motståndarens backlinje till löpande spelare."
-    },
-    {
-        id: 244,
-        title: "Försvar: Kollektiv förflyttning i sidled och höjdled",
-        category: "Försvar",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Hela laget rör sig kompakt efter bollen för att eliminera alla passningsalternativ."
-    },
-    {
-        id: 245,
-        title: "Teknik: Vända bort motståndare med sulan (drag-back)",
-        category: "Teknik",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Använd sulan för att dra bollen bakåt och snabbt finta bort en efterträdande spelare."
-    },
-    {
-        id: 246,
-        title: "Fysik: Cirkelträning för benstyrka och spänst",
-        category: "Fysik",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Stationsbaserad träning med upphopp, utfall och benböj för fotbollsspelare."
-    },
-    {
-        id: 247,
-        title: "Spelövning: Matchspel med maximalt två tillslag",
-        category: "Spelövningar",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Vanligt matchspel där spelarna max får vidröra bollen två gånger för att hålla tempot."
-    },
-    {
-        id: 248,
-        title: "Målvaktsspel: Höga bollar och boxningsteknik",
-        category: "Målvaktsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Träna på att säkert greppa eller boxa bort svåra inlägg och hörnor."
-    },
-    {
-        id: 249,
-        title: "Fasta situationer: Straffar med fokus på returspel",
-        category: "Fasta situationer",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Straffläggning där övriga spelare är på tårna för att hugga direkt på målvaktens retur."
-    },
-    {
-        id: 250,
-        title: "Passningsspel: Yttersidespassningar i högt tempo",
-        category: "Passningsspel",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Träna på att slå snabba, pressade passningar med yttersidan under matchliknande former."
-    },
-    {
-        id: 251,
-        title: "Anfallsspel: Kontring 2 mot 1 i hög fart",
-        category: "Kontring",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Snabb omställning från försvar till anfall där två anfallare driver mot en ensam försvarare."
-    },
-    {
-        id: 252,
-        title: "Försvar: Säkra andraytor utanför straffområdet",
-        category: "Försvar",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Defensiva mittfältare städar upp och fångar upp lösa bollar utanför eget straffområde."
-    },
-    {
-        id: 253,
-        title: "Teknik: Drivande boll i hinderbana med utsida",
-        category: "Teknik",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Få god kontroll på bollen genom att föra den med fotens utsida genom en snäv bana."
-    },
-    {
-        id: 254,
-        title: "Spelövning: Zonspel 4 mot 4 + 2 jokrar",
-        category: "Spelövningar",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Spel på ytor där de neutrala jokrarna hjälper det bollhållande laget att behålla bollen."
-    },
-    {
-        id: 255,
-        title: "Fasta situationer: Avslutsträning efter fasta situationer",
-        category: "Fasta situationer",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Samlad övning där hörnor och frisparkar slås in i straffområdet för direkt avslut."
-    },
-
-    // --- NÄSTA BATCH: ID 256–285 ---
-    {
-        id: 256,
-        title: "Passningsspel: Direktpassningar och skott i par",
-        category: "Passningsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Spela en snabb passning till medspelare, ta emot i farten och avsluta direkt mot mål."
-    },
-    {
-        id: 257,
-        title: "Anfallsspel: Djupledslöpning på kant med tidigt inlägg",
-        category: "Anfallsspel",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Yttermittfältare sätter fart längs kanten och slår ett tidigt inlägg mot straffområdet."
-    },
-    {
-        id: 258,
-        title: "Försvar: Presspel i grupp på central yta",
-        category: "Försvar",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Kollektiv press för att stressa bollhållare och stänga centrala passningsvägar."
-    },
-    {
-        id: 259,
-        title: "Teknik: Drivande boll och skottfint i konbana",
-        category: "Teknik",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Driva bollen genom koner, utföra en skottfint och accelerera förbi sista hindret."
-    },
-    {
-        id: 260,
-        title: "Fysik: Snabba fötter i stege och maximal sprint",
-        category: "Fysik",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Intensivt fotarbete genom koordinationsstege följt av 10 meters maximal acceleration."
-    },
-    {
-        id: 261,
-        title: "Spelövning: Match 3 mot 3 med små mål",
-        category: "Spelövningar",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Snabba omställningar och intensivt spel utan målvakter för att träna precision."
-    },
-    {
-        id: 262,
-        title: "Målvaktsspel: Höga bollar under press",
-        category: "Målvaktsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Målvakten flyttar ut och griper inkommande inlägg i konkurrens med utespelare."
-    },
-    {
-        id: 263,
-        title: "Fasta situationer: Frisparksvariant med skott på andra ytan",
-        category: "Fasta situationer",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Kombination vid frispark där bollen spelas vidare till en fri spelare på bortre ytan."
-    },
-    {
-        id: 264,
-        title: "Passningsspel: Direktpassningar i triangel",
-        category: "Passningsspel",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Spela bollen på ett tillslag i en triangelformad övning för att hålla uppe tempot."
-    },
-    {
-        id: 265,
-        title: "Anfallsspel: Inlägg och avslut i trångt straffområde",
-        category: "Anfallsspel",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Träna på att möta upp snabba inlägg och få iväg ett avslut under tidspress."
-    },
-    {
-        id: 266,
-        title: "Försvar: 1 mot 1 defensiv mot felvänd anfallare",
-        category: "Försvar",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Stör anfallaren direkt i mottagningen när denne tar emot bollen med ryggen mot mål."
-    },
-    {
-        id: 267,
-        title: "Teknik: Nedtagning av höjdboll och snabb vändning",
-        category: "Teknik",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Kontrollera en lång, hög boll och vänd omedelbart upp i spelriktningen."
-    },
-    {
-        id: 268,
-        title: "Fysik: Intervaller med riktningsförändring (shuttles)",
-        category: "Fysik",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Korta ruscher mellan koner med 180-graders vändningar för att simulera matchmoment."
-    },
-    {
-        id: 269,
-        title: "Spelövning: 4 mot 4 med neutrala väggspelare",
-        category: "Spelövningar",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Smålagsspel där det bollhållande laget får stöd av spelare längs sidlinjerna."
-    },
-    {
-        id: 270,
-        title: "Målvaktsspel: Utkast och igångsättning av anfall",
-        category: "Målvaktsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Träna snabba och träffsäkra utkast med handen för att starta en snabb kontring."
-    },
-    {
-        id: 271,
-        title: "Fasta situationer: Hörna mot första stolpen med skarv",
-        category: "Fasta situationer",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Hård hörna mot första stolpen där en spelare skarvar bollen vidare mot mål."
-    },
-    {
-        id: 272,
-        title: "Passningsspel: Diagonalpassning med efterföljande löpning",
-        category: "Passningsspel",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Slå en lång diagonal passning och spring efter bollen till nästa position i ledet."
-    },
-    {
-        id: 273,
-        title: "Anfallsspel: Kombinationsspel utanför straffområdet",
-        category: "Anfallsspel",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Väggspel och snabba instick i ytan strax utanför straffområdets linje."
-    },
-    {
-        id: 274,
-        title: "Försvar: Kollektiv press i högt tempo",
-        category: "Försvar",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Hela laget kliver fram tillsammans för att stressa motståndarnas uppspelsfas."
-    },
-    {
-        id: 275,
-        title: "Teknik: Vända bort motståndare med sulan (Drag-back)",
-        category: "Teknik",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Dra bollen bakåt med sulan för att snabbt lura bort en efterträdande motståndare."
-    },
-    {
-        id: 276,
-        title: "Fysik: Styrkeövningar med kroppsvikt för ben",
-        category: "Fysik",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Cirkelträning med upphopp, utfallsteg och sidoutfall för starkare fotbollsben."
-    },
-    {
-        id: 277,
-        title: "Spelövning: Match med max två tillslag",
-        category: "Spelövningar",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Vanligt matchspel där varje spelare maximalt får vidröra bollen två gånger."
-    },
-    {
-        id: 278,
-        title: "Målvaktsspel: Reflexräddningar på närskott",
-        category: "Målvaktsspel",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Träna målvantens snabbhet och reaktionsförmåga på plötsliga avslut nära mål."
-    },
-    {
-        id: 279,
-        title: "Fasta situationer: Straffar med returspel",
-        category: "Fasta situationer",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Straffläggning där övriga spelare är på tårna för att hugga direkt på eventuella returer."
-    },
-    {
-        id: 280,
-        title: "Passningsspel: Kvadraten 4 mot 1 med tempoväxling",
-        category: "Passningsspel",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Rondo där tempot höjs och spelarna måste fatta snabbare beslut under press."
-    },
-    {
-        id: 281,
-        title: "Anfallsspel: Kontring 2 mot 1 i hög fart",
-        category: "Kontring",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Snabb omställning från försvar till anfall där två anfallare driver mot en ensam försvarare."
-    },
-    {
-        id: 282,
-        title: "Försvar: Säkra andraytor utanför straffområdet",
-        category: "Försvar",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Defensiva mittfältare städar upp och fångar upp lösa bollar utanför eget straffområde."
-    },
-    {
-        id: 283,
-        title: "Teknik: Drivande boll i konbana med fotens utsida",
-        category: "Teknik",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Få god kontroll på bollen genom att föra den med yttersidan genom en snäv konbana."
-    },
-    {
-        id: 284,
-        title: "Fysik: Explosiva upphopp för nickdueller",
-        category: "Fysik",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Träna spänst och tajming för att nå högst i luftrummet vid fasta situationer."
-    },
-    {
-        id: 285,
-        title: "Spelövning: Zonspel 4 mot 4 + 2 jokrar",
-        category: "Spelövningar",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Spel på ytor där de neutrala jokrarna hjälper det bollhållande laget att hålla bollen."
-    },
-
-    // --- NÄSTA BATCH: ID 286–315 ---
-    {
-        id: 286,
-        title: "Passningsspel: Väggspel och mottagning i rörelse",
-        category: "Passningsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Spela bollen fram och tillbaka i hög fart under rörelse framåt."
-    },
-    {
-        id: 287,
-        title: "Anfallsspel: Instick i djupled med avslut",
-        category: "Anfallsspel",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Slå djupledspassningar genom backlinjen för direkt avslut mot mål."
-    },
-    {
-        id: 288,
-        title: "Försvar: Presspel i par längs sidlinjen",
-        category: "Försvar",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Styr ut anfallaren mot kanten med press och täckning i par."
-    },
-    {
-        id: 289,
-        title: "Teknik: Drivande boll med insida och utsida i konbana",
-        category: "Teknik",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Växla fotkontakt mellan insida och utsida genom slalomkoner."
-    },
-    {
-        id: 290,
-        title: "Fysik: Snabba fötter i stege och sidledssteg",
-        category: "Fysik",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Kombinera fotsteg i stege med snabba sidledsförflyttningar."
-    },
-    {
-        id: 291,
-        title: "Spelövning: Match 3 mot 3 på små mål utan målvakt",
-        category: "Spelövningar",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Snabba omställningar och precision i avslut utan fasta målvakter."
-    },
-    {
-        id: 292,
-        title: "Målvaktsspel: Reflexer på skott i nedre hörn",
-        category: "Målvaktsspel",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Målvakten tränar på att snabbt komma ner och blockera skott längs marken."
-    },
-    {
-        id: 293,
-        title: "Fasta situationer: Hörna med inlägg mot straffpunkten",
-        category: "Fasta situationer",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Slå hörnan in mot central yta där flera spelare fyller på."
-    },
-    {
-        id: 294,
-        title: "Passningsspel: Kvadraten 4 mot 1 med krav på två tillslag",
-        category: "Passningsspel",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Traditionell rondo där spelarna max får ha två tillslag per bollkontakt."
-    },
-    {
-        id: 295,
-        title: "Anfallsspel: Överlappning och inlägg från kant med tre löpare",
-        category: "Anfallsspel",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Yttermittfältare får överlapp från back och slår inlägg mot tre anfallare."
-    },
-    {
-        id: 296,
-        title: "Försvar: Brytpunkt i centrala ytor mot felvänd spelare",
-        category: "Försvar",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Stör anfallaren direkt när denne tar emot bollen med ryggen mot mål."
-    },
-    {
-        id: 297,
-        title: "Teknik: Cruyff-fint och snabb acceleration",
-        category: "Teknik",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Utför en snygg kroppsfint/vända-bort-rörelse och accelerera."
-    },
-    {
-        id: 298,
-        title: "Fysik: Explosiva start- och stoppövningar med koner",
-        category: "Fysik",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Träna förmågan att snabbt accelerera och stanna upp på signal."
-    },
-    {
-        id: 299,
-        title: "Spelövning: Smålagsspel med neutrala väggspelare på kanterna",
-        category: "Spelövningar",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Använd spelare längs sidlinjerna för att få ett konstant överläge."
-    },
-    {
-        id: 300,
-        title: "Målvaktsspel: Utkast och igångsättning av snabb kontring",
-        category: "Målvaktsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Träna snabba och träffsäkra utkast med handen för omställning."
-    },
-    {
-        id: 301,
-        title: "Fasta situationer: Frisparksvariant med skott snett inåt bakåt",
-        category: "Fasta situationer",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Kombinationsspel vid frispark strax utanför straffområdet."
-    },
-    {
-        id: 302,
-        title: "Passningsspel: Diagonal passningsstafett med mottagning",
-        category: "Passningsspel",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Slå långa diagonala bollar i ett strukturerat mönster."
-    },
-    {
-        id: 303,
-        title: "Anfallsspel: 2 mot 1 med snabbt genombrott",
-        category: "Anfallsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Utnyttja numerärt överläge för att spela förbi en försvarare."
-    },
-    {
-        id: 304,
-        title: "Försvar: Kollektiv press och förflyttning i sidled",
-        category: "Försvar",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Flytta hela laget kompakt i sidled efter bollens rörelse."
-    },
-    {
-        id: 305,
-        title: "Teknik: Skottfint och genombrott i fart",
-        category: "Teknik",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Driva mot kon, finta skott och ta sig förbi i hög fart."
-    },
-    {
-        id: 306,
-        title: "Fysik: Intervallträning med korta ruscher och riktningsförändring",
-        category: "Fysik",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Korta ruscher med 180-graders vändningar för matchliknande intensitet."
-    },
-    {
-        id: 307,
-        title: "Spelövning: Match 4 mot 4 med fyra mål",
-        category: "Spelövningar",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Snabba omställningar och anfall åt flera håll."
-    },
-    {
-        id: 308,
-        title: "Målvaktsspel: Höga bollar och boxningsteknik vid inlägg",
-        category: "Målvaktsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Träna på att säkert greppa eller boxa bort inlägg under press."
-    },
-    {
-        id: 309,
-        title: "Fasta situationer: Straffar med fokus på returspel",
-        category: "Fasta situationer",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Straffläggning där medspelare är beredda på returer."
-    },
-    {
-        id: 310,
-        title: "Passningsspel: Yttersidespassningar i kvadrat",
-        category: "Passningsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Träna på snabba passningar med yttersidan i en mindre runda."
-    },
-    {
-        id: 311,
-        title: "Anfallsspel: Kontring 2 mot 1 i hög fart",
-        category: "Kontring",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Snabb omställning från försvar till anfall med övertag."
-    },
-    {
-        id: 312,
-        title: "Försvar: Säkra andraytor utanför straffområdet",
-        category: "Försvar",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Defensiva mittfältare städar upp och fångar upp lösa bollar."
-    },
-    {
-        id: 313,
-        title: "Teknik: Vända bort motståndare med sulan (drag-back)",
-        category: "Teknik",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Använd sulan för att dra bollen bakåt och finta bort försvarare."
-    },
-    {
-        id: 314,
-        title: "Fysik: Spänst och upphopp för nickdueller",
-        category: "Fysik",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Träna spänst och tajming för att nå högst i luftrummet."
-    },
-    {
-        id: 315,
-        title: "Spelövning: Match med maximalt två tillslag",
-        category: "Spelövningar",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Matchspel där spelarna max får vidröra bollen två gånger."
-    },
-
-    // --- NÄSTA BATCH: ID 316–345 ---
-    {
-        id: 316,
-        title: "Passningsspel: Väggspel och djupledslöpning på kant",
-        category: "Passningsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Spela väggspel på kanten och ta emot bollen i djupled under fart."
-    },
-    {
-        id: 317,
-        title: "Anfallsspel: 3 mot 2 med snabbt instick",
-        category: "Anfallsspel",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Utnyttja numerärt överläge för att slå ett snabbt instick mellan backarna."
-    },
-    {
-        id: 318,
-        title: "Försvar: Presspel i grupp på egen planhalva",
-        category: "Försvar",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Kollektivt försvarsspel där laget flyttar ihop för att stänga ytor."
-    },
-    {
-        id: 319,
-        title: "Teknik: Drivande boll och skottfint i hög fart",
-        category: "Teknik",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Driva bollen i högt tempo, utföra skottfint och accelerera förbi."
-    },
-    {
-        id: 320,
-        title: "Fysik: Snabba fötter i stege och maximal acceleration",
-        category: "Fysik",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Intensivt fotarbete i stege följt av 10 meters maximal sprint."
-    },
-    {
-        id: 321,
-        title: "Spelövning: Smålagsspel 4 mot 4 med neutrala jokrar",
-        category: "Spelövningar",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Spel där neutrala spelare stöttar det bollhållande laget."
-    },
-    {
-        id: 322,
-        title: "Målvaktsspel: Reflexer och grepp vid närskott",
-        category: "Målvaktsspel",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Träna snabba reaktioner och blockering av hårda skott nära mål."
-    },
-    {
-        id: 323,
-        title: "Fasta situationer: Hörna med inlägg mot första stolpen",
-        category: "Fasta situationer",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Slå in hörnan mot första ytan för skarv eller direktavslut."
-    },
-    {
-        id: 324,
-        title: "Passningsspel: Kvadraten 5 mot 2 med max två tillslag",
-        category: "Passningsspel",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Håll bollen inom laget i runda mot två jagande försvarare."
-    },
-    {
-        id: 325,
-        title: "Anfallsspel: Ytteranfall med inlägg och tre löpare",
-        category: "Anfallsspel",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Yttermittfältare slår inlägg mot tre anfallare som fyller på i boxen."
-    },
-    {
-        id: 326,
-        title: "Försvar: 1 mot 1 defensiv i centrala ytor",
-        category: "Försvar",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Stäng igen centrala ytor och håll låg tyngdpunkt i dueller."
-    },
-    {
-        id: 327,
-        title: "Teknik: Nedtagning av höjdboll med bröst och pass",
-        category: "Teknik",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Kontrollera långboll med bröstet och lägg direkt vidare till medspelare."
-    },
-    {
-        id: 328,
-        title: "Fysik: Intervallträning med riktningsförändring",
-        category: "Fysik",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Korta ruscher med 180-graders vändningar för matchliknande tempo."
-    },
-    {
-        id: 329,
-        title: "Spelövning: Match 3 mot 3 på små mål utan målvakt",
-        category: "Spelövningar",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Snabba omställningar och precision i avslut utan fasta målvakter."
-    },
-    {
-        id: 330,
-        title: "Målvaktsspel: Utkast och igångsättning av kontring",
-        category: "Målvaktsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Träna snabba utkast för att starta blixtsnabba omställningar."
-    },
-    {
-        id: 331,
-        title: "Fasta situationer: Frisparksvariant med skott snett inåt bakåt",
-        category: "Fasta situationer",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Kombinationsspel vid frispark med avslut på ett tillslag."
-    },
-    {
-        id: 332,
-        title: "Passningsspel: Triangelpassningar med efterföljande löpning",
-        category: "Passningsspel",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Spela bollen i triangel och följ efter till nästa position."
-    },
-    {
-        id: 333,
-        title: "Anfallsspel: Djupledslöpning genom backlinjen",
-        category: "Anfallsspel",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Utnyttja ytor bakom motståndarens backlinje med precisa djupledspassningar."
-    },
-    {
-        id: 334,
-        title: "Försvar: Kollektiv förflyttning i sidled och höjdled",
-        category: "Försvar",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Hela laget rör sig kompakt efter bollen för att stänga ytor."
-    },
-    {
-        id: 335,
-        title: "Teknik: Vända bort motståndare med sulan (drag-back)",
-        category: "Teknik",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Använd sulan för att dra bollen bakåt och lura bort efterträdande spelare."
-    },
-    {
-        id: 336,
-        title: "Fysik: Cirkelträning för fotbollsstyrka och spänst",
-        category: "Fysik",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Stationsbaserad träning med upphopp, utfall och benböj."
-    },
-    {
-        id: 337,
-        title: "Spelövning: Match med maximalt två tillslag",
-        category: "Spelövningar",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Matchspel där spelarna max får vidröra bollen två gånger."
-    },
-    {
-        id: 338,
-        title: "Målvaktsspel: Höga bollar och boxningsteknik",
-        category: "Målvaktsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Träna på att säkert greppa eller boxa bort svåra inlägg."
-    },
-    {
-        id: 339,
-        title: "Fasta situationer: Straffar med fokus på returspel",
-        category: "Fasta situationer",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Straffläggning där medspelare är beredda på att hugga på returer."
-    },
-    {
-        id: 340,
-        title: "Passningsspel: Yttersidespassningar i kvadrat",
-        category: "Passningsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Träna på snabba passningar med yttersidan i mindre runda."
-    },
-    {
-        id: 341,
-        title: "Anfallsspel: Kontring 2 mot 1 i hög fart",
-        category: "Kontring",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Snabb omställning från försvar till anfall med numerärt överläge."
-    },
-    {
-        id: 342,
-        title: "Försvar: Säkra andraytor utanför straffområdet",
-        category: "Försvar",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Defensiva mittfältare städar upp och fångar upp lösa bollar."
-    },
-    {
-        id: 343,
-        title: "Teknik: Drivande boll i hinderbana med utsida",
-        category: "Teknik",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Få god kontroll på bollen genom att föra den med fotens utsida."
-    },
-    {
-        id: 344,
-        title: "Spelövning: Zonspel 4 mot 4 + 2 jokrar",
-        category: "Spelövningar",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Spel på ytor där neutrala jokrar hjälper det bollhållande laget."
-    },
-    {
-        id: 345,
-        title: "Fasta situationer: Avslutsträning efter fasta situationer",
-        category: "Fasta situationer",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Samlad övning där hörnor och frisparkar slås in i straffområdet."
-    },
-
-    // --- NÄSTA BATCH: ID 346–375 ---
-    {
-        id: 346,
-        title: "Passningsspel: Kortpassningar i triangel med rörelse",
-        category: "Passningsspel",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Spela bollen i triangel med fokus på snabba fötter och direkt mottagning."
-    },
-    {
-        id: 347,
-        title: "Anfallsspel: Djupledslöpning efter väggspel",
-        category: "Anfallsspel",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Utför ett väggspel med central mittfältare och ta direkt löpning i djupet."
-    },
-    {
-        id: 348,
-        title: "Försvar: Presspel i par och täckning",
-        category: "Försvar",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Första försvarare sätter press, andra försvarare säkrar ytan bakom."
-    },
-    {
-        id: 349,
-        title: "Teknik: Dribbling med insidan i sicksack-bana",
-        category: "Teknik",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Få nära bollkontakt genom att använda insidan av foten i konbana."
-    },
-    {
-        id: 350,
-        title: "Fysik: Agilitybana med koner och sidledssteg",
-        category: "Fysik",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Kombinera snabba framåtlöpningar med sidledssteg mellan koner."
-    },
-    {
-        id: 351,
-        title: "Spelövning: Match 3 mot 3 med små mål",
-        category: "Spelövningar",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Intensivt spel utan målvakter för att träna upp snabba avslut och passningar."
-    },
-    {
-        id: 352,
-        title: "Målvaktsspel: Skottäckning i trång vinkel",
-        category: "Målvaktsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Målvakten tränar på att täcka ytor snabbt vid skott från kanten."
-    },
-    {
-        id: 353,
-        title: "Fasta situationer: Hörna med kort variant",
-        category: "Fasta situationer",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Kort variant på hörna för att skapa bättre inläggsvinkel mot straffområdet."
-    },
-    {
-        id: 354,
-        title: "Passningsspel: Diagonalpassning och mottagning",
-        category: "Passningsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Slå längre diagonala bollar och ta emot med kontroll i rörelse."
-    },
-    {
-        id: 355,
-        title: "Anfallsspel: Spel 4 mot 3 med snabbt instick",
-        category: "Anfallsspel",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Anfallande lag utnyttjar numerärt överläge för att hitta luckan i forsvaret."
-    },
-    {
-        id: 356,
-        title: "Försvar: Brytpunkt i uppspelsfas",
-        category: "Försvar",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Stör motståndarens uppspel tidigt för att vinna bollen högt upp i banan."
-    },
-    {
-        id: 357,
-        title: "Teknik: Skottfint och genombrott",
-        category: "Teknik",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Finta skott för att få motståndaren att satsa, därefter accelerera förbi."
-    },
-    {
-        id: 358,
-        title: "Fysik: Intervaller med bollföring",
-        category: "Fysik",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Kombinera konditionsintervaller med att driva bollen i högt tempo."
-    },
-    {
-        id: 359,
-        title: "Spelövning: Match 4 mot 4 med neutrala spelare på kanterna",
-        category: "Spelövningar",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Smålagsspel där sidlinjesspelare stöttar det bollhållande laget."
-    },
-    {
-        id: 360,
-        title: "Målvaktsspel: Greppträning vid höga bollar",
-        category: "Målvaktsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Målvakten flyttar ut och griper inkommande bollar i luften."
-    },
-    {
-        id: 361,
-        title: "Fasta situationer: Frisparksvariant med skott direkt",
-        category: "Fasta situationer",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Träna skott och placering vid frisparkar strax utanför straffområdet."
-    },
-    {
-        id: 362,
-        title: "Passningsspel: Direktpassningar på ett tillslag",
-        category: "Passningsspel",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Kortpassningsspel i hög fart med krav på enbart ett tillslag per spelare."
-    },
-    {
-        id: 363,
-        title: "Anfallsspel: Ytteranfall med cut-back",
-        category: "Anfallsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Driva bollen till kortlinjen och spela snett inåt bakåt till medspelare."
-    },
-    {
-        id: 364,
-        title: "Försvar: Kollektivt presspel och förflyttning",
-        category: "Försvar",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Hela laget flyttar kompakt i sidled och höjdled efter bollens rörelse."
-    },
-    {
-        id: 365,
-        title: "Teknik: Nedtagning av höjdboll med fot",
-        category: "Teknik",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Dämpa ner långa bollar kontrollerat med sulan eller insidan av foten."
-    },
-    {
-        id: 366,
-        title: "Fysik: Explosiva upphopp och spänst",
-        category: "Fysik",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Styrkehopp från stående position för att förbättra spänsten."
-    },
-    {
-        id: 367,
-        title: "Spelövning: Match 5 mot 5 med målvakter",
-        category: "Spelövningar",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Fullständigt matchspel med fokus på snabba omställningar och bredd."
-    },
-    {
-        id: 368,
-        title: "Målvaktsspel: Utkast och igångsättning med hand",
-        category: "Målvaktsspel",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Träna träffsäkra utkast för att snabbt starta anfall från eget mål."
-    },
-    {
-        id: 369,
-        title: "Fasta situationer: Straffar och returer",
-        category: "Fasta situationer",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Straffläggning där medspelare är beredda på att hugga på eventuella returer."
-    },
-    {
-        id: 370,
-        title: "Passningsspel: Yttersidespassningar i rörelse",
-        category: "Passningsspel",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Spela bollen snabbt med yttersidan under rörelse framåt."
-    },
-    {
-        id: 371,
-        title: "Anfallsspel: Kontring 2 mot 1 i hög fart",
-        category: "Kontring",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Snabb omställning där två anfallare driver mot en ensam försvarare."
-    },
-    {
-        id: 372,
-        title: "Försvar: Säkra andraytor utanför straffområdet",
-        category: "Försvar",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Defensiva mittfältare städar upp och fångar upp lösa bollar utanför straffområdet."
-    },
-    {
-        id: 373,
-        title: "Teknik: Vända bort motståndare med sulan",
-        category: "Teknik",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Dra bollen bakåt med sulan för att snabbt finta bort en efterträdande spelare."
-    },
-    {
-        id: 374,
-        title: "Fysik: Snabba fötter i koordinationsstege",
-        category: "Fysik",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Intensiva fotsteg genom stege för att förbättra koordination och snabbhet."
-    },
-    {
-        id: 375,
-        title: "Spelövning: Matchspel med touch-begränsning",
-        category: "Spelövningar",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Matchspel där spelarna maximalt får vidröra bollen två gånger."
-    },
-
-    // --- SISTA BATCH: ID 376–405 (Mål uppnått!) ---
-    {
-        id: 376,
-        title: "Passningsspel: Väggspel och djupledslöpning i korridor",
-        category: "Passningsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Spela väggspel på kanten och ta emot bollen i farten i en djup korridor."
-    },
-    {
-        id: 377,
-        title: "Anfallsspel: 3 mot 2 med snabbt instick centralt",
-        category: "Anfallsspel",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Utnyttja numerärt överläge för att slå ett snabbt instick mellan backarna."
-    },
-    {
-        id: 378,
-        title: "Försvar: Presspel i grupp på egen planhalva",
-        category: "Försvar",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Kollektivt försvarsspel där laget flyttar ihop för att stänga ytor."
-    },
-    {
-        id: 379,
-        title: "Teknik: Drivande boll och skottfint i hög fart",
-        category: "Teknik",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Driva bollen i högt tempo, utföra en skottfint och accelerera förbi."
-    },
-    {
-        id: 380,
-        title: "Fysik: Snabba fötter i stege och maximal acceleration",
-        category: "Fysik",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Intensivt fotarbete i stege följt av 10 meters maximal sprint."
-    },
-    {
-        id: 381,
-        title: "Spelövning: Smålagsspel 4 mot 4 med neutrala jokrar",
-        category: "Spelövningar",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Spel där neutrala spelare stöttar det bollhållande laget."
-    },
-    {
-        id: 382,
-        title: "Målvaktsspel: Reflexer och grepp vid närskott",
-        category: "Målvaktsspel",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Träna snabba reaktioner och blockering av hårda skott nära mål."
-    },
-    {
-        id: 383,
-        title: "Fasta situationer: Hörna med inlägg mot första stolpen",
-        category: "Fasta situationer",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Slå in hörnan mot första ytan för skarv eller direktavslut."
-    },
-    {
-        id: 384,
-        title: "Passningsspel: Kvadraten 5 mot 2 med max två tillslag",
-        category: "Passningsspel",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Håll bollen inom laget i runda mot två jagande försvarare."
-    },
-    {
-        id: 385,
-        title: "Anfallsspel: Ytteranfall med inlägg och tre löpare",
-        category: "Anfallsspel",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Yttermittfältare slår inlägg mot tre anfallare som fyller på i boxen."
-    },
-    {
-        id: 386,
-        title: "Försvar: 1 mot 1 defensiv i centrala ytor",
-        category: "Försvar",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Stäng igen centrala ytor och håll låg tyngdpunkt i dueller."
-    },
-    {
-        id: 387,
-        title: "Teknik: Nedtagning av höjdboll med bröst och pass",
-        category: "Teknik",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Kontrollera långboll med bröstet och lägg direkt vidare till medspelare."
-    },
-    {
-        id: 388,
-        title: "Fysik: Intervallträning med riktningsförändring",
-        category: "Fysik",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Korta ruscher med 180-graders vändningar för matchliknande tempo."
-    },
-    {
-        id: 389,
-        title: "Spelövning: Match 3 mot 3 på små mål utan målvakt",
-        category: "Spelövningar",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Snabba omställningar och precision i avslut utan fasta målvakter."
-    },
-    {
-        id: 390,
-        title: "Målvaktsspel: Utkast och igångsättning av kontring",
-        category: "Målvaktsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Träna snabba utkast för att starta blixtsnabba omställningar."
-    },
-    {
-        id: 391,
-        title: "Fasta situationer: Frisparksvariant med skott snett inåt bakåt",
-        category: "Fasta situationer",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Kombinationsspel vid frispark med avslut på ett tillslag."
-    },
-    {
-        id: 392,
-        title: "Passningsspel: Triangelpassningar med efterföljande löpning",
-        category: "Passningsspel",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Spela bollen i triangel och följ efter till nästa position."
-    },
-    {
-        id: 393,
-        title: "Anfallsspel: Djupledslöpning genom backlinjen",
-        category: "Anfallsspel",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Utnyttja ytor bakom motståndarens backlinje med precisa djupledspassningar."
-    },
-    {
-        id: 394,
-        title: "Försvar: Kollektiv förflyttning i sidled och höjdled",
-        category: "Försvar",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Hela laget rör sig kompakt efter bollen för att stänga ytor."
-    },
-    {
-        id: 395,
-        title: "Teknik: Vända bort motståndare med sulan (drag-back)",
-        category: "Teknik",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Använd sulan för att dra bollen bakåt och lura bort efterträdande spelare."
-    },
-    {
-        id: 396,
-        title: "Fysik: Cirkelträning för fotbollsstyrka och spänst",
-        category: "Fysik",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Stationsbaserad träning med upphopp, utfall och benböj."
-    },
-    {
-        id: 397,
-        title: "Spelövning: Match med maximalt två tillslag",
-        category: "Spelövningar",
-        ageGroup: "P13-P14",
-        link: "",
-        description: "Matchspel där spelarna max får vidröra bollen två gånger."
-    },
-    {
-        id: 398,
-        title: "Målvaktsspel: Höga bollar och boxningsteknik",
-        category: "Målvaktsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Träna på att säkert greppa eller boxa bort svåra inlägg."
-    },
-    {
-        id: 399,
-        title: "Fasta situationer: Straffar med fokus på returspel",
-        category: "Fasta situationer",
-        ageGroup: "P10-P14",
-        link: "",
-        description: "Straffläggning där medspelare är beredda på att hugga på returer."
-    },
-    {
-        id: 400,
-        title: "Passningsspel: Yttersidespassningar i kvadrat",
-        category: "Passningsspel",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Träna på snabba passningar med yttersidan i mindre runda."
-    },
-    {
-        id: 401,
-        title: "Anfallsspel: Kontring 2 mot 1 i hög fart",
-        category: "Kontring",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Snabb omställning från försvar till anfall med numerärt överläge."
-    },
-    {
-        id: 402,
-        title: "Försvar: Säkra andraytor utanför straffområdet",
-        category: "Försvar",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Defensiva mittfältare städar upp och fångar upp lösa bollar."
-    },
-    {
-        id: 403,
-        title: "Teknik: Drivande boll i hinderbana med utsida",
-        category: "Teknik",
-        ageGroup: "P10-P13",
-        link: "",
-        description: "Få god kontroll på bollen genom att föra den med fotens utsida."
-    },
-    {
-        id: 404,
-        title: "Spelövning: Zonspel 4 mot 4 + 2 jokrar",
-        category: "Spelövningar",
-        ageGroup: "P12-P14",
-        link: "",
-        description: "Spel på ytor där neutrala jokrar hjälper det bollhållande laget."
-    },
-    {
-        id: 405,
-        title: "Fasta situationer: Avslutsträning efter fasta situationer",
-        category: "Fasta situationer",
-        ageGroup: "P11-P14",
-        link: "",
-        description: "Samlad övning där hörnor och frisparkar slås in i straffområdet."
+const exercises = [
+    {
+        "id": "1-beroring-med-riktningssändringar",
+        "name": "1 beroring med riktningssändringar",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 1 beroring med riktningssändringar",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/1-beroring-med-riktningssandringar"
+    },
+    {
+        "id": "1v1-i-straffområdet",
+        "name": "1v1 i straffområdet",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 1v1 i straffområdet",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/1v1-i-straffomradet"
+    },
+    {
+        "id": "1v1-med-lag",
+        "name": "1v1 med lag",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 1v1 med lag",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/1v1-med-lag"
+    },
+    {
+        "id": "1v1-med-lag-och-portar",
+        "name": "1v1 med lag och portar",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 1v1 med lag och portar",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/1v1-med-lag-och-portar"
+    },
+    {
+        "id": "1v1-med-observation-av-motståndaren",
+        "name": "1v1 med observation av motståndaren",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 1v1 med observation av motståndaren",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/1v1-med-observation-av-motstandaren"
+    },
+    {
+        "id": "1v1-med-situationsförändringar",
+        "name": "1v1 med situationsförändringar",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 1v1 med situationsförändringar",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/1v1-med-situationsforandringar"
+    },
+    {
+        "id": "1v1-med-slalom",
+        "name": "1v1 med slalom",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 1v1 med slalom",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/1v1-med-slalom"
+    },
+    {
+        "id": "1v1-med-stodspelare",
+        "name": "1v1 med stodspelare",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 1v1 med stodspelare",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/1v1-med-stodspelare"
+    },
+    {
+        "id": "1v1-med-två-mål",
+        "name": "1v1 med två mål",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 1v1 med två mål",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/1v1-med-tva-mal"
+    },
+    {
+        "id": "1v1-med-två-par",
+        "name": "1v1 med två par",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 1v1 med två par",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/1v1-med-tva-par"
+    },
+    {
+        "id": "1v1-med-vända-mål",
+        "name": "1v1 med vända mål",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 1v1 med vända mål",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/1v1-med-vanda-mal"
+    },
+    {
+        "id": "1v1-med-vändning",
+        "name": "1v1 med vändning",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 1v1 med vändning",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/1v1-med-vandning"
+    },
+    {
+        "id": "1v1-minusminus-2v2",
+        "name": "1v1 minusminus 2v2",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 1v1 minusminus 2v2",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/1v1-minusminus-2v2"
+    },
+    {
+        "id": "1v1-minusminus-2v2-med-målvakter",
+        "name": "1v1 minusminus 2v2 med målvakter",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 1v1 minusminus 2v2 med målvakter",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/1v1-minusminus-2v2-med-malvakter"
+    },
+    {
+        "id": "1v1-minusminus-2v2-med-målvakter-2",
+        "name": "1v1 minusminus 2v2 med målvakter 2",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 1v1 minusminus 2v2 med målvakter 2",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/1v1-minusminus-2v2-med-malvakter-2"
+    },
+    {
+        "id": "1v1-minusminus-3v3plusmålvakter",
+        "name": "1v1 minusminus 3v3plusmålvakter",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 1v1 minusminus 3v3plusmålvakter",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/1v1-minusminus-3v3plusmalvakter"
+    },
+    {
+        "id": "1v1-mot-grindmål-oavbrutet",
+        "name": "1v1 mot grindmål oavbrutet",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 1v1 mot grindmål oavbrutet",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/1v1-mot-grindmal-oavbrutet"
+    },
+    {
+        "id": "1v1-målgörningsövning",
+        "name": "1v1 målgörningsövning",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 1v1 målgörningsövning",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/1v1-malgorningsovning"
+    },
+    {
+        "id": "1v1-passningsport",
+        "name": "1v1 passningsport",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 1v1 passningsport",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/1v1-passningsport"
+    },
+    {
+        "id": "1v1-plus-joker-plus-målvakter",
+        "name": "1v1 plus joker plus målvakter",
+        "category": "Målvakt",
+        "focus": "Målvakt",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 1v1 plus joker plus målvakter",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/1v1-plus-joker-plus-malvakter"
+    },
+    {
+        "id": "1v1plusjokrarplusmålvakter",
+        "name": "1v1plusjokrarplusmålvakter",
+        "category": "Målvakt",
+        "focus": "Målvakt",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 1v1plusjokrarplusmålvakter",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/1v1plusjokrarplusmalvakter"
+    },
+    {
+        "id": "1v1-plus-målvakt-med-stegstege",
+        "name": "1v1 plus målvakt med stegstege",
+        "category": "Målvakt",
+        "focus": "Målvakt",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 1v1 plus målvakt med stegstege",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/1v1-plus-malvakt-med-stegstege"
+    },
+    {
+        "id": "1v1-plus-stodspelare",
+        "name": "1v1 plus stodspelare",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 1v1 plus stodspelare",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/1v1-plus-stodspelare"
+    },
+    {
+        "id": "1v1-på-ändlinjerna",
+        "name": "1v1 på ändlinjerna",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 1v1 på ändlinjerna",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/1v1-pa-andlinjerna"
+    },
+    {
+        "id": "1v1-reaktion-och-avslutning",
+        "name": "1v1 reaktion och avslutning",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 1v1 reaktion och avslutning",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/1v1-reaktion-och-avslutning"
+    },
+    {
+        "id": "1v1-reaktionsduell",
+        "name": "1v1 reaktionsduell",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 1v1 reaktionsduell",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/1v1-reaktionsduell"
+    },
+    {
+        "id": "1v1-reaktionstävling",
+        "name": "1v1 reaktionstävling",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 1v1 reaktionstävling",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/1v1-reaktionstavling"
+    },
+    {
+        "id": "1v1-rygg-mot-mål",
+        "name": "1v1 rygg mot mål",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 1v1 rygg mot mål",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/1v1-rygg-mot-mal"
+    },
+    {
+        "id": "1v1-sida-vid-sida-och-mot-mål",
+        "name": "1v1 sida vid sida och mot mål",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 1v1 sida vid sida och mot mål",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/1v1-sida-vid-sida-och-mot-mal"
+    },
+    {
+        "id": "1v1-till-fyra-mål",
+        "name": "1v1 till fyra mål",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 1v1 till fyra mål",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/1v1-till-fyra-mal"
+    },
+    {
+        "id": "1v1-till-fyra-mål-lagvis-med-utslagning",
+        "name": "1v1 till fyra mål lagvis med utslagning",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 1v1 till fyra mål lagvis med utslagning",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/1v1-till-fyra-mal-lagvis-med-utslagning"
+    },
+    {
+        "id": "1v1-till-fyra-portmål",
+        "name": "1v1 till fyra portmål",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 1v1 till fyra portmål",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/1v1-till-fyra-portmal"
+    },
+    {
+        "id": "1v1-till-portmål-på-sidorna",
+        "name": "1v1 till portmål på sidorna",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 1v1 till portmål på sidorna",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/1v1-till-portmal-pa-sidorna"
+    },
+    {
+        "id": "1v1-till-två-mål",
+        "name": "1v1 till två mål",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 1v1 till två mål",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/1v1-till-tva-mal"
+    },
+    {
+        "id": "1v1-till-två-mål-2",
+        "name": "1v1 till två mål 2",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 1v1 till två mål 2",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/1v1-till-tva-mal-2"
+    },
+    {
+        "id": "1v2",
+        "name": "1v2",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 1v2",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/1v2"
+    },
+    {
+        "id": "1v2-bollskydd",
+        "name": "1v2 bollskydd",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 1v2 bollskydd",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/1v2-bollskydd"
+    },
+    {
+        "id": "2v1",
+        "name": "2v1",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 2v1",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/2v1"
+    },
+    {
+        "id": "2v1-mot-fyra-mål",
+        "name": "2v1 mot fyra mål",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 2v1 mot fyra mål",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/2v1-mot-fyra-mal"
+    },
+    {
+        "id": "2v1plusmålvakt",
+        "name": "2v1plusmålvakt",
+        "category": "Målvakt",
+        "focus": "Målvakt",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 2v1plusmålvakt",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/2v1plusmalvakt"
+    },
+    {
+        "id": "2v1plusmålvakt-med-bakåtrörelse",
+        "name": "2v1plusmålvakt med bakåtrörelse",
+        "category": "Målvakt",
+        "focus": "Målvakt",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 2v1plusmålvakt med bakåtrörelse",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/2v1plusmalvakt-med-bakatrorelse"
+    },
+    {
+        "id": "2v2",
+        "name": "2v2",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 2v2",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/2v2"
+    },
+    {
+        "id": "2v2-med-slutspelare",
+        "name": "2v2 med slutspelare",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 2v2 med slutspelare",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/2v2-med-slutspelare"
+    },
+    {
+        "id": "2v2-med-tre-lag",
+        "name": "2v2 med tre lag",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 2v2 med tre lag",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/2v2-med-tre-lag"
+    },
+    {
+        "id": "2v2-och-målspelare",
+        "name": "2v2 och målspelare",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 2v2 och målspelare",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/2v2-och-malspelare"
+    },
+    {
+        "id": "2v2-plus-målvakter",
+        "name": "2v2 plus målvakter",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 2v2 plus målvakter",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/2v2-plus-malvakter"
+    },
+    {
+        "id": "2v2plusmålvakter-med-slutspelare",
+        "name": "2v2plusmålvakter med slutspelare",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 2v2plusmålvakter med slutspelare",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/2v2plusmalvakter-med-slutspelare"
+    },
+    {
+        "id": "2v2-turnering",
+        "name": "2v2 turnering",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 2v2 turnering",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/2v2-turnering"
+    },
+    {
+        "id": "2x-1v1-på-en-plan",
+        "name": "2x 1v1 på en plan",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 2x 1v1 på en plan",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/2x-1v1-pa-en-plan"
+    },
+    {
+        "id": "3v1-4v1-rondo",
+        "name": "3v1 4v1 rondo",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 3v1 4v1 rondo",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/3v1-4v1-rondo"
+    },
+    {
+        "id": "3v1-flytta-och-skjut",
+        "name": "3v1 flytta och skjut",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 3v1 flytta och skjut",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/3v1-flytta-och-skjut"
+    },
+    {
+        "id": "3v1-siktningsspel",
+        "name": "3v1 siktningsspel",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 3v1 siktningsspel",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/3v1-siktningsspel"
+    },
+    {
+        "id": "3v2-anfall",
+        "name": "3v2 anfall",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 3v2 anfall",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/3v2-anfall"
+    },
+    {
+        "id": "3v2-anfall-med-inlägg",
+        "name": "3v2 anfall med inlägg",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 3v2 anfall med inlägg",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/3v2-anfall-med-inlagg"
+    },
+    {
+        "id": "3v2-med-stodspelare",
+        "name": "3v2 med stodspelare",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 3v2 med stodspelare",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/3v2-med-stodspelare"
+    },
+    {
+        "id": "3v2-numerart-overlage-med-målvaktens-uppspel",
+        "name": "3v2 numerart overlage med målvaktens uppspel",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 3v2 numerart overlage med målvaktens uppspel",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/3v2-numerart-overlage-med-malvaktens-uppspel"
+    },
+    {
+        "id": "3v2-overtalsspel-med-målvaktens-uppspel",
+        "name": "3v2 overtalsspel med målvaktens uppspel",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 3v2 overtalsspel med målvaktens uppspel",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/3v2-overtalsspel-med-malvaktens-uppspel"
+    },
+    {
+        "id": "3v3-med-rörliga-hörnspelare",
+        "name": "3v3 med rörliga hörnspelare",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 3v3 med rörliga hörnspelare",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/3v3-med-rorliga-hornspelare"
+    },
+    {
+        "id": "3v3-mot-mål-i-olika-färger",
+        "name": "3v3 mot mål i olika färger",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 3v3 mot mål i olika färger",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/3v3-mot-mal-i-olika-farger"
+    },
+    {
+        "id": "3v3plus2-i-straffområdet",
+        "name": "3v3plus2 i straffområdet",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 3v3plus2 i straffområdet",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/3v3plus2-i-straffomradet"
+    },
+    {
+        "id": "3v3-plus-anfallande-ytterbackar-på-båda-sidor",
+        "name": "3v3 plus anfallande ytterbackar på båda sidor",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 3v3 plus anfallande ytterbackar på båda sidor",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/3v3-plus-anfallande-ytterbackar-pa-bada-sidor"
+    },
+    {
+        "id": "3v3-plus-joker",
+        "name": "3v3 plus joker",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 3v3 plus joker",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/3v3-plus-joker"
+    },
+    {
+        "id": "3v3plusjoker-slutspel",
+        "name": "3v3plusjoker slutspel",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 3v3plusjoker slutspel",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/3v3plusjoker-slutspel"
+    },
+    {
+        "id": "3v3-plus-jokers-på-sidorna",
+        "name": "3v3 plus jokers på sidorna",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 3v3 plus jokers på sidorna",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/3v3-plus-jokers-pa-sidorna"
+    },
+    {
+        "id": "3v3plusjokrar-minushoyna",
+        "name": "3v3plusjokrar minushoyna",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 3v3plusjokrar minushoyna",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/3v3plusjokrar-minushoyna"
+    },
+    {
+        "id": "3v3-plus-kantspelare-overlage-via-kanten",
+        "name": "3v3 plus kantspelare overlage via kanten",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 3v3 plus kantspelare overlage via kanten",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/3v3-plus-kantspelare-overlage-via-kanten"
+    },
+    {
+        "id": "3v3-plus-målspelare-i-andzonerna",
+        "name": "3v3 plus målspelare i andzonerna",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 3v3 plus målspelare i andzonerna",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/3v3-plus-malspelare-i-andzonerna"
+    },
+    {
+        "id": "3v3-på-målområden",
+        "name": "3v3 på målområden",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 3v3 på målområden",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/3v3-pa-malomraden"
+    },
+    {
+        "id": "3v3-till-fyra-mål",
+        "name": "3v3 till fyra mål",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 3v3 till fyra mål",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/3v3-till-fyra-mal"
+    },
+    {
+        "id": "3v3-till-sex-mål",
+        "name": "3v3 till sex mål",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 3v3 till sex mål",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/3v3-till-sex-mal"
+    },
+    {
+        "id": "3-vs-3-plus-två-jokrar",
+        "name": "3 vs 3 plus två jokrar",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 3 vs 3 plus två jokrar",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/3-vs-3-plus-tva-jokrar"
+    },
+    {
+        "id": "4v1-på-två-zoner",
+        "name": "4v1 på två zoner",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 4v1 på två zoner",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/4v1-pa-tva-zoner"
+    },
+    {
+        "id": "4v1-rondo-på-två-zoner",
+        "name": "4v1 rondo på två zoner",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 4v1 rondo på två zoner",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/4v1-rondo-pa-tva-zoner"
+    },
+    {
+        "id": "4v2-flytta-och-skjut",
+        "name": "4v2 flytta och skjut",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 4v2 flytta och skjut",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/4v2-flytta-och-skjut"
+    },
+    {
+        "id": "4v2-med-målgörande",
+        "name": "4v2 med målgörande",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 4v2 med målgörande",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/4v2-med-malgorande"
+    },
+    {
+        "id": "4v2-rondo-med-genompassning-och-avslut",
+        "name": "4v2 rondo med genompassning och avslut",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 4v2 rondo med genompassning och avslut",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/4v2-rondo-med-genompassning-och-avslut"
+    },
+    {
+        "id": "4v2-rondo-med-zoner",
+        "name": "4v2 rondo med zoner",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 4v2 rondo med zoner",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/4v2-rondo-med-zoner"
+    },
+    {
+        "id": "4v4-plus-2-jokrar",
+        "name": "4v4 plus 2 jokrar",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 4v4 plus 2 jokrar",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/4v4-plus-2-jokrar"
+    },
+    {
+        "id": "5v2minusrondo",
+        "name": "5v2minusrondo",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 5v2minusrondo",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/5v2minusrondo"
+    },
+    {
+        "id": "5v3-försvar",
+        "name": "5v3 försvar",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 5v3 försvar",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/5v3-forsvar"
+    },
+    {
+        "id": "5v3-speluppbyggnad",
+        "name": "5v3 speluppbyggnad",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 5v3 speluppbyggnad",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/5v3-speluppbyggnad"
+    },
+    {
+        "id": "5v5-i-fyra-zoner",
+        "name": "5v5 i fyra zoner",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 5v5 i fyra zoner",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/5v5-i-fyra-zoner"
+    },
+    {
+        "id": "5v5-med-skyddszon",
+        "name": "5v5 med skyddszon",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 5v5 med skyddszon",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/5v5-med-skyddszon"
+    },
+    {
+        "id": "5v5-slutspel-med-målspelare",
+        "name": "5v5 slutspel med målspelare",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 5v5 slutspel med målspelare",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/5v5-slutspel-med-malspelare"
+    },
+    {
+        "id": "7v3-rondo",
+        "name": "7v3 rondo",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: 7v3 rondo",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/7v3-rondo"
+    },
+    {
+        "id": "acceleration-bromsning",
+        "name": "Acceleration bromsning",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Acceleration bromsning",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/acceleration-bromsning"
+    },
+    {
+        "id": "algjakt",
+        "name": "Algjakt",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Algjakt",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/algjakt"
+    },
+    {
+        "id": "andspel-med-jokrar",
+        "name": "Andspel med jokrar",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Andspel med jokrar",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/andspel-med-jokrar"
+    },
+    {
+        "id": "andzonsspel",
+        "name": "Andzonsspel",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Andzonsspel",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/andzonsspel"
+    },
+    {
+        "id": "avslut-från-väggpassning",
+        "name": "Avslut från väggpassning",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Avslut från väggpassning",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/avslut-fran-vaggpassning"
+    },
+    {
+        "id": "avslut-med-ryggen-mot-mål",
+        "name": "Avslut med ryggen mot mål",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Avslut med ryggen mot mål",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/avslut-med-ryggen-mot-mal"
+    },
+    {
+        "id": "avslut-med-väggpassningar",
+        "name": "Avslut med väggpassningar",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Avslut med väggpassningar",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/avslut-med-vaggpassningar"
+    },
+    {
+        "id": "avslutning-efter-väggpassning",
+        "name": "Avslutning efter väggpassning",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Avslutning efter väggpassning",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/avslutning-efter-vaggpassning"
+    },
+    {
+        "id": "avslutning-från-genomskäring",
+        "name": "Avslutning från genomskäring",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Avslutning från genomskäring",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/avslutning-fran-genomskaring"
+    },
+    {
+        "id": "avslutning-från-genomskäring-2",
+        "name": "Avslutning från genomskäring 2",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Avslutning från genomskäring 2",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/avslutning-fran-genomskaring-2"
+    },
+    {
+        "id": "avslutning-i-par",
+        "name": "Avslutning i par",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Avslutning i par",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/avslutning-i-par"
+    },
+    {
+        "id": "avslutningsövning",
+        "name": "Avslutningsövning",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Avslutningsövning",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/avslutningsoevning"
+    },
+    {
+        "id": "bankranet",
+        "name": "Bankranet",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Bankranet",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/bankranet"
+    },
+    {
+        "id": "bikupenkurragömma",
+        "name": "Bikupenkurragömma",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Bikupenkurragömma",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/bikupenkurragomma"
+    },
+    {
+        "id": "bollbyte-genom-dribbling",
+        "name": "Bollbyte genom dribbling",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Bollbyte genom dribbling",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/bollbyte-genom-dribbling"
+    },
+    {
+        "id": "bollen-mot-loparen",
+        "name": "Bollen mot loparen",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Bollen mot loparen",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/bollen-mot-loparen"
+    },
+    {
+        "id": "bollen-snabbt-i-spel",
+        "name": "Bollen snabbt i spel",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Bollen snabbt i spel",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/bollen-snabbt-i-spel"
+    },
+    {
+        "id": "bollhallaren-ar-saker-kurragömma",
+        "name": "Bollhallaren ar saker kurragömma",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Bollhallaren ar saker kurragömma",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/bollhallaren-ar-saker-kurragomma"
+    },
+    {
+        "id": "bollkull",
+        "name": "Bollkull",
+        "category": "Uppvärmning",
+        "focus": "Fasta situationer",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Bollkull",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/bollkull"
+    },
+    {
+        "id": "bollskydd-utan-dribbling",
+        "name": "Bollskydd utan dribbling",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Bollskydd utan dribbling",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/bollskydd-utan-dribbling"
+    },
+    {
+        "id": "bollstöld-till-eget-bo",
+        "name": "Bollstöld till eget bo",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Bollstöld till eget bo",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/bollstold-till-eget-bo"
+    },
+    {
+        "id": "bostadsbyte",
+        "name": "Bostadsbyte",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Bostadsbyte",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/bostadsbyte"
+    },
+    {
+        "id": "bowlingtävling",
+        "name": "Bowlingtävling",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Bowlingtävling",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/bowlingtavling"
+    },
+    {
+        "id": "brannboll-med-fötterna",
+        "name": "Brannboll med fötterna",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Brannboll med fötterna",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/brannboll-med-fotterna"
+    },
+    {
+        "id": "bredda-spelet",
+        "name": "Bredda spelet",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Bredda spelet",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/bredda-spelet"
+    },
+    {
+        "id": "bygg-bryt-avsluta",
+        "name": "Bygg bryt avsluta",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Bygg bryt avsluta",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/bygg-bryt-avsluta"
+    },
+    {
+        "id": "bytespel",
+        "name": "Bytespel",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Bytespel",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/bytespel"
+    },
+    {
+        "id": "den-dolde-anfallaren",
+        "name": "Den dolde anfallaren",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Den dolde anfallaren",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/den-dolde-anfallaren"
+    },
+    {
+        "id": "den-hemlige-målskytten",
+        "name": "Den hemlige målskytten",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Den hemlige målskytten",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/den-hemlige-malskytten"
+    },
+    {
+        "id": "den-snabbare-vinner",
+        "name": "Den snabbare vinner",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Den snabbare vinner",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/den-snabbare-vinner"
+    },
+    {
+        "id": "dribbelkaos",
+        "name": "Dribbelkaos",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Dribbelkaos",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/dribbelkaos"
+    },
+    {
+        "id": "dribbla-bollen-till-egen-bas",
+        "name": "Dribbla bollen till egen bas",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Dribbla bollen till egen bas",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/dribbla-bollen-till-egen-bas"
+    },
+    {
+        "id": "dribbla-passa-och-spring",
+        "name": "Dribbla passa och spring",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Dribbla passa och spring",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/dribbla-passa-och-spring"
+    },
+    {
+        "id": "dribbla-på-olika-satt",
+        "name": "Dribbla på olika satt",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Dribbla på olika satt",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/dribbla-pa-olika-satt"
+    },
+    {
+        "id": "dribbla-vand-vid-målgrindar",
+        "name": "Dribbla vand vid målgrindar",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Dribbla vand vid målgrindar",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/dribbla-vand-vid-malgrindar"
+    },
+    {
+        "id": "dribblingskungen",
+        "name": "Dribblingskungen",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Dribblingskungen",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/dribblingskungen"
+    },
+    {
+        "id": "dribbling-väggpassning-och-avslutning",
+        "name": "Dribbling väggpassning och avslutning",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Dribbling väggpassning och avslutning",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/dribbling-vaggpassning-och-avslutning"
+    },
+    {
+        "id": "enkel-avslutningsövning",
+        "name": "Enkel avslutningsövning",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Enkel avslutningsövning",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/enkel-avslutningsoevning"
+    },
+    {
+        "id": "enkel-skottövning",
+        "name": "Enkel skottövning",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Enkel skottövning",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/enkel-skottovning"
+    },
+    {
+        "id": "erövring-av-mittzonen",
+        "name": "Erövring av mittzonen",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Erövring av mittzonen",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/erovring-av-mittzonen"
+    },
+    {
+        "id": "finta-av-tagarna-och-skjut",
+        "name": "Finta av tagarna och skjut",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Finta av tagarna och skjut",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/finta-av-tagarna-och-skjut"
+    },
+    {
+        "id": "finta-och-skjut",
+        "name": "Finta och skjut",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Finta och skjut",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/finta-och-skjut"
+    },
+    {
+        "id": "fintkarusell",
+        "name": "Fintkarusell",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Fintkarusell",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/fintkarusell"
+    },
+    {
+        "id": "fly-från-zonen",
+        "name": "Fly från zonen",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Fly från zonen",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/fly-fran-zonen"
+    },
+    {
+        "id": "fly-ur-boxen",
+        "name": "Fly ur boxen",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Fly ur boxen",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/fly-ur-boxen"
+    },
+    {
+        "id": "folj-kaptenen",
+        "name": "Folj kaptenen",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Folj kaptenen",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/folj-kaptenen"
+    },
+    {
+        "id": "folj-ledaren",
+        "name": "Folj ledaren",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Folj ledaren",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/folj-ledaren"
+    },
+    {
+        "id": "formelbana",
+        "name": "Formelbana",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Formelbana",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/formelbana"
+    },
+    {
+        "id": "fotbollminusfruktsallad",
+        "name": "Fotbollminusfruktsallad",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Fotbollminusfruktsallad",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/fotbollminusfruktsallad"
+    },
+    {
+        "id": "fotbollsmask",
+        "name": "Fotbollsmask",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Fotbollsmask",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/fotbollsmask"
+    },
+    {
+        "id": "fotbollstennis",
+        "name": "Fotbollstennis",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Fotbollstennis",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/fotbollstennis"
+    },
+    {
+        "id": "framatspel-endast-med-passning-bakåt",
+        "name": "Framatspel endast med passning bakåt",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Framatspel endast med passning bakåt",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/framatspel-endast-med-passning-bakat"
+    },
+    {
+        "id": "framryckande-2v1",
+        "name": "Framryckande 2v1",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Framryckande 2v1",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/framryckande-2v1"
+    },
+    {
+        "id": "framryckningsspel-förbi-linjer",
+        "name": "Framryckningsspel förbi linjer",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Framryckningsspel förbi linjer",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/framryckningsspel-forbi-linjer"
+    },
+    {
+        "id": "framryckningsspel-mot-försvarare",
+        "name": "Framryckningsspel mot försvarare",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Framryckningsspel mot försvarare",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/framryckningsspel-mot-forsvarare"
+    },
+    {
+        "id": "framryckning-till-ytterlinjer",
+        "name": "Framryckning till ytterlinjer",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Framryckning till ytterlinjer",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/framryckning-till-ytterlinjer"
+    },
+    {
+        "id": "framåtspel-med-passningar",
+        "name": "Framåtspel med passningar",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Framåtspel med passningar",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/framatspel-med-passningar"
+    },
+    {
+        "id": "från-kapplöpning-till-spel",
+        "name": "Från kapplöpning till spel",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Från kapplöpning till spel",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/fran-kapplopning-till-spel"
+    },
+    {
+        "id": "från-mittfältet-till-kanten-inlägg-och-avslut",
+        "name": "Från mittfältet till kanten inlägg och avslut",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Från mittfältet till kanten inlägg och avslut",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/fran-mittfaltet-till-kanten-inlagg-och-avslut"
+    },
+    {
+        "id": "från-press-till-målgång",
+        "name": "Från press till målgång",
+        "category": "Taktik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Från press till målgång",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/fran-press-till-malgang"
+    },
+    {
+        "id": "från-rondo-till-inlägg-och-avslut",
+        "name": "Från rondo till inlägg och avslut",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Från rondo till inlägg och avslut",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/fran-rondo-till-inlagg-och-avslut"
+    },
+    {
+        "id": "från-väggpassning-till-inlägg",
+        "name": "Från väggpassning till inlägg",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Från väggpassning till inlägg",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/fran-vaggpassning-till-inlagg"
+    },
+    {
+        "id": "fyra-körs-dribbling-och-passningsövning",
+        "name": "Fyra körs dribbling och passningsövning",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Fyra körs dribbling och passningsövning",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/fyra-koers-dribbling-och-passningsoevning"
+    },
+    {
+        "id": "fyramålsspel",
+        "name": "Fyramålsspel",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Fyramålsspel",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/fyramalsspel"
+    },
+    {
+        "id": "fyra-zoners-hyena",
+        "name": "Fyra zoners hyena",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Fyra zoners hyena",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/fyra-zoners-hyena"
+    },
+    {
+        "id": "fyrkantscirkulation",
+        "name": "Fyrkantscirkulation",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Fyrkantscirkulation",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/fyrkantscirkulation"
+    },
+    {
+        "id": "fyrkantsspel",
+        "name": "Fyrkantsspel",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Fyrkantsspel",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/fyrkantsspel"
+    },
+    {
+        "id": "fyrmålsräddningsspel-för-målvakter",
+        "name": "Fyrmålsräddningsspel för målvakter",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Fyrmålsräddningsspel för målvakter",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/fyrmalsraddningsspel-for-malvakter"
+    },
+    {
+        "id": "fyrmålsskjutningsbana",
+        "name": "Fyrmålsskjutningsbana",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Fyrmålsskjutningsbana",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/fyrmalsskjutningsbana"
+    },
+    {
+        "id": "fånga-mig-om-du-kan",
+        "name": "Fånga mig om du kan",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Fånga mig om du kan",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/fanga-mig-om-du-kan"
+    },
+    {
+        "id": "fånga-om-du-kan",
+        "name": "Fånga om du kan",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Fånga om du kan",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/fanga-om-du-kan"
+    },
+    {
+        "id": "fånga-om-du-kan-2",
+        "name": "Fånga om du kan 2",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Fånga om du kan 2",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/fanga-om-du-kan-2"
+    },
+    {
+        "id": "färgdribbling",
+        "name": "Färgdribbling",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Färgdribbling",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/fargdribbling"
+    },
+    {
+        "id": "färgkull-fotbollsversion",
+        "name": "Färgkull fotbollsversion",
+        "category": "Uppvärmning",
+        "focus": "Fasta situationer",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Färgkull fotbollsversion",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/fargkull-fotbollsversion"
+    },
+    {
+        "id": "färgmarkespel",
+        "name": "Färgmarkespel",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Färgmarkespel",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/fargmarkespel"
+    },
+    {
+        "id": "första-beringen-i-löpning",
+        "name": "Första beringen i löpning",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Första beringen i löpning",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/forsta-beringen-i-lopning"
+    },
+    {
+        "id": "första-beröringen-med-press",
+        "name": "Första beröringen med press",
+        "category": "Taktik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Första beröringen med press",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/forsta-beroringen-med-press"
+    },
+    {
+        "id": "första-beröringen-och-genomskarningspass",
+        "name": "Första beröringen och genomskarningspass",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Första beröringen och genomskarningspass",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/forsta-beroringen-och-genomskarningspass"
+    },
+    {
+        "id": "försvarare-i-cirkel",
+        "name": "Försvarare i cirkel",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Försvarare i cirkel",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/forsvarare-i-cirkel"
+    },
+    {
+        "id": "försvarsspel",
+        "name": "Försvarsspel",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Försvarsspel",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/forsvarsspel"
+    },
+    {
+        "id": "genombrytning-genom-linjerna",
+        "name": "Genombrytning genom linjerna",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Genombrytning genom linjerna",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/genombrytning-genom-linjerna"
+    },
+    {
+        "id": "genombrytning-genom-linjerna-2",
+        "name": "Genombrytning genom linjerna 2",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Genombrytning genom linjerna 2",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/genombrytning-genom-linjerna-2"
+    },
+    {
+        "id": "genompassning-och-avslut",
+        "name": "Genompassning och avslut",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Genompassning och avslut",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/genompassning-och-avslut"
+    },
+    {
+        "id": "grindspel-i-par",
+        "name": "Grindspel i par",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Grindspel i par",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/grindspel-i-par"
+    },
+    {
+        "id": "grindvalslöpning",
+        "name": "Grindvalslöpning",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Grindvalslöpning",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/grindvalslopning"
+    },
+    {
+        "id": "gruppsammanhallningsövning",
+        "name": "Gruppsammanhallningsövning",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Gruppsammanhallningsövning",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/gruppsammanhallningsoevning"
+    },
+    {
+        "id": "halvplan-minus-2-zoner",
+        "name": "Halvplan minus 2 zoner",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Halvplan minus 2 zoner",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/halvplan-minus-2-zoner"
+    },
+    {
+        "id": "halvplan-minus-3-zoner",
+        "name": "Halvplan minus 3 zoner",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Halvplan minus 3 zoner",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/halvplan-minus-3-zoner"
+    },
+    {
+        "id": "halvplan-minus-4-zoner",
+        "name": "Halvplan minus 4 zoner",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Halvplan minus 4 zoner",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/halvplan-minus-4-zoner"
+    },
+    {
+        "id": "hamta-och-lamna-bollarna",
+        "name": "Hamta och lamna bollarna",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Hamta och lamna bollarna",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/hamta-och-lamna-bollarna"
+    },
+    {
+        "id": "hattrick-avgjort",
+        "name": "Hattrick avgjort",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Hattrick avgjort",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/hattrick-avgjort"
+    },
+    {
+        "id": "hela-planen-minus-2-zoner",
+        "name": "Hela planen minus 2 zoner",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Hela planen minus 2 zoner",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/hela-planen-minus-2-zoner"
+    },
+    {
+        "id": "hela-planen-minus-3-zoner",
+        "name": "Hela planen minus 3 zoner",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Hela planen minus 3 zoner",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/hela-planen-minus-3-zoner"
+    },
+    {
+        "id": "hela-planen-minus-4-zoner",
+        "name": "Hela planen minus 4 zoner",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Hela planen minus 4 zoner",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/hela-planen-minus-4-zoner"
+    },
+    {
+        "id": "hela-planen-minus-5-zoner",
+        "name": "Hela planen minus 5 zoner",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Hela planen minus 5 zoner",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/hela-planen-minus-5-zoner"
+    },
+    {
+        "id": "hela-planen-minus-6-zoner",
+        "name": "Hela planen minus 6 zoner",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Hela planen minus 6 zoner",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/hela-planen-minus-6-zoner"
+    },
+    {
+        "id": "håll-bollen-under-kontroll",
+        "name": "Håll bollen under kontroll",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Håll bollen under kontroll",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/hall-bollen-under-kontroll"
+    },
+    {
+        "id": "håll-din-sida-ren",
+        "name": "Håll din sida ren",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Håll din sida ren",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/hall-din-sida-ren"
+    },
+    {
+        "id": "håll-din-sida-ren-kopia",
+        "name": "Håll din sida ren kopia",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Håll din sida ren kopia",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/hall-din-sida-ren-kopia"
+    },
+    {
+        "id": "håll-ledningen",
+        "name": "Håll ledningen",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Håll ledningen",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/hall-ledningen"
+    },
+    {
+        "id": "hörnspel-i-par",
+        "name": "Hörnspel i par",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Hörnspel i par",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/hornspel-i-par"
+    },
+    {
+        "id": "inkastsövning-i-par",
+        "name": "Inkastsövning i par",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Inkastsövning i par",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/inkastsovning-i-par"
+    },
+    {
+        "id": "inlägg-från-kanten-och-avslut",
+        "name": "Inlägg från kanten och avslut",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Inlägg från kanten och avslut",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/inlagg-fran-kanten-och-avslut"
+    },
+    {
+        "id": "inlägg-från-kanten-till-mål",
+        "name": "Inlägg från kanten till mål",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Inlägg från kanten till mål",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/inlagg-fran-kanten-till-mal"
+    },
+    {
+        "id": "inlägg-med-väggpassning",
+        "name": "Inlägg med väggpassning",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Inlägg med väggpassning",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/inlagg-med-vaggpassning"
+    },
+    {
+        "id": "inlägg-och-avslut-i-boxen-3v2",
+        "name": "Inlägg och avslut i boxen 3v2",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Inlägg och avslut i boxen 3v2",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/inlagg-och-avslut-i-boxen-3v2"
+    },
+    {
+        "id": "inläggsspel",
+        "name": "Inläggsspel",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Inläggsspel",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/inlaggsspel"
+    },
+    {
+        "id": "inlägg-till-kanten-inlägg-och-avslut",
+        "name": "Inlägg till kanten inlägg och avslut",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Inlägg till kanten inlägg och avslut",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/inlagg-till-kanten-inlagg-och-avslut"
+    },
+    {
+        "id": "inlägg-till-tredjeman-och-avslut-från-centrum",
+        "name": "Inlägg till tredjeman och avslut från centrum",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Inlägg till tredjeman och avslut från centrum",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/inlagg-till-tredjeman-och-avslut-fran-centrum"
+    },
+    {
+        "id": "jagstafett",
+        "name": "Jagstafett",
+        "category": "Uppvärmning",
+        "focus": "Fasta situationer",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Jagstafett",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/jagstafett"
+    },
+    {
+        "id": "jagstafett-på-rad",
+        "name": "Jagstafett på rad",
+        "category": "Uppvärmning",
+        "focus": "Fasta situationer",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Jagstafett på rad",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/jagstafett-pa-rad"
+    },
+    {
+        "id": "kaptenen-befaller",
+        "name": "Kaptenen befaller",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Kaptenen befaller",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/kaptenen-befaller"
+    },
+    {
+        "id": "kedjebrunken",
+        "name": "Kedjebrunken",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Kedjebrunken",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/kedjebrunken"
+    },
+    {
+        "id": "kondrissning",
+        "name": "Kondrissning",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Kondrissning",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/kondrissning"
+    },
+    {
+        "id": "kull-i-fyrkanten",
+        "name": "Kull i fyrkanten",
+        "category": "Uppvärmning",
+        "focus": "Fasta situationer",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Kull i fyrkanten",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/kull-i-fyrkanten"
+    },
+    {
+        "id": "kull-med-boll-i-händerna",
+        "name": "Kull med boll i händerna",
+        "category": "Uppvärmning",
+        "focus": "Fasta situationer",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Kull med boll i händerna",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/kull-med-boll-i-handerna"
+    },
+    {
+        "id": "kurragömma-med-räddare",
+        "name": "Kurragömma med räddare",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Kurragömma med räddare",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/kurragomma-med-raddare"
+    },
+    {
+        "id": "kägelbana-utan-boll",
+        "name": "Kägelbana utan boll",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Kägelbana utan boll",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/kagelbana-utan-boll"
+    },
+    {
+        "id": "kägelkrig-2",
+        "name": "Kägelkrig 2",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Kägelkrig 2",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/kagelkrig-2"
+    },
+    {
+        "id": "kältävling",
+        "name": "Kältävling",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Kältävling",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/kaltavling"
+    },
+    {
+        "id": "land-hav-skepp-med-boll",
+        "name": "Land hav skepp med boll",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Land hav skepp med boll",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/land-hav-skepp-med-boll"
+    },
+    {
+        "id": "led-med-ett-kontrollera-spelet",
+        "name": "Led med ett kontrollera spelet",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Led med ett kontrollera spelet",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/led-med-ett-kontrollera-spelet"
+    },
+    {
+        "id": "linjedribbling",
+        "name": "Linjedribbling",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Linjedribbling",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/linjedribbling"
+    },
+    {
+        "id": "linjedribblingsstafett",
+        "name": "Linjedribblingsstafett",
+        "category": "Uppvärmning",
+        "focus": "Fasta situationer",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Linjedribblingsstafett",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/linjedribblingsstafett"
+    },
+    {
+        "id": "litet-spel-i-straffområdet",
+        "name": "Litet spel i straffområdet",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Litet spel i straffområdet",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/litet-spel-i-straffomradet"
+    },
+    {
+        "id": "L-minuspassningsövning-med-tre-spelare",
+        "name": "L minuspassningsövning med tre spelare",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: L minuspassningsövning med tre spelare",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/lminuspassningsoevning-med-tre-spelare"
+    },
+    {
+        "id": "lossa-dig-från-motståndaren",
+        "name": "Lossa dig från motståndaren",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Lossa dig från motståndaren",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/lossa-dig-fran-motstandaren"
+    },
+    {
+        "id": "lura-din-motståndare",
+        "name": "Lura din motståndare",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Lura din motståndare",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/lura-din-motstandare"
+    },
+    {
+        "id": "lyssna-gruppera",
+        "name": "Lyssna gruppera",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Lyssna gruppera",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/lyssna-gruppera"
+    },
+    {
+        "id": "lång-och-kort-passning-med-tre-spelare",
+        "name": "Lång och kort passning med tre spelare",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Lång och kort passning med tre spelare",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/lang-och-kort-passning-med-tre-spelare"
+    },
+    {
+        "id": "manmanmarkering",
+        "name": "Manmanmarkering",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Manmanmarkering",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/manmanmarkering"
+    },
+    {
+        "id": "minaret",
+        "name": "Minaret",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Minaret",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/minaret"
+    },
+    {
+        "id": "mittfältarens-vändning-väggpassningsrörelse",
+        "name": "Mittfältarens vändning väggpassningsrörelse",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Mittfältarens vändning väggpassningsrörelse",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/mittfaltarens-vandning-vaggpassningsrorelse"
+    },
+    {
+        "id": "mottagning-dribbling-och-passning",
+        "name": "Mottagning dribbling och passning",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Mottagning dribbling och passning",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/mottagning-dribbling-och-passning"
+    },
+    {
+        "id": "mottagning-i-fyrkant",
+        "name": "Mottagning i fyrkant",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Mottagning i fyrkant",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/mottagning-i-fyrkant"
+    },
+    {
+        "id": "målgörande-från-inlägg",
+        "name": "Målgörande från inlägg",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Målgörande från inlägg",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/malgorande-fran-inlagg"
+    },
+    {
+        "id": "målgörande-från-inlägg",
+        "name": "Målgörande från inlägg",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Målgörande från inlägg",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/malgorande-fran-inlagg"
+    },
+    {
+        "id": "målgörande-i-trängsel",
+        "name": "Målgörande i trängsel",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Målgörande i trängsel",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/malgorande-i-trangsel"
+    },
+    {
+        "id": "målgörande-med-nickning",
+        "name": "Målgörande med nickning",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Målgörande med nickning",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/malgorande-med-nickning"
+    },
+    {
+        "id": "målgörarstävling",
+        "name": "Målgörarstävling",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Målgörarstävling",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/malgorarstavling"
+    },
+    {
+        "id": "målvaktens-reaktionsrotationer",
+        "name": "Målvaktens reaktionsrotationer",
+        "category": "Målvakt",
+        "focus": "Målvakt",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Målvaktens reaktionsrotationer",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/malvaktens-reaktionsrotationer"
+    },
+    {
+        "id": "målvaktens-uppvärmning-boxningplus-räddning",
+        "name": "Målvaktens uppvärmning boxningplus räddning",
+        "category": "Uppvärmning",
+        "focus": "Fasta situationer",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Målvaktens uppvärmning boxningplus räddning",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/malvaktens-uppvarmning-boxningplus-raddning"
+    },
+    {
+        "id": "målvaktens-uppvärmning-passning-plus-räddning",
+        "name": "Målvaktens uppvärmning passning plus räddning",
+        "category": "Uppvärmning",
+        "focus": "Fasta situationer",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Målvaktens uppvärmning passning plus räddning",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/malvaktens-uppvarmning-passning-plus-raddning"
+    },
+    {
+        "id": "målvakt-och-snabba-fötter",
+        "name": "Målvakt och snabba fötter",
+        "category": "Målvakt",
+        "focus": "Målvakt",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Målvakt och snabba fötter",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/malvakt-och-snabba-fotter"
+    },
+    {
+        "id": "målvaktskrig",
+        "name": "Målvaktskrig",
+        "category": "Målvakt",
+        "focus": "Målvakt",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Målvaktskrig",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/malvaktskrig"
+    },
+    {
+        "id": "målvaktskrig-med-lagkamrater",
+        "name": "Målvaktskrig med lagkamrater",
+        "category": "Målvakt",
+        "focus": "Målvakt",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Målvaktskrig med lagkamrater",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/malvaktskrig-med-lagkamrater"
+    },
+    {
+        "id": "målvaktsspel",
+        "name": "Målvaktsspel",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Målvaktsspel",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/malvaktsspel"
+    },
+    {
+        "id": "nickningsutmaning",
+        "name": "Nickningsutmaning",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Nickningsutmaning",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/nickningsutmaning"
+    },
+    {
+        "id": "nickningsövning-med-tre-spelare",
+        "name": "Nickningsövning med tre spelare",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Nickningsövning med tre spelare",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/nickningsoevning-med-tre-spelare"
+    },
+    {
+        "id": "nickspel",
+        "name": "Nickspel",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Nickspel",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/nickspel"
+    },
+    {
+        "id": "nummerpassningar",
+        "name": "Nummerpassningar",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Nummerpassningar",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/nummerpasningar"
+    },
+    {
+        "id": "observation-passning-rörelse-och-avslut-i-1v1-situation",
+        "name": "Observation passning rörelse och avslut i 1v1 situation",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Observation passning rörelse och avslut i 1v1 situation",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/observation-passning-rorelse-och-avslut-i-1v1-situation"
+    },
+    {
+        "id": "offsidefällans-undvikande-med-avslut",
+        "name": "Offsidefällans undvikande med avslut",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Offsidefällans undvikande med avslut",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/offsidefallans-undvikande-med-avslut"
+    },
+    {
+        "id": "overraskningsskott-från-fyrkanten",
+        "name": "Overraskningsskott från fyrkanten",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Overraskningsskott från fyrkanten",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/overraskningsskott-fran-fyrkanten"
+    },
+    {
+        "id": "parjakt",
+        "name": "Parjakt",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Parjakt",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/parjakt"
+    },
+    {
+        "id": "passa-och-bryt",
+        "name": "Passa och bryt",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passa och bryt",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passa-och-bryt"
+    },
+    {
+        "id": "passa-och-flytta-portpassning",
+        "name": "Passa och flytta portpassning",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passa och flytta portpassning",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passa-och-flytta-portpassning"
+    },
+    {
+        "id": "passa-och-reagera",
+        "name": "Passa och reagera",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passa och reagera",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passa-och-reagera"
+    },
+    {
+        "id": "passavarvavgör",
+        "name": "Passavarvavgör",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passavarvavgör",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passavarvavgor"
+    },
+    {
+        "id": "passavändavgör",
+        "name": "Passavändavgör",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passavändavgör",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passavandavgor"
+    },
+    {
+        "id": "pass-minusskott-minusövning",
+        "name": "Pass minusskott minusövning",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Pass minusskott minusövning",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/pass-minusskott-minusoevning"
+    },
+    {
+        "id": "passning-i-par-med-en-spelare-som-backar",
+        "name": "Passning i par med en spelare som backar",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passning i par med en spelare som backar",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passning-i-par-med-en-spelare-som-backar"
+    },
+    {
+        "id": "passning-i-par-med-två-bollar",
+        "name": "Passning i par med två bollar",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passning i par med två bollar",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passning-i-par-med-tva-bollar"
+    },
+    {
+        "id": "passning-med-fyra-spelare",
+        "name": "Passning med fyra spelare",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passning med fyra spelare",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passning-med-fyra-spelare"
+    },
+    {
+        "id": "passning-med-första-beröringen",
+        "name": "Passning med första beröringen",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passning med första beröringen",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passning-med-forsta-beroringen"
+    },
+    {
+        "id": "passning-med-löpning-bakom",
+        "name": "Passning med löpning bakom",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passning med löpning bakom",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passning-med-lopning-bakom"
+    },
+    {
+        "id": "passning-och-avslut",
+        "name": "Passning och avslut",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passning och avslut",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passning-och-avslut"
+    },
+    {
+        "id": "passning-och-avslut-mellan-försvarare",
+        "name": "Passning och avslut mellan försvarare",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passning och avslut mellan försvarare",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passning-och-avslut-mellan-forsvarare"
+    },
+    {
+        "id": "passning-och-löpslalom",
+        "name": "Passning och löpslalom",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passning och löpslalom",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passning-och-lopslalom"
+    },
+    {
+        "id": "passning-och-runda-kompisen",
+        "name": "Passning och runda kompisen",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passning och runda kompisen",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passning-och-runda-kompisen"
+    },
+    {
+        "id": "passning-och-rörelse",
+        "name": "Passning och rörelse",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passning och rörelse",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passning-och-rorelse"
+    },
+    {
+        "id": "passning-och-rörelse-2",
+        "name": "Passning och rörelse 2",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passning och rörelse 2",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passning-och-rorelse-2"
+    },
+    {
+        "id": "passning-och-rörelse-för-att-bli-spelbar",
+        "name": "Passning och rörelse för att bli spelbar",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passning och rörelse för att bli spelbar",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passning-och-rorelse-for-att-bli-spelbar"
+    },
+    {
+        "id": "passning-och-rörelse-i-kors",
+        "name": "Passning och rörelse i kors",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passning och rörelse i kors",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passning-och-rorelse-i-kors"
+    },
+    {
+        "id": "passning-och-rörelse-i-par",
+        "name": "Passning och rörelse i par",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passning och rörelse i par",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passning-och-rorelse-i-par"
+    },
+    {
+        "id": "passningsdrill-för-uppvärmning",
+        "name": "Passningsdrill för uppvärmning",
+        "category": "Uppvärmning",
+        "focus": "Fasta situationer",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passningsdrill för uppvärmning",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passningsdrill-for-uppvarmning"
+    },
+    {
+        "id": "passningsdrill-i-fyrkant",
+        "name": "Passningsdrill i fyrkant",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passningsdrill i fyrkant",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passningsdrill-i-fyrkant"
+    },
+    {
+        "id": "passningsdrill-i-fyrkant-med-fem-spelare",
+        "name": "Passningsdrill i fyrkant med fem spelare",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passningsdrill i fyrkant med fem spelare",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passningsdrill-i-fyrkant-med-fem-spelare"
+    },
+    {
+        "id": "passningsdrill-i-stor-och-liten-fyrkant",
+        "name": "Passningsdrill i stor och liten fyrkant",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passningsdrill i stor och liten fyrkant",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passningsdrill-i-stor-och-liten-fyrkant"
+    },
+    {
+        "id": "passningsdrillning",
+        "name": "Passningsdrillning",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passningsdrillning",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passningsdrillning"
+    },
+    {
+        "id": "passningsdrillning-i-triangel",
+        "name": "Passningsdrillning i triangel",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passningsdrillning i triangel",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passningsdrillning-i-triangel"
+    },
+    {
+        "id": "passningsdrillning-i-triangel-2",
+        "name": "Passningsdrillning i triangel 2",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passningsdrillning i triangel 2",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passningsdrillning-i-triangel-2"
+    },
+    {
+        "id": "passningsdrillning-med-avslutning",
+        "name": "Passningsdrillning med avslutning",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passningsdrillning med avslutning",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passningsdrillning-med-avslutning"
+    },
+    {
+        "id": "passningsdrillövning-i-fyrkant",
+        "name": "Passningsdrillövning i fyrkant",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passningsdrillövning i fyrkant",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passningsdrillovning-i-fyrkant"
+    },
+    {
+        "id": "passningsdrillövning-i-fyrkant-med-press",
+        "name": "Passningsdrillövning i fyrkant med press",
+        "category": "Taktik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passningsdrillövning i fyrkant med press",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passningsdrillovning-i-fyrkant-med-press"
+    },
+    {
+        "id": "passningsdrillövning-med-fyra-spelare",
+        "name": "Passningsdrillövning med fyra spelare",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passningsdrillövning med fyra spelare",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passningsdrillovning-med-fyra-spelare"
+    },
+    {
+        "id": "passningsdrillövning-med-rörelser",
+        "name": "Passningsdrillövning med rörelser",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passningsdrillövning med rörelser",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passningsdrillovning-med-rorelser"
+    },
+    {
+        "id": "passningsflöde",
+        "name": "Passningsflöde",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passningsflöde",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/pasningsflode"
+    },
+    {
+        "id": "passningsflöde",
+        "name": "Passningsflöde",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passningsflöde",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passningsfloede"
+    },
+    {
+        "id": "passningskedjespel",
+        "name": "Passningskedjespel",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passningskedjespel",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passningskedjespel"
+    },
+    {
+        "id": "passningsloop",
+        "name": "Passningsloop",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passningsloop",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passningsloop"
+    },
+    {
+        "id": "passningsordningsspel",
+        "name": "Passningsordningsspel",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passningsordningsspel",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passningsordningsspel"
+    },
+    {
+        "id": "passningsspel-med-joker-tärningsfemma",
+        "name": "Passningsspel med joker tärningsfemma",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passningsspel med joker tärningsfemma",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passningsspel-med-joker-tarningsfemma"
+    },
+    {
+        "id": "passningsubning-i-par",
+        "name": "Passningsubning i par",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passningsubning i par",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passningsubning-i-par"
+    },
+    {
+        "id": "passningsubning-med-fyra-spelare",
+        "name": "Passningsubning med fyra spelare",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passningsubning med fyra spelare",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passningsubning-med-fyra-spelare"
+    },
+    {
+        "id": "passningsövning-för-riktning-av-första-touch",
+        "name": "Passningsövning för riktning av första touch",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passningsövning för riktning av första touch",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passningsoevning-foer-riktning-av-foersta-touch"
+    },
+    {
+        "id": "passningsövning-i-fyrkant-med-fem-spelare",
+        "name": "Passningsövning i fyrkant med fem spelare",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passningsövning i fyrkant med fem spelare",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passningsoevning-i-fyrkant-med-fem-spelare"
+    },
+    {
+        "id": "passningsövning-i-fyrkant-med-tre-spelare",
+        "name": "Passningsövning i fyrkant med tre spelare",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passningsövning i fyrkant med tre spelare",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passningsoevning-i-fyrkant-med-tre-spelare"
+    },
+    {
+        "id": "passningsövning-i-par",
+        "name": "Passningsövning i par",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passningsövning i par",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passningsoevning-i-par"
+    },
+    {
+        "id": "passningsövning-i-par-2",
+        "name": "Passningsövning i par 2",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passningsövning i par 2",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passningsoevning-i-par-2"
+    },
+    {
+        "id": "passningsövning-i-par-med-första-berörningen",
+        "name": "Passningsövning i par med första berörningen",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passningsövning i par med första berörningen",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passningsoevning-i-par-med-forsta-berorningen"
+    },
+    {
+        "id": "passningsövning-i-par-med-portar",
+        "name": "Passningsövning i par med portar",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passningsövning i par med portar",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passningsoevning-i-par-med-portar"
+    },
+    {
+        "id": "passningsövning-i-par-med-portar-2",
+        "name": "Passningsövning i par med portar 2",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passningsövning i par med portar 2",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passningsoevning-i-par-med-portar-2"
+    },
+    {
+        "id": "passningsövning-i-två-led",
+        "name": "Passningsövning i två led",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passningsövning i två led",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passningsoevning-i-tva-led"
+    },
+    {
+        "id": "passningsövning-med-avslutning",
+        "name": "Passningsövning med avslutning",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passningsövning med avslutning",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passningsoevning-med-avslutning"
+    },
+    {
+        "id": "passningsövning-med-fyra-spelare",
+        "name": "Passningsövning med fyra spelare",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passningsövning med fyra spelare",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passningsoevning-med-fyra-spelare"
+    },
+    {
+        "id": "passningsövning-med-första-beröringen",
+        "name": "Passningsövning med första beröringen",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passningsövning med första beröringen",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passningsoevning-med-forsta-beroeringen"
+    },
+    {
+        "id": "passningsövning-med-tre-spelare",
+        "name": "Passningsövning med tre spelare",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passningsövning med tre spelare",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passningsoevning-med-tre-spelare"
+    },
+    {
+        "id": "passningsövning-med-tre-spelare-2",
+        "name": "Passningsövning med tre spelare 2",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passningsövning med tre spelare 2",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passningsoevning-med-tre-spelare-2"
+    },
+    {
+        "id": "passning-till-mittfältsspelaren",
+        "name": "Passning till mittfältsspelaren",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passning till mittfältsspelaren",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passning-till-mittfaltsspelaren"
+    },
+    {
+        "id": "passning-till-tredjeman-för-avslut",
+        "name": "Passning till tredjeman för avslut",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passning till tredjeman för avslut",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passning-till-tredjeman-for-avslut"
+    },
+    {
+        "id": "passning-till-tredjeman-och-avslut-från-inlägg",
+        "name": "Passning till tredjeman och avslut från inlägg",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passning till tredjeman och avslut från inlägg",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passning-till-tredjeman-och-avslut-fran-inlagg"
+    },
+    {
+        "id": "pass-och-avslutningsövning",
+        "name": "Pass och avslutningsövning",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Pass och avslutningsövning",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/pass-och-avslutningsoevning"
+    },
+    {
+        "id": "passordningsspel",
+        "name": "Passordningsspel",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passordningsspel",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passordningsspel"
+    },
+    {
+        "id": "passtävling-med-lag",
+        "name": "Passtävling med lag",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Passtävling med lag",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/passtavling-med-lag"
+    },
+    {
+        "id": "poangspel",
+        "name": "Poangspel",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Poangspel",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/poangspel"
+    },
+    {
+        "id": "poangzonsspel",
+        "name": "Poangzonsspel",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Poangzonsspel",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/poangzonsspel"
+    },
+    {
+        "id": "poangzonsspel-2",
+        "name": "Poangzonsspel 2",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Poangzonsspel 2",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/poangzonsspel-2"
+    },
+    {
+        "id": "portkamp",
+        "name": "Portkamp",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Portkamp",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/portkamp"
+    },
+    {
+        "id": "precisionssparktävling",
+        "name": "Precisionssparktävling",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Precisionssparktävling",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/precisionssparktavling"
+    },
+    {
+        "id": "reaktionsräddning-i-kvadrat",
+        "name": "Reaktionsräddning i kvadrat",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Reaktionsräddning i kvadrat",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/reaktionsraddning-i-kvadrat"
+    },
+    {
+        "id": "reaktionsspel-1v1",
+        "name": "Reaktionsspel 1v1",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Reaktionsspel 1v1",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/reaktionsspel-1v1"
+    },
+    {
+        "id": "reaktionsspel-anfalla-eller-försvara",
+        "name": "Reaktionsspel anfalla eller försvara",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Reaktionsspel anfalla eller försvara",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/reaktionsspel-anfalla-eller-forsvara"
+    },
+    {
+        "id": "reaktionstävling",
+        "name": "Reaktionstävling",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Reaktionstävling",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/reaktionstavling"
+    },
+    {
+        "id": "ringlarumba",
+        "name": "Ringlarumba",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Ringlarumba",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/ringlarumba"
+    },
+    {
+        "id": "rollbyte-1v1",
+        "name": "Rollbyte 1v1",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Rollbyte 1v1",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/rollbyte-1v1"
+    },
+    {
+        "id": "rondo-utmaning-inlägg",
+        "name": "Rondo utmaning inlägg",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Rondo utmaning inlägg",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/rondo-utmaning-inlagg"
+    },
+    {
+        "id": "runda-och-avsluta",
+        "name": "Runda och avsluta",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Runda och avsluta",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/runda-och-avsluta"
+    },
+    {
+        "id": "rymlingen",
+        "name": "Rymlingen",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Rymlingen",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/rymlingen"
+    },
+    {
+        "id": "samla-kottarna-minus-dribblingstävling-i-par",
+        "name": "Samla kottarna minus dribblingstävling i par",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Samla kottarna minus dribblingstävling i par",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/samla-kottarna-minus-dribblingstavling-i-par"
+    },
+    {
+        "id": "se-upp-för-kompisen",
+        "name": "Se upp för kompisen",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Se upp för kompisen",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/se-upp-for-kompisen"
+    },
+    {
+        "id": "skottbana-med-fyra-mål",
+        "name": "Skottbana med fyra mål",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Skottbana med fyra mål",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/skottbana-med-fyra-mal"
+    },
+    {
+        "id": "skottbana-med-fyra-mål-och-passning",
+        "name": "Skottbana med fyra mål och passning",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Skottbana med fyra mål och passning",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/skottbana-med-fyra-mal-och-passning"
+    },
+    {
+        "id": "skott-efter-fångstområdet",
+        "name": "Skott efter fångstområdet",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Skott efter fångstområdet",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/skott-efter-fangstomradet"
+    },
+    {
+        "id": "skott-från-volley-halvvolley-2",
+        "name": "Skott från volley halvvolley 2",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Skott från volley halvvolley 2",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/skott-fran-volley-halvvolley-2"
+    },
+    {
+        "id": "skottkvarn",
+        "name": "Skottkvarn",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Skottkvarn",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/skottkvarn"
+    },
+    {
+        "id": "skott-på-volley-halvvolley",
+        "name": "Skott på volley halvvolley",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Skott på volley halvvolley",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/skott-pa-volley-halvvolley"
+    },
+    {
+        "id": "skottrally",
+        "name": "Skottrally",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Skottrally",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/skottrally"
+    },
+    {
+        "id": "skottävling",
+        "name": "Skottävling",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Skottävling",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/skottavling"
+    },
+    {
+        "id": "skottövning",
+        "name": "Skottövning",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Skottövning",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/skottovning"
+    },
+    {
+        "id": "skottövning-med-dribbling",
+        "name": "Skottövning med dribbling",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Skottövning med dribbling",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/skottovning-med-dribbling"
+    },
+    {
+        "id": "skottövning-med-fint-vändning",
+        "name": "Skottövning med fint vändning",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Skottövning med fint vändning",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/skottovning-med-fint-vandning"
+    },
+    {
+        "id": "skottövning-med-första-touchningar",
+        "name": "Skottövning med första touchningar",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Skottövning med första touchningar",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/skottovning-med-forsta-touchningar"
+    },
+    {
+        "id": "skottövning-med-passning",
+        "name": "Skottövning med passning",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Skottövning med passning",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/skottovning-med-passning"
+    },
+    {
+        "id": "skottövning-med-passningar",
+        "name": "Skottövning med passningar",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Skottövning med passningar",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/skottovning-med-passningar"
+    },
+    {
+        "id": "skottövning-med-passningar-2",
+        "name": "Skottövning med passningar 2",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Skottövning med passningar 2",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/skottovning-med-passningar-2"
+    },
+    {
+        "id": "skottövning-med-rörelser",
+        "name": "Skottövning med rörelser",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Skottövning med rörelser",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/skottovning-med-rorelser"
+    },
+    {
+        "id": "skyttetävling-mot-tre-mål",
+        "name": "Skyttetävling mot tre mål",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Skyttetävling mot tre mål",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/skyttetavling-mot-tre-mal"
+    },
+    {
+        "id": "slalomtävling-med-avslut",
+        "name": "Slalomtävling med avslut",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Slalomtävling med avslut",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/slalomtavling-med-avslut"
+    },
+    {
+        "id": "slutspel",
+        "name": "Slutspel",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Slutspel",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/slutspel"
+    },
+    {
+        "id": "slutspel-enbart-med-målvakter",
+        "name": "Slutspel enbart med målvakter",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Slutspel enbart med målvakter",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/slutspel-enbart-med-malvakter"
+    },
+    {
+        "id": "slutspel-med-att-bredda-och-komprimera",
+        "name": "Slutspel med att bredda och komprimera",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Slutspel med att bredda och komprimera",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/slutspel-med-att-bredda-och-komprimera"
+    },
+    {
+        "id": "slutspel-med-förbjuden-zon",
+        "name": "Slutspel med förbjuden zon",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Slutspel med förbjuden zon",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/slutspel-med-forbjuden-zon"
+    },
+    {
+        "id": "slutspel-med-förbjudna-zoner-2",
+        "name": "Slutspel med förbjudna zoner 2",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Slutspel med förbjudna zoner 2",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/slutspel-med-forbjudna-zoner-2"
+    },
+    {
+        "id": "slutspel-med-manmarkering",
+        "name": "Slutspel med manmarkering",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Slutspel med manmarkering",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/slutspel-med-manmarkering"
+    },
+    {
+        "id": "slutspel-med-obligatoriskt-avancemang-över-mittlinjen",
+        "name": "Slutspel med obligatoriskt avancemang över mittlinjen",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Slutspel med obligatoriskt avancemang över mittlinjen",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/slutspel-med-obligatoriskt-avancemang-over-mittlinjen"
+    },
+    {
+        "id": "slutspel-med-spelarmarkering",
+        "name": "Slutspel med spelarmarkering",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Slutspel med spelarmarkering",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/slutspel-med-spelarmarkering"
+    },
+    {
+        "id": "snabb-1v1-i-försvarsområdet",
+        "name": "Snabb 1v1 i försvarsområdet",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Snabb 1v1 i försvarsområdet",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/snabb-1v1-i-forsvarsomradet"
+    },
+    {
+        "id": "snabbast-vinner-målskyttetävling",
+        "name": "Snabbast vinner målskyttetävling",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Snabbast vinner målskyttetävling",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/snabbast-vinner-malskyttetavling"
+    },
+    {
+        "id": "snabbhet-och-reaktion-med-markeringsplattor",
+        "name": "Snabbhet och reaktion med markeringsplattor",
+        "category": "Fysik",
+        "focus": "Fasta situationer",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Snabbhet och reaktion med markeringsplattor",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/snabbhet-och-reaktion-med-markeringsplattor"
+    },
+    {
+        "id": "sparka-bort-kompisens-boll-från-zonen",
+        "name": "Sparka bort kompisens boll från zonen",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Sparka bort kompisens boll från zonen",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/sparka-bort-kompisens-boll-fran-zonen"
+    },
+    {
+        "id": "sparka-kompisens-boll-ut-från-området-2",
+        "name": "Sparka kompisens boll ut från området 2",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Sparka kompisens boll ut från området 2",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/sparka-kompisens-boll-ut-fran-omradet-2"
+    },
+    {
+        "id": "spegeln",
+        "name": "Spegeln",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Spegeln",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/spegeln"
+    },
+    {
+        "id": "spel-med-tre-lag",
+        "name": "Spel med tre lag",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Spel med tre lag",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/spel-med-tre-lag"
+    },
+    {
+        "id": "spelopppning",
+        "name": "Spelopppning",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Spelopppning",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/spelopppning"
+    },
+    {
+        "id": "spel-skjut-innan-mittlinjen",
+        "name": "Spel skjut innan mittlinjen",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Spel skjut innan mittlinjen",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/spel-skjut-innan-mittlinjen"
+    },
+    {
+        "id": "speluppbyggnad-via-målvakten",
+        "name": "Speluppbyggnad via målvakten",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Speluppbyggnad via målvakten",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/speluppbyggnad-via-malvakten"
+    },
+    {
+        "id": "speluppbyggnad-via-målvakten-3",
+        "name": "Speluppbyggnad via målvakten 3",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Speluppbyggnad via målvakten 3",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/speluppbyggnad-via-malvakten-3"
+    },
+    {
+        "id": "sten-sax-påse",
+        "name": "Sten sax påse",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Sten sax påse",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/sten-sax-pase"
+    },
+    {
+        "id": "studsa-över-repet",
+        "name": "Studsa över repet",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Studsa över repet",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/studsa-over-repet"
+    },
+    {
+        "id": "studspassningsutmaning",
+        "name": "Studspassningsutmaning",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Studspassningsutmaning",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/studspassningsutmaning"
+    },
+    {
+        "id": "stäng-vägarna-och-erövra-bollen",
+        "name": "Stäng vägarna och erövra bollen",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Stäng vägarna och erövra bollen",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/stang-vagarna-och-erovra-bollen"
+    },
+    {
+        "id": "stäng-vägar-och-erövra-bollen",
+        "name": "Stäng vägar och erövra bollen",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Stäng vägar och erövra bollen",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/stang-vagar-och-erovra-bollen"
+    },
+    {
+        "id": "svansleken",
+        "name": "Svansleken",
+        "category": "Uppvärmning",
+        "focus": "Fasta situationer",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Svansleken",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/svansleken"
+    },
+    {
+        "id": "teknikbana",
+        "name": "Teknikbana",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Teknikbana",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/teknikbana"
+    },
+    {
+        "id": "theme/defence",
+        "name": "Theme/defence",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Theme/defence",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/theme/defence"
+    },
+    {
+        "id": "theme/dribbling",
+        "name": "Theme/dribbling",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Theme/dribbling",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/theme/dribbling"
+    },
+    {
+        "id": "theme/fun",
+        "name": "Theme/fun",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Theme/fun",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/theme/fun"
+    },
+    {
+        "id": "theme/game",
+        "name": "Theme/game",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Theme/game",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/theme/game"
+    },
+    {
+        "id": "theme/goalkeeping",
+        "name": "Theme/goalkeeping",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Theme/goalkeeping",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/theme/goalkeeping"
+    },
+    {
+        "id": "theme/movement-and-speed",
+        "name": "Theme/movement and speed",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Theme/movement and speed",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/theme/movement-and-speed"
+    },
+    {
+        "id": "theme/one-vs-one",
+        "name": "Theme/one vs one",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Theme/one vs one",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/theme/one-vs-one"
+    },
+    {
+        "id": "theme/passing",
+        "name": "Theme/passing",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Theme/passing",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/theme/passing"
+    },
+    {
+        "id": "theme/scoring",
+        "name": "Theme/scoring",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Theme/scoring",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/theme/scoring"
+    },
+    {
+        "id": "theme/shooting",
+        "name": "Theme/shooting",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Theme/shooting",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/theme/shooting"
+    },
+    {
+        "id": "traffa-inte-kottarna",
+        "name": "Traffa inte kottarna",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Traffa inte kottarna",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/traffa-inte-kottarna"
+    },
+    {
+        "id": "trafikljusminusleken",
+        "name": "Trafikljusminusleken",
+        "category": "Uppvärmning",
+        "focus": "Fasta situationer",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Trafikljusminusleken",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/trafikljusminusleken"
+    },
+    {
+        "id": "tre-i-rad-med-västar-koner",
+        "name": "Tre i rad med västar koner",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Tre i rad med västar koner",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/tre-i-rad-med-vastar-koner"
+    },
+    {
+        "id": "tre-lags-4v2",
+        "name": "Tre lags 4v2",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Tre lags 4v2",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/tre-lags-4v2"
+    },
+    {
+        "id": "tre-lags-6v3",
+        "name": "Tre lags 6v3",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Tre lags 6v3",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/tre-lags-6v3"
+    },
+    {
+        "id": "tre-lags-8v4",
+        "name": "Tre lags 8v4",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Tre lags 8v4",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/tre-lags-8v4"
+    },
+    {
+        "id": "trelagsspel-med-två-bollar",
+        "name": "Trelagsspel med två bollar",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Trelagsspel med två bollar",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/trelagsspel-med-tva-bollar"
+    },
+    {
+        "id": "tre-zons-rondo",
+        "name": "Tre zons rondo",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Tre zons rondo",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/tre-zons-rondo"
+    },
+    {
+        "id": "triangelkull-och-bollrövning",
+        "name": "Triangelkull och bollrövning",
+        "category": "Uppvärmning",
+        "focus": "Fasta situationer",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Triangelkull och bollrövning",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/triangelkull-och-bollrovning"
+    },
+    {
+        "id": "tryckare-i-cirkeln",
+        "name": "Tryckare i cirkeln",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Tryckare i cirkeln",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/tryckare-i-cirkeln"
+    },
+    {
+        "id": "tvåplansspel",
+        "name": "Tvåplansspel",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Tvåplansspel",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/tvaplansspel"
+    },
+    {
+        "id": "tvåstegs-målgörande",
+        "name": "Tvåstegs målgörande",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Tvåstegs målgörande",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/tvastegs-malg%D0%BE%D1%80ande"
+    },
+    {
+        "id": "undvikande-av-offside-med-avslut",
+        "name": "Undvikande av offside med avslut",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Undvikande av offside med avslut",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/undvikande-av-offside-med-avslut"
+    },
+    {
+        "id": "undvika-offside",
+        "name": "Undvika offside",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Undvika offside",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/undvika-offside"
+    },
+    {
+        "id": "undvik-och-behåll-bollen",
+        "name": "Undvik och behåll bollen",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Undvik och behåll bollen",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/undvik-och-behall-bollen"
+    },
+    {
+        "id": "uppspel-via-målvakten-2",
+        "name": "Uppspel via målvakten 2",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Uppspel via målvakten 2",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/uppspel-via-malvakten-2"
+    },
+    {
+        "id": "uppvärmning-med-dribbling-och-passningar",
+        "name": "Uppvärmning med dribbling och passningar",
+        "category": "Uppvärmning",
+        "focus": "Fasta situationer",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Uppvärmning med dribbling och passningar",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/uppvarmning-med-dribbling-och-passningar"
+    },
+    {
+        "id": "uppvärmning-med-passningar",
+        "name": "Uppvärmning med passningar",
+        "category": "Uppvärmning",
+        "focus": "Fasta situationer",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Uppvärmning med passningar",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/uppvarmning-med-passningar"
+    },
+    {
+        "id": "uppvärmning-med-passningsspel-mellan-två-lag",
+        "name": "Uppvärmning med passningsspel mellan två lag",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Uppvärmning med passningsspel mellan två lag",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/uppvarmning-med-passningsspel-mellan-tva-lag"
+    },
+    {
+        "id": "uppvärmningsdribbling",
+        "name": "Uppvärmningsdribbling",
+        "category": "Uppvärmning",
+        "focus": "Fasta situationer",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Uppvärmningsdribbling",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/uppvarmningsdribbling"
+    },
+    {
+        "id": "uppvärmningskull-med-mål-och-bollar",
+        "name": "Uppvärmningskull med mål och bollar",
+        "category": "Uppvärmning",
+        "focus": "Fasta situationer",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Uppvärmningskull med mål och bollar",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/uppvarmningskull-med-mal-och-bollar"
+    },
+    {
+        "id": "ut-genom-centrum",
+        "name": "Ut genom centrum",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Ut genom centrum",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/ut-genom-centrum"
+    },
+    {
+        "id": "utmana-försvara-med-mål",
+        "name": "Utmana försvara med mål",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Utmana försvara med mål",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/utmana-forsvara-med-mal"
+    },
+    {
+        "id": "utmana-försvara-med-portmål",
+        "name": "Utmana försvara med portmål",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Utmana försvara med portmål",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/utmana-forsvara-med-portmal"
+    },
+    {
+        "id": "utpassningsboll-till-egen-spelare",
+        "name": "Utpassningsboll till egen spelare",
+        "category": "Spel",
+        "focus": "Avslut",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Utpassningsboll till egen spelare",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/utpassningsboll-till-egen-spelare"
+    },
+    {
+        "id": "vaj-och-behåll-bollen",
+        "name": "Vaj och behåll bollen",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Vaj och behåll bollen",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/vaj-och-behall-bollen"
+    },
+    {
+        "id": "vem-hinner-först",
+        "name": "Vem hinner först",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Vem hinner först",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/vem-hinner-forst"
+    },
+    {
+        "id": "vem-är-rädd-för-försvararen",
+        "name": "Vem är rädd för försvararen",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Vem är rädd för försvararen",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/vem-ar-radd-for-forsvararen"
+    },
+    {
+        "id": "via-kanten-till-avslut",
+        "name": "Via kanten till avslut",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Via kanten till avslut",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/via-kanten-till-avslut"
+    },
+    {
+        "id": "vinn-och-avsluta",
+        "name": "Vinn och avsluta",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Vinn och avsluta",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/vinn-och-avsluta"
+    },
+    {
+        "id": "väggpassning-och-inlägg-till-avslut",
+        "name": "Väggpassning och inlägg till avslut",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Väggpassning och inlägg till avslut",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/vaggpassning-och-inlagg-till-avslut"
+    },
+    {
+        "id": "välta-koner-lek",
+        "name": "Välta koner lek",
+        "category": "Uppvärmning",
+        "focus": "Fasta situationer",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Välta koner lek",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/vaelta-koner-lek"
+    },
+    {
+        "id": "vända-mål",
+        "name": "Vända mål",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Vända mål",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/vanda-mal"
+    },
+    {
+        "id": "vänd-kottarna",
+        "name": "Vänd kottarna",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Vänd kottarna",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/vand-kottarna"
+    },
+    {
+        "id": "vänd-och-välj-rätt-mål",
+        "name": "Vänd och välj rätt mål",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Vänd och välj rätt mål",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/vand-och-valj-ratt-mal"
+    },
+    {
+        "id": "Åttans rotation",
+        "name": "Åttans rotation",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Åttans rotation",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/attans-rotation"
+    },
+    {
+        "id": "Äppelstölden",
+        "name": "Äppelstölden",
+        "category": "Teknik",
+        "focus": "Uppspel & Ytor",
+        "time": 15,
+        "format": "7v7",
+        "minP": 6,
+        "desc": "Fotbollsövning: Äppelstölden",
+        "sourceUrl": "https://coachtruly.com/sv/drill-database/football/appelstalden"
     }
 ];
