@@ -1692,8 +1692,9 @@
         </div>
 
         <!-- TAB 4: LAG / MATCH -->
+ <!-- TAB 4: LAG / MATCH -->
         <div id="match" class="tab-content">
-            <div class="card"
+            <div class="card">
                 <h2 class="no-print">⚽ Matchlag & Ersättare</h2>
                 
                 <div class="no-print" style="background: #f1f3f5; padding: 0.6rem; border-radius: 6px; margin-bottom: 0.75rem; display: flex; flex-direction: column; gap: 0.4rem;">
@@ -1735,7 +1736,8 @@
 
                 <div class="tactics-squad-container no-print" id="match-squad-list"></div>
 
-                <div class="tactics-layout-container">
+                <!-- RÄTT EXPORTOMRÅDE: Omsluter ENDAST planen och avbytarna -->
+                <div id="match-export-area" class="tactics-layout-container">
                     <div class="tactics-pitch" id="match-pitch-area">
                         <div class="pitch-midline-h"></div>
                         <div class="pitch-center-circle"></div>
@@ -1751,22 +1753,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Ersätt eller lägg till id="match-export-area" runt layout-containern -->
-<div id="match-export-area" class="tactics-layout-container">
-    <div class="tactics-pitch" id="match-pitch-area">
-        <div class="pitch-midline-h"></div>
-        <div class="pitch-center-circle"></div>
-        <div class="pitch-goal-top"></div>
-        <div class="pitch-goal-bottom"></div>
-        <div id="match-avg-badge" class="pitch-avg-badge" style="display:none;">Lagets snitt: 0.0</div>
-        <div id="match-pitch-tokens"></div>
-    </div>
-
-    <div class="pitch-sideline-bench">
-        <h4>💺 Ersättare / Avbytare</h4>
-        <div id="match-sideline-bench-content"></div>
-    </div>
-</div>
             <button class="btn btn-success no-print" onclick="exportMatchSnapshot()" style="margin-top: 1rem;">📸 Spara / Skriv ut renodlad lagbild</button>
         </div>
 
