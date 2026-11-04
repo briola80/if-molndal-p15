@@ -237,41 +237,42 @@
         }
 
         function renderExerciseFilters() {
-            const catContainers = document.querySelectorAll('.exercise-category-filter-container');
-            const focusContainers = document.querySelectorAll('.exercise-focus-filter-container');
+    const catContainers = document.querySelectorAll('.exercise-category-filter-container');
+    const focusContainers = document.querySelectorAll('.exercise-focus-filter-container');
 
-            const allEx = getAllExercises();
+    const allEx = getAllExercises();
 
-            const categories = [...new Set(
-                allEx.map(ex => String(ex.category || '').trim()).filter(Boolean)
-            )].sort((a, b) => a.localeCompare(b, 'sv'));
+    const categories = [...new Set(
+        allEx.map(ex => String(ex.category || '').trim()).filter(Boolean)
+    )].sort((a, b) => a.localeCompare(b, 'sv'));
 
-            const focuses = [...new Set(
-                allEx.map(ex => String(ex.focus || '').trim()).filter(Boolean)
-            )].sort((a, b) => a.localeCompare(b, 'sv'));
+    const focuses = [...new Set(
+        allEx.map(ex => String(ex.focus || '').trim()).filter(Boolean)
+    )].sort((a, b) => a.localeCompare(b, 'sv'));
 
-            catContainers.forEach(container => {
-                container.innerHTML = categories.map(cat => `
-                    <label class="focus-chip checked" onclick="toggleFilterChip(this)">
-                        <input type="checkbox" class="ex-cat-chk" value="${cat}" checked>
-                        <div class="focus-chip-box"></div>
-                        <span>${cat}</span>
-                    </label>
-                `).join('');
-            });
+    // Båda startar utan "checked" (inte ikryssade som standard)
+    catContainers.forEach(container => {
+        container.innerHTML = categories.map(cat => `
+            <label class="focus-chip" onclick="toggleFilterChip(this)">
+                <input type="checkbox" class="ex-cat-chk" value="${cat}">
+                <div class="focus-chip-box"></div>
+                <span>${cat}</span>
+            </label>
+        `).join('');
+    });
 
-            focusContainers.forEach(container => {
-                container.innerHTML = focuses.map(focus => `
-                    <label class="focus-chip checked" onclick="toggleFilterChip(this)">
-                        <input type="checkbox" class="ex-focus-chk" value="${focus}" checked>
-                        <div class="focus-chip-box"></div>
-                        <span>${focus}</span>
-                    </label>
-                `).join('');
-            });
+    focusContainers.forEach(container => {
+        container.innerHTML = focuses.map(focus => `
+            <label class="focus-chip" onclick="toggleFilterChip(this)">
+                <input type="checkbox" class="ex-focus-chk" value="${focus}">
+                <div class="focus-chip-box"></div>
+                <span>${focus}</span>
+            </label>
+        `).join('');
+    });
 
-            renderExercises();
-        }
+    renderExercises();
+}
 
         window.toggleFilterChip = function(element) {
             const chk = element.querySelector('input');
