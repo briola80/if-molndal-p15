@@ -1853,6 +1853,54 @@ h2 {
 
     <label>Kategori:</label>
     <!-- (Dina befintliga fält, knappar och spara-knapp hamnar här i) -->
+    <select id="custom-ex-cat">
+                            <option value="Teknik">Teknik</option>
+                            <option value="Uppvärmning">Uppvärmning</option>
+                            <option value="Spel">Spel</option>
+                            <option value="Fysik">Fysik</option>
+                            <option value="Taktik">Taktik</option>
+                            <option value="Målvakt">Målvakt</option>
+                        </select>
+                    </div>
+<div>
+                        <label>Fokusområde:</label>
+                        <select id="custom-ex-focus">
+                            <option value="Uppspel & Ytor">Uppspel & Ytor</option>
+                            <option value="Spelvändningar">Spelvändningar</option>
+                            <option value="Presspel">Presspel</option>
+                            <option value="Avslut">Avslut</option>
+                            <option value="Fasta situationer">Fasta situationer</option>
+                            <option value="Målvakt">Målvakt</option>
+                        </select>
+                    </div>
+</div>
+
+                <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem;">
+                    <div>
+                        <label>Tid (min):</label>
+                        <input type="number" id="custom-ex-time" value="15" min="5" max="60">
+                    </div>
+                    <div>
+                        <label>Spelform:</label>
+                        <select id="custom-ex-format">
+                            <option value="7v7">7v7</option>
+                            <option value="9v9">9v9</option>
+                            <option value="11v11">11v11</option>
+                            <option value="Alla">Alla</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Min spelare:</label>
+                        <input type="number" id="custom-ex-minp" value="6" min="1" max="30">
+                    </div>
+                </div>
+
+                <label>Beskrivning:</label>
+                <textarea id="custom-ex-desc" placeholder="Kort beskrivning av övningen..." rows="2"></textarea>
+
+                <label>Länk / Källa (valfritt):</label>
+                <input type="text" id="custom-ex-url" placeholder="https://...">
+
     <button class="btn btn-primary" onclick="saveCustomExercise()" style="margin-top: 1rem;">Spara övning</button>
 </div>
 
