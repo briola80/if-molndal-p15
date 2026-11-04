@@ -1179,21 +1179,21 @@
         };
 
         window.exportMatchSnapshot = function() {
-    const containerElement = document.getElementById('match-export-container');
+    const containerElement = document.getElementById('match-export-area');
     if(!containerElement) return;
-    
+
     html2canvas(containerElement, { scale: 2, useCORS: true }).then(canvas => {
         const imageData = canvas.toDataURL("image/png");
-        
-        // Skapa en nedladdningslänk som fungerar på både dator och mobil
+
+        // Direktnedladdning som fungerar på både dator och mobil
         const link = document.createElement('a');
         link.href = imageData;
-        link.download = 'matchlag-if-molndal.png';
+        link.download = 'matchlag-plan-if-molndal.png';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
     }).catch(err => {
-        alert("Kunde inte skapa bilden. Prova att ta en vanlig skärmdump (print screen) på mobilen.");
+        alert("Kunde inte skapa bilden.");
     });
 };
 
@@ -1693,7 +1693,7 @@
 
         <!-- TAB 4: LAG / MATCH -->
         <div id="match" class="tab-content">
-            <div class="card" id="match-export-container">
+            <div class="card"
                 <h2 class="no-print">⚽ Matchlag & Ersättare</h2>
                 
                 <div class="no-print" style="background: #f1f3f5; padding: 0.6rem; border-radius: 6px; margin-bottom: 0.75rem; display: flex; flex-direction: column; gap: 0.4rem;">
@@ -1751,6 +1751,22 @@
                     </div>
                 </div>
             </div>
+            <!-- Ersätt eller lägg till id="match-export-area" runt layout-containern -->
+<div id="match-export-area" class="tactics-layout-container">
+    <div class="tactics-pitch" id="match-pitch-area">
+        <div class="pitch-midline-h"></div>
+        <div class="pitch-center-circle"></div>
+        <div class="pitch-goal-top"></div>
+        <div class="pitch-goal-bottom"></div>
+        <div id="match-avg-badge" class="pitch-avg-badge" style="display:none;">Lagets snitt: 0.0</div>
+        <div id="match-pitch-tokens"></div>
+    </div>
+
+    <div class="pitch-sideline-bench">
+        <h4>💺 Ersättare / Avbytare</h4>
+        <div id="match-sideline-bench-content"></div>
+    </div>
+</div>
             <button class="btn btn-success no-print" onclick="exportMatchSnapshot()" style="margin-top: 1rem;">📸 Spara / Skriv ut renodlad lagbild</button>
         </div>
 
