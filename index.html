@@ -176,89 +176,115 @@
         };
         firebase.initializeApp(firebaseConfig);
 
-        // Fallback-data om exercises.js saknar variabler
-        const baseExercisesData = [];
         let customExercisesData = JSON.parse(localStorage.getItem('if_molndal_custom_exercises_v1')) || [];
         
-       function getAllExercises() {
-    // Hämtar från exercises.js eller fallback
-    const mainExercises = (typeof exercises !== 'undefined') ? exercises : baseExercisesData;
-    
-    return [...mainExercises, ...customExercisesData].map(ex => {
-        // Letar efter länken i samtliga vanliga fältnamn som kan finnas i din exercises.js
-        const resolvedUrl = ex.sourceUrl || ex.link || ex.url || ex.source || '';
-        
-        return {
-            ...ex,
-            name: ex.name || ex.title || "Övning utan namn",
-            desc: ex.desc || ex.description || "",
-            sourceUrl: resolvedUrl,
-            focus: ex.focus || ex.category || "",
-            time: ex.time || 15,
-            format: ex.format || ""
+        function getAllExercises() {
+            const mainExercises = (typeof exercises !== 'undefined') ? exercises : [];
+            return [...mainExercises, ...customExercisesData].map(ex => ({
+                ...ex,
+                name: ex.name || ex.title || "Övning utan namn",
+                desc: ex.desc || ex.description || "",
+                sourceUrl: ex.sourceUrl || ex.link || "#",
+                focus: ex.focus || ex.category || "",
+                category: ex.category || "Teknik",
+                time: ex.time || 15,
+                format: ex.format || ""
+            }));
+        }
+
+        function renderExercises() {
+            const list = document.getElementById('exercise-list');
+            const counter = document.getElementById('exercise-counter');
+            if (!list) return;
+
+            const selectedCategories = [...document.querySelectorAll('#exercises .ex-cat-chk:checked')]
+                .map(el => el.value);
+            const selectedFocuses = [...document.querySelectorAll('#exercises .ex-focus-chk:checked')]
+                .map(el => el.value);
+
+            const all = getAllExercises();
+            const visible = all.filter(ex => {
+                const cat = String(ex.category || '').trim();
+                const focus = String(ex.focus || '').trim();
+                
+                const matchCat = selectedCategories.length === 0 || selectedCategories.includes(cat);
+                const matchFocus = selectedFocuses.length === 0 || selectedFocuses.includes(focus);
+
+                return matchCat && matchFocus;
+            });
+
+            list.innerHTML = visible.map(ex => {
+                const hasValidUrl = ex.sourceUrl && ex.sourceUrl !== '#' && ex.sourceUrl.trim() !== '';
+                const linkHtml = hasValidUrl 
+                    ? `<a href="${ex.sourceUrl}" target="_blank" rel="noopener noreferrer">Visa övning ↗</a>` 
+                    : `<span style="color:#6c757d; font-style:italic;">Ingen extern länk tillgänglig</span>`;
+
+                return `
+                    <div class="exercise-item">
+                        <h4>${ex.name}</h4>
+                        <p><strong>Kategori:</strong> ${ex.category} | <strong>Fokus:</strong> ${ex.focus}</p>
+                        <p>${ex.desc || ''}</p>
+                        <div class="exercise-source">
+                            ${linkHtml}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            if (counter) {
+                counter.textContent = `Visar ${visible.length} av ${all.length} övningar`;
+            }
+        }
+
+        function renderExerciseFilters() {
+            const catContainers = document.querySelectorAll('.exercise-category-filter-container');
+            const focusContainers = document.querySelectorAll('.exercise-focus-filter-container');
+
+            const allEx = getAllExercises();
+
+            const categories = [...new Set(
+                allEx.map(ex => String(ex.category || '').trim()).filter(Boolean)
+            )].sort((a, b) => a.localeCompare(b, 'sv'));
+
+            const focuses = [...new Set(
+                allEx.map(ex => String(ex.focus || '').trim()).filter(Boolean)
+            )].sort((a, b) => a.localeCompare(b, 'sv'));
+
+            catContainers.forEach(container => {
+                container.innerHTML = categories.map(cat => `
+                    <label class="focus-chip checked" onclick="toggleFilterChip(this)">
+                        <input type="checkbox" class="ex-cat-chk" value="${cat}" checked>
+                        <div class="focus-chip-box"></div>
+                        <span>${cat}</span>
+                    </label>
+                `).join('');
+            });
+
+            focusContainers.forEach(container => {
+                container.innerHTML = focuses.map(focus => `
+                    <label class="focus-chip checked" onclick="toggleFilterChip(this)">
+                        <input type="checkbox" class="ex-focus-chk" value="${focus}" checked>
+                        <div class="focus-chip-box"></div>
+                        <span>${focus}</span>
+                    </label>
+                `).join('');
+            });
+
+            renderExercises();
+        }
+
+        window.toggleFilterChip = function(element) {
+            const chk = element.querySelector('input');
+            if (chk) {
+                chk.checked = !chk.checked;
+            }
+            if (chk && chk.checked) {
+                element.classList.add('checked');
+            } else {
+                element.classList.remove('checked');
+            }
+            renderExercises();
         };
-    });
-}
-
-       function renderExercises() {
-    const list = document.getElementById('exercise-list');
-    const counter = document.getElementById('exercise-counter');
-    if (!list) return;
-
-    const selected = [...document.querySelectorAll('#exercises .ex-focus-chk:checked')]
-        .map(el => el.value);
-
-    const all = getAllExercises();
-    const visible = all.filter(ex => {
-        const focus = String(ex.focus || ex.category || '').trim();
-        return selected.includes(focus);
-    });
-
-    list.innerHTML = visible.map(ex => {
-        const hasValidUrl = ex.sourceUrl && ex.sourceUrl !== '#' && ex.sourceUrl.trim() !== '';
-        
-        // Om länken finns i exercises.js visas den direkt härifrån
-        const linkHtml = hasValidUrl 
-            ? `<a href="${ex.sourceUrl}" target="_blank" rel="noopener noreferrer">🔗 Visa övning ↗</a>` 
-            : `<span style="color:#6c757d; font-style:italic;">Ingen länk angiven</span>`;
-
-        return `
-            <div class="exercise-item">
-                <h4>${ex.name}</h4>
-                <p>${ex.desc || ex.description || ''}</p>
-                <div class="exercise-source">
-                    ${linkHtml}
-                </div>
-            </div>
-        `;
-    }).join('');
-
-    if (counter) {
-        counter.textContent = `Visar ${visible.length} av ${all.length} övningar`;
-    }
-}
-
-    function renderExerciseFilters() {
-    const containers = document.querySelectorAll('.exercise-focus-filter-container');
-
-    const categories = [...new Set(
-        getAllExercises()
-            .map(ex => String(ex.focus || ex.category || '').trim())
-            .filter(Boolean)
-    )].sort((a, b) => a.localeCompare(b, 'sv'));
-
-    containers.forEach(container => {
-        container.innerHTML = categories.map(category => `
-            <label class="focus-chip checked" onclick="toggleFocusChip(this)">
-                <input type="checkbox" class="ex-focus-chk" value="${category}" checked onchange="renderExercises()">
-                <div class="focus-chip-box"></div>
-                <span>${category}</span>
-            </label>
-        `).join('');
-    });
-
-    renderExercises();
-}
 
         const defaultPlayers = [
             { id: 1, name: "Alexander Hardless", tact: 2, tech: 2, ment: 2, phys: 2, position: "MM", preferredPositions: ["MM"] },
@@ -659,19 +685,6 @@
                 if(chk) chk.checked = status;
             });
         };
-
-        window.toggleFocusChip = function(element) {
-    const chk = element.querySelector('input');
-    if (chk) {
-        chk.checked = !chk.checked;
-    }
-    if (chk && chk.checked) {
-        element.classList.add('checked');
-    } else {
-        element.classList.remove('checked');
-    }
-    renderExercises();
-};
 
         function renderTacticsUI() {
             const tacticsContainer = document.getElementById('tactics-squad-list');
@@ -1457,6 +1470,9 @@
                     <option value="11v11">11 mot 11</option>
                 </select>
 
+                <label>Filtrera efter kategori:</label>
+                <div class="focus-options-grid exercise-category-filter-container"></div>
+
                 <label>Filtrera efter fokusområden (välj ett eller flera):</label>
                 <div class="focus-options-grid exercise-focus-filter-container"></div>
 
@@ -1775,6 +1791,9 @@
                 <h2>Övningsbank</h2>
                 <div id="exercise-counter" style="background:#e9ecef; padding:0.5rem 0.75rem; border-radius:6px; margin-bottom:0.75rem; font-size:0.85rem; color:#333;"></div>
                 
+                <label>Filtrera efter kategori:</label>
+                <div class="focus-options-grid exercise-category-filter-container"></div>
+
                 <label>Filtrera efter fokusområden (välj ett eller flera):</label>
                 <div class="focus-options-grid exercise-focus-filter-container"></div>
                 
