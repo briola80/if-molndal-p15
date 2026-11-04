@@ -40,9 +40,44 @@
         .header-text h1 { font-size: 1.15rem; font-weight: 700; line-height: 1.2; }
         .header-text p { font-size: 0.8rem; opacity: 0.9; }
 
-        .nav-tabs { display: flex; background: white; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; overflow-x: auto; }
-        .tab-btn { flex: 1; min-width: 65px; padding: 0.75rem 0.2rem; text-align: center; background: none; border: none; font-size: 0.75rem; font-weight: 600; color: #6c757d; cursor: pointer; border-bottom: 3px solid transparent; white-space: nowrap; }
-        .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+        .nav-tabs { 
+    display: flex; 
+    background: white; 
+    border-bottom: 1px solid var(--border); 
+    position: sticky; 
+    top: 0; 
+    z-index: 100; 
+    overflow-x: auto; 
+    -webkit-overflow-scrolling: touch;
+}
+
+.tab-btn { 
+    flex: 1; 
+    min-width: 55px; 
+    padding: 0.75rem 0.2rem; 
+    text-align: center; 
+    background: none; 
+    border: none; 
+    font-size: 0.7rem; /* Lite mindre text så allt får plats */
+    font-weight: 600; 
+    color: #6c757d; 
+    cursor: pointer; 
+    border-bottom: 3px solid transparent; 
+    white-space: nowrap; 
+}
+
+.tab-btn.active { 
+    color: var(--primary); 
+    border-bottom-color: var(--primary); 
+}
+
+/* Extra anpassning för mindre skärmar */
+@media (max-width: 768px) {
+    .tab-btn {
+        font-size: 0.65rem;
+        padding: 0.6rem 0.1rem;
+    }
+}
 
         .container { max-width: 900px; margin: 0 auto; padding: 1rem; }
         .tab-content { display: none; }
@@ -1488,7 +1523,7 @@ h2 {
         <button class="tab-btn" onclick="switchTab('levels', this)">📊 Nivåer</button>
         <button class="tab-btn" onclick="switchTab('tactics', this)">Taktik</button>
         <button class="tab-btn" onclick="switchTab('match', this)">⚽ Lag/Match</button>
-        <button class="tab-btn" onclick="switchTab('squad', this)">Trupp & Grupper</button>
+        <button class="tab-btn" onclick="switchTab('squad', this)">Trupp</button>
         <button class="tab-btn" onclick="switchTab('exercises', this)">Övningar</button>
     </div>
 
