@@ -14,13 +14,28 @@
    <!-- Firebase App & Auth SDK (Compat) -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <!-- Öppnar formulär ny övning (toggle) -->
+    <script>
+        function toggleAddExerciseForm() {
+            const formContainer = document.getElementById('add-exercise-form-container');
+            const icon = document.getElementById('toggle-icon');
+    
+    if (formContainer.style.display === 'none') {
+        formContainer.style.display = 'block';
+        icon.textContent = '▲';
+    } else {
+        formContainer.style.display = 'none';
+        icon.textContent = '▼';
+    }
+}
+</script>
 
     <!-- 1. Ladda externa övningar först -->
     <script src="exercises.js"></script>
     
     <style>
         .header-logo {
-    height: 36px; /* Ändra detta värde för att göra loggan mindre eller större */
+    height: 40px; /* Ändra detta värde för att göra loggan mindre eller större */
     width: auto;
     border-radius: 4px;
     background: white;
@@ -1820,66 +1835,26 @@ h2 {
         </div>
 
         <!-- TAB 6: ÖVNINGSBANK -->
-        <div id="exercises" class="tab-content">
-            <!-- Formulär för att lägga till egen övning -->
-            <div class="card" style="background: #f8f9fa; border: 1px dashed var(--primary);">
-                <h3>➕ Lägg till egen övning</h3>
-                <label>Övningens namn:</label>
-                <input type="text" id="custom-ex-name" placeholder="T.ex. Passningsstafett 3v3">
-                
-                <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
-                    <div>
-                        <label>Kategori:</label>
-                        <select id="custom-ex-cat">
-                            <option value="Teknik">Teknik</option>
-                            <option value="Uppvärmning">Uppvärmning</option>
-                            <option value="Spel">Spel</option>
-                            <option value="Fysik">Fysik</option>
-                            <option value="Taktik">Taktik</option>
-                            <option value="Målvakt">Målvakt</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label>Fokusområde:</label>
-                        <select id="custom-ex-focus">
-                            <option value="Uppspel & Ytor">Uppspel & Ytor</option>
-                            <option value="Spelvändningar">Spelvändningar</option>
-                            <option value="Presspel">Presspel</option>
-                            <option value="Avslut">Avslut</option>
-                            <option value="Fasta situationer">Fasta situationer</option>
-                            <option value="Målvakt">Målvakt</option>
-                        </select>
-                    </div>
-                </div>
+        <!-- Klickbar rubrik / knapp för att fälla ut -->
+<div class="card" style="cursor: pointer; background-color: #f8f9fa; border: 1px dashed var(--primary);" onclick="toggleAddExerciseForm()">
+    <h3 style="margin: 0; color: var(--primary); display: flex; align-items: center; justify-content: space-between;">
+        <span>➕ Lägg till egen övning</span>
+        <span id="toggle-icon" style="font-size: 1.2rem;">▼</span>
+    </h3>
+</div>
 
-                <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem;">
-                    <div>
-                        <label>Tid (min):</label>
-                        <input type="number" id="custom-ex-time" value="15" min="5" max="60">
-                    </div>
-                    <div>
-                        <label>Spelform:</label>
-                        <select id="custom-ex-format">
-                            <option value="7v7">7v7</option>
-                            <option value="9v9">9v9</option>
-                            <option value="11v11">11v11</option>
-                            <option value="Alla">Alla</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label>Min spelare:</label>
-                        <input type="number" id="custom-ex-minp" value="6" min="1" max="30">
-                    </div>
-                </div>
+<!-- Själva formuläret som är dolt som standard -->
+<div id="add-exercise-form-container" style="display: none;" class="card">
+    <!-- Här ligger dina nuvarande fält för att lägga till övning -->
+    <h3 style="margin-top: 0; color: var(--primary);">Lägg till egen övning</h3>
+    
+    <label>Övningens namn:</label>
+    <input type="text" id="custom-exercise-name" placeholder="T.ex. Passningsstafett 3v3">
 
-                <label>Beskrivning:</label>
-                <textarea id="custom-ex-desc" placeholder="Kort beskrivning av övningen..." rows="2"></textarea>
-
-                <label>Länk / Källa (valfritt):</label>
-                <input type="text" id="custom-ex-url" placeholder="https://...">
-
-                <button class="btn btn-success" onclick="addCustomExercise()">Spara egen övning</button>
-            </div>
+    <label>Kategori:</label>
+    <!-- (Dina befintliga fält, knappar och spara-knapp hamnar här i) -->
+    <button class="btn btn-primary" onclick="saveCustomExercise()" style="margin-top: 1rem;">Spara övning</button>
+</div>
 
             <!-- Övningsbank & Filtrering -->
             <div class="card">
