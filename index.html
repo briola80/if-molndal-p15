@@ -20,27 +20,27 @@
             const formContainer = document.getElementById('add-exercise-form-container');
             const icon = document.getElementById('toggle-icon');
     
-    if (formContainer.style.display === 'none') {
-        formContainer.style.display = 'block';
-        icon.textContent = '▲';
-    } else {
-        formContainer.style.display = 'none';
-        icon.textContent = '▼';
-    }
-}
-</script>
+            if (formContainer.style.display === 'none') {
+                formContainer.style.display = 'block';
+                icon.textContent = '▲';
+            } else {
+                formContainer.style.display = 'none';
+                icon.textContent = '▼';
+            }
+        }
+    </script>
 
     <!-- 1. Ladda externa övningar först -->
     <script src="exercises.js"></script>
     
     <style>
         .header-logo {
-    height: 40px; /* Ändra detta värde för att göra loggan mindre eller större */
-    width: auto;
-    border-radius: 4px;
-    background: white;
-    padding: 2px;
-}
+            height: 40px;
+            width: auto;
+            border-radius: 4px;
+            background: white;
+            padding: 2px;
+        }
         :root {
             --primary: #d32f2f;
             --primary-dark: #b71c1c;
@@ -67,43 +67,42 @@
         .header-text p { font-size: 0.8rem; opacity: 0.9; }
 
         .nav-tabs { 
-    display: flex; 
-    background: white; 
-    border-bottom: 1px solid var(--border); 
-    position: sticky; 
-    top: 0; 
-    z-index: 100; 
-    overflow-x: auto; 
-    -webkit-overflow-scrolling: touch;
-}
+            display: flex; 
+            background: white; 
+            border-bottom: 1px solid var(--border); 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+            overflow-x: auto; 
+            -webkit-overflow-scrolling: touch;
+        }
 
-.tab-btn { 
-    flex: 1; 
-    min-width: 55px; 
-    padding: 0.75rem 0.2rem; 
-    text-align: center; 
-    background: none; 
-    border: none; 
-    font-size: 0.7rem; /* Lite mindre text så allt får plats */
-    font-weight: 600; 
-    color: #6c757d; 
-    cursor: pointer; 
-    border-bottom: 3px solid transparent; 
-    white-space: nowrap; 
-}
+        .tab-btn { 
+            flex: 1; 
+            min-width: 55px; 
+            padding: 0.75rem 0.2rem; 
+            text-align: center; 
+            background: none; 
+            border: none; 
+            font-size: 0.7rem; 
+            font-weight: 600; 
+            color: #6c757d; 
+            cursor: pointer; 
+            border-bottom: 3px solid transparent; 
+            white-space: nowrap; 
+        }
 
-.tab-btn.active { 
-    color: var(--primary); 
-    border-bottom-color: var(--primary); 
-}
+        .tab-btn.active { 
+            color: var(--primary); 
+            border-bottom-color: var(--primary); 
+        }
 
-/* Extra anpassning för mindre skärmar */
-@media (max-width: 768px) {
-    .tab-btn {
-        font-size: 0.65rem;
-        padding: 0.6rem 0.1rem;
-    }
-}
+        @media (max-width: 768px) {
+            .tab-btn {
+                font-size: 0.65rem;
+                padding: 0.6rem 0.1rem;
+            }
+        }
 
         .container { max-width: 900px; margin: 0 auto; padding: 1rem; }
         .tab-content { display: none; }
@@ -222,58 +221,22 @@
             #match-export-container { position: absolute; left: 0; top: 0; width: 100%; box-shadow: none; border: none; padding: 0; }
             .no-print { display: none !important; }
         }
-        /* Generella grundinställningar för responsivitet */
-h1 {
-    font-size: 1.5rem; /* Mindre storlek på mobil som standard */
-    line-height: 1.2;
-}
 
-h2 {
-    font-size: 1.25rem;
-    line-height: 1.3;
-}
+        h1 { font-size: 1.5rem; line-height: 1.2; }
+        h2 { font-size: 1.25rem; line-height: 1.3; }
 
-/* Anpassningar för skärmar mindre än 768px (mobiler) */
-@media (max-width: 768px) {
-    .container {
-        padding: 0.5rem; /* Sparar utrymme på sidorna */
-    }
-
-    header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-    }
-
-    /* Se till att filter- och grid-element staplas snyggt på höjden i mobilen */
-    .focus-options-grid {
-        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-        gap: 0.4rem;
-    }
-
-    /* Justera rubrikstorlekar i mobilen så de inte klumpar ihop sig */
-    h1 {
-        font-size: 1.25rem !important;
-    }
-    
-    h2 {
-        font-size: 1.05rem !important;
-    }
-
-    h3, h4 {
-        font-size: 0.95rem !important;
-    }
-
-    /* Förhindra att tabeller eller kort flyter ut */
-    .exercise-card, .card {
-        padding: 0.75rem;
-        margin-bottom: 0.75rem;
-    }
-}
+        @media (max-width: 768px) {
+            .container { padding: 0.5rem; }
+            header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+            .focus-options-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 0.4rem; }
+            h1 { font-size: 1.25rem !important; }
+            h2 { font-size: 1.05rem !important; }
+            h3, h4 { font-size: 0.95rem !important; }
+            .exercise-card, .card { padding: 0.75rem; margin-bottom: 0.75rem; }
+        }
     </style>
 
     <script>
-        // Initiera Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyAcWrTZ_HIYzYKjJF-kqqbE3mY_H_BFtv4",
             authDomain: "if-molndal-p2015.firebaseapp.com",
@@ -346,42 +309,41 @@ h2 {
         }
 
         function renderExerciseFilters() {
-    const catContainers = document.querySelectorAll('.exercise-category-filter-container');
-    const focusContainers = document.querySelectorAll('.exercise-focus-filter-container');
+            const catContainers = document.querySelectorAll('.exercise-category-filter-container');
+            const focusContainers = document.querySelectorAll('.exercise-focus-filter-container');
 
-    const allEx = getAllExercises();
+            const allEx = getAllExercises();
 
-    const categories = [...new Set(
-        allEx.map(ex => String(ex.category || '').trim()).filter(Boolean)
-    )].sort((a, b) => a.localeCompare(b, 'sv'));
+            const categories = [...new Set(
+                allEx.map(ex => String(ex.category || '').trim()).filter(Boolean)
+            )].sort((a, b) => a.localeCompare(b, 'sv'));
 
-    const focuses = [...new Set(
-        allEx.map(ex => String(ex.focus || '').trim()).filter(Boolean)
-    )].sort((a, b) => a.localeCompare(b, 'sv'));
+            const focuses = [...new Set(
+                allEx.map(ex => String(ex.focus || '').trim()).filter(Boolean)
+            )].sort((a, b) => a.localeCompare(b, 'sv'));
 
-    // Båda startar utan "checked" (inte ikryssade som standard)
-    catContainers.forEach(container => {
-        container.innerHTML = categories.map(cat => `
-            <label class="focus-chip" onclick="toggleFilterChip(this)">
-                <input type="checkbox" class="ex-cat-chk" value="${cat}">
-                <div class="focus-chip-box"></div>
-                <span>${cat}</span>
-            </label>
-        `).join('');
-    });
+            catContainers.forEach(container => {
+                container.innerHTML = categories.map(cat => `
+                    <label class="focus-chip" onclick="toggleFilterChip(this)">
+                        <input type="checkbox" class="ex-cat-chk" value="${cat}">
+                        <div class="focus-chip-box"></div>
+                        <span>${cat}</span>
+                    </label>
+                `).join('');
+            });
 
-    focusContainers.forEach(container => {
-        container.innerHTML = focuses.map(focus => `
-            <label class="focus-chip" onclick="toggleFilterChip(this)">
-                <input type="checkbox" class="ex-focus-chk" value="${focus}">
-                <div class="focus-chip-box"></div>
-                <span>${focus}</span>
-            </label>
-        `).join('');
-    });
+            focusContainers.forEach(container => {
+                container.innerHTML = focuses.map(focus => `
+                    <label class="focus-chip" onclick="toggleFilterChip(this)">
+                        <input type="checkbox" class="ex-focus-chk" value="${focus}">
+                        <div class="focus-chip-box"></div>
+                        <span>${focus}</span>
+                    </label>
+                `).join('');
+            });
 
-    renderExercises();
-}
+            renderExercises();
+        }
 
         window.toggleFilterChip = function(element) {
             const chk = element.querySelector('input');
@@ -581,8 +543,8 @@ h2 {
             return Math.max(1, Math.min(5, Math.round(val)));
         }
 
-        window.addCustomExercise = function() {
-            const name = document.getElementById('custom-ex-name').value.trim();
+        window.saveCustomExercise = function() {
+            const name = document.getElementById('custom-exercise-name').value.trim();
             if (!name) { alert("Ange ett namn på övningen."); return; }
             
             const newEx = {
@@ -601,7 +563,7 @@ h2 {
             customExercisesData.push(newEx);
             localStorage.setItem('if_molndal_custom_exercises_v1', JSON.stringify(customExercisesData));
             
-            document.getElementById('custom-ex-name').value = "";
+            document.getElementById('custom-exercise-name').value = "";
             document.getElementById('custom-ex-desc').value = "";
             document.getElementById('custom-ex-url').value = "";
 
@@ -1534,15 +1496,15 @@ h2 {
     </div>
 
     <header class="no-print" style="display: flex; justify-content: space-between; align-items: flex-start; padding: 0.75rem 1rem;">
-    <div class="header-left" style="display: flex; align-items: flex-start; gap: 0.75rem;">
-        <img src="klubbmarke.png" alt="IF Mölndal P15" class="header-logo" title="IFMP15">
-        <div class="header-text">
-            <h1 style="margin: 0; font-size: 1.25rem;">IF Mölndal P-2015</h1>
-            <p style="margin: 0; font-size: 0.8rem;">Tränings- &amp; Verksamhetsapp</p>
+        <div class="header-left" style="display: flex; align-items: flex-start; gap: 0.75rem;">
+            <img src="klubbmarke.png" alt="IF Mölndal P15" class="header-logo" title="IFMP15">
+            <div class="header-text">
+                <h1 style="margin: 0; font-size: 1.25rem;">IF Mölndal P-2015</h1>
+                <p style="margin: 0; font-size: 0.8rem;">Tränings- &amp; Verksamhetsapp</p>
+            </div>
         </div>
-    </div>
-    <button class="btn btn-secondary" style="width: auto; padding: 0.3rem 0.6rem; font-size: 0.7rem; margin-top: 0;" onclick="handleLogout()">Logga ut</button>
-</header>
+        <button class="btn btn-secondary" style="width: auto; padding: 0.3rem 0.6rem; font-size: 0.7rem; margin-top: 0;" onclick="handleLogout()">Logga ut</button>
+    </header>
 
     <div class="nav-tabs no-print">
         <button class="tab-btn active" onclick="switchTab('generator', this)">Träning</button>
@@ -1834,74 +1796,71 @@ h2 {
             </div>
         </div>
 
-       <!-- TAB 6: ÖVNINGSBANK -->
-<!-- Klickbar rubrik / knapp för att fälla ut -->
-<div class="card" style="cursor: pointer; background-color: #f8f9fa; border: 1px dashed var(--primary); margin-bottom: 1rem;" onclick="toggleAddExerciseForm()">
-    <h3 style="margin: 0; color: var(--primary); display: flex; align-items: center; justify-content: space-between;">
-        <span>➕ Lägg till egen övning</span>
-        <span id="toggle-icon" style="font-size: 1.2rem;">▼</span>
-    </h3>
-</div>
+        <!-- TAB 6: ÖVNINGSBANK -->
+        <div id="exercises" class="tab-content">
+            <!-- Klickbar rubrik / knapp för att fälla ut -->
+            <div class="card" style="cursor: pointer; background-color: #f8f9fa; border: 1px dashed var(--primary); margin-bottom: 1rem;" onclick="toggleAddExerciseForm()">
+                <h3 style="margin: 0; color: var(--primary); display: flex; align-items: center; justify-content: space-between;">
+                    <span>➕ Lägg till egen övning</span>
+                    <span id="toggle-icon" style="font-size: 1.2rem;">▼</span>
+                </h3>
+            </div>
 
-<!-- Själva formuläret som är dolt som standard -->
-<div id="add-exercise-form-container" style="display: none;" class="card">
-    <h3 style="margin-top: 0; color: var(--primary);">Lägg till egen övning</h3>
-    
-    <label>Övningens namn:</label>
-    <input type="text" id="custom-exercise-name" placeholder="T.ex. Passningsstafett 3v3">
-
-    <label>Kategori:</label>
-    <select id="custom-ex-cat">
-        <option value="Teknik">Teknik</option>
-        <option value="Uppvärmning">Uppvärmning</option>
-        <option value="Spel">Spel</option>
-        <option value="Fysik">Fysik</option>
-        <option value="Taktik">Taktik</option>
-        <option value="Målvakt">Målvakt</option>
-    </select>
+            <!-- Själva formuläret som är dolt som standard -->
+            <div id="add-exercise-form-container" style="display: none;" class="card">
+                <h3 style="margin-top: 0; color: var(--primary);">Lägg till egen övning</h3>
                 
-    <label>Fokusområde:</label>
-    <select id="custom-ex-focus">
-        <option value="Uppspel & Ytor">Uppspel & Ytor</option>
-        <option value="Spelvändningar">Spelvändningar</option>
-        <option value="Presspel">Presspel</option>
-        <option value="Avslut">Avslut</option>
-        <option value="Fasta situationer">Fasta situationer</option>
-        <option value="Målvakt">Målvakt</option>
-    </select>
+                <label>Övningens namn:</label>
+                <input type="text" id="custom-exercise-name" placeholder="T.ex. Passningsstafett 3v3">
 
-    <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; margin-top: 0.5rem;">
-        <div>
-            <label>Tid (min):</label>
-            <input type="number" id="custom-ex-time" value="15" min="5" max="60">
-        </div>
-        <div>
-            <label>Spelform:</label>
-            <select id="custom-ex-format">
-                <option value="7v7">7v7</option>
-                <option value="9v9">9v9</option>
-                <option value="11v11">11v11</option>
-                <option value="Alla">Alla</option>
-            </select>
-        </div>
-        <div>
-            <label>Min spelare:</label>
-            <input type="number" id="custom-ex-minp" value="6" min="1" max="30">
-        </div>
-    </div>
+                <label>Kategori:</label>
+                <select id="custom-ex-cat">
+                    <option value="Teknik">Teknik</option>
+                    <option value="Uppvärmning">Uppvärmning</option>
+                    <option value="Spel">Spel</option>
+                    <option value="Fysik">Fysik</option>
+                    <option value="Taktik">Taktik</option>
+                    <option value="Målvakt">Målvakt</option>
+                </select>
+                            
+                <label>Fokusområde:</label>
+                <select id="custom-ex-focus">
+                    <option value="Uppspel & Ytor">Uppspel & Ytor</option>
+                    <option value="Spelvändningar">Spelvändningar</option>
+                    <option value="Presspel">Presspel</option>
+                    <option value="Avslut">Avslut</option>
+                    <option value="Fasta situationer">Fasta situationer</option>
+                    <option value="Målvakt">Målvakt</option>
+                </select>
 
-    <label style="margin-top: 0.5rem;">Beskrivning:</label>
-    <textarea id="custom-ex-desc" placeholder="Kort beskrivning av övningen..." rows="2"></textarea>
+                <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; margin-top: 0.5rem;">
+                    <div>
+                        <label>Tid (min):</label>
+                        <input type="number" id="custom-ex-time" value="15" min="5" max="60">
+                    </div>
+                    <div>
+                        <label>Spelform:</label>
+                        <select id="custom-ex-format">
+                            <option value="7v7">7v7</option>
+                            <option value="9v9">9v9</option>
+                            <option value="11v11">11v11</option>
+                            <option value="Alla">Alla</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Min spelare:</label>
+                        <input type="number" id="custom-ex-minp" value="6" min="1" max="30">
+                    </div>
+                </div>
 
-    <label>Länk / Källa (valfritt):</label>
-    <input type="text" id="custom-ex-url" placeholder="https://...">
+                <label style="margin-top: 0.5rem;">Beskrivning:</label>
+                <textarea id="custom-ex-desc" placeholder="Kort beskrivning av övningen..." rows="2"></textarea>
 
-    <!-- Tillagd spara-knapp som ropar på funktionen för att spara övningen -->
-    <button class="btn btn-primary" onclick="saveCustomExercise()" style="margin-top: 1rem; width: 100%;">Spara övning</button>
-</div>
+                <label>Länk / Källa (valfritt):</label>
+                <input type="text" id="custom-ex-url" placeholder="https://...">
 
-    <button class="btn btn-primary" onclick="saveCustomExercise()" style="margin-top: 1rem;">Spara övning</button>
-</div>
+                <button class="btn btn-primary" onclick="saveCustomExercise()" style="margin-top: 1rem; width: 100%;">Spara övning</button>
+            </div>
 
             <!-- Övningsbank & Filtrering -->
             <div class="card">
@@ -1909,7 +1868,7 @@ h2 {
                 <div id="exercise-counter" style="background:#e9ecef; padding:0.5rem 0.75rem; border-radius:6px; margin-bottom:0.75rem; font-size:0.85rem; color:#333;"></div>
                 
                 <label>Filtrera efter kategori:</label>
-                <div class="focus-options-grid exercise-category-filter-container"></div
+                <div class="focus-options-grid exercise-category-filter-container"></div>
 
                 <label>Filtrera efter fokusområden (välj ett eller flera):</label>
                 <div class="focus-options-grid exercise-focus-filter-container"></div>
