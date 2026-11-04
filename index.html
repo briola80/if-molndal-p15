@@ -1179,17 +1179,23 @@
         };
 
         window.exportMatchSnapshot = function() {
-            const containerElement = document.getElementById('match-export-container');
-            if(!containerElement) return;
-            html2canvas(containerElement, { scale: 2, useCORS: true }).then(canvas => {
-                const imageData = canvas.toDataURL("image/png");
-                const win = window.open("", "_blank");
-                if (win) {
-                    win.document.write(`<html><head><title>Matchlag</title></head><body style="text-align:center;padding:1rem;background:#f8f9fa;"><img src="${imageData}" style="max-width:100%;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.15);"><br><button onclick="window.print()" style="margin-top:1rem;padding:0.5rem 1rem;font-size:1rem;font-weight:bold;cursor:pointer;">Skriv ut / Spara PDF</button></body></html>`);
-                    win.document.close();
-                }
-            });
-        };
+    const containerElement = document.getElementById('match-export-container');
+    if(!containerElement) return;
+    
+    html2canvas(containerElement, { scale: 2, useCORS: true }).then(canvas => {
+        const imageData = canvas.toDataURL("image/png");
+        
+        // Skapa en nedladdningslänk som fungerar på både dator och mobil
+        const link = document.createElement('a');
+        link.href = imageData;
+        link.download = 'matchlag-if-molndal.png';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }).catch(err => {
+        alert("Kunde inte skapa bilden. Prova att ta en vanlig skärmdump (print screen) på mobilen.");
+    });
+};
 
         window.saveCurrentTeamAsNamed = function() {
             const teamName = prompt("Ange namn på laguppställningen (t.ex. Matchlag Blå):");
