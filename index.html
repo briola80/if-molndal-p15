@@ -14,7 +14,26 @@
    <!-- Firebase App & Auth SDK (Compat) -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-    <!-- Öppnar formulär ny övning (toggle) -->
+    <script // Lista med e-postadresser som har behörighet att låsa upp fliken
+const adminEmails = [
+    "bright80@hotmail.se",
+];
+
+function checkIfAdmin(user) {
+    if (!user || !user.email) return false;
+    return adminEmails.includes(user.email.toLowerCase().trim());
+}
+</script>
+
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    const target = document.getElementById(tabId);
+    if (target) target.classList.add('active');
+    if (btn) btn.classList.add('active');
+    window.scrollTo(0, 0);
+};
+
+   <!-- Öppnar formulär ny övning (toggle) -->
     <script>
         function toggleAddExerciseForm() {
             const formContainer = document.getElementById('add-exercise-form-container');
@@ -260,6 +279,16 @@
         h3, h4 { font-size: 0.95rem !important; }
         .exercise-card, .card { padding: 0.75rem; margin-bottom: 0.75rem; }
     }
+   /* Stil för en låst eller diskret flik */
+.tab-btn.locked-tab {
+    color: #adb5bd !important; /* Dämpad grå färg */
+    background-color: #f8f9fa;
+    cursor: pointer;
+}
+
+.tab-btn.locked-tab:hover {
+    color: #6c757d !important;
+}
   </style>
 
     <script>
@@ -540,13 +569,23 @@
         }
 
         window.switchTab = function(tabId, btn) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-            const target = document.getElementById(tabId);
-            if (target) target.classList.add('active');
-            if (btn) btn.classList.add('active');
-            window.scrollTo(0, 0);
-        };
+    // Om fliken är 'levels' (Nivåer), kontrollera behörighet
+    if (tabId === 'levels') {
+        const currentUser = firebase.auth().currentUser;
+        if (!checkIfAdmin(currentUser)) {
+            alert("Denna flik är låst och endast tillgänglig för behöriga tränare/ledare.");
+            return; // Avbryt så fliken inte öppnas
+        }
+    }
+
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    const target = document.getElementById(tabId);
+    if (target) target.classList.add('active');
+    if (btn) btn.classList.add('active');
+    window.scrollTo(0, 0);
+};
+
 
         function savePlayersToStorage() {
             localStorage.setItem('if_molndal_players_v7', JSON.stringify(playersData));
@@ -1542,7 +1581,9 @@
         <button class="tab-btn" onclick="switchTab('match', this)">Lag/Match</button>
         <button class="tab-btn" onclick="switchTab('tactics', this)">Taktik</button>
         <button class="tab-btn" onclick="switchTab('squad', this)">Trupp</button>
-        <button class="tab-btn" onclick="switchTab('levels', this)">📊 Nivåer</button>
+        <!-- Byt ut din nuvarande flikknapp för Nivåer mot denna: -->
+      <button id="levels-tab-btn" class="tab-btn locked-tab" onclick="switchTab('levels', this)">🔒 Nivåer</button>
+
     </div>
 
     <div class="container">
