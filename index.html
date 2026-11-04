@@ -98,11 +98,45 @@
         }
 
         @media (max-width: 768px) {
-            .tab-btn {
-                font-size: 0.65rem;
-                padding: 0.6rem 0.1rem;
-            }
-        }
+    .container {
+        padding: 0.5rem;
+    }
+
+    /* Vi behåller rad-layouten så knappen stannar till höger om loggan */
+    header {
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-between;
+        padding: 0.5rem 0.75rem;
+    }
+
+    .focus-options-grid {
+        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+        gap: 0.4rem;
+    }
+
+    h1 {
+        font-size: 1.1rem !important; /* Gör rubriken aningens smidigare på små skärmar */
+    }
+    
+    .header-text p {
+        font-size: 0.75rem !important;
+    }
+
+    h2 {
+        font-size: 1.05rem !important;
+    }
+
+    h3, h4 {
+        font-size: 0.95rem !important;
+    }
+
+    .exercise-card, .card {
+        padding: 0.75rem;
+        margin-bottom: 0.75rem;
+    }
+}
+
 
         .container { max-width: 900px; margin: 0 auto; padding: 1rem; }
         .tab-content { display: none; }
