@@ -33,14 +33,53 @@
     <!-- 1. Ladda externa övningar först -->
     <script src="exercises.js"></script>
     
-    <style>
-        .header-logo {
-            height: 40px;
-            width: auto;
-            border-radius: 4px;
-            background: white;
-            padding: 2px;
-        }
+  <style>
+    .header-logo {
+        height: 40px;
+        width: auto;
+        border-radius: 4px;
+        background: white;
+        padding: 2px;
+    }
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center; 
+        flex-wrap: nowrap;   
+        gap: 0.5rem;
+    }
+
+    .header-left {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        min-width: 0; 
+    }
+
+    .header-text {
+        min-width: 0;
+    }
+
+    .header-text h1 {
+        font-size: 1rem !important; 
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis; 
+    }
+
+    .header-text p {
+        font-size: 0.7rem !important;
+    }
+
+    /* VIKTIGT: Denna rad ser till att knappen stannar uppe till höger */
+    header button.btn {
+        flex-shrink: 0; 
+        width: auto !important;
+    }
+</style>
+
+
         :root {
             --primary: #d32f2f;
             --primary-dark: #b71c1c;
