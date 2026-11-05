@@ -49,18 +49,27 @@
             const container = document.getElementById('workout-attendance-list');
             if (!container) return;
 
-            container.innerHTML = playersData.map((p, index) => `
-                <label style="display: flex; align-items: center; gap: 0.5rem; padding: 0.3rem 0; border-bottom: 1px solid #f1f3f5; font-size: 0.85rem; cursor: pointer;">
-                    <input type="checkbox" class="workout-att-chk" data-player-id="${p.id}" checked style="width: auto; margin-bottom: 0;">
-                    <span>${p.name} <span style="font-size: 0.75rem; color: #6c757d;">(Snitt: ${getPlayerLevel(p)})</span></span>
-                </label>
-            `).join('');
+            container.innerHTML = playersData.map((p) => {
+                // Kontrollera om spelaren är sparad som ikryssad tidigare eller default true
+                return `
+                    <label id="att-row-${p.id}" class="workout-att-row">
+                        <input type="checkbox" class="workout-att-chk" data-player-id="${p.id}" checked style="width: auto; margin-bottom: 0;" onchange="updateAttendanceRowStyle(${p.id})">
+                        <span>${p.name}</span>
+                    </label>
+                `;
+            }).join('');
         }
 
-        window.setAllWorkoutAttendance = function(status) {
-            document.querySelectorAll('.workout-att-chk').forEach(chk => {
-                chk.checked = status;
-            });
+        window.updateAttendanceRowStyle = function(playerId) {
+            const chk = document.querySelector(`.workout-att-chk[data-player-id="${playerId}"]`);
+            const row = document.getElementById(`att-row-${playerId}`);
+            if (chk && row) {
+                if (chk.checked) {
+                    row.classList.remove('unchecked');
+                } else {
+                    row.classList.add('unchecked');
+                }
+            }
         };
 
         window.generateGroupsFromWorkout = function() {
@@ -371,6 +380,25 @@
 
     .tab-btn.locked-tab:hover {
         color: #6c757d !important;
+    }
+      .workout-att-row {
+        display: flex; 
+        align-items: center; 
+        gap: 0.5rem; 
+        padding: 0.3rem 0.5rem; 
+        border-bottom: 1px solid #f1f3f5; 
+        font-size: 0.85rem; 
+        cursor: pointer;
+        border-radius: 4px;
+        transition: background-color 0.15s;
+    }
+    .workout-att-row.unchecked {
+        background-color: #fff5f5;
+        color: #adb5bd;
+    }
+    .workout-att-row.unchecked span {
+        text-decoration: line-through;
+        color: #6c757d;
     }
   </style>
 
