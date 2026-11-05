@@ -46,7 +46,7 @@
         }
     </script>
 
-    <!-- Körs när du klickar på "Generera Träningspass" för att även bygga närvarolistan -->
+    <!-- Körs för närvaro och gruppgenerering -->
     <script>
         function renderWorkoutAttendance() {
             const container = document.getElementById('workout-attendance-list');
@@ -1673,16 +1673,47 @@
         <!-- TAB 1: TRÄNINGSGENERATOR -->
         <div id="generator" class="tab-content active">
             <div class="card">
-                <h2>Skapa Träningspass & Närvaro</h2>
+                <h2>Skapa Träningspass &amp; Närvaro</h2>
                 
                 <h3>📋 Närvarande spelare</h3>
                 <p style="font-size: 0.8rem; color: #6c757d; margin-bottom: 0.5rem;">Bocka av vilka som är på plats (hämtas från truppen):</p>
                 
                 <div id="workout-attendance-list"></div>
                 
-                <div style="margin-bottom: 0.75rem;">
+                <div style="margin-bottom: 1rem;">
                     <button class="btn btn-secondary" style="margin-top:0; width:100%;" onclick="resetWorkoutAttendance()">Återställ (markera alla)</button>
                 </div>
+
+                <!-- GRUPPINDELNING DIREKT UNDER NÄRVARO -->
+                <div style="background: #f1f3f5; padding: 0.75rem; border-radius: 6px; margin-bottom: 1rem; border: 1px solid var(--border);">
+                    <h3>👥 Skapa träningsgrupper</h3>
+                    <label>Metod för gruppindelning:</label>
+                    <select id="workout-group-mode" style="margin-bottom: 0.75rem;">
+                        <option value="balanced">Jämn fördelning (blandade nivåer)</option>
+                        <option value="stratified">Nivåindelade grupper (samma nivå i grupp)</option>
+                        <option value="random">Slumpmässiga grupper</option>
+                    </select>
+
+                    <label>Antal grupper:</label>
+                    <select id="workout-num-groups" style="margin-bottom: 0.75rem;">
+                        <option value="2">2 grupper</option>
+                        <option value="3" selected>3 grupper</option>
+                        <option value="4">4 grupper</option>
+                        <option value="5">5 grupper</option>
+                        <option value="6">6 grupper</option>
+                    </select>
+                    
+                    <button class="btn btn-success" onclick="generateGroupsFromWorkout()" style="margin-top: 0.25rem;">👥 Skapa grupper baserat på närvarande</button>
+                </div>
+
+                <div id="workout-groups-result" style="margin-bottom: 1rem; display: none;">
+                    <div id="workout-groups-content" style="background: white; padding: 1rem; border-radius: 8px; border: 1px solid var(--border);">
+                        <!-- Här hamnar de skapade grupperna -->
+                    </div>
+                    <button class="btn btn-success" onclick="exportWorkoutGroupsSnapshot()" style="margin-top: 0.75rem;">📸 Spara / Dela bild på grupper</button>
+                </div>
+
+                <hr style="margin: 1rem 0; border: none; border-top: 1px solid var(--border);">
 
                 <input type="hidden" id="gen-players" value="30">
 
@@ -1712,42 +1743,15 @@
             </div>
             
             <div id="workout-result" class="card" style="display:none;">
-                <h2>Dagens Pass & Grupper</h2>
+                <h2>Dagens Pass</h2>
                 <div id="workout-content"></div>
-                
-                <hr style="margin: 1rem 0; border: none; border-top: 1px solid var(--border);">
-
-                <label>Metod för gruppindelning:</label>
-                <select id="workout-group-mode" style="margin-bottom: 0.75rem;">
-                    <option value="balanced">Jämn fördelning (blandade nivåer)</option>
-                    <option value="stratified">Nivåindelade grupper (samma nivå i grupp)</option>
-                    <option value="random">Slumpmässiga grupper</option>
-                </select>
-
-                <label>Antal grupper:</label>
-                <select id="workout-num-groups" style="margin-bottom: 0.75rem;">
-                    <option value="2">2 grupper</option>
-                    <option value="3" selected>3 grupper</option>
-                    <option value="4">4 grupper</option>
-                    <option value="5">5 grupper</option>
-                    <option value="6">6 grupper</option>
-                </select>
-                
-                <button class="btn btn-success" onclick="generateGroupsFromWorkout()" style="margin-top: 0.25rem;">👥 Skapa grupper baserat på närvarande</button>
-                
-                <div id="workout-groups-result" style="margin-top: 1rem; display: none;">
-                    <div id="workout-groups-content" style="background: white; padding: 1rem; border-radius: 8px; border: 1px solid var(--border);">
-                        <!-- Här hamnar de skapade grupperna -->
-                    </div>
-                    <button class="btn btn-success" onclick="exportWorkoutGroupsSnapshot()" style="margin-top: 0.75rem;">📸 Spara / Dela bild på grupper</button>
-                </div>
             </div>
         </div>
 
         <!-- TAB 2: NIVÅMATRIS -->
         <div id="levels" class="tab-content">
             <div class="card">
-                <h2>Spelarnivåer & Matris (1–5)</h2>
+                <h2>Spelarnivåer &amp; Matris (1–5)</h2>
                 <p style="font-size:0.8rem; color:#6c757d; margin-bottom:0.75rem;">Ändra siffrorna (1–5) direkt i tabellen. Kolumnrubrikerna följer med vid skrollning. Både inmatningsrutor och snittkolumnen färgas automatiskt efter nivå. Klicka på kolumnrubrikerna för att sortera!</p>
                 
                 <div style="overflow-x:auto; margin-bottom: 1rem;">
@@ -1875,7 +1879,7 @@
         <!-- TAB 4: LAG / MATCH -->
         <div id="match" class="tab-content">
             <div class="card">
-                <h2 class="no-print">⚽ Matchlag & Ersättare</h2>
+                <h2 class="no-print">⚽ Matchlag &amp; Ersättare</h2>
                 
                 <div class="no-print" style="background: #f1f3f5; padding: 0.6rem; border-radius: 6px; margin-bottom: 0.75rem; display: flex; flex-direction: column; gap: 0.4rem;">
                     <label style="margin-bottom:0;">Sparade matchtrupper:</label>
@@ -1883,7 +1887,7 @@
                         <select id="match-saved-teams-select" style="margin-bottom:0; flex:1;"></select>
                         <button class="btn btn-secondary" style="margin-top:0; width:auto; padding:0.4rem 0.8rem; font-size:0.8rem;" onclick="loadSelectedMatchTeam()">Ladda lag</button>
                     </div>
-                    <button class="btn" style="padding:0.4rem; font-size:0.8rem; background-color: #1976d2;" onclick="saveCurrentMatchTeamAsNamed()">💾 Spara matchlag inkl. ersättare & info...</button>
+                    <button class="btn" style="padding:0.4rem; font-size:0.8rem; background-color: #1976d2;" onclick="saveCurrentMatchTeamAsNamed()">💾 Spara matchlag inkl. ersättare &amp; info...</button>
                 </div>
 
                 <div class="no-print" style="background: #e9ecef; padding: 0.6rem; border-radius: 6px; margin-bottom: 0.75rem;">
@@ -1975,7 +1979,7 @@
                             
                 <label>Fokusområde:</label>
                 <select id="custom-ex-focus">
-                    <option value="Uppspel & Ytor">Uppspel & Ytor</option>
+                    <option value="Uppspel &amp; Ytor">Uppspel &amp; Ytor</option>
                     <option value="Spelvändningar">Spelvändningar</option>
                     <option value="Presspel">Presspel</option>
                     <option value="Avslut">Avslut</option>
@@ -2009,7 +2013,7 @@
                 <label>Länk / Källa (valfritt):</label>
                 <input type="text" id="custom-ex-url" placeholder="https://...">
 
-                <button class="btn btn-primary" onclick="saveCustomExercise()" style="margin-top: 1rem; width: 100%;">Spara övning</button>
+                <button class="btn btn-primary" onclick="saveCustomExercise()" style="margin-top: 1-rem; width: 100%;">Spara övning</button>
             </div>
 
             <div class="card">
