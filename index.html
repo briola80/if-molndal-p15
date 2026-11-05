@@ -14,6 +14,9 @@
    <!-- Firebase App & Auth SDK (Compat) -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+
+    <!-- 1. Ladda externa övningar först -->
+    <script src="exercises.js"></script>
     
    <script>
     const adminEmails = [
@@ -97,7 +100,6 @@
             let groups = Array.from({length: paramVal}, () => []);
 
             if (mode === 'balanced') {
-                // Blandade nivåer (orm-fördelning)
                 presentPlayers.sort((a, b) => b.level - a.level);
                 let gIdx = 0, inc = true;
                 presentPlayers.forEach(p => {
@@ -106,7 +108,6 @@
                     else { gIdx--; if (gIdx < 0) { gIdx = 0; inc = true; } }
                 });
             } else if (mode === 'stratified') {
-                // Samma nivåer (kluster)
                 presentPlayers.sort((a, b) => a.level - b.level);
                 let size = Math.ceil(presentPlayers.length / paramVal);
                 let gIdx = 0;
@@ -115,7 +116,6 @@
                     if (groups[gIdx].length >= size && gIdx < paramVal - 1) gIdx++;
                 });
             } else {
-                // Slumpmässigt
                 presentPlayers.sort(() => Math.random() - 0.5);
                 presentPlayers.forEach((p, idx) => {
                     groups[idx % paramVal].push(p);
@@ -126,7 +126,6 @@
 
             let html = `<h4>Skapade grupper (${presentPlayers.length} spelare):</h4><hr style="margin:0.3rem 0">`;
             
-            // Rutnät som placerar gruppkorten sida vid sida för att utnyttja ytan till höger
             html += `<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 0.5rem; margin-top: 0.5rem;">`;
 
             groups.forEach((g, idx) => {
@@ -149,11 +148,10 @@
             document.getElementById('workout-groups-content').innerHTML = html;
             document.getElementById('workout-groups-result').style.display = 'block';
         };
-        
-        <!-- 1. Ladda externa övningar först -->
-            <script src="exercises.js"></script>
-    <style>
-        :root {
+    </script>
+    
+  <style>
+    :root {
         --primary: #d32f2f;
         --primary-dark: #b71c1c;
         --bg: #f8f9fa;
@@ -362,7 +360,7 @@
     .tactics-player-left { display: flex; align-items: center; gap: 0.4rem; cursor: pointer; flex: 1; }
     .tactics-pos-select { width: 130px; padding: 0.2rem; font-size: 0.75rem; border: 1px solid var(--border); border-radius: 4px; }
 
-   /* Stil för närvarolista i kompakt rutnät (flera kolumner) */
+    /* Stil för närvarolista i kompakt rutnät (flera kolumner) */
     #workout-attendance-list {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -664,24 +662,24 @@
             ]
         };
 
-       document.addEventListener("DOMContentLoaded", function() {
-    const APP_VERSION = 'v8';
-    if (localStorage.getItem('if_molndal_app_version') !== APP_VERSION) {
-        localStorage.removeItem('if_molndal_players_v7');
-        localStorage.removeItem('if_molndal_placed_slots_v1');
-        localStorage.setItem('if_molndal_app_version', APP_VERSION);
-    }
-    
-    firebase.auth().onAuthStateChanged(function(user) {
-        const loginOverlay = document.getElementById('login-overlay');
-        if (user) {
-            loginOverlay.style.display = 'none';
-            initializeAppUI();
-        } else {
-            loginOverlay.style.display = 'flex';
-        }
-    });
-});
+        document.addEventListener("DOMContentLoaded", function() {
+            const APP_VERSION = 'v8';
+            if (localStorage.getItem('if_molndal_app_version') !== APP_VERSION) {
+                localStorage.removeItem('if_molndal_players_v7');
+                localStorage.removeItem('if_molndal_placed_slots_v1');
+                localStorage.setItem('if_molndal_app_version', APP_VERSION);
+            }
+            
+            firebase.auth().onAuthStateChanged(function(user) {
+                const loginOverlay = document.getElementById('login-overlay');
+                if (user) {
+                    loginOverlay.style.display = 'none';
+                    initializeAppUI();
+                } else {
+                    loginOverlay.style.display = 'flex';
+                }
+            });
+        });
 
         window.handleLogin = function() {
             const email = document.getElementById('login-email').value.trim();
@@ -1500,7 +1498,6 @@
         };
 
         window.generateWorkout = function() {
-            // Räkna antal ikryssade i närvarolistan automatiskt
             const checkedAttendance = document.querySelectorAll('.workout-att-chk:checked');
             const pCount = checkedAttendance.length;
             
@@ -1681,13 +1678,12 @@
                 <h3>📋 Närvarande spelare</h3>
                 <p style="font-size: 0.8rem; color: #6c757d; margin-bottom: 0.5rem;">Bocka av vilka som är på plats (hämtas från truppen):</p>
                 
-                <div id="workout-attendance-list" style="max-height: 220px; overflow-y: auto; border: 1px solid var(--border); border-radius: 6px; padding: 0.5rem; background: #fff; margin-bottom: 0.75rem;"></div>
+                <div id="workout-attendance-list"></div>
                 
                 <div style="margin-bottom: 0.75rem;">
                     <button class="btn btn-secondary" style="margin-top:0; width:100%;" onclick="resetWorkoutAttendance()">Återställ (markera alla)</button>
                 </div>
 
-                <!-- Dold/automatisk räknare för antal spelare baserat på närvaro -->
                 <input type="hidden" id="gen-players" value="30">
 
                 <label>Passets längd (intervaller om 5 min):</label>
@@ -1954,7 +1950,6 @@
 
         <!-- TAB 6: ÖVNINGSBANK -->
         <div id="exercises" class="tab-content">
-            <!-- Klickbar rubrik / knapp för att fälla ut -->
             <div class="card" style="cursor: pointer; background-color: #f8f9fa; border: 1px dashed var(--primary); margin-bottom: 1rem;" onclick="toggleAddExerciseForm()">
                 <h3 style="margin: 0; color: var(--primary); display: flex; align-items: center; justify-content: space-between;">
                     <span>➕ Lägg till egen övning</span>
@@ -1962,7 +1957,6 @@
                 </h3>
             </div>
 
-            <!-- Själva formuläret som är dolt som standard -->
             <div id="add-exercise-form-container" style="display: none;" class="card">
                 <h3 style="margin-top: 0; color: var(--primary);">Lägg till egen övning</h3>
                 
@@ -2018,7 +2012,6 @@
                 <button class="btn btn-primary" onclick="saveCustomExercise()" style="margin-top: 1rem; width: 100%;">Spara övning</button>
             </div>
 
-            <!-- Övningsbank & Filtrering -->
             <div class="card">
                 <h2>Övningsbank</h2>
                 <div id="exercise-counter" style="background:#e9ecef; padding:0.5rem 0.75rem; border-radius:6px; margin-bottom:0.75rem; font-size:0.85rem; color:#333;"></div>
