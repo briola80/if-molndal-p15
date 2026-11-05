@@ -63,77 +63,73 @@
         };
 
         window.generateGroupsFromWorkout = function() {
-    const checkedBoxes = document.querySelectorAll('.workout-att-chk:checked');
-    const presentPlayerIds = Array.from(checkedBoxes).map(chk => parseInt(chk.getAttribute('data-player-id')));
+            const checkedBoxes = document.querySelectorAll('.workout-att-chk:checked');
+            const presentPlayerIds = Array.from(checkedBoxes).map(chk => parseInt(chk.getAttribute('data-player-id')));
 
-    if (presentPlayerIds.length === 0) {
-        alert("Inga spelare är markerade som närvarande!");
-        return;
-    }
+            if (presentPlayerIds.length === 0) {
+                alert("Inga spelare är markerade som närvarande!");
+                return;
+            }
 
-    let presentPlayers = playersData.filter(p => presentPlayerIds.includes(p.id)).map(p => ({
-        id: p.id,
-        name: p.name,
-        level: parseFloat(getPlayerLevel(p)),
-        preferredPositions: p.preferredPositions || [p.position || "MM"]
-    }));
+            let presentPlayers = playersData.filter(p => presentPlayerIds.includes(p.id)).map(p => ({
+                id: p.id,
+                name: p.name,
+                level: parseFloat(getPlayerLevel(p)),
+                preferredPositions: p.preferredPositions || [p.position || "MM"]
+            }));
 
-    const mode = document.getElementById('workout-group-mode').value;
-    const paramVal = parseInt(document.getElementById('workout-num-groups').value) || 3;
-    let groups = Array.from({length: paramVal}, () => []);
+            const mode = document.getElementById('workout-group-mode').value;
+            const paramVal = parseInt(document.getElementById('workout-num-groups').value) || 3;
+            let groups = Array.from({length: paramVal}, () => []);
 
-    if (mode === 'balanced') {
-        // Blandade nivåer (orm-fördelning)
-        presentPlayers.sort((a, b) => b.level - a.level);
-        let gIdx = 0, inc = true;
-        presentPlayers.forEach(p => {
-            groups[gIdx].push(p);
-            if (inc) { gIdx++; if (gIdx >= paramVal) { gIdx = paramVal - 1; inc = false; } }
-            else { gIdx--; if (gIdx < 0) { gIdx = 0; inc = true; } }
-        });
-    } else if (mode === 'stratified') {
-        // Samma nivåer (kluster)
-        presentPlayers.sort((a, b) => a.level - b.level);
-        let size = Math.ceil(presentPlayers.length / paramVal);
-        let gIdx = 0;
-        presentPlayers.forEach(p => {
-            groups[gIdx].push(p);
-            if (groups[gIdx].length >= size && gIdx < paramVal - 1) gIdx++;
-        });
-    } else {
-        // Slumpmässigt
-        presentPlayers.sort(() => Math.random() - 0.5);
-        presentPlayers.forEach((p, idx) => {
-            groups[idx % paramVal].push(p);
-        });
-    }
+            if (mode === 'balanced') {
+                // Blandade nivåer (orm-fördelning)
+                presentPlayers.sort((a, b) => b.level - a.level);
+                let gIdx = 0, inc = true;
+                presentPlayers.forEach(p => {
+                    groups[gIdx].push(p);
+                    if (inc) { gIdx++; if (gIdx >= paramVal) { gIdx = paramVal - 1; inc = false; } }
+                    else { gIdx--; if (gIdx < 0) { gIdx = 0; inc = true; } }
+                });
+            } else if (mode === 'stratified') {
+                // Samma nivåer (kluster)
+                presentPlayers.sort((a, b) => a.level - b.level);
+                let size = Math.ceil(presentPlayers.length / paramVal);
+                let gIdx = 0;
+                presentPlayers.forEach(p => {
+                    groups[gIdx].push(p);
+                    if (groups[gIdx].length >= size && gIdx < paramVal - 1) gIdx++;
+                });
+            } else {
+                // Slumpmässigt
+                presentPlayers.sort(() => Math.random() - 0.5);
+                presentPlayers.forEach((p, idx) => {
+                    groups[idx % paramVal].push(p);
+                });
+            }
 
-    currentGeneratedGroups = groups;
+            currentGeneratedGroups = groups;
 
-    let html = `<h4>Skapade grupper (${presentPlayers.length} spelare):</h4><hr style="margin:0.3rem 0">`;
-    
-    groups.forEach((g, idx) => {
-        if(g.length === 0) return;
-        let avg = (g.reduce((s, p) => s + p.level, 0) / g.length).toFixed(1);
-        html += `
-            <div class="group-card" style="margin-top: 0.5rem;">
-                <h5 style="margin-bottom: 0.2rem; display: flex; justify-content: space-between; align-items: center;">
-                    <span>Grupp ${idx + 1} (${g.length} st, Snitt: ${avg})</span>
-                    <button class="btn btn-secondary" style="margin-top:0; width:auto; padding:0.2rem 0.5rem; font-size:0.75rem;" onclick="sendGroupToMatch(${idx})">Skicka till Lag/Match ➔</button>
-                </h5>
-                <ul style="padding-left: 1.2rem; font-size: 0.85rem;">
-                    ${g.map(p => `<li>${p.name} <span style="font-size:0.75rem; color:#6c757d;">(Snitt: ${p.level})</span></li>`).join('')}
-                </ul>
-            </div>`;
-    });
+            let html = `<h4>Skapade grupper (${presentPlayers.length} spelare):</h4><hr style="margin:0.3rem 0">`;
+            
+            groups.forEach((g, idx) => {
+                if(g.length === 0) return;
+                let avg = (g.reduce((s, p) => s + p.level, 0) / g.length).toFixed(1);
+                html += `
+                    <div class="group-card" style="margin-top: 0.5rem;">
+                        <h5 style="margin-bottom: 0.2rem; display: flex; justify-content: space-between; align-items: center;">
+                            <span>Grupp ${idx + 1} (${g.length} st, Snitt: ${avg})</span>
+                            <button class="btn btn-secondary" style="margin-top:0; width:auto; padding:0.2rem 0.5rem; font-size:0.75rem;" onclick="sendGroupToMatch(${idx})">Skicka till Lag/Match ➔</button>
+                        </h5>
+                        <ul style="padding-left: 1.2rem; font-size: 0.85rem;">
+                            ${g.map(p => `<li>${p.name} <span style="font-size:0.75rem; color:#6c757d;">(Snitt: ${p.level})</span></li>`).join('')}
+                        </ul>
+                    </div>`;
+            });
 
-    document.getElementById('workout-groups-content').innerHTML = html;
-    document.getElementById('workout-groups-result').style.display = 'block';
-};
-
-    resultBox.innerHTML = html;
-    resultBox.style.display = 'block';
-};
+            document.getElementById('workout-groups-content').innerHTML = html;
+            document.getElementById('workout-groups-result').style.display = 'block';
+        };
     </script>
 
     <!-- 1. Ladda externa övningar först -->
@@ -1327,22 +1323,22 @@
             }
         };
 
-       window.exportWorkoutGroupsSnapshot = function() {
-    const containerElement = document.getElementById('workout-groups-content');
-    if(!containerElement) return;
+        window.exportWorkoutGroupsSnapshot = function() {
+            const containerElement = document.getElementById('workout-groups-content');
+            if(!containerElement) return;
 
-    html2canvas(containerElement, { scale: 2, useCORS: true }).then(canvas => {
-        const imageData = canvas.toDataURL("image/png");
-        const link = document.createElement('a');
-        link.href = imageData;
-        link.download = 'traningsgrupper-if-molndal.png';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    }).catch(err => {
-        alert("Kunde inte skapa bilden.");
-    });
-};
+            html2canvas(containerElement, { scale: 2, useCORS: true }).then(canvas => {
+                const imageData = canvas.toDataURL("image/png");
+                const link = document.createElement('a');
+                link.href = imageData;
+                link.download = 'traningsgrupper-if-molndal.png';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }).catch(err => {
+                alert("Kunde inte skapa bilden.");
+            });
+        };
 
         window.saveCurrentTeamAsNamed = function() {
             const teamName = prompt("Ange namn på laguppställningen (t.ex. Matchlag Blå):");
@@ -1707,46 +1703,47 @@
             </div>
             
             <div id="workout-result" class="card" style="display:none;">
-        <h2>Dagens Pass & Närvaro</h2>
-        <div id="workout-content"></div>
-        
-        <hr style="margin: 1rem 0; border: none; border-top: 1px solid var(--border);">
-        
-        <h3>📋 Närvarande spelare för dagens pass</h3>
-        <p style="font-size: 0.8rem; color: #6c757d; margin-bottom: 0.5rem;">Bocka av vilka som är på plats (hämtas från truppen):</p>
-        
-        <div id="workout-attendance-list" style="max-height: 200px; overflow-y: auto; border: 1px solid var(--border); border-radius: 6px; padding: 0.5rem; background: #fff; margin-bottom: 0.75rem;"></div>
-        
-        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.75rem;">
-            <button class="btn btn-secondary" style="margin-top:0; flex:1;" onclick="setAllWorkoutAttendance(true)">Markera alla</button>
-            <button class="btn btn-secondary" style="margin-top:0; flex:1;" onclick="setAllWorkoutAttendance(false)">Avmarkera alla</button>
-        </div>
+                <h2>Dagens Pass & Närvaro</h2>
+                <div id="workout-content"></div>
+                
+                <hr style="margin: 1rem 0; border: none; border-top: 1px solid var(--border);">
+                
+                <h3>📋 Närvarande spelare för dagens pass</h3>
+                <p style="font-size: 0.8rem; color: #6c757d; margin-bottom: 0.5rem;">Bocka av vilka som är på plats (hämtas från truppen):</p>
+                
+                <div id="workout-attendance-list" style="max-height: 200px; overflow-y: auto; border: 1px solid var(--border); border-radius: 6px; padding: 0.5rem; background: #fff; margin-bottom: 0.75rem;"></div>
+                
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.75rem;">
+                    <button class="btn btn-secondary" style="margin-top:0; flex:1;" onclick="setAllWorkoutAttendance(true)">Markera alla</button>
+                    <button class="btn btn-secondary" style="margin-top:0; flex:1;" onclick="setAllWorkoutAttendance(false)">Avmarkera alla</button>
+                </div>
 
-        <!-- NYTT: Välj gruppmetod och antal grupper direkt vid passet -->
-        <label>Metod för gruppindelning:</label>
-        <select id="workout-group-mode" style="margin-bottom: 0.75rem;">
-            <option value="balanced">Jämn fördelning (blandade nivåer)</option>
-            <option value="stratified">Nivåindelade grupper (samma nivå i grupp)</option>
-            <option value="random">Slumpmässiga grupper</option>
-        </select>
+                <label>Metod för gruppindelning:</label>
+                <select id="workout-group-mode" style="margin-bottom: 0.75rem;">
+                    <option value="balanced">Jämn fördelning (blandade nivåer)</option>
+                    <option value="stratified">Nivåindelade grupper (samma nivå i grupp)</option>
+                    <option value="random">Slumpmässiga grupper</option>
+                </select>
 
-        <label>Antal grupper:</label>
-        <select id="workout-num-groups" style="margin-bottom: 0.75rem;">
-            <option value="2">2 grupper</option>
-            <option value="3" selected>3 grupper</option>
-            <option value="4">4 grupper</option>
-            <option value="5">5 grupper</option>
-            <option value="6">6 grupper</option>
-        </select>
-        
-        <button class="btn btn-success" onclick="generateGroupsFromWorkout()" style="margin-top: 0.25rem;">👥 Skapa grupper baserat på närvarande</button>
-        
-        <div id="workout-groups-result" style="margin-top: 1rem; display: none;">
-        <div id="workout-groups-content" style="background: white; padding: 1rem; border-radius: 8px; border: 1px solid var(--border);">
-            <!-- Här hamnar de skapade grupperna -->
+                <label>Antal grupper:</label>
+                <select id="workout-num-groups" style="margin-bottom: 0.75rem;">
+                    <option value="2">2 grupper</option>
+                    <option value="3" selected>3 grupper</option>
+                    <option value="4">4 grupper</option>
+                    <option value="5">5 grupper</option>
+                    <option value="6">6 grupper</option>
+                </select>
+                
+                <button class="btn btn-success" onclick="generateGroupsFromWorkout()" style="margin-top: 0.25rem;">👥 Skapa grupper baserat på närvarande</button>
+                
+                <div id="workout-groups-result" style="margin-top: 1rem; display: none;">
+                    <div id="workout-groups-content" style="background: white; padding: 1rem; border-radius: 8px; border: 1px solid var(--border);">
+                        <!-- Här hamnar de skapade grupperna -->
+                    </div>
+                    <button class="btn btn-success" onclick="exportWorkoutGroupsSnapshot()" style="margin-top: 0.75rem;">📸 Spara bild på grupper till mobilen</button>
+                </div>
+            </div>
         </div>
-        <button class="btn btn-success" onclick="exportWorkoutGroupsSnapshot()" style="margin-top: 0.75rem;">📸 Spara bild på grupper till mobilen</button>
-    </div>
 
         <!-- TAB 2: NIVÅMATRIS -->
         <div id="levels" class="tab-content">
