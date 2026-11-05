@@ -1323,22 +1323,43 @@
             }
         };
 
+        // NYTT: Förbättrad exportfunktion för att smidigt dela/spara direkt till bildgalleriet via mobilen
         window.exportWorkoutGroupsSnapshot = function() {
             const containerElement = document.getElementById('workout-groups-content');
             if(!containerElement) return;
 
             html2canvas(containerElement, { scale: 2, useCORS: true }).then(canvas => {
-                const imageData = canvas.toDataURL("image/png");
-                const link = document.createElement('a');
-                link.href = imageData;
-                link.download = 'traningsgrupper-if-molndal.png';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
+                canvas.toBlob(blob => {
+                    const file = new File([blob], "traningsgrupper-if-molndal.png", { type: "image/png" });
+
+                    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                        navigator.share({
+                            files: [file],
+                            title: 'Träningsgrupper',
+                            text: 'Här är dagens träningsgrupper för IF Mölndal P-2015'
+                        }).catch(error => {
+                            if (error.name !== 'AbortError') {
+                                fallbackDownload(canvas);
+                            }
+                        });
+                    } else {
+                        fallbackDownload(canvas);
+                    }
+                }, 'image/png');
             }).catch(err => {
                 alert("Kunde inte skapa bilden.");
             });
         };
+
+        function fallbackDownload(canvas) {
+            const imageData = canvas.toDataURL("image/png");
+            const link = document.createElement('a');
+            link.href = imageData;
+            link.download = 'traningsgrupper-if-molndal.png';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
 
         window.saveCurrentTeamAsNamed = function() {
             const teamName = prompt("Ange namn på laguppställningen (t.ex. Matchlag Blå):");
@@ -1740,7 +1761,7 @@
                     <div id="workout-groups-content" style="background: white; padding: 1rem; border-radius: 8px; border: 1px solid var(--border);">
                         <!-- Här hamnar de skapade grupperna -->
                     </div>
-                    <button class="btn btn-success" onclick="exportWorkoutGroupsSnapshot()" style="margin-top: 0.75rem;">📸 Spara bild på grupper till mobilen</button>
+                    <button class="btn btn-success" onclick="exportWorkoutGroupsSnapshot()" style="margin-top: 0.75rem;">📸 Spara / Dela bild på grupper</button>
                 </div>
             </div>
         </div>
