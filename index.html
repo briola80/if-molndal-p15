@@ -55,11 +55,9 @@
             selectedGroupCount = count;
             document.querySelectorAll('.group-count-btn').forEach(btn => {
                 if(parseInt(btn.getAttribute('data-count')) === count) {
-                    btn.style.backgroundColor = 'var(--primary-dark)';
-                    btn.style.borderColor = '#000';
+                    btn.classList.add('active-btn');
                 } else {
-                    btn.style.backgroundColor = 'var(--primary)';
-                    btn.style.borderColor = 'transparent';
+                    btn.classList.remove('active-btn');
                 }
             });
         };
@@ -68,11 +66,9 @@
             selectedWorkoutMode = mode;
             document.querySelectorAll('.workout-mode-btn').forEach(btn => {
                 if(btn.getAttribute('data-mode') === mode) {
-                    btn.style.backgroundColor = 'var(--primary-dark)';
-                    btn.style.borderColor = '#000';
+                    btn.classList.add('active-btn');
                 } else {
-                    btn.style.backgroundColor = 'var(--primary)';
-                    btn.style.borderColor = 'transparent';
+                    btn.classList.remove('active-btn');
                 }
             });
         };
@@ -292,13 +288,22 @@
     label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.25rem; color: #495057; }
     select, input, textarea { width: 100%; padding: 0.6rem; margin-bottom: 0.75rem; border: 1px solid var(--border); border-radius: 6px; font-size: 1rem; background: white; }
     
-    button.btn { background-color: var(--primary); color: white; border: none; width: 100%; padding: 0.75rem; border-radius: 6px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: background 0.2s; }
-    button.btn:hover { background-color: var(--primary-dark); }
-    button.btn-secondary { background-color: #6c757d; margin-top: 0.5rem; }
-    button.btn-danger { background-color: #dc3545; padding: 0.2rem 0.4rem; font-size: 0.8rem; width: auto; margin-bottom: 0; }
+    button.btn { background-color: #e9ecef; color: #495057; border: 1px solid var(--border); width: 100%; padding: 0.75rem; border-radius: 6px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: all 0.2s; }
+    button.btn:hover { background-color: #dee2e6; }
+    button.btn-secondary { background-color: #6c757d; color: #fff; border: none; margin-top: 0.5rem; }
+    button.btn-secondary:hover { background-color: #5a6268; }
+    button.btn-danger { background-color: #dc3545; color: #fff; padding: 0.2rem 0.4rem; font-size: 0.8rem; width: auto; margin-bottom: 0; border: none; }
     button.btn-danger:hover { background-color: #a71d2a; }
-    button.btn-success { background-color: #2e7d32; }
+    button.btn-success { background-color: #2e7d32; color: #fff; border: none; }
     button.btn-success:hover { background-color: #1b5e20; }
+
+    /* Tydlig stil för valda/aktiva knappar (krävs för god kontrast) */
+    .workout-mode-btn.active-btn, .group-count-btn.active-btn {
+        background-color: #212529 !important;
+        color: #ffffff !important;
+        border-color: #000000 !important;
+        box-shadow: 0 0 0 2px rgba(33, 37, 41, 0.3);
+    }
 
     .focus-options-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.5rem; margin-bottom: 0.75rem; }
     .focus-chip { display: flex; align-items: center; gap: 0.5rem; background: #f8f9fa; border: 1px solid var(--border); border-radius: 6px; padding: 0.5rem 0.75rem; cursor: pointer; transition: all 0.15s; font-weight: 600; font-size: 0.85rem; color: #495057; }
@@ -1721,7 +1726,7 @@
                     
                     <label>Fördelningsmetod:</label>
                     <div style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem;">
-                        <button type="button" class="btn workout-mode-btn" data-mode="balanced" onclick="setWorkoutMode('balanced')" style="flex:1; padding: 0.5rem; background-color: var(--primary-dark);">Blandade nivåer</button>
+                        <button type="button" class="btn workout-mode-btn active-btn" data-mode="balanced" onclick="setWorkoutMode('balanced')" style="flex:1; padding: 0.5rem;">Blandade nivåer</button>
                         <button type="button" class="btn workout-mode-btn" data-mode="stratified" onclick="setWorkoutMode('stratified')" style="flex:1; padding: 0.5rem;">Samma nivå</button>
                     </div>
 
@@ -1729,7 +1734,7 @@
                     <div style="display: flex; gap: 0.3rem; margin-bottom: 0.75rem;">
                         <button type="button" class="btn group-count-btn" data-count="1" onclick="setGroupCount(1)" style="flex:1; padding: 0.4rem; font-size: 0.8rem;">1</button>
                         <button type="button" class="btn group-count-btn" data-count="2" onclick="setGroupCount(2)" style="flex:1; padding: 0.4rem; font-size: 0.8rem;">2</button>
-                        <button type="button" class="btn group-count-btn" data-count="3" onclick="setGroupCount(3)" style="flex:1; padding: 0.4rem; font-size: 0.8rem; background-color: var(--primary-dark);">3</button>
+                        <button type="button" class="btn group-count-btn active-btn" data-count="3" onclick="setGroupCount(3)" style="flex:1; padding: 0.4rem; font-size: 0.8rem;">3</button>
                         <button type="button" class="btn group-count-btn" data-count="4" onclick="setGroupCount(4)" style="flex:1; padding: 0.4rem; font-size: 0.8rem;">4</button>
                         <button type="button" class="btn group-count-btn" data-count="5" onclick="setGroupCount(5)" style="flex:1; padding: 0.4rem; font-size: 0.8rem;">5</button>
                     </div>
