@@ -272,7 +272,6 @@
     .exercise-source a { display: inline-block; background-color: #e3f2fd; color: #1976d2; padding: 0.3rem 0.6rem; border-radius: 4px; text-decoration: none; font-weight: 600; border: 1px solid #90caf9; }
     .exercise-source a:hover { background-color: #bbdefb; }
 
-    /* Kompakt spelarlista utan fast höjd/scroll */
     .player-list-container { border: 1px solid var(--border); border-radius: 6px; background: white; margin-bottom: 1rem; }
     .player-row { display: flex; flex-direction: column; padding: 0.4rem 0.75rem; border-bottom: 1px solid #f1f3f5; gap: 0.2rem; }
     .player-row:last-child { border-bottom: none; }
@@ -728,57 +727,56 @@
         };
         
         function renderPlayerRows() {
-    const container = document.getElementById('player-rows');
-    if (!container) return;
-    
-    // Uppdatera antalet registrerade spelare i rubriken
-    const countEl = document.getElementById('squad-player-count');
-    if (countEl) {
-        countEl.textContent = `(${playersData.length} st registrerade)`;
-    }
+            const container = document.getElementById('player-rows');
+            if (!container) return;
+            
+            const countEl = document.getElementById('squad-player-count');
+            if (countEl) {
+                countEl.textContent = `(${playersData.length} st registrerade)`;
+            }
 
-    container.innerHTML = playersData.map((p, index) => {
-        if (!p.preferredPositions) {
-            p.preferredPositions = [p.position || "MM"];
-        }
+            container.innerHTML = playersData.map((p, index) => {
+                if (!p.preferredPositions) {
+                    p.preferredPositions = [p.position || "MM"];
+                }
 
-        const chipsHtml = allAvailablePositions.map(pos => `
-            <label class="pos-chip ${p.preferredPositions.includes(pos) ? 'checked' : ''}">
-                <input
-                    type="checkbox"
-                    ${p.preferredPositions.includes(pos) ? 'checked' : ''}
-                    onchange="updatePlayerPreferredPos(${p.id}, '${pos}', this.checked)"
-                >
-                <span>${pos}</span>
-            </label>
-        `).join('');
+                const chipsHtml = allAvailablePositions.map(pos => `
+                    <label class="pos-chip ${p.preferredPositions.includes(pos) ? 'checked' : ''}">
+                        <input
+                            type="checkbox"
+                            ${p.preferredPositions.includes(pos) ? 'checked' : ''}
+                            onchange="updatePlayerPreferredPos(${p.id}, '${pos}', this.checked)"
+                        >
+                        <span>${pos}</span>
+                    </label>
+                `).join('');
 
-        return `
-            <div class="player-row">
-                <div class="player-top-line">
-                    <span>
-                        <strong>${p.name}</strong>
-                        <span style="font-size:0.75rem; color:#6c757d">
-                            (Snittnivå: ${getPlayerLevel(p)})
-                        </span>
-                    </span>
-                    <div style="display:flex; align-items:center; gap:0.5rem;">
-                        <input type="checkbox" checked id="player-chk-${index}">
-                        <button class="btn btn-danger"
-                                style="padding:0.2rem 0.4rem; font-size:0.75rem;"
-                                onclick="removePlayer(${p.id})">
-                            Ta bort
-                        </button>
+                return `
+                    <div class="player-row">
+                        <div class="player-top-line">
+                            <span>
+                                <strong>${p.name}</strong>
+                                <span style="font-size:0.75rem; color:#6c757d">
+                                    (Snittnivå: ${getPlayerLevel(p)})
+                                </span>
+                            </span>
+                            <div style="display:flex; align-items:center; gap:0.5rem;">
+                                <input type="checkbox" checked id="player-chk-${index}">
+                                <button class="btn btn-danger"
+                                        style="padding:0.2rem 0.4rem; font-size:0.75rem;"
+                                        onclick="removePlayer(${p.id})">
+                                    Ta bort
+                                </button>
+                            </div>
+                        </div>
+                        <div style="font-weight:600; font-size:0.75rem; color:#495057;">
+                            Föredragna positioner:
+                        </div>
+                        <div class="player-pos-checkboxes">${chipsHtml}</div>
                     </div>
-                </div>
-                <div style="font-weight:600; font-size:0.75rem; color:#495057;">
-                    Föredragna positioner:
-                </div>
-                <div class="player-pos-checkboxes">${chipsHtml}</div>
-            </div>
-        `;
-    }).join('');
-}
+                `;
+            }).join('');
+        }
 
         window.updatePlayerPreferredPos = function(id, pos, isChecked) {
             const player = playersData.find(p => p.id === id);
@@ -1436,25 +1434,25 @@
             }
         };
 
-       window.generateWorkout = function() {
-    // Räkna antal ikryssade i närvarolistan automatiskt
-    const checkedAttendance = document.querySelectorAll('.workout-att-chk:checked');
-    const pCount = checkedAttendance.length;
-    
-    if (pCount === 0) {
-        alert("Inga spelare är markerade som närvarande i listan!");
-        return;
-    }
-    
-    const hiddenPlayersInput = document.getElementById('gen-players');
-    if (hiddenPlayersInput) hiddenPlayersInput.value = pCount;
+        window.generateWorkout = function() {
+            // Räkna antal ikryssade i närvarolistan automatiskt
+            const checkedAttendance = document.querySelectorAll('.workout-att-chk:checked');
+            const pCount = checkedAttendance.length;
+            
+            if (pCount === 0) {
+                alert("Inga spelare är markerade som närvarande i listan!");
+                return;
+            }
+            
+            const hiddenPlayersInput = document.getElementById('gen-players');
+            if (hiddenPlayersInput) hiddenPlayersInput.value = pCount;
 
-    const allEx = getAllExercises();
-    if (allEx.length === 0) {
-        alert("Övningsbanken är tom. Lägg till övningar först.");
-        return;
-    }
-            const pCount = parseInt(document.getElementById('gen-players').value);
+            const allEx = getAllExercises();
+            if (allEx.length === 0) {
+                alert("Övningsbanken är tom. Lägg till övningar först.");
+                return;
+            }
+
             const totalDuration = parseInt(document.getElementById('gen-duration').value);
             const format = document.getElementById('gen-format').value;
 
@@ -1670,17 +1668,16 @@
     </header>
 
     <div class="nav-tabs no-print">
-    <button class="tab-btn active" onclick="switchTab('generator', this)">⏱️ Träning</button>
-    <button class="tab-btn" onclick="switchTab('exercises', this)">📚 Övningar</button>
-    <button class="tab-btn locked-tab" onclick="switchTab('match', this)">⚽ Lag/Match 🔒</button>
-    <button class="tab-btn locked-tab" onclick="switchTab('tactics', this)">📋 Taktik 🔒</button>
-    <button class="tab-btn locked-tab" onclick="switchTab('squad', this)">👥 Trupp 🔒</button>
-    <button id="levels-tab-btn" class="tab-btn locked-tab" onclick="switchTab('levels', this)">📊 Nivåer 🔒</button>
-</div>
+        <button class="tab-btn active" onclick="switchTab('generator', this)">⏱️ Träning</button>
+        <button class="tab-btn" onclick="switchTab('exercises', this)">📚 Övningar</button>
+        <button class="tab-btn locked-tab" onclick="switchTab('match', this)">⚽ Lag/Match 🔒</button>
+        <button class="tab-btn locked-tab" onclick="switchTab('tactics', this)">📋 Taktik 🔒</button>
+        <button class="tab-btn locked-tab" onclick="switchTab('squad', this)">👥 Trupp 🔒</button>
+        <button id="levels-tab-btn" class="tab-btn locked-tab" onclick="switchTab('levels', this)">📊 Nivåer 🔒</button>
+    </div>
 
     <div class="container">
 
-        <!-- TAB 1: TRÄNINGSGENERATOR -->
         <!-- TAB 1: TRÄNINGSGENERATOR -->
         <div id="generator" class="tab-content active">
             <div class="card">
@@ -1696,7 +1693,7 @@
                     <button class="btn btn-secondary" style="margin-top:0; flex:1;" onclick="setAllWorkoutAttendance(false)">Avmarkera alla</button>
                 </div>
 
-                <!-- Dold/automatiskräknare för antal spelare baserat på närvaro -->
+                <!-- Dold/automatisk räknare för antal spelare baserat på närvaro -->
                 <input type="hidden" id="gen-players" value="30">
 
                 <label>Passets längd (intervaller om 5 min):</label>
@@ -1948,7 +1945,7 @@
             <button class="btn btn-success no-print" onclick="exportMatchSnapshot()" style="margin-top: 1rem;">📸 Spara / Dela bild på matchlag</button>
         </div>
 
-        <!-- TAB 5: TRUPP (Förenklad och kompakt utan scrollruta & gruppskapare) -->
+        <!-- TAB 5: TRUPP -->
         <div id="squad" class="tab-content">
             <div class="card">
                 <h2>Trupphantering <span id="squad-player-count" style="font-size: 0.8rem; font-weight: normal; color: #6c757d; margin-left: 0.5rem;"></span></h2>
