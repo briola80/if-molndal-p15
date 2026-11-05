@@ -640,17 +640,24 @@
             ]
         };
 
-        document.addEventListener("DOMContentLoaded", function() {
-            firebase.auth().onAuthStateChanged(function(user) {
-                const loginOverlay = document.getElementById('login-overlay');
-                if (user) {
-                    loginOverlay.style.display = 'none';
-                    initializeAppUI();
-                } else {
-                    loginOverlay.style.display = 'flex';
-                }
-            });
-        });
+       document.addEventListener("DOMContentLoaded", function() {
+    const APP_VERSION = 'v8';
+    if (localStorage.getItem('if_molndal_app_version') !== APP_VERSION) {
+        localStorage.removeItem('if_molndal_players_v7');
+        localStorage.removeItem('if_molndal_placed_slots_v1');
+        localStorage.setItem('if_molndal_app_version', APP_VERSION);
+    }
+    
+    firebase.auth().onAuthStateChanged(function(user) {
+        const loginOverlay = document.getElementById('login-overlay');
+        if (user) {
+            loginOverlay.style.display = 'none';
+            initializeAppUI();
+        } else {
+            loginOverlay.style.display = 'flex';
+        }
+    });
+});
 
         window.handleLogin = function() {
             const email = document.getElementById('login-email').value.trim();
