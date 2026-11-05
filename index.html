@@ -649,6 +649,7 @@
             renderMatchUI();
             updateSavedTeamsDropdown();
             updateMatchSavedTeamsDropdown();
+            renderWorkoutAttendance();
         }
 
         window.switchTab = function(tabId, btn) {
@@ -1435,12 +1436,24 @@
             }
         };
 
-        window.generateWorkout = function() {
-            const allEx = getAllExercises();
-            if (allEx.length === 0) {
-                alert("Övningsbanken är tom. Lägg till övningar först.");
-                return;
-            }
+       window.generateWorkout = function() {
+    // Räkna antal ikryssade i närvarolistan automatiskt
+    const checkedAttendance = document.querySelectorAll('.workout-att-chk:checked');
+    const pCount = checkedAttendance.length;
+    
+    if (pCount === 0) {
+        alert("Inga spelare är markerade som närvarande i listan!");
+        return;
+    }
+    
+    const hiddenPlayersInput = document.getElementById('gen-players');
+    if (hiddenPlayersInput) hiddenPlayersInput.value = pCount;
+
+    const allEx = getAllExercises();
+    if (allEx.length === 0) {
+        alert("Övningsbanken är tom. Lägg till övningar först.");
+        return;
+    }
             const pCount = parseInt(document.getElementById('gen-players').value);
             const totalDuration = parseInt(document.getElementById('gen-duration').value);
             const format = document.getElementById('gen-format').value;
@@ -1668,14 +1681,24 @@
     <div class="container">
 
         <!-- TAB 1: TRÄNINGSGENERATOR -->
+        <!-- TAB 1: TRÄNINGSGENERATOR -->
         <div id="generator" class="tab-content active">
             <div class="card">
-                <h2>Skapa Träningspass</h2>
-                <label>Antal spelare på plats:</label>
-                <input type="number" id="gen-players" value="30">
-                <label>Antal ledare på plats:</label>
-                <input type="number" id="gen-coaches" value="5">
+                <h2>Skapa Träningspass & Närvaro</h2>
                 
+                <h3>📋 Närvarande spelare</h3>
+                <p style="font-size: 0.8rem; color: #6c757d; margin-bottom: 0.5rem;">Bocka av vilka som är på plats (hämtas från truppen):</p>
+                
+                <div id="workout-attendance-list" style="max-height: 220px; overflow-y: auto; border: 1px solid var(--border); border-radius: 6px; padding: 0.5rem; background: #fff; margin-bottom: 0.75rem;"></div>
+                
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.75rem;">
+                    <button class="btn btn-secondary" style="margin-top:0; flex:1;" onclick="setAllWorkoutAttendance(true)">Markera alla</button>
+                    <button class="btn btn-secondary" style="margin-top:0; flex:1;" onclick="setAllWorkoutAttendance(false)">Avmarkera alla</button>
+                </div>
+
+                <!-- Dold/automatiskräknare för antal spelare baserat på närvaro -->
+                <input type="hidden" id="gen-players" value="30">
+
                 <label>Passets längd (intervaller om 5 min):</label>
                 <select id="gen-duration">
                     <option value="60">60 min</option>
@@ -1698,24 +1721,14 @@
                 <label>Filtrera efter fokusområden (välj ett eller flera):</label>
                 <div class="focus-options-grid exercise-focus-filter-container"></div>
 
-                <button class="btn" onclick="generateWorkout()">Generera Träningspass</button>
+                <button class="btn" onclick="generateWorkout()" style="margin-top: 0.5rem;">Generera Träningspass</button>
             </div>
             
             <div id="workout-result" class="card" style="display:none;">
-                <h2>Dagens Pass & Närvaro</h2>
+                <h2>Dagens Pass & Grupper</h2>
                 <div id="workout-content"></div>
                 
                 <hr style="margin: 1rem 0; border: none; border-top: 1px solid var(--border);">
-                
-                <h3>📋 Närvarande spelare för dagens pass</h3>
-                <p style="font-size: 0.8rem; color: #6c757d; margin-bottom: 0.5rem;">Bocka av vilka som är på plats (hämtas från truppen):</p>
-                
-                <div id="workout-attendance-list" style="max-height: 200px; overflow-y: auto; border: 1px solid var(--border); border-radius: 6px; padding: 0.5rem; background: #fff; margin-bottom: 0.75rem;"></div>
-                
-                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.75rem;">
-                    <button class="btn btn-secondary" style="margin-top:0; flex:1;" onclick="setAllWorkoutAttendance(true)">Markera alla</button>
-                    <button class="btn btn-secondary" style="margin-top:0; flex:1;" onclick="setAllWorkoutAttendance(false)">Avmarkera alla</button>
-                </div>
 
                 <label>Metod för gruppindelning:</label>
                 <select id="workout-group-mode" style="margin-bottom: 0.75rem;">
