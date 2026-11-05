@@ -652,22 +652,21 @@
         }
 
         window.switchTab = function(tabId, btn) {
-    const restrictedTabs = ['levels', 'match', 'tactics', 'squad'];
-    if (restrictedTabs.includes(tabId)) {
-        const currentUser = firebase.auth().currentUser;
-        if (!checkIfAdmin(currentUser)) {
-            alert("Denna flik är låst och endast tillgänglig för behöriga tränare/ledare.");
-            return;
-        }
-    }
+            const restrictedTabs = ['levels', 'match', 'tactics', 'squad'];
+            if (restrictedTabs.includes(tabId)) {
+                const currentUser = firebase.auth().currentUser;
+                if (!checkIfAdmin(currentUser)) {
+                    alert("Denna flik är låst och endast tillgänglig för behöriga tränare/ledare.");
+                    return;
+                }
+            }
 
-    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-    const target = document.getElementById(tabId);
-    if (target) target.classList.add('active');
-    if (btn) btn.classList.add('active');
-    window.scrollTo(0, 0);
-};
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            const target = document.getElementById(tabId);
+            if (target) target.classList.add('active');
+            if (btn) btn.classList.add('active');
+            window.scrollTo(0, 0);
         };
 
         function savePlayersToStorage() {
