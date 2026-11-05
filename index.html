@@ -48,8 +48,8 @@
 
     <!-- Körs för närvaro och gruppgenerering -->
     <script>
-        let selectedGroupCount = 3; // Standardvärde
-        let selectedWorkoutLevel = 3; // Standardnivå för träningen
+        let selectedGroupCount = 3; // Standardvärde 3 grupper
+        let selectedWorkoutMode = 'balanced'; // Standard: blandade nivåer
 
         window.setGroupCount = function(count) {
             selectedGroupCount = count;
@@ -64,10 +64,10 @@
             });
         };
 
-        window.setWorkoutLevel = function(level) {
-            selectedWorkoutLevel = level;
-            document.querySelectorAll('.workout-level-btn').forEach(btn => {
-                if(parseInt(btn.getAttribute('data-level')) === level) {
+        window.setWorkoutMode = function(mode) {
+            selectedWorkoutMode = mode;
+            document.querySelectorAll('.workout-mode-btn').forEach(btn => {
+                if(btn.getAttribute('data-mode') === mode) {
                     btn.style.backgroundColor = 'var(--primary-dark)';
                     btn.style.borderColor = '#000';
                 } else {
@@ -124,7 +124,7 @@
                 preferredPositions: p.preferredPositions || [p.position || "MM"]
             }));
 
-            const mode = document.getElementById('workout-group-mode').value;
+            const mode = selectedWorkoutMode;
             const paramVal = selectedGroupCount;
             let groups = Array.from({length: paramVal}, () => []);
 
@@ -153,7 +153,7 @@
 
             currentGeneratedGroups = groups;
 
-            let html = `<h4>Skapade grupper (${presentPlayers.length} spelare, Vald nivå: ${selectedWorkoutLevel}):</h4><hr style="margin:0.3rem 0">`;
+            let html = `<h4>Skapade grupper (${presentPlayers.length} spelare, Läge: ${mode === 'balanced' ? 'Blandade' : 'Samma nivå'}):</h4><hr style="margin:0.3rem 0">`;
             
             html += `<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 0.5rem; margin-top: 0.5rem;">`;
 
@@ -741,8 +741,8 @@
             updateSavedTeamsDropdown();
             updateMatchSavedTeamsDropdown();
             renderWorkoutAttendance();
-            setGroupCount(3); // Initialisera standard till 3 grupper
-            setWorkoutLevel(3); // Initialisera standardnivå till 3
+            setGroupCount(3); // Standard: 3 grupper
+            setWorkoutMode('balanced'); // Standard: blandade
         }
 
         window.switchTab = function(tabId, btn) {
@@ -1581,7 +1581,7 @@
                 }
             });
 
-            let html = `<p><strong>Passets längd:</strong> ${totalDuration} min | <strong>Spelform:</strong> ${format} | <strong>Närvarande spelare:</strong> ${pCount} st | <strong>Vald nivå:</strong> ${selectedWorkoutLevel}</p><hr style="margin:0.5rem 0">`;
+            let html = `<p><strong>Passets längd:</strong> ${totalDuration} min | <strong>Spelform:</strong> ${format} | <strong>Närvarande spelare:</strong> ${pCount} st</p><hr style="margin:0.5rem 0">`;
             
             selectedExercises.forEach((ex, index) => {
                 html += `
@@ -1719,27 +1719,19 @@
                 <div style="background: #f1f3f5; padding: 0.75rem; border-radius: 6px; margin-bottom: 1rem; border: 1px solid var(--border);">
                     <h3>👥 Skapa träningsgrupper</h3>
                     
-                    <label>Metod för gruppindelning:</label>
-                    <select id="workout-group-mode" style="margin-bottom: 0.75rem;">
-                        <option value="balanced">Jämn fördelning (blandade nivåer)</option>
-                        <option value="stratified">Nivåindelade grupper (samma nivå i grupp)</option>
-                        <option value="random">Slumpmässiga grupper</option>
-                    </select>
-
-                    <label>Nivå på knappar:</label>
-                    <div style="display: flex; gap: 0.3rem; margin-bottom: 0.75rem;">
-                        <button type="button" class="btn workout-level-btn" data-level="1" onclick="setWorkoutLevel(1)" style="flex:1; padding: 0.4rem; font-size: 0.8rem;">Nivå 1</button>
-                        <button type="button" class="btn workout-level-btn" data-level="2" onclick="setWorkoutLevel(2)" style="flex:1; padding: 0.4rem; font-size: 0.8rem;">Nivå 2</button>
-                        <button type="button" class="btn workout-level-btn" data-level="3" onclick="setWorkoutLevel(3)" style="flex:1; padding: 0.4rem; font-size: 0.8rem;">Nivå 3</button>
-                        <button type="button" class="btn workout-level-btn" data-level="4" onclick="setWorkoutLevel(4)" style="flex:1; padding: 0.4rem; font-size: 0.8rem;">Nivå 4</button>
-                        <button type="button" class="btn workout-level-btn" data-level="5" onclick="setWorkoutLevel(5)" style="flex:1; padding: 0.4rem; font-size: 0.8rem;">Nivå 5</button>
+                    <label>Fördelningsmetod:</label>
+                    <div style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem;">
+                        <button type="button" class="btn workout-mode-btn" data-mode="balanced" onclick="setWorkoutMode('balanced')" style="flex:1; padding: 0.5rem; background-color: var(--primary-dark);">Blandade nivåer</button>
+                        <button type="button" class="btn workout-mode-btn" data-mode="stratified" onclick="setWorkoutMode('stratified')" style="flex:1; padding: 0.5rem;">Samma nivå</button>
                     </div>
 
                     <label>Antal grupper (Default: 3):</label>
-                    <div style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem;">
-                        <button type="button" class="btn group-count-btn" data-count="2" onclick="setGroupCount(2)" style="flex:1; padding: 0.5rem;">2 grupper</button>
-                        <button type="button" class="btn group-count-btn" data-count="3" onclick="setGroupCount(3)" style="flex:1; padding: 0.5rem;">3 grupper</button>
-                        <button type="button" class="btn group-count-btn" data-count="4" onclick="setGroupCount(4)" style="flex:1; padding: 0.5rem;">4 grupper</button>
+                    <div style="display: flex; gap: 0.3rem; margin-bottom: 0.75rem;">
+                        <button type="button" class="btn group-count-btn" data-count="1" onclick="setGroupCount(1)" style="flex:1; padding: 0.4rem; font-size: 0.8rem;">1</button>
+                        <button type="button" class="btn group-count-btn" data-count="2" onclick="setGroupCount(2)" style="flex:1; padding: 0.4rem; font-size: 0.8rem;">2</button>
+                        <button type="button" class="btn group-count-btn" data-count="3" onclick="setGroupCount(3)" style="flex:1; padding: 0.4rem; font-size: 0.8rem; background-color: var(--primary-dark);">3</button>
+                        <button type="button" class="btn group-count-btn" data-count="4" onclick="setGroupCount(4)" style="flex:1; padding: 0.4rem; font-size: 0.8rem;">4</button>
+                        <button type="button" class="btn group-count-btn" data-count="5" onclick="setGroupCount(5)" style="flex:1; padding: 0.4rem; font-size: 0.8rem;">5</button>
                     </div>
                     
                     <button class="btn btn-success" onclick="generateGroupsFromWorkout()" style="margin-top: 0.25rem;">👥 Skapa grupper baserat på närvarande</button>
