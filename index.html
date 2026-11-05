@@ -40,6 +40,84 @@
             }
         }
     </script>
+   <script
+      // Körs när du klickar på "Generera Träningspass" för att även bygga närvarolistan
+function renderWorkoutAttendance() {
+    const container = document.getElementById('workout-attendance-list');
+    if (!container) return;
+
+    container.innerHTML = playersData.map((p, index) => `
+        <label style="display: flex; align-items: center; gap: 0.5rem; padding: 0.3rem 0; border-bottom: 1px solid #f1f3f5; font-size: 0.85rem; cursor: pointer;">
+            <input type="checkbox" class="workout-att-chk" data-player-id="${p.id}" checked style="width: auto; margin-bottom: 0;">
+            <span>${p.name} <span style="font-size: 0.75rem; color: #6c757d;">(Snitt: ${getPlayerLevel(p)})</span></span>
+        </label>
+    `).join('');
+}
+
+window.setAllWorkoutAttendance = function(status) {
+    document.querySelectorAll('.workout-att-chk').forEach(chk => {
+        chk.checked = status;
+    });
+};
+
+window.generateGroupsFromWorkout = function() {
+    const checkedBoxes = document.querySelectorAll('.workout-att-chk:checked');
+    const presentPlayerIds = Array.from(checkedBoxes).map(chk => parseInt(chk.getAttribute('data-player-id')));
+
+    if (presentPlayerIds.length === 0) {
+        alert("Inga spelare är markerade som närvarande!");
+        return;
+    }
+
+    // Filtrera fram endast de spelare som är närvarande
+    let presentPlayers = playersData.filter(p => presentPlayerIds.includes(p.id)).map(p => ({
+        id: p.id,
+        name: p.name,
+        level: parseFloat(getPlayerLevel(p)),
+        preferredPositions: p.preferredPositions || [p.position || "MM"]
+    }));
+
+    // Använd samma logik som din vanliga gruppindelning (t.ex. jämn fördelning eller balanserade nivåer)
+    const mode = document.getElementById('group-mode').value;
+    const paramVal = parseInt(document.getElementById('num-groups').value) || 3;
+    let groups = Array.from({length: paramVal}, () => []);
+
+    if (mode === 'balanced') {
+        presentPlayers.sort((a, b) => b.level - a.level);
+        let gIdx = 0, inc = true;
+        presentPlayers.forEach(p => {
+            groups[gIdx].push(p);
+            if (inc) { gIdx++; if (gIdx >= paramVal) { gIdx = paramVal - 1; inc = false; } }
+            else { gIdx--; if (gIdx < 0) { gIdx = 0; inc = true; } }
+        });
+    } else {
+        presentPlayers.sort(() => Math.random() - 0.5);
+        presentPlayers.forEach((p, idx) => {
+            groups[idx % paramVal].push(p);
+        });
+    }
+
+    // Visa resultatet direkt under träningspasset
+    const resultBox = document.getElementById('workout-groups-result');
+    let html = `<h4>Skapade grupper (${presentPlayers.length} spelare):</h4><hr style="margin:0.3rem 0">`;
+    
+    groups.forEach((g, idx) => {
+        if(g.length === 0) return;
+        let avg = (g.reduce((s, p) => s + p.level, 0) / g.length).toFixed(1);
+        html += `
+            <div class="group-card" style="margin-top: 0.5rem;">
+                <h5 style="margin-bottom: 0.2rem;">Grupp ${idx + 1} (${g.length} st, Snitt: ${avg})</h5>
+                <ul style="padding-left: 1.2rem; font-size: 0.85rem;">
+                    ${g.map(p => `<li>${p.name}</li>`).join('')}
+                </ul>
+            </div>`;
+    });
+
+    resultBox.innerHTML = html;
+    resultBox.style.display = 'block';
+};
+   </script>
+
 
     <!-- 1. Ladda externa övningar först -->
     <script src="exercises.js"></script>
