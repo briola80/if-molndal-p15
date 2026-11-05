@@ -251,7 +251,7 @@
     button.btn { background-color: var(--primary); color: white; border: none; width: 100%; padding: 0.75rem; border-radius: 6px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: background 0.2s; }
     button.btn:hover { background-color: var(--primary-dark); }
     button.btn-secondary { background-color: #6c757d; margin-top: 0.5rem; }
-    button.btn-danger { background-color: #dc3545; padding: 0.3rem 0.5rem; font-size: 0.8rem; width: auto; margin-bottom: 0; }
+    button.btn-danger { background-color: #dc3545; padding: 0.2rem 0.4rem; font-size: 0.8rem; width: auto; margin-bottom: 0; }
     button.btn-danger:hover { background-color: #a71d2a; }
     button.btn-success { background-color: #2e7d32; }
     button.btn-success:hover { background-color: #1b5e20; }
@@ -271,13 +271,14 @@
     .exercise-source a { display: inline-block; background-color: #e3f2fd; color: #1976d2; padding: 0.3rem 0.6rem; border-radius: 4px; text-decoration: none; font-weight: 600; border: 1px solid #90caf9; }
     .exercise-source a:hover { background-color: #bbdefb; }
 
-    .player-list-container { max-height: 450px; overflow-y: auto; border: 1px solid var(--border); border-radius: 6px; background: white; margin-bottom: 1rem; }
-    .player-row { display: flex; flex-direction: column; padding: 0.75rem; border-bottom: 1px solid #f1f3f5; gap: 0.4rem; }
+    /* Kompakt spelarlista utan fast höjd/scroll */
+    .player-list-container { border: 1px solid var(--border); border-radius: 6px; background: white; margin-bottom: 1rem; }
+    .player-row { display: flex; flex-direction: column; padding: 0.4rem 0.75rem; border-bottom: 1px solid #f1f3f5; gap: 0.2rem; }
     .player-row:last-child { border-bottom: none; }
-    .player-top-line { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+    .player-top-line { display: flex; align-items: center; justify-content: space-between; width: 100%; font-size: 0.9rem; }
     
-    .player-pos-checkboxes { display: flex; flex-wrap: wrap; gap: 0.4rem; font-size: 0.75rem; background: #f8f9fa; padding: 0.5rem; border-radius: 6px; border: 1px solid #e9ecef; }
-    .pos-chip { display: flex; flex-direction: column; align-items: center; justify-content: center; background: white; border: 1px solid var(--border); border-radius: 4px; padding: 0.25rem 0.4rem; cursor: pointer; min-width: 32px; transition: all 0.15s; font-weight: 600; font-size: 0.7rem; }
+    .player-pos-checkboxes { display: flex; flex-wrap: wrap; gap: 0.3rem; font-size: 0.7rem; background: #f8f9fa; padding: 0.3rem; border-radius: 4px; border: 1px solid #e9ecef; }
+    .pos-chip { display: flex; flex-direction: column; align-items: center; justify-content: center; background: white; border: 1px solid var(--border); border-radius: 3px; padding: 0.15rem 0.3rem; cursor: pointer; min-width: 28px; transition: all 0.15s; font-weight: 600; font-size: 0.65rem; }
     .pos-chip input { display: none; }
     .pos-chip.checked { background-color: #e3f2fd; border-color: #1976d2; color: #1565c0; box-shadow: 0 1px 2px rgba(25,118,210,0.2); }
 
@@ -647,7 +648,6 @@
             renderMatchUI();
             updateSavedTeamsDropdown();
             updateMatchSavedTeamsDropdown();
-            toggleGroupSettings();
         }
 
         window.switchTab = function(tabId, btn) {
@@ -728,7 +728,7 @@
             const container = document.getElementById('player-rows');
             if (!container) return;
 
-            container.innerHTML = playersData.map((p, index) => {
+            container.innerHTML = playersData.map((p) => {
                 if (!p.preferredPositions) {
                     p.preferredPositions = [p.position || "MM"];
                 }
@@ -753,17 +753,11 @@
                                     (Snittnivå: ${getPlayerLevel(p)})
                                 </span>
                             </span>
-                            <div style="display:flex; align-items:center; gap:0.5rem;">
-                                <input type="checkbox" checked id="player-chk-${index}">
-                                <button class="btn btn-danger"
-                                        style="padding:0.2rem 0.4rem; font-size:0.75rem;"
-                                        onclick="removePlayer(${p.id})">
-                                    Ta bort
-                                </button>
-                            </div>
-                        </div>
-                        <div style="font-weight:600; font-size:0.75rem; color:#495057;">
-                            Föredragna positioner:
+                            <button class="btn btn-danger"
+                                    style="padding:0.15rem 0.35rem; font-size:0.7rem;"
+                                    onclick="removePlayer(${p.id})">
+                                Ta bort
+                            </button>
                         </div>
                         <div class="player-pos-checkboxes">${chipsHtml}</div>
                     </div>
@@ -894,13 +888,6 @@
                 renderTacticsUI();
                 renderMatchUI();
             }
-        };
-
-        window.selectAllPlayers = function(status) {
-            playersData.forEach((_, index) => {
-                const chk = document.getElementById(`player-chk-${index}`);
-                if(chk) chk.checked = status;
-            });
         };
 
         function renderTacticsUI() {
@@ -1390,18 +1377,6 @@
             });
         };
 
-        // Export 4: Trupp & Grupper (under flik Trupp)
-        window.exportGroupsSnapshot = function() {
-            const resultElement = document.getElementById('groups-result');
-            if(!resultElement || resultElement.style.display === 'none') { alert("Skapa grupper först!"); return; }
-
-            html2canvas(resultElement, { scale: 2, useCORS: true }).then(canvas => {
-                shareOrDownloadCanvas(canvas, 'grupper-if-molndal.png', 'Träningsgrupper', 'Dagens träningsgrupper för IF Mölndal P-2015');
-            }).catch(err => {
-                alert("Kunde inte skapa bilden.");
-            });
-        };
-
         window.saveCurrentTeamAsNamed = function() {
             const teamName = prompt("Ange namn på laguppställningen (t.ex. Matchlag Blå):");
             if (!teamName || !teamName.trim()) return;
@@ -1508,99 +1483,73 @@
 
         let currentGeneratedGroups = [];
 
-        window.toggleGroupSettings = function() {
-            const mode = document.getElementById('group-mode').value;
-            const numGroupsContainer = document.getElementById('num-groups-container');
-            const numGroupsLabel = document.getElementById('num-groups-label');
-            const specificGroupContainer = document.getElementById('specific-group-container');
+        window.generateGroupsFromWorkout = function() {
+            const checkedBoxes = document.querySelectorAll('.workout-att-chk:checked');
+            const presentPlayerIds = Array.from(checkedBoxes).map(chk => parseInt(chk.getAttribute('data-player-id')));
 
-            if (mode === 'single') {
-                numGroupsContainer.style.display = 'none';
-                specificGroupContainer.style.display = 'block';
-            } else {
-                specificGroupContainer.style.display = 'none';
-                numGroupsContainer.style.display = 'block';
-                numGroupsLabel.innerText = "Antal grupper:";
+            if (presentPlayerIds.length === 0) {
+                alert("Inga spelare är markerade som närvarande!");
+                return;
             }
-        };
 
-        window.generateGroups = function(shuffle = false) {
-            let presentPlayers = [];
-            playersData.forEach((p, index) => {
-                const chk = document.getElementById(`player-chk-${index}`);
-                if(chk && chk.checked) {
-                    presentPlayers.push({ 
-                        id: p.id,
-                        name: p.name, 
-                        level: parseFloat(getPlayerLevel(p)),
-                        preferredPositions: p.preferredPositions || [p.position || "MM"]
-                    });
-                }
-            });
+            let presentPlayers = playersData.filter(p => presentPlayerIds.includes(p.id)).map(p => ({
+                id: p.id,
+                name: p.name,
+                level: parseFloat(getPlayerLevel(p)),
+                preferredPositions: p.preferredPositions || [p.position || "MM"]
+            }));
 
-            if(presentPlayers.length === 0) { alert("Inga spelare markerade!"); return; }
+            const mode = document.getElementById('workout-group-mode').value;
+            const paramVal = parseInt(document.getElementById('workout-num-groups').value) || 3;
+            let groups = Array.from({length: paramVal}, () => []);
 
-            const mode = document.getElementById('group-mode').value;
-            let groups = [];
-
-            if (mode === 'single') {
-                const groupCount = parseInt(document.getElementById('single-group-count').value) || 9;
-                presentPlayers.sort(() => Math.random() - 0.5);
-                let subGroup = presentPlayers.slice(0, groupCount);
-                groups = [subGroup];
+            if (mode === 'balanced') {
+                // Blandade nivåer (orm-fördelning)
+                presentPlayers.sort((a, b) => b.level - a.level);
+                let gIdx = 0, inc = true;
+                presentPlayers.forEach(p => {
+                    groups[gIdx].push(p);
+                    if (inc) { gIdx++; if (gIdx >= paramVal) { gIdx = paramVal - 1; inc = false; } }
+                    else { gIdx--; if (gIdx < 0) { gIdx = 0; inc = true; } }
+                });
+            } else if (mode === 'stratified') {
+                // Samma nivåer (kluster)
+                presentPlayers.sort((a, b) => a.level - b.level);
+                let size = Math.ceil(presentPlayers.length / paramVal);
+                let gIdx = 0;
+                presentPlayers.forEach(p => {
+                    groups[gIdx].push(p);
+                    if (groups[gIdx].length >= size && gIdx < paramVal - 1) gIdx++;
+                });
             } else {
-                if (shuffle || mode === 'random') {
-                    presentPlayers.sort(() => Math.random() - 0.5);
-                }
-
-                const paramVal = parseInt(document.getElementById('num-groups').value) || 3;
-
-                groups = Array.from({length: paramVal}, () => []);
-                if (mode === 'balanced' && !shuffle) {
-                    presentPlayers.sort((a, b) => b.level - a.level);
-                    let gIdx = 0, inc = true;
-                    presentPlayers.forEach(p => {
-                        groups[gIdx].push(p);
-                        if (inc) { gIdx++; if (gIdx >= paramVal) { gIdx = paramVal - 1; inc = false; } }
-                        else { gIdx--; if (gIdx < 0) { gIdx = 0; inc = true; } }
-                    });
-                } else if (mode === 'stratified' && !shuffle) {
-                    presentPlayers.sort((a, b) => a.level - b.level);
-                    let size = Math.ceil(presentPlayers.length / paramVal);
-                    let gIdx = 0;
-                    presentPlayers.forEach(p => {
-                        groups[gIdx].push(p);
-                        if (groups[gIdx].length >= size && gIdx < paramVal - 1) gIdx++;
-                    });
-                } else {
-                    presentPlayers.forEach((p, idx) => {
-                        groups[idx % paramVal].push(p);
-                    });
-                }
+                // Slumpmässigt
+                presentPlayers.sort(() => Math.random() - 0.5);
+                presentPlayers.forEach((p, idx) => {
+                    groups[idx % paramVal].push(p);
+                });
             }
 
             currentGeneratedGroups = groups;
 
-            let html = `<p>Totalt ${presentPlayers.length} spelare i ${groups.length} grupp(er):</p><hr style="margin:0.5rem 0">`;
+            let html = `<h4>Skapade grupper (${presentPlayers.length} spelare):</h4><hr style="margin:0.3rem 0">`;
+            
             groups.forEach((g, idx) => {
                 if(g.length === 0) return;
                 let avg = (g.reduce((s, p) => s + p.level, 0) / g.length).toFixed(1);
                 html += `
-                    <div class="group-card">
-                        <h5>
-                            <span>Grupp ${idx + 1} (${g.length} spelare, Snittnivå: ${avg})</span>
+                    <div class="group-card" style="margin-top: 0.5rem;">
+                        <h5 style="margin-bottom: 0.2rem; display: flex; justify-content: space-between; align-items: center;">
+                            <span>Grupp ${idx + 1} (${g.length} st, Snitt: ${avg})</span>
                             <button class="btn btn-secondary" style="margin-top:0; width:auto; padding:0.2rem 0.5rem; font-size:0.75rem;" onclick="sendGroupToMatch(${idx})">Skicka till Lag/Match ➔</button>
                         </h5>
-                        <ul>
-                            ${g.map(p => `<li>${p.name} <span style="font-size:0.75rem; color:#6c757d;">(Pos: ${p.preferredPositions.join(', ')})</span></li>`).join('')}
+                        <ul style="padding-left: 1.2rem; font-size: 0.85rem;">
+                            ${g.map(p => `<li>${p.name}</li>`).join('')}
                         </ul>
                     </div>`;
             });
-            
-            html += `<button class="btn btn-secondary" onclick="generateGroups(true)" style="margin-top:0.5rem;">🔀 Mixa om / Slumpa om grupper</button>`;
 
-            document.getElementById('groups-content').innerHTML = html;
-            document.getElementById('groups-result').style.display = 'block';
+            document.getElementById('workout-groups-content').innerHTML = html;
+            document.getElementById('workout-groups-result').style.display = 'block';
         };
 
         window.sendGroupToMatch = function(groupIndex) {
@@ -1972,51 +1921,16 @@
             <button class="btn btn-success no-print" onclick="exportMatchSnapshot()" style="margin-top: 1rem;">📸 Spara / Dela bild på matchlag</button>
         </div>
 
-        <!-- TAB 5: TRUPP & GRUPPER -->
+        <!-- TAB 5: TRUPP (Förenklad och kompakt utan scrollruta & gruppskapare) -->
         <div id="squad" class="tab-content">
             <div class="card">
-                <h2>Trupphantering & Grupper</h2>
+                <h2>Trupphantering</h2>
                 <div class="add-player-box">
                     <input type="text" id="new-player-name" placeholder="Ny spelares namn...">
                     <button class="btn" style="width: auto; padding: 0.6rem 1rem;" onclick="addPlayer()">Lägg till</button>
                 </div>
-                <div style="margin-bottom: 0.5rem; display: flex; gap: 0.5rem;">
-                    <button class="btn" style="padding: 0.4rem; font-size: 0.85rem;" onclick="selectAllPlayers(true)">Markera alla</button>
-                    <button class="btn btn-secondary" style="margin-top:0; padding: 0.4rem; font-size: 0.85rem;" onclick="selectAllPlayers(false)">Avmarkera</button>
-                </div>
+                
                 <div class="player-list-container" id="player-rows"></div>
-
-                <label>Välj metod för gruppindelning:</label>
-                <select id="group-mode" onchange="toggleGroupSettings()">
-                    <option value="random">Slumpmässiga grupper (utan nivåhänsyn)</option>
-                    <option value="single">Välj ut en specifik grupp</option>
-                    <option value="balanced">Jämn fördelning (blandade nivåer)</option>
-                    <option value="stratified">Nivåindelade grupper (samma nivå i grupp)</option>
-                </select>
-
-                <div id="num-groups-container">
-                    <label id="num-groups-label">Antal grupper:</label>
-                    <select id="num-groups">
-                        <option value="2">2 grupper</option>
-                        <option value="3" selected>3 grupper</option>
-                        <option value="4">4 grupper</option>
-                        <option value="5">5 grupper</option>
-                        <option value="6">6 grupper</option>
-                    </select>
-                </div>
-
-                <div id="specific-group-container" style="display:none;">
-                    <label>Antal spelare i gruppen:</label>
-                    <input type="number" id="single-group-count" value="9" min="1" max="50">
-                </div>
-
-                <button class="btn" onclick="generateGroups(false)">Skapa grupper</button>
-            </div>
-
-            <div id="groups-result" class="card" style="display:none;">
-                <h2>Dagens Grupper</h2>
-                <div id="groups-content"></div>
-                <button class="btn btn-success" onclick="exportGroupsSnapshot()" style="margin-top: 1rem;">📸 Spara / Dela bild på grupper</button>
             </div>
         </div>
 
