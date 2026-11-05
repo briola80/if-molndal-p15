@@ -652,20 +652,22 @@
         }
 
         window.switchTab = function(tabId, btn) {
-            if (tabId === 'levels') {
-                const currentUser = firebase.auth().currentUser;
-                if (!checkIfAdmin(currentUser)) {
-                    alert("Denna flik är låst och endast tillgänglig för behöriga tränare/ledare.");
-                    return;
-                }
-            }
+    const restrictedTabs = ['levels', 'match', 'tactics', 'squad'];
+    if (restrictedTabs.includes(tabId)) {
+        const currentUser = firebase.auth().currentUser;
+        if (!checkIfAdmin(currentUser)) {
+            alert("Denna flik är låst och endast tillgänglig för behöriga tränare/ledare.");
+            return;
+        }
+    }
 
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-            const target = document.getElementById(tabId);
-            if (target) target.classList.add('active');
-            if (btn) btn.classList.add('active');
-            window.scrollTo(0, 0);
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    const target = document.getElementById(tabId);
+    if (target) target.classList.add('active');
+    if (btn) btn.classList.add('active');
+    window.scrollTo(0, 0);
+};
         };
 
         function savePlayersToStorage() {
@@ -1656,13 +1658,13 @@
     </header>
 
     <div class="nav-tabs no-print">
-        <button class="tab-btn active" onclick="switchTab('generator', this)">Träning</button>
-        <button class="tab-btn" onclick="switchTab('exercises', this)">Övningar</button>
-        <button class="tab-btn" onclick="switchTab('match', this)">Lag/Match</button>
-        <button class="tab-btn" onclick="switchTab('tactics', this)">Taktik</button>
-        <button class="tab-btn" onclick="switchTab('squad', this)">Trupp</button>
-        <button id="levels-tab-btn" class="tab-btn locked-tab" onclick="switchTab('levels', this)">🔒 Nivåer</button>
-    </div>
+    <button class="tab-btn active" onclick="switchTab('generator', this)">Träning</button>
+    <button class="tab-btn" onclick="switchTab('exercises', this)">Övningar</button>
+    <button class="tab-btn locked-tab" onclick="switchTab('match', this)">🔒 Lag/Match</button>
+    <button class="tab-btn locked-tab" onclick="switchTab('tactics', this)">🔒 Taktik</button>
+    <button class="tab-btn locked-tab" onclick="switchTab('squad', this)">🔒 Trupp</button>
+    <button id="levels-tab-btn" class="tab-btn locked-tab" onclick="switchTab('levels', this)">🔒 Nivåer</button>
+</div>
 
     <div class="container">
 
