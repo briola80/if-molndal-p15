@@ -83,7 +83,7 @@
     let groups = Array.from({length: paramVal}, () => []);
 
     if (mode === 'balanced') {
-        // Blandade nivåer (orm-fördelning baserat på snittnivå)
+        // Blandade nivåer (orm-fördelning)
         presentPlayers.sort((a, b) => b.level - a.level);
         let gIdx = 0, inc = true;
         presentPlayers.forEach(p => {
@@ -92,7 +92,7 @@
             else { gIdx--; if (gIdx < 0) { gIdx = 0; inc = true; } }
         });
     } else if (mode === 'stratified') {
-        // Samma nivåer (kluster per nivå)
+        // Samma nivåer (kluster)
         presentPlayers.sort((a, b) => a.level - b.level);
         let size = Math.ceil(presentPlayers.length / paramVal);
         let gIdx = 0;
@@ -108,7 +108,8 @@
         });
     }
 
-    const resultBox = document.getElementById('workout-groups-result');
+    currentGeneratedGroups = groups;
+
     let html = `<h4>Skapade grupper (${presentPlayers.length} spelare):</h4><hr style="margin:0.3rem 0">`;
     
     groups.forEach((g, idx) => {
@@ -116,12 +117,19 @@
         let avg = (g.reduce((s, p) => s + p.level, 0) / g.length).toFixed(1);
         html += `
             <div class="group-card" style="margin-top: 0.5rem;">
-                <h5 style="margin-bottom: 0.2rem;">Grupp ${idx + 1} (${g.length} st, Snitt: ${avg})</h5>
+                <h5 style="margin-bottom: 0.2rem; display: flex; justify-content: space-between; align-items: center;">
+                    <span>Grupp ${idx + 1} (${g.length} st, Snitt: ${avg})</span>
+                    <button class="btn btn-secondary" style="margin-top:0; width:auto; padding:0.2rem 0.5rem; font-size:0.75rem;" onclick="sendGroupToMatch(${idx})">Skicka till Lag/Match ➔</button>
+                </h5>
                 <ul style="padding-left: 1.2rem; font-size: 0.85rem;">
                     ${g.map(p => `<li>${p.name} <span style="font-size:0.75rem; color:#6c757d;">(Snitt: ${p.level})</span></li>`).join('')}
                 </ul>
             </div>`;
     });
+
+    document.getElementById('workout-groups-content').innerHTML = html;
+    document.getElementById('workout-groups-result').style.display = 'block';
+};
 
     resultBox.innerHTML = html;
     resultBox.style.display = 'block';
@@ -1319,22 +1327,22 @@
             }
         };
 
-        window.exportMatchSnapshot = function() {
-            const containerElement = document.getElementById('match-export-area');
-            if(!containerElement) return;
+       window.exportWorkoutGroupsSnapshot = function() {
+    const containerElement = document.getElementById('workout-groups-content');
+    if(!containerElement) return;
 
-            html2canvas(containerElement, { scale: 2, useCORS: true }).then(canvas => {
-                const imageData = canvas.toDataURL("image/png");
-                const link = document.createElement('a');
-                link.href = imageData;
-                link.download = 'matchlag-plan-if-molndal.png';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            }).catch(err => {
-                alert("Kunde inte skapa bilden.");
-            });
-        };
+    html2canvas(containerElement, { scale: 2, useCORS: true }).then(canvas => {
+        const imageData = canvas.toDataURL("image/png");
+        const link = document.createElement('a');
+        link.href = imageData;
+        link.download = 'traningsgrupper-if-molndal.png';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }).catch(err => {
+        alert("Kunde inte skapa bilden.");
+    });
+};
 
         window.saveCurrentTeamAsNamed = function() {
             const teamName = prompt("Ange namn på laguppställningen (t.ex. Matchlag Blå):");
@@ -1733,7 +1741,11 @@
         
         <button class="btn btn-success" onclick="generateGroupsFromWorkout()" style="margin-top: 0.25rem;">👥 Skapa grupper baserat på närvarande</button>
         
-        <div id="workout-groups-result" style="margin-top: 1rem; display: none;"></div>
+        <div id="workout-groups-result" style="margin-top: 1rem; display: none;">
+        <div id="workout-groups-content" style="background: white; padding: 1rem; border-radius: 8px; border: 1px solid var(--border);">
+            <!-- Här hamnar de skapade grupperna -->
+        </div>
+        <button class="btn btn-success" onclick="exportWorkoutGroupsSnapshot()" style="margin-top: 0.75rem;">📸 Spara bild på grupper till mobilen</button>
     </div>
 
         <!-- TAB 2: NIVÅMATRIS -->
