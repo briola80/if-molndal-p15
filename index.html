@@ -1614,11 +1614,28 @@
                 <button class="btn" onclick="generateWorkout()">Generera Träningspass</button>
             </div>
             
-            <div id="workout-result" class="card" style="display:none;">
-                <h2>Dagens Pass</h2>
-                <div id="workout-content"></div>
-            </div>
-        </div>
+           <div id="workout-result" class="card" style="display:none;">
+    <h2>Dagens Pass & Närvaro</h2>
+    <div id="workout-content"></div>
+    
+    <hr style="margin: 1rem 0; border: none; border-top: 1px solid var(--border);">
+    
+    <h3>📋 Närvarande spelare för dagsens pass</h3>
+    <p style="font-size: 0.8rem; color: #6c757d; margin-bottom: 0.5rem;">Bocka av vilka som är på plats (hämtas från truppen):</p>
+    
+    <!-- En container där närvarolistan laddas dynamiskt -->
+    <div id="workout-attendance-list" style="max-height: 200px; overflow-y: auto; border: 1px solid var(--border); border-radius: 6px; padding: 0.5rem; background: #fff; margin-bottom: 0.75rem;"></div>
+    
+    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+        <button class="btn btn-secondary" style="margin-top:0; flex:1;" onclick="setAllWorkoutAttendance(true)">Markera alla</button>
+        <button class="btn btn-secondary" style="margin-top:0; flex:1;" onclick="setAllWorkoutAttendance(false)">Avmarkera alla</button>
+    </div>
+    
+    <button class="btn btn-success" onclick="generateGroupsFromWorkout()" style="margin-top: 0.75rem;">👥 Skapa grupper baserat på närvarande</button>
+    
+    <!-- Resultat för grupper som skapas härifrån -->
+    <div id="workout-groups-result" style="margin-top: 1rem; display: none;"></div>
+</div>
 
         <!-- TAB 2: NIVÅMATRIS -->
         <div id="levels" class="tab-content">
