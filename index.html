@@ -122,7 +122,7 @@
                             <button class="btn btn-secondary" style="margin-top:0; width:auto; padding:0.2rem 0.5rem; font-size:0.75rem;" onclick="sendGroupToMatch(${idx})">Skicka till Lag/Match ➔</button>
                         </h5>
                         <ul style="padding-left: 1.2rem; font-size: 0.85rem;">
-                            ${g.map(p => `<li>${p.name} <span style="font-size:0.75rem; color:#6c757d;">(Snitt: ${p.level})</span></li>`).join('')}
+                            ${g.map(p => `<li>${p.name}</li>`).join('')}
                         </ul>
                     </div>`;
             });
@@ -1323,43 +1323,84 @@
             }
         };
 
-        // NYTT: Förbättrad exportfunktion för att smidigt dela/spara direkt till bildgalleriet via mobilen
+        // --- GEMENSAM DELNINGS- OCH NEDLADDNINGSFUNKTION ---
+        function shareOrDownloadCanvas(canvas, filename, title, text) {
+            canvas.toBlob(blob => {
+                const file = new File([blob], filename, { type: "image/png" });
+
+                if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                    navigator.share({
+                        files: [file],
+                        title: title,
+                        text: text
+                    }).catch(error => {
+                        if (error.name !== 'AbortError') {
+                            fallbackDownload(canvas, filename);
+                        }
+                    });
+                } else {
+                    fallbackDownload(canvas, filename);
+                }
+            }, 'image/png');
+        }
+
+        function fallbackDownload(canvas, filename) {
+            const imageData = canvas.toDataURL("image/png");
+            const link = document.createElement('a');
+            link.href = imageData;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Export 1: Träningsgrupper
         window.exportWorkoutGroupsSnapshot = function() {
             const containerElement = document.getElementById('workout-groups-content');
             if(!containerElement) return;
 
             html2canvas(containerElement, { scale: 2, useCORS: true }).then(canvas => {
-                canvas.toBlob(blob => {
-                    const file = new File([blob], "traningsgrupper-if-molndal.png", { type: "image/png" });
-
-                    if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                        navigator.share({
-                            files: [file],
-                            title: 'Träningsgrupper',
-                            text: 'Här är dagens träningsgrupper för IF Mölndal P-2015'
-                        }).catch(error => {
-                            if (error.name !== 'AbortError') {
-                                fallbackDownload(canvas);
-                            }
-                        });
-                    } else {
-                        fallbackDownload(canvas);
-                    }
-                }, 'image/png');
+                shareOrDownloadCanvas(canvas, 'traningsgrupper-if-molndal.png', 'Träningsgrupper', 'Här är dagens träningsgrupper för IF Mölndal P-2015');
             }).catch(err => {
                 alert("Kunde inte skapa bilden.");
             });
         };
 
-        function fallbackDownload(canvas) {
-            const imageData = canvas.toDataURL("image/png");
-            const link = document.createElement('a');
-            link.href = imageData;
-            link.download = 'traningsgrupper-if-molndal.png';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
+        // Export 2: Taktiktavla
+        window.exportTacticsSnapshot = function() {
+            const pitchElement = document.getElementById('tactics-pitch-area');
+            if(!pitchElement) return;
+
+            html2canvas(pitchElement, { scale: 2, useCORS: true }).then(canvas => {
+                shareOrDownloadCanvas(canvas, 'taktik-if-molndal.png', 'Taktik', 'Laguppställning för IF Mölndal P-2015');
+            }).catch(err => {
+                alert("Kunde inte skapa bilden.");
+            });
+        };
+
+        // Export 3: Lag / Match
+        window.exportMatchSnapshot = function() {
+            const exportArea = document.getElementById('match-export-area');
+            if(!exportArea) return;
+
+            html2canvas(exportArea, { scale: 2, useCORS: true }).then(canvas => {
+                shareOrDownloadCanvas(canvas, 'matchlag-if-molndal.png', 'Matchlag & Ersättare', 'Matchlag och avbytare för IF Mölndal P-2015');
+            }).catch(err => {
+                alert("Kunde inte skapa bilden.");
+            });
+        };
+
+        // Export 4: Trupp & Grupper (under flik Trupp)
+        window.exportGroupsSnapshot = function() {
+            const resultElement = document.getElementById('groups-result');
+            if(!resultElement || resultElement.style.display === 'none') { alert("Skapa grupper först!"); return; }
+
+            html2canvas(resultElement, { scale: 2, useCORS: true }).then(canvas => {
+                shareOrDownloadCanvas(canvas, 'grupper-if-molndal.png', 'Träningsgrupper', 'Dagens träningsgrupper för IF Mölndal P-2015');
+            }).catch(err => {
+                alert("Kunde inte skapa bilden.");
+            });
+        };
 
         window.saveCurrentTeamAsNamed = function() {
             const teamName = prompt("Ange namn på laguppställningen (t.ex. Matchlag Blå):");
@@ -1403,32 +1444,6 @@
                 renderMatrixTable();
                 alert(`Laget "${teamName}" har laddats!`);
             }
-        };
-
-        window.exportTacticsSnapshot = function() {
-            const pitchElement = document.getElementById('tactics-pitch-area');
-            if(!pitchElement) return;
-            html2canvas(pitchElement, { scale: 2, useCORS: true }).then(canvas => {
-                const imageData = canvas.toDataURL("image/png");
-                const win = window.open("", "_blank");
-                if (win) {
-                    win.document.write(`<html><head><title>Taktik</title></head><body style="text-align:center;padding:2rem;"><h1>Laguppställning</h1><img src="${imageData}" style="max-width:100%;border-radius:8px;"><br><button onclick="window.print()" style="margin-top:1rem;padding:0.5rem 1rem;">Skriv ut</button></body></html>`);
-                    win.document.close();
-                }
-            });
-        };
-
-        window.exportGroupsSnapshot = function() {
-            const resultElement = document.getElementById('groups-result');
-            if(!resultElement || resultElement.style.display === 'none') { alert("Skapa grupper först!"); return; }
-            html2canvas(resultElement, { scale: 2, useCORS: true }).then(canvas => {
-                const imageData = canvas.toDataURL("image/png");
-                const win = window.open("", "_blank");
-                if (win) {
-                    win.document.write(`<html><head><title>Grupper</title></head><body style="text-align:center;padding:2rem;"><h1>Träningsgrupper</h1><img src="${imageData}" style="max-width:100%;border-radius:8px;"><br><button onclick="window.print()" style="margin-top:1rem;padding:0.5rem 1rem;">Skriv ut</button></body></html>`);
-                    win.document.close();
-                }
-            });
         };
 
         window.generateWorkout = function() {
@@ -1890,7 +1905,7 @@
                         <div id="pitch-tokens"></div>
                     </div>
                 </div>
-                <button class="btn btn-success" onclick="exportTacticsSnapshot()" style="margin-top:0.5rem;">📸 Spara / Skriv ut taktik (PDF)</button>
+                <button class="btn btn-success" onclick="exportTacticsSnapshot()" style="margin-top:0.5rem;">📸 Spara / Dela bild på taktik</button>
             </div>
         </div>
 
@@ -1954,7 +1969,7 @@
                     </div>
                 </div>
             </div>
-            <button class="btn btn-success no-print" onclick="exportMatchSnapshot()" style="margin-top: 1rem;">📸 Spara / Skriv ut renodlad lagbild</button>
+            <button class="btn btn-success no-print" onclick="exportMatchSnapshot()" style="margin-top: 1rem;">📸 Spara / Dela bild på matchlag</button>
         </div>
 
         <!-- TAB 5: TRUPP & GRUPPER -->
@@ -2001,7 +2016,7 @@
             <div id="groups-result" class="card" style="display:none;">
                 <h2>Dagens Grupper</h2>
                 <div id="groups-content"></div>
-                <button class="btn btn-success" onclick="exportGroupsSnapshot()" style="margin-top: 1rem;">📸 Spara / Skriv ut grupper (PDF)</button>
+                <button class="btn btn-success" onclick="exportGroupsSnapshot()" style="margin-top: 1rem;">📸 Spara / Dela bild på grupper</button>
             </div>
         </div>
 
