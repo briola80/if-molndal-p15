@@ -49,11 +49,25 @@
     <!-- Körs för närvaro och gruppgenerering -->
     <script>
         let selectedGroupCount = 3; // Standardvärde
+        let selectedWorkoutLevel = 3; // Standardnivå för träningen
 
         window.setGroupCount = function(count) {
             selectedGroupCount = count;
             document.querySelectorAll('.group-count-btn').forEach(btn => {
                 if(parseInt(btn.getAttribute('data-count')) === count) {
+                    btn.style.backgroundColor = 'var(--primary-dark)';
+                    btn.style.borderColor = '#000';
+                } else {
+                    btn.style.backgroundColor = 'var(--primary)';
+                    btn.style.borderColor = 'transparent';
+                }
+            });
+        };
+
+        window.setWorkoutLevel = function(level) {
+            selectedWorkoutLevel = level;
+            document.querySelectorAll('.workout-level-btn').forEach(btn => {
+                if(parseInt(btn.getAttribute('data-level')) === level) {
                     btn.style.backgroundColor = 'var(--primary-dark)';
                     btn.style.borderColor = '#000';
                 } else {
@@ -139,7 +153,7 @@
 
             currentGeneratedGroups = groups;
 
-            let html = `<h4>Skapade grupper (${presentPlayers.length} spelare):</h4><hr style="margin:0.3rem 0">`;
+            let html = `<h4>Skapade grupper (${presentPlayers.length} spelare, Vald nivå: ${selectedWorkoutLevel}):</h4><hr style="margin:0.3rem 0">`;
             
             html += `<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 0.5rem; margin-top: 0.5rem;">`;
 
@@ -728,6 +742,7 @@
             updateMatchSavedTeamsDropdown();
             renderWorkoutAttendance();
             setGroupCount(3); // Initialisera standard till 3 grupper
+            setWorkoutLevel(3); // Initialisera standardnivå till 3
         }
 
         window.switchTab = function(tabId, btn) {
@@ -1566,7 +1581,7 @@
                 }
             });
 
-            let html = `<p><strong>Passets längd:</strong> ${totalDuration} min | <strong>Spelform:</strong> ${format} | <strong>Närvarande spelare:</strong> ${pCount} st</p><hr style="margin:0.5rem 0">`;
+            let html = `<p><strong>Passets längd:</strong> ${totalDuration} min | <strong>Spelform:</strong> ${format} | <strong>Närvarande spelare:</strong> ${pCount} st | <strong>Vald nivå:</strong> ${selectedWorkoutLevel}</p><hr style="margin:0.5rem 0">`;
             
             selectedExercises.forEach((ex, index) => {
                 html += `
@@ -1711,7 +1726,16 @@
                         <option value="random">Slumpmässiga grupper</option>
                     </select>
 
-                    <label>Antal grupper:</label>
+                    <label>Nivå på knappar:</label>
+                    <div style="display: flex; gap: 0.3rem; margin-bottom: 0.75rem;">
+                        <button type="button" class="btn workout-level-btn" data-level="1" onclick="setWorkoutLevel(1)" style="flex:1; padding: 0.4rem; font-size: 0.8rem;">Nivå 1</button>
+                        <button type="button" class="btn workout-level-btn" data-level="2" onclick="setWorkoutLevel(2)" style="flex:1; padding: 0.4rem; font-size: 0.8rem;">Nivå 2</button>
+                        <button type="button" class="btn workout-level-btn" data-level="3" onclick="setWorkoutLevel(3)" style="flex:1; padding: 0.4rem; font-size: 0.8rem;">Nivå 3</button>
+                        <button type="button" class="btn workout-level-btn" data-level="4" onclick="setWorkoutLevel(4)" style="flex:1; padding: 0.4rem; font-size: 0.8rem;">Nivå 4</button>
+                        <button type="button" class="btn workout-level-btn" data-level="5" onclick="setWorkoutLevel(5)" style="flex:1; padding: 0.4rem; font-size: 0.8rem;">Nivå 5</button>
+                    </div>
+
+                    <label>Antal grupper (Default: 3):</label>
                     <div style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem;">
                         <button type="button" class="btn group-count-btn" data-count="2" onclick="setGroupCount(2)" style="flex:1; padding: 0.5rem;">2 grupper</button>
                         <button type="button" class="btn group-count-btn" data-count="3" onclick="setGroupCount(3)" style="flex:1; padding: 0.5rem;">3 grupper</button>
