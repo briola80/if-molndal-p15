@@ -126,31 +126,34 @@
 
             let html = `<h4>Skapade grupper (${presentPlayers.length} spelare):</h4><hr style="margin:0.3rem 0">`;
             
+            // Rutnät som placerar gruppkorten sida vid sida för att utnyttja ytan till höger
+            html += `<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 0.5rem; margin-top: 0.5rem;">`;
+
             groups.forEach((g, idx) => {
                 if(g.length === 0) return;
                 let avg = (g.reduce((s, p) => s + p.level, 0) / g.length).toFixed(1);
                 html += `
-                    <div class="group-card" style="margin-top: 0.5rem;">
+                    <div class="group-card" style="margin-top: 0; margin-bottom: 0;">
                         <h5 style="margin-bottom: 0.2rem; display: flex; justify-content: space-between; align-items: center;">
                             <span>Grupp ${idx + 1} (${g.length} st, Snitt: ${avg})</span>
-                            <button class="btn btn-secondary" style="margin-top:0; width:auto; padding:0.2rem 0.5rem; font-size:0.75rem;" onclick="sendGroupToMatch(${idx})">Skicka till Lag/Match ➔</button>
+                            <button class="btn btn-secondary" style="margin-top:0; width:auto; padding:0.2rem 0.5rem; font-size:0.75rem;" onclick="sendGroupToMatch(${idx})">Skicka ➔</button>
                         </h5>
-                        <ul style="padding-left: 1.2rem; font-size: 0.85rem;">
+                        <ol style="padding-left: 1.2rem; font-size: 0.85rem; margin-bottom: 0;">
                             ${g.map(p => `<li>${p.name}</li>`).join('')}
-                        </ul>
+                        </ol>
                     </div>`;
             });
+
+            html += `</div>`;
 
             document.getElementById('workout-groups-content').innerHTML = html;
             document.getElementById('workout-groups-result').style.display = 'block';
         };
-    </script>
-
-    <!-- 1. Ladda externa övningar först -->
-    <script src="exercises.js"></script>
-    
-  <style>
-    :root {
+        
+        <!-- 1. Ladda externa övningar först -->
+            <script src="exercises.js"></script>
+    <style>
+        :root {
         --primary: #d32f2f;
         --primary-dark: #b71c1c;
         --bg: #f8f9fa;
