@@ -1402,62 +1402,67 @@ window.generateGroupsFromWorkout = function() {
         };
 
         window.generateWorkout = function() {
-            const allEx = getAllExercises();
-            if (allEx.length === 0) {
-                alert("Övningsbanken är tom. Lägg till övningar först.");
-                return;
-            }
-            const pCount = parseInt(document.getElementById('gen-players').value);
-            const totalDuration = parseInt(document.getElementById('gen-duration').value);
-            const format = document.getElementById('gen-format').value;
+    const allEx = getAllExercises();
+    if (allEx.length === 0) {
+        alert("Övningsbanken är tom. Lägg till övningar först.");
+        return;
+    }
+    const pCount = parseInt(document.getElementById('gen-players').value);
+    const totalDuration = parseInt(document.getElementById('gen-duration').value);
+    const format = document.getElementById('gen-format').value;
 
-            const selectedFocuses = [];
-            document.querySelectorAll('#generator .ex-focus-chk:checked').forEach(chk => {
-                selectedFocuses.push(chk.value);
-            });
+    const selectedFocuses = [];
+    document.querySelectorAll('#generator .ex-focus-chk:checked').forEach(chk => {
+        selectedFocuses.push(chk.value);
+    });
 
-            if (selectedFocuses.length === 0) {
-                alert("Välj minst ett fokusområde!");
-                return;
-            }
+    if (selectedFocuses.length === 0) {
+        alert("Välj minst ett fokusområde!");
+        return;
+    }
 
-            let selectedExercises = [];
-            
-            let warmUpTime = Math.min(15, Math.max(10, Math.round(totalDuration * 0.2)));
-            let availableWarmups = allEx.filter(ex => ex.category === "Uppvärmning" && ex.minP <= pCount);
-            if(availableWarmups.length === 0) availableWarmups = allEx.filter(ex => ex.category === "Uppvärmning");
-            let warmupEx = availableWarmups[Math.floor(Math.random() * availableWarmups.length)] || allEx[0];
-            if(warmupEx) {
-                selectedExercises.push({ ...warmupEx, customTime: warmUpTime, roleTitle: "Uppvärmning" });
-            }
+    let selectedExercises = [];
+    
+    let warmUpTime = Math.min(15, Math.max(10, Math.round(totalDuration * 0.2)));
+    let availableWarmups = allEx.filter(ex => ex.category === "Uppvärmning" && ex.minP <= pCount);
+    if(availableWarmups.length === 0) availableWarmups = allEx.filter(ex => ex.category === "Uppvärmning");
+    let warmupEx = availableWarmups[Math.floor(Math.random() * availableWarmups.length)] || allEx[0];
+    if(warmupEx) {
+        selectedExercises.push({ ...warmupEx, customTime: warmUpTime, roleTitle: "Uppvärmning" });
+    }
 
-            let remainingTime = totalDuration - warmUpTime;
-            let timePerFocus = Math.floor(remainingTime / selectedFocuses.length);
-            
-            selectedFocuses.forEach(focus => {
-                let matches = allEx.filter(ex => ex.focus === focus && ex.minP <= pCount);
-                if(matches.length === 0) matches = allEx.filter(ex => ex.focus === focus);
-                if(matches.length > 0) {
-                    let chosen = matches[Math.floor(Math.random() * matches.length)];
-                    selectedExercises.push({ ...chosen, customTime: timePerFocus, roleTitle: `Fokus: ${focus}` });
-                }
-            });
+    let remainingTime = totalDuration - warmUpTime;
+    let timePerFocus = Math.floor(remainingTime / selectedFocuses.length);
+    
+    selectedFocuses.forEach(focus => {
+        let matches = allEx.filter(ex => ex.focus === focus && ex.minP <= pCount);
+        if(matches.length === 0) matches = allEx.filter(ex => ex.focus === focus);
+        if(matches.length > 0) {
+            let chosen = matches[Math.floor(Math.random() * matches.length)];
+            selectedExercises.push({ ...chosen, customTime: timePerFocus, roleTitle: `Fokus: ${focus}` });
+        }
+    });
 
-            let html = `<p><strong>Passets längd:</strong> ${totalDuration} min | <strong>Spelform:</strong> ${format} | <strong>Spelare:</strong> ${pCount} st</p><hr style="margin:0.5rem 0">`;
-            
-            selectedExercises.forEach((ex, index) => {
-                html += `
-                    <div style="margin-bottom:1rem; padding-bottom:0.5rem; border-bottom:1px solid #f1f3f5;">
-                        <span style="font-size:0.75rem; font-weight:bold; color:#d32f2f;">Del ${index + 1} (${ex.customTime} min) – ${ex.roleTitle}</span><br>
-                        <strong>${ex.name}</strong> <span style="font-size:0.75rem; color:#6c757d">[${ex.format}]</span><br>
-                        <span style="font-size:0.85rem;color:#6c757d">${ex.desc}</span>
-                        <div style="font-size:0.75rem; margin-top:0.3rem;"><a href="${ex.sourceUrl}" target="_blank" style="color:#1976d2; font-weight:600; text-decoration:none;">🔗 Visa övning ↗</a></div>
-                    </div>
-                `;
-            });
-            document.getElementById('workout-content').innerHTML = html;
-            document.getElementById('workout-result').style.display = 'block';
-        };
+    let html = `<p><strong>Passets längd:</strong> ${totalDuration} min | <strong>Spelform:</strong> ${format} | <strong>Spelare:</strong> ${pCount} st</p><hr style="margin:0.5rem 0">`;
+    
+    selectedExercises.forEach((ex, index) => {
+        html += `
+            <div style="margin-bottom:1rem; padding-bottom:0.5rem; border-bottom:1px solid #f1f3f5;">
+                <span style="font-size:0.75rem; font-weight:bold; color:#d32f2f;">Del ${index + 1} (${ex.customTime} min) – ${ex.roleTitle}</span><br>
+                <strong>${ex.name}</strong> <span style="font-size:0.75rem; color:#6c757d">[${ex.format}]</span><br>
+                <span style="font-size:0.85rem;color:#6c757d">${ex.desc}</span>
+                <div style="font-size:0.75rem; margin-top:0.3rem;"><a href="${ex.sourceUrl}" target="_blank" style="color:#1976d2; font-weight:600; text-decoration:none;">🔗 Visa övning ↗</a></div>
+            </div>
+        `;
+    });
+    
+    document.getElementById('workout-content').innerHTML = html;
+
+    // Fyll närvarolistan automatiskt när passet genereras
+    renderWorkoutAttendance();
+
+    document.getElementById('workout-result').style.display = 'block';
+};
 
         let currentGeneratedGroups = [];
 
