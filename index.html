@@ -48,6 +48,21 @@
 
     <!-- Körs för närvaro och gruppgenerering -->
     <script>
+        let selectedGroupCount = 3; // Standardvärde
+
+        window.setGroupCount = function(count) {
+            selectedGroupCount = count;
+            document.querySelectorAll('.group-count-btn').forEach(btn => {
+                if(parseInt(btn.getAttribute('data-count')) === count) {
+                    btn.style.backgroundColor = 'var(--primary-dark)';
+                    btn.style.borderColor = '#000';
+                } else {
+                    btn.style.backgroundColor = 'var(--primary)';
+                    btn.style.borderColor = 'transparent';
+                }
+            });
+        };
+
         function renderWorkoutAttendance() {
             const container = document.getElementById('workout-attendance-list');
             if (!container) return;
@@ -96,7 +111,7 @@
             }));
 
             const mode = document.getElementById('workout-group-mode').value;
-            const paramVal = parseInt(document.getElementById('workout-num-groups').value) || 3;
+            const paramVal = selectedGroupCount;
             let groups = Array.from({length: paramVal}, () => []);
 
             if (mode === 'balanced') {
@@ -712,6 +727,7 @@
             updateSavedTeamsDropdown();
             updateMatchSavedTeamsDropdown();
             renderWorkoutAttendance();
+            setGroupCount(3); // Initialisera standard till 3 grupper
         }
 
         window.switchTab = function(tabId, btn) {
@@ -1684,9 +1700,10 @@
                     <button class="btn btn-secondary" style="margin-top:0; width:100%;" onclick="resetWorkoutAttendance()">Återställ (markera alla)</button>
                 </div>
 
-                <!-- GRUPPINDELNING DIREKT UNDER NÄRVARO -->
+                <!-- GRUPPINDELNING DIREKT UNDER NÄRVARO MED KNAPPAR -->
                 <div style="background: #f1f3f5; padding: 0.75rem; border-radius: 6px; margin-bottom: 1rem; border: 1px solid var(--border);">
                     <h3>👥 Skapa träningsgrupper</h3>
+                    
                     <label>Metod för gruppindelning:</label>
                     <select id="workout-group-mode" style="margin-bottom: 0.75rem;">
                         <option value="balanced">Jämn fördelning (blandade nivåer)</option>
@@ -1695,13 +1712,11 @@
                     </select>
 
                     <label>Antal grupper:</label>
-                    <select id="workout-num-groups" style="margin-bottom: 0.75rem;">
-                        <option value="2">2 grupper</option>
-                        <option value="3" selected>3 grupper</option>
-                        <option value="4">4 grupper</option>
-                        <option value="5">5 grupper</option>
-                        <option value="6">6 grupper</option>
-                    </select>
+                    <div style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem;">
+                        <button type="button" class="btn group-count-btn" data-count="2" onclick="setGroupCount(2)" style="flex:1; padding: 0.5rem;">2 grupper</button>
+                        <button type="button" class="btn group-count-btn" data-count="3" onclick="setGroupCount(3)" style="flex:1; padding: 0.5rem;">3 grupper</button>
+                        <button type="button" class="btn group-count-btn" data-count="4" onclick="setGroupCount(4)" style="flex:1; padding: 0.5rem;">4 grupper</button>
+                    </div>
                     
                     <button class="btn btn-success" onclick="generateGroupsFromWorkout()" style="margin-top: 0.25rem;">👥 Skapa grupper baserat på närvarande</button>
                 </div>
@@ -2013,7 +2028,7 @@
                 <label>Länk / Källa (valfritt):</label>
                 <input type="text" id="custom-ex-url" placeholder="https://...">
 
-                <button class="btn btn-primary" onclick="saveCustomExercise()" style="margin-top: 1-rem; width: 100%;">Spara övning</button>
+                <button class="btn btn-primary" onclick="saveCustomExercise()" style="margin-top: 1rem; width: 100%;">Spara övning</button>
             </div>
 
             <div class="card">
