@@ -43,9 +43,9 @@
 
     <!-- Körs när du klickar på "Generera Träningspass" för att även bygga närvarolistan  -->
    <script
-       function renderWorkoutAttendance() {
-       const container = document.getElementById('workout-attendance-list');
-       if (!container) return;
+function renderWorkoutAttendance() {
+    const container = document.getElementById('workout-attendance-list');
+    if (!container) return;
 
     container.innerHTML = playersData.map((p, index) => `
         <label style="display: flex; align-items: center; gap: 0.5rem; padding: 0.3rem 0; border-bottom: 1px solid #f1f3f5; font-size: 0.85rem; cursor: pointer;">
@@ -70,7 +70,6 @@ window.generateGroupsFromWorkout = function() {
         return;
     }
 
-    // Filtrera fram endast de spelare som är närvarande
     let presentPlayers = playersData.filter(p => presentPlayerIds.includes(p.id)).map(p => ({
         id: p.id,
         name: p.name,
@@ -78,7 +77,6 @@ window.generateGroupsFromWorkout = function() {
         preferredPositions: p.preferredPositions || [p.position || "MM"]
     }));
 
-    // Använd samma logik som din vanliga gruppindelning (t.ex. jämn fördelning eller balanserade nivåer)
     const mode = document.getElementById('group-mode').value;
     const paramVal = parseInt(document.getElementById('num-groups').value) || 3;
     let groups = Array.from({length: paramVal}, () => []);
@@ -98,7 +96,6 @@ window.generateGroupsFromWorkout = function() {
         });
     }
 
-    // Visa resultatet direkt under träningspasset
     const resultBox = document.getElementById('workout-groups-result');
     let html = `<h4>Skapade grupper (${presentPlayers.length} spelare):</h4><hr style="margin:0.3rem 0">`;
     
@@ -117,7 +114,6 @@ window.generateGroupsFromWorkout = function() {
     resultBox.innerHTML = html;
     resultBox.style.display = 'block';
 };
-   </script>
 
 
     <!-- 1. Ladda externa övningar först -->
@@ -1704,10 +1700,9 @@ window.generateGroupsFromWorkout = function() {
     
     <hr style="margin: 1rem 0; border: none; border-top: 1px solid var(--border);">
     
-    <h3>📋 Närvarande spelare för dagsens pass</h3>
+    <h3>📋 Närvarande spelare för dagens pass</h3>
     <p style="font-size: 0.8rem; color: #6c757d; margin-bottom: 0.5rem;">Bocka av vilka som är på plats (hämtas från truppen):</p>
     
-    <!-- En container där närvarolistan laddas dynamiskt -->
     <div id="workout-attendance-list" style="max-height: 200px; overflow-y: auto; border: 1px solid var(--border); border-radius: 6px; padding: 0.5rem; background: #fff; margin-bottom: 0.75rem;"></div>
     
     <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
@@ -1717,9 +1712,7 @@ window.generateGroupsFromWorkout = function() {
     
     <button class="btn btn-success" onclick="generateGroupsFromWorkout()" style="margin-top: 0.75rem;">👥 Skapa grupper baserat på närvarande</button>
     
-    <!-- Resultat för grupper som skapas härifrån -->
     <div id="workout-groups-result" style="margin-top: 1rem; display: none;"></div>
-</div>
 
         <!-- TAB 2: NIVÅMATRIS -->
         <div id="levels" class="tab-content">
