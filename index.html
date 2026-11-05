@@ -52,7 +52,7 @@
             container.innerHTML = playersData.map((p) => `
                 <label id="att-row-${p.id}" class="workout-att-row">
                     <input type="checkbox" class="workout-att-chk" data-player-id="${p.id}" checked style="width: auto; margin-bottom: 0;" onchange="updateAttendanceRowStyle(${p.id})">
-                    <span>${p.name}</span>
+                    <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${p.name}</span>
                 </label>
             `).join('');
         }
@@ -359,27 +359,48 @@
     .tactics-player-left { display: flex; align-items: center; gap: 0.4rem; cursor: pointer; flex: 1; }
     .tactics-pos-select { width: 130px; padding: 0.2rem; font-size: 0.75rem; border: 1px solid var(--border); border-radius: 4px; }
 
-    /* Stil för närvarolista och avbockade spelare */
-    .workout-att-row {
-        display: flex; 
-        align-items: center; 
-        gap: 0.5rem; 
-        padding: 0.3rem 0.5rem; 
-        border-bottom: 1px solid #f1f3f5; 
-        font-size: 0.85rem; 
-        cursor: pointer;
-        border-radius: 4px;
-        transition: background-color 0.15s;
+   /* Stil för närvarolista i kompakt rutnät (flera kolumner) */
+    #workout-attendance-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 0.4rem;
+        max-height: 260px;
+        overflow-y: auto;
+        padding: 0.5rem;
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        margin-bottom: 0.75rem;
     }
+
+    .workout-att-row {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.4rem 0.6rem;
+        background: #f8f9fa;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        font-size: 0.85rem;
+        cursor: pointer;
+        transition: all 0.15s;
+        margin-bottom: 0 !important;
+    }
+
+    .workout-att-row:hover {
+        background: #e9ecef;
+    }
+
     .workout-att-row.unchecked {
         background-color: #fff5f5;
+        border-color: #ffc9c9;
         color: #adb5bd;
     }
+
     .workout-att-row.unchecked span {
         text-decoration: line-through;
         color: #6c757d;
     }
-
     #login-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 1rem; }
 
     @media print {
