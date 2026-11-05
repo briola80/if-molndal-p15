@@ -49,15 +49,12 @@
             const container = document.getElementById('workout-attendance-list');
             if (!container) return;
 
-            container.innerHTML = playersData.map((p) => {
-                // Kontrollera om spelaren är sparad som ikryssad tidigare eller default true
-                return `
-                    <label id="att-row-${p.id}" class="workout-att-row">
-                        <input type="checkbox" class="workout-att-chk" data-player-id="${p.id}" checked style="width: auto; margin-bottom: 0;" onchange="updateAttendanceRowStyle(${p.id})">
-                        <span>${p.name}</span>
-                    </label>
-                `;
-            }).join('');
+            container.innerHTML = playersData.map((p) => `
+                <label id="att-row-${p.id}" class="workout-att-row">
+                    <input type="checkbox" class="workout-att-chk" data-player-id="${p.id}" checked style="width: auto; margin-bottom: 0;" onchange="updateAttendanceRowStyle(${p.id})">
+                    <span>${p.name}</span>
+                </label>
+            `).join('');
         }
 
         window.updateAttendanceRowStyle = function(playerId) {
@@ -70,6 +67,13 @@
                     row.classList.add('unchecked');
                 }
             }
+        };
+
+        window.resetWorkoutAttendance = function() {
+            document.querySelectorAll('.workout-att-chk').forEach(chk => {
+                chk.checked = true;
+                updateAttendanceRowStyle(parseInt(chk.getAttribute('data-player-id')));
+            });
         };
 
         window.generateGroupsFromWorkout = function() {
@@ -355,6 +359,27 @@
     .tactics-player-left { display: flex; align-items: center; gap: 0.4rem; cursor: pointer; flex: 1; }
     .tactics-pos-select { width: 130px; padding: 0.2rem; font-size: 0.75rem; border: 1px solid var(--border); border-radius: 4px; }
 
+    /* Stil för närvarolista och avbockade spelare */
+    .workout-att-row {
+        display: flex; 
+        align-items: center; 
+        gap: 0.5rem; 
+        padding: 0.3rem 0.5rem; 
+        border-bottom: 1px solid #f1f3f5; 
+        font-size: 0.85rem; 
+        cursor: pointer;
+        border-radius: 4px;
+        transition: background-color 0.15s;
+    }
+    .workout-att-row.unchecked {
+        background-color: #fff5f5;
+        color: #adb5bd;
+    }
+    .workout-att-row.unchecked span {
+        text-decoration: line-through;
+        color: #6c757d;
+    }
+
     #login-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 1rem; }
 
     @media print {
@@ -380,25 +405,6 @@
 
     .tab-btn.locked-tab:hover {
         color: #6c757d !important;
-    }
-      .workout-att-row {
-        display: flex; 
-        align-items: center; 
-        gap: 0.5rem; 
-        padding: 0.3rem 0.5rem; 
-        border-bottom: 1px solid #f1f3f5; 
-        font-size: 0.85rem; 
-        cursor: pointer;
-        border-radius: 4px;
-        transition: background-color 0.15s;
-    }
-    .workout-att-row.unchecked {
-        background-color: #fff5f5;
-        color: #adb5bd;
-    }
-    .workout-att-row.unchecked span {
-        text-decoration: line-through;
-        color: #6c757d;
     }
   </style>
 
@@ -1516,7 +1522,7 @@
                 }
             });
 
-            let html = `<p><strong>Passets längd:</strong> ${totalDuration} min | <strong>Spelform:</strong> ${format} | <strong>Spelare:</strong> ${pCount} st</p><hr style="margin:0.5rem 0">`;
+            let html = `<p><strong>Passets längd:</strong> ${totalDuration} min | <strong>Spelform:</strong> ${format} | <strong>Närvarande spelare:</strong> ${pCount} st</p><hr style="margin:0.5rem 0">`;
             
             selectedExercises.forEach((ex, index) => {
                 html += `
@@ -1530,80 +1536,10 @@
             });
             
             document.getElementById('workout-content').innerHTML = html;
-            renderWorkoutAttendance();
             document.getElementById('workout-result').style.display = 'block';
         };
 
         let currentGeneratedGroups = [];
-
-        window.generateGroupsFromWorkout = function() {
-            const checkedBoxes = document.querySelectorAll('.workout-att-chk:checked');
-            const presentPlayerIds = Array.from(checkedBoxes).map(chk => parseInt(chk.getAttribute('data-player-id')));
-
-            if (presentPlayerIds.length === 0) {
-                alert("Inga spelare är markerade som närvarande!");
-                return;
-            }
-
-            let presentPlayers = playersData.filter(p => presentPlayerIds.includes(p.id)).map(p => ({
-                id: p.id,
-                name: p.name,
-                level: parseFloat(getPlayerLevel(p)),
-                preferredPositions: p.preferredPositions || [p.position || "MM"]
-            }));
-
-            const mode = document.getElementById('workout-group-mode').value;
-            const paramVal = parseInt(document.getElementById('workout-num-groups').value) || 3;
-            let groups = Array.from({length: paramVal}, () => []);
-
-            if (mode === 'balanced') {
-                // Blandade nivåer (orm-fördelning)
-                presentPlayers.sort((a, b) => b.level - a.level);
-                let gIdx = 0, inc = true;
-                presentPlayers.forEach(p => {
-                    groups[gIdx].push(p);
-                    if (inc) { gIdx++; if (gIdx >= paramVal) { gIdx = paramVal - 1; inc = false; } }
-                    else { gIdx--; if (gIdx < 0) { gIdx = 0; inc = true; } }
-                });
-            } else if (mode === 'stratified') {
-                // Samma nivåer (kluster)
-                presentPlayers.sort((a, b) => a.level - b.level);
-                let size = Math.ceil(presentPlayers.length / paramVal);
-                let gIdx = 0;
-                presentPlayers.forEach(p => {
-                    groups[gIdx].push(p);
-                    if (groups[gIdx].length >= size && gIdx < paramVal - 1) gIdx++;
-                });
-            } else {
-                // Slumpmässigt
-                presentPlayers.sort(() => Math.random() - 0.5);
-                presentPlayers.forEach((p, idx) => {
-                    groups[idx % paramVal].push(p);
-                });
-            }
-
-            currentGeneratedGroups = groups;
-
-            let html = `<h4>Skapade grupper (${presentPlayers.length} spelare):</h4><hr style="margin:0.3rem 0">`;
-            
-            groups.forEach((g, idx) => {
-                if(g.length === 0) return;
-                let avg = (g.reduce((s, p) => s + p.level, 0) / g.length).toFixed(1);
-                html += `
-                    <div class="group-card" style="margin-top: 0.5rem;">
-                        <h5 style="margin-bottom: 0.2rem; display: flex; justify-content: space-between; align-items: center;">
-                            <span>Grupp ${idx + 1} (${g.length} st, Snitt: ${avg})</span>
-                            <button class="btn btn-secondary" style="margin-top:0; width:auto; padding:0.2rem 0.5rem; font-size:0.75rem;" onclick="sendGroupToMatch(${idx})">Skicka till Lag/Match ➔</button>
-                        </h5>
-                        <ul style="padding-left: 1.2rem; font-size: 0.85rem;">
-                            ${g.map(p => `<li>${p.name}</li>`).join('')}
-                        </ul>
-                    </div>`;
-            });
-
-            document.getElementById('workout-groups-content').innerHTML = html;
-            document.getElementById('workout-groups-result').style.display = 'block';
-        };
 
         window.sendGroupToMatch = function(groupIndex) {
             const group = currentGeneratedGroups[groupIndex];
@@ -1716,9 +1652,8 @@
                 
                 <div id="workout-attendance-list" style="max-height: 220px; overflow-y: auto; border: 1px solid var(--border); border-radius: 6px; padding: 0.5rem; background: #fff; margin-bottom: 0.75rem;"></div>
                 
-                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.75rem;">
-                    <button class="btn btn-secondary" style="margin-top:0; flex:1;" onclick="setAllWorkoutAttendance(true)">Markera alla</button>
-                    <button class="btn btn-secondary" style="margin-top:0; flex:1;" onclick="setAllWorkoutAttendance(false)">Avmarkera alla</button>
+                <div style="margin-bottom: 0.75rem;">
+                    <button class="btn btn-secondary" style="margin-top:0; width:100%;" onclick="resetWorkoutAttendance()">Återställ (markera alla)</button>
                 </div>
 
                 <!-- Dold/automatisk räknare för antal spelare baserat på närvaro -->
