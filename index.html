@@ -195,86 +195,155 @@
     }
     body { padding-bottom: 80px; }
     
-    header { 
-        background-color: var(--primary); 
-        color: white; 
-        padding: 0.75rem 1rem; 
-        display: flex; 
-        align-items: center; 
-        justify-content: space-between; 
-        flex-wrap: nowrap;
-        gap: 0.5rem; 
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+    /* Moderniserad Header */
+    .app-header {
+        background: linear-gradient(135deg, #b71c1c 0%, #d32f2f 100%);
+        color: white;
+        padding: 0.85rem 1.25rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .header-content {
+        max-width: 900px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
     }
 
     .header-left { 
         display: flex; 
         align-items: center; 
-        gap: 0.5rem; 
+        gap: 0.75rem; 
         min-width: 0;
     }
 
     .header-logo {
-        height: 36px;
-        width: auto;
-        border-radius: 4px;
+        height: 42px;
+        width: 42px;
+        object-fit: contain;
+        border-radius: 6px;
         background: white;
-        padding: 2px;
+        padding: 3px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         flex-shrink: 0;
     }
 
-    .header-text {
-        min-width: 0;
-    }
-
     .header-text h1 { 
-        font-size: 1.1rem; 
+        font-size: 1.2rem; 
         font-weight: 700; 
         line-height: 1.2; 
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        letter-spacing: -0.3px;
     }
 
     .header-text p { 
         font-size: 0.75rem; 
         opacity: 0.9; 
+        font-weight: 500;
     }
 
-    header button.btn {
+    .header-right {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
         flex-shrink: 0;
-        width: auto !important;
     }
 
+    .header-user-badge {
+        font-size: 0.75rem;
+        background: rgba(0, 0, 0, 0.2);
+        padding: 0.25rem 0.6rem;
+        border-radius: 20px;
+        display: none;
+    }
+    @media(min-width: 600px) {
+        .header-user-badge { display: inline-block; }
+    }
+
+    .btn-logout {
+        background: rgba(255, 255, 255, 0.15) !important;
+        color: white !important;
+        border: 1px solid rgba(255, 255, 255, 0.3) !important;
+        padding: 0.4rem 0.75rem !important;
+        font-size: 0.75rem !important;
+        border-radius: 6px;
+        transition: background 0.2s;
+        cursor: pointer;
+    }
+    .btn-logout:hover {
+        background: rgba(255, 255, 255, 0.25) !important;
+    }
+
+    /* Förfinad Navigeringsbar */
     .nav-tabs { 
-        display: flex; 
         background: white; 
         border-bottom: 1px solid var(--border); 
         position: sticky; 
         top: 0; 
         z-index: 100; 
+        box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+
+    .nav-tabs-inner {
+        max-width: 900px;
+        margin: 0 auto;
+        display: flex;
         overflow-x: auto; 
         -webkit-overflow-scrolling: touch;
+        padding: 0 0.5rem;
     }
 
     .tab-btn { 
         flex: 1; 
-        min-width: 55px; 
-        padding: 0.75rem 0.2rem; 
+        min-width: 80px; 
+        padding: 0.7rem 0.5rem; 
         text-align: center; 
         background: none; 
         border: none; 
-        font-size: 0.7rem; 
+        font-size: 0.75rem; 
         font-weight: 600; 
         color: #6c757d; 
         cursor: pointer; 
         border-bottom: 3px solid transparent; 
         white-space: nowrap; 
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+        transition: all 0.2s;
+    }
+
+    .tab-btn:hover {
+        color: var(--primary);
+        background-color: #fafafa;
     }
 
     .tab-btn.active { 
         color: var(--primary); 
         border-bottom-color: var(--primary); 
+        background-color: #fff5f5;
+    }
+
+    .tab-icon {
+        font-size: 1rem;
+        line-height: 1;
+    }
+
+    .nav-divider {
+        width: 1px;
+        background: var(--border);
+        margin: 0.5rem 0.25rem;
+    }
+
+    .tab-btn.locked-tab {
+        color: #868e96 !important;
+        background-color: #f8f9fa;
+    }
+    
+    .tab-btn.locked-tab .lock-badge {
+        font-size: 0.65rem;
+        margin-left: 2px;
     }
 
     .container { max-width: 900px; margin: 0 auto; padding: 1rem; }
@@ -451,16 +520,6 @@
         h2 { font-size: 1.05rem !important; }
         h3, h4 { font-size: 0.95rem !important; }
         .exercise-card, .card { padding: 0.75rem; margin-bottom: 0.75rem; }
-    }
-
-    .tab-btn.locked-tab {
-        color: #adb5bd !important;
-        background-color: #f8f9fa;
-        cursor: pointer;
-    }
-
-    .tab-btn.locked-tab:hover {
-        color: #6c757d !important;
     }
   </style>
 
@@ -706,8 +765,12 @@
             
             firebase.auth().onAuthStateChanged(function(user) {
                 const loginOverlay = document.getElementById('login-overlay');
+                const userEmailBadge = document.getElementById('header-user-email');
                 if (user) {
                     loginOverlay.style.display = 'none';
+                    if (userEmailBadge && user.email) {
+                        userEmailBadge.textContent = user.email;
+                    }
                     initializeAppUI();
                 } else {
                     loginOverlay.style.display = 'flex';
@@ -1684,25 +1747,55 @@
         </div>
     </div>
 
-    <header class="no-print">
-        <div class="header-left">
-            <img src="klubbmarke.png" alt="IF Mölndal P15" class="header-logo" title="IFMP15">
-            <div class="header-text">
-                <h1>IF Mölndal P-2015</h1>
-                <p>Tränings- &amp; Verksamhetsapp</p>
+    <header class="no-print app-header">
+        <div class="header-content">
+            <div class="header-left">
+                <img src="klubbmarke.png" alt="IF Mölndal P15" class="header-logo" title="IFMP15">
+                <div class="header-text">
+                    <h1>IF Mölndal P-2015</h1>
+                    <p>Tränings- &amp; Verksamhetsapp</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <span id="header-user-email" class="header-user-badge"></span>
+                <button class="btn-logout" onclick="handleLogout()">Logga ut</button>
             </div>
         </div>
-        <button class="btn btn-secondary" style="padding: 0.3rem 0.6rem; font-size: 0.7rem;" onclick="handleLogout()">Logga ut</button>
     </header>
 
-    <div class="nav-tabs no-print">
-        <button class="tab-btn active" onclick="switchTab('generator', this)">⏱️ Träning</button>
-        <button class="tab-btn" onclick="switchTab('exercises', this)">📚 Övningar</button>
-        <button class="tab-btn locked-tab" onclick="switchTab('match', this)">⚽ Lag/Match 🔒</button>
-        <button class="tab-btn locked-tab" onclick="switchTab('tactics', this)">📋 Taktik 🔒</button>
-        <button class="tab-btn locked-tab" onclick="switchTab('squad', this)">👥 Trupp 🔒</button>
-        <button id="levels-tab-btn" class="tab-btn locked-tab" onclick="switchTab('levels', this)">📊 Nivåer 🔒</button>
-    </div>
+    <nav class="nav-tabs no-print">
+        <div class="nav-tabs-inner">
+            <button class="tab-btn active" onclick="switchTab('generator', this)">
+                <span class="tab-icon">⏱️</span>
+                <span class="tab-text">Träning</span>
+            </button>
+            <button class="tab-btn" onclick="switchTab('exercises', this)">
+                <span class="tab-icon">📚</span>
+                <span class="tab-text">Övningar</span>
+            </button>
+            <div class="nav-divider"></div>
+            <button class="tab-btn locked-tab" onclick="switchTab('match', this)">
+                <span class="tab-icon">⚽</span>
+                <span class="tab-text">Lag/Match</span>
+                <span class="lock-badge">🔒</span>
+            </button>
+            <button class="tab-btn locked-tab" onclick="switchTab('tactics', this)">
+                <span class="tab-icon">📋</span>
+                <span class="tab-text">Taktik</span>
+                <span class="lock-badge">🔒</span>
+            </button>
+            <button class="tab-btn locked-tab" onclick="switchTab('squad', this)">
+                <span class="tab-icon">👥</span>
+                <span class="tab-text">Trupp</span>
+                <span class="lock-badge">🔒</span>
+            </button>
+            <button id="levels-tab-btn" class="tab-btn locked-tab" onclick="switchTab('levels', this)">
+                <span class="tab-icon">📊</span>
+                <span class="tab-text">Nivåer</span>
+                <span class="lock-badge">🔒</span>
+            </button>
+        </div>
+    </nav>
 
     <div class="container">
 
