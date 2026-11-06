@@ -104,6 +104,16 @@
             });
         };
 
+        window.toggleGroupStatsDisplay = function() {
+            const showStats = document.getElementById('include-group-stats').checked;
+            const contentEl = document.getElementById('workout-groups-content');
+            if (showStats) {
+                contentEl.classList.remove('hide-stats');
+            } else {
+                contentEl.classList.add('hide-stats');
+            }
+        };
+
         window.generateGroupsFromWorkout = function() {
             const checkedBoxes = document.querySelectorAll('.workout-att-chk:checked');
             const presentPlayerIds = Array.from(checkedBoxes).map(chk => parseInt(chk.getAttribute('data-player-id')));
@@ -149,6 +159,8 @@
 
             currentGeneratedGroups = groups;
 
+            const showStats = document.getElementById('include-group-stats') ? document.getElementById('include-group-stats').checked : true;
+
             let html = `<h4>Skapade grupper (${presentPlayers.length} spelare, Läge: ${mode === 'balanced' ? 'Blandade' : 'Samma nivå'}):</h4><hr style="margin:0.3rem 0">`;
             
             html += `<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 0.5rem; margin-top: 0.5rem;">`;
@@ -159,8 +171,8 @@
                 html += `
                     <div class="group-card" style="margin-top: 0; margin-bottom: 0;">
                         <h5 style="margin-bottom: 0.2rem; display: flex; justify-content: space-between; align-items: center;">
-                            <span>Grupp ${idx + 1} (${g.length} st, Snitt: ${avg})</span>
-                            <button class="btn btn-secondary" style="margin-top:0; width:auto; padding:0.2rem 0.5rem; font-size:0.75rem;" onclick="sendGroupToMatch(${idx})">Skicka ➔</button>
+                            <span>Grupp ${idx + 1} <span class="stats-span">(${g.length} st, Snitt: ${avg})</span></span>
+                            <button class="btn btn-secondary no-print" style="margin-top:0; width:auto; padding:0.2rem 0.5rem; font-size:0.75rem;" onclick="sendGroupToMatch(${idx})">Skicka ➔</button>
                         </h5>
                         <ol style="padding-left: 1.2rem; font-size: 0.85rem; margin-bottom: 0;">
                             ${g.map(p => `<li>${p.name}</li>`).join('')}
@@ -170,7 +182,13 @@
 
             html += `</div>`;
 
-            document.getElementById('workout-groups-content').innerHTML = html;
+            const contentDiv = document.getElementById('workout-groups-content');
+            contentDiv.innerHTML = html;
+            if (!showStats) {
+                contentDiv.classList.add('hide-stats');
+            } else {
+                contentDiv.classList.remove('hide-stats');
+            }
             document.getElementById('workout-groups-result').style.display = 'block';
         };
     </script>
@@ -344,6 +362,11 @@
     .tab-btn.locked-tab .lock-badge {
         font-size: 0.65rem;
         margin-left: 2px;
+    }
+
+    /* Döljer statistik i grupper när klassen hide-stats är aktiv */
+    .hide-stats .stats-span {
+        display: none !important;
     }
 
     .container { max-width: 900px; margin: 0 auto; padding: 1rem; }
@@ -1836,6 +1859,13 @@
                 </div>
 
                 <div id="workout-groups-result" style="margin-bottom: 1rem; display: none;">
+                    <div style="margin-bottom: 0.75rem; background: #e9ecef; padding: 0.5rem 0.75rem; border-radius: 6px;">
+                        <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-weight: 600; margin-bottom: 0; font-size: 0.85rem;">
+                            <input type="checkbox" id="include-group-stats" checked onchange="toggleGroupStatsDisplay()" style="width: auto; margin-bottom: 0;">
+                            Visa snittnivå och poäng på skärm och bildexport
+                        </label>
+                    </div>
+
                     <div id="workout-groups-content" style="background: white; padding: 1rem; border-radius: 8px; border: 1px solid var(--border);">
                         <!-- Här hamnar de skapade grupperna -->
                     </div>
